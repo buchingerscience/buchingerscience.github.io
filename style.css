@@ -11,13 +11,24 @@
 
 /* Base variables */
 :root {
-  --primary-colour: #074e63;      /* deep teal for headers and accents */
-  --secondary-colour: #3b9fa9;    /* lighter teal for highlights */
-  --background-colour: #f4f8f9;   /* very light grey-blue for page background */
-  --text-colour: #333333;         /* dark grey for legibility */
-  --card-background: #ffffff;     /* white cards */
-  --card-shadow: rgba(0, 0, 0, 0.05);
-  --border-radius: 8px;
+  /* Backgrounds */
+  --bg-main: #E9E4E1;        /* warm light beige (paper-like) */
+  --bg-section: #F3EFEC;     /* slightly lighter sections */
+  --bg-dark: #2F241E;        /* deep dark brown */
+
+  /* Text */
+  --text-primary: #1F1A17;   /* near-black brown */
+  --text-secondary: #4A3F38; /* warm muted brown */
+  --text-muted: #7A6F67;
+
+  /* Accents */
+  --accent-main: #6B4E3D;    /* dark walnut brown */
+  --accent-soft: #9C7A63;    /* lighter brown */
+  --accent-line: #3A2D26;    /* separators / rules */
+
+  /* Links & highlights */
+  --link: #5A3E2B;
+  --link-hover: #8B5E3C;
 }
 
 /* Global styles */

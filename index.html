@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Buchinger Science – Home</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Chart.js library for pages that require charts -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+  <!-- Navigation bar linking to other pages -->
+  <nav>
+    <div class="logo">Buchinger Science</div>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="metabolic.html">Metabolic Explorer</a></li>
+      <li><a href="library.html">Research Library</a></li>
+      <li><a href="videos.html">Amplius Videos</a></li>
+      <li><a href="method.html">Our Method</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="home" class="hero" style="background-image: url('hero.png');">
+    <div class="content">
+      <h1>Embark on Your Fasting Journey</h1>
+      <p>Welcome to Buchinger Science, your portal to understanding the science and experience of therapeutic fasting. Start exploring below to see what happens during a fast and browse our studies, data and media.</p>
+      <a href="#journey" class="cta-button">Begin Journey</a>
+    </div>
+  </section>
+
+  <!-- Fasting Journey Explorer -->
+  <section id="journey">
+    <h2>Fasting Journey Explorer</h2>
+    <p>Discover what to expect at different stages of a fast. Click on a day to read a brief, lay‑friendly summary of the physiological changes and sensations commonly experienced.</p>
+    <!-- timeline container for journey steps (filled by script.js) -->
+    <div class="journey-timeline"></div>
+  </section>
+
+  <!-- List of studies on the landing page -->
+  <section id="studies">
+    <h2>Our Scientific Studies</h2>
+    <p>Below is a selection of our recent publications. Each card links to a detailed article in our research library.</p>
+    <div class="articles-grid">
+      <div class="article-card">
+        <img src="article-placeholder.png" alt="Study placeholder">
+        <div class="card-body">
+          <h3>Study Title One</h3>
+          <p>A brief lay summary of this study’s aims and key findings. You can replace this text with your own description.</p>
+          <a href="library.html">Learn more</a>
+        </div>
+      </div>
+      <div class="article-card">
+        <img src="article-placeholder.png" alt="Study placeholder">
+        <div class="card-body">
+          <h3>Study Title Two</h3>
+          <p>This card represents another publication. Describe the main takeaway in simple terms for visitors here.</p>
+          <a href="library.html">Learn more</a>
+        </div>
+      </div>
+      <div class="article-card">
+        <img src="article-placeholder.png" alt="Study placeholder">
+        <div class="card-body">
+          <h3>Study Title Three</h3>
+          <p>A short summary of a third study. Highlight something interesting to encourage further reading.</p>
+          <a href="library.html">Learn more</a>
+        </div>
+      </div>
+    </div>
+    <p style="margin-top: 1rem;"><a href="library.html" class="cta-button">See all studies</a></p>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2026 Buchinger Science. All rights reserved.</p>
+  </footer>
+
+  <!-- Common scripts -->
+  <script src="script.js"></script>
+</body>
+</html>

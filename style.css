@@ -1,0 +1,337 @@
+/*
+ * Buchinger Science website
+ *
+ * This stylesheet defines the visual appearance of the Buchinger Science
+ * website. The colour palette uses calming blues and greens inspired by
+ * the clinic’s identity. Layouts employ simple flex and grid systems to
+ * ensure that content is organised elegantly on both desktop and mobile
+ * devices. Feel free to adjust the variables at the top of the file to
+ * match the Buchinger branding more closely.
+ */
+
+/* Base variables */
+:root {
+  --primary-colour: #074e63;      /* deep teal for headers and accents */
+  --secondary-colour: #3b9fa9;    /* lighter teal for highlights */
+  --background-colour: #f4f8f9;   /* very light grey-blue for page background */
+  --text-colour: #333333;         /* dark grey for legibility */
+  --card-background: #ffffff;     /* white cards */
+  --card-shadow: rgba(0, 0, 0, 0.05);
+  --border-radius: 8px;
+}
+
+/* Global styles */
+html, body {
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", "Helvetica", Arial, sans-serif;
+  background-color: var(--background-colour);
+  color: var(--text-colour);
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4 {
+  margin: 0.5em 0;
+  font-weight: 500;
+  color: var(--primary-colour);
+}
+
+p {
+  margin: 0.5em 0 1em;
+}
+
+/* Navigation bar */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: var(--primary-colour);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 1.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+nav .logo {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+nav li {
+  margin-left: 1.5rem;
+}
+
+nav a {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: colour 0.2s ease;
+}
+
+nav a:hover,
+nav a:focus {
+  colour: var(--secondary-colour);
+}
+
+/* Hero section */
+.hero {
+  position: relative;
+  width: 100%;
+  height: 50vh;
+  min-height: 350px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-position: center;
+  background-size: cover;
+  color: #ffffff;
+  text-align: center;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, rgba(7, 78, 99, 0.6), rgba(7, 78, 99, 0.6));
+  z-index: 0;
+}
+
+.hero .content {
+  position: relative;
+  z-index: 1;
+  max-width: 800px;
+  padding: 1rem;
+}
+
+.hero h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.hero p {
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+  opacity: 0.9;
+}
+
+.hero .cta-button {
+  display: inline-block;
+  background-color: var(--secondary-colour);
+  colour: #ffffff;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--border-radius);
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: background-color 0.3s ease;
+}
+
+.hero .cta-button:hover,
+.hero .cta-button:focus {
+  background-color: #56b9c2;
+}
+
+/* General section styling */
+section {
+  padding: 3rem 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Articles section */
+.articles-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.article-card {
+  background-color: var(--card-background);
+  border-radius: var(--border-radius);
+  box-shadow: 0 2px 6px var(--card-shadow);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.article-card img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+}
+
+.article-card .card-body {
+  padding: 1rem;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.article-card h3 {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+}
+
+.article-card p {
+  flex-grow: 1;
+  font-size: 0.9rem;
+}
+
+.article-card a {
+  align-self: flex-start;
+  margin-top: 1rem;
+  background-color: var(--primary-colour);
+  colour: #ffffff;
+  padding: 0.5rem 1rem;
+  border-radius: var(--border-radius);
+  text-decoration: none;
+  font-size: 0.85rem;
+  transition: background-color 0.3s ease;
+}
+
+.article-card a:hover,
+.article-card a:focus {
+  background-color: var(--secondary-colour);
+}
+
+/* Data Explorer section */
+.data-explorer {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 1.5rem;
+}
+
+.chart-container {
+  position: relative;
+  width: 100%;
+  height: 400px;
+}
+
+.data-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.data-controls label {
+  font-weight: 500;
+}
+
+.data-controls select {
+  padding: 0.5rem;
+  border: 1px solid #cccccc;
+  border-radius: var(--border-radius);
+  font-size: 0.9rem;
+}
+
+/* Timeline section */
+/* Vertical timeline containers can apply to standard timelines and other pages such as
+   the fasting journey and method overview. The border and padding create the
+   vertical line that connects individual events. */
+.timeline,
+.journey-timeline,
+.method-steps {
+  position: relative;
+  padding-left: 2rem;
+  margin-top: 2rem;
+  border-left: 2px solid var(--primary-colour);
+}
+
+.timeline-event {
+  position: relative;
+  margin-bottom: 2rem;
+  padding-left: 1rem;
+  cursor: pointer;
+}
+
+.timeline-event::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -1.2rem;
+  width: 0.8rem;
+  height: 0.8rem;
+  background-color: var(--secondary-colour);
+  border-radius: 50%;
+  border: 2px solid var(--primary-colour);
+}
+
+.timeline-event .title {
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+  font-size: 1.05rem;
+}
+
+.timeline-event .date {
+  font-size: 0.85rem;
+  color: var(--secondary-colour);
+  margin-bottom: 0.5rem;
+}
+
+.timeline-event .details {
+  display: none;
+  font-size: 0.9rem;
+  padding-left: 0.5rem;
+  border-left: 2px dashed var(--secondary-colour);
+  margin-top: 0.5rem;
+  color: #555555;
+}
+
+.timeline-event.active .details {
+  display: block;
+}
+
+.timeline-event.active .title {
+  color: var(--primary-colour);
+}
+
+/* Footer */
+footer {
+  background-color: var(--primary-colour);
+  colour: #ffffff;
+  padding: 1.5rem;
+  text-align: center;
+  margin-top: 3rem;
+}
+
+footer p {
+  margin: 0;
+  font-size: 0.85rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  nav ul {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  .hero h1 {
+    font-size: 2rem;
+  }
+  .hero p {
+    font-size: 1rem;
+  }
+  .data-controls {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .chart-container {
+    height: 300px;
+  }
+}

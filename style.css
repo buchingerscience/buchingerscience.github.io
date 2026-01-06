@@ -561,6 +561,197 @@ td {
 }
 
 /* -----------------------------
+   NEW: Journey Explorer (slider block) — dash-like, fits your theme
+   Works with the HTML classes: journey-explorer, journey-header, journey-slider, etc.
+------------------------------ */
+
+.journey-explorer {
+  background: var(--surface);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-soft);
+  padding: 24px 20px;
+}
+
+.journey-header {
+  text-align: center;
+  margin-bottom: 18px;
+}
+
+.journey-header h2 {
+  margin-bottom: 6px;
+  font-weight: 400;
+  color: var(--heading);
+}
+
+.journey-header p {
+  margin: 0 auto;
+  max-width: 760px;
+  color: var(--muted);
+}
+
+/* Slider */
+.journey-slider-wrap {
+  max-width: 920px;
+  margin: 0 auto 18px auto;
+  padding: 0 6px;
+}
+
+.journey-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--border-soft);
+  outline: none;
+  border: 1px solid var(--border);
+}
+
+.journey-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  cursor: pointer;
+  background: var(--accent);
+  border: 2px solid #ffffff;
+  box-shadow: 0 0 0 2px rgba(91, 194, 231, 0.25);
+}
+
+.journey-slider::-moz-range-thumb {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  cursor: pointer;
+  background: var(--accent);
+  border: 2px solid #ffffff;
+  box-shadow: 0 0 0 2px rgba(91, 194, 231, 0.25);
+}
+
+.journey-slider:focus {
+  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.12);
+  border-color: var(--accent);
+}
+
+.journey-ticks {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+/* Grid */
+.journey-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.15fr;
+  gap: 18px;
+  align-items: stretch;
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+/* Visual panel (dash-like light panel) */
+.journey-visual {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: none;
+  min-height: 220px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  padding: 18px 14px;
+  text-align: center;
+}
+
+.journey-day {
+  font-size: 2.8rem;
+  line-height: 1;
+  font-weight: 500;
+  color: var(--heading);
+  margin-bottom: 8px;
+}
+
+.journey-label {
+  font-size: 0.82rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* Copy area */
+.journey-copy {
+  background: transparent;
+  padding: 6px 4px;
+}
+
+.journey-copy h3 {
+  margin: 0 0 8px 0;
+  font-size: 1.25rem;
+  font-weight: 400;
+  color: var(--heading);
+}
+
+.journey-copy p {
+  margin: 0;
+  color: var(--text);
+  opacity: 0.92;
+  line-height: 1.7;
+}
+
+/* Chips (pill style, consistent with nav pills) */
+.journey-markers {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 14px;
+}
+
+.journey-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 10px;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border);
+  background: #ffffff;
+  color: var(--heading);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.journey-chip--alt {
+  border-color: rgba(91, 194, 231, 0.55);
+  box-shadow: 0 0 0 2px rgba(91, 194, 231, 0.10);
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .journey-explorer {
+    padding: 20px 14px;
+  }
+
+  .journey-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .journey-visual {
+    min-height: 200px;
+  }
+
+  .journey-day {
+    font-size: 2.4rem;
+  }
+}
+
+/* -----------------------------
    Responsive adjustments
 ------------------------------ */
 @media (max-width: 768px) {

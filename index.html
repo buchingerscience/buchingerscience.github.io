@@ -24,4 +24,145 @@
     </ul>
   </nav>
 
-  <!-- Hero Section
+  <!-- Hero Section -->
+  <section id="home" class="hero" style="background-image: url('hero.png');">
+    <div class="content">
+      <h1>Embark on Your Fasting Journey</h1>
+      <p>
+        Welcome to Buchinger Science, your portal to understanding the science and experience of therapeutic fasting.
+        Start exploring below to see what happens during a fast and browse our studies, data, and educational resources.
+      </p>
+      <a href="#journey" class="cta-button">Begin Journey</a>
+    </div>
+  </section>
+
+  <!-- NEW: Fasting Journey Explorer (slider-based, styled to match your site) -->
+  <section id="journey" class="journey-explorer">
+    <div class="journey-header">
+      <h2>Fasting Journey Explorer</h2>
+      <p>
+        Slide to see the main biological phases of fasting. This is a simplified overview, designed for clarity.
+      </p>
+    </div>
+
+    <div class="journey-slider-wrap">
+      <input type="range" min="1" max="21" value="1" class="journey-slider" id="fastingSlider" aria-label="Fasting day slider">
+      <div class="journey-ticks" aria-hidden="true">
+        <span>Day 1</span>
+        <span>Day 7</span>
+        <span>Day 14</span>
+        <span>Day 21</span>
+      </div>
+    </div>
+
+    <div class="journey-grid">
+      <div class="journey-visual" role="group" aria-label="Selected day summary">
+        <div class="journey-day" id="stat-value">Day 1</div>
+        <div class="journey-label" id="stat-label">Initial transition</div>
+      </div>
+
+      <div class="journey-copy">
+        <h3 id="stage-title">Metabolic switch</h3>
+        <p id="stage-description">
+          Your body starts shifting from sugar to fat-burning. Insulin levels begin to drop.
+        </p>
+
+        <div class="journey-markers" aria-label="Key markers">
+          <span class="journey-chip" id="marker-1">Glucose ↓</span>
+          <span class="journey-chip journey-chip--alt" id="marker-2">Insulin ↓</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- List of studies on the landing page -->
+  <section id="studies">
+    <h2>Our Scientific Studies</h2>
+    <p>Below is a selection of our recent publications. Each card links to a detailed article in our research library.</p>
+
+    <div class="articles-grid">
+      <div class="article-card">
+        <img src="article-placeholder.png" alt="Remodelling of the gut virome after long-term fasting">
+        <div class="card-body">
+          <h3>Remodelling of the gut virome after long-term fasting</h3>
+          <p class="authors">Natalie Falshaw, Quinten R Ducarmon, Alexandra King, Franziska Grundler, Robin Mesnage</p>
+          <p class="journal">medRxiv. <a href="https://doi.org/10.1101/2025.12.19.25342476" target="_blank" rel="noopener">DOI: 10.1101/2025.12.19.25342476</a></p>
+          <a href="library.html">Learn more</a>
+        </div>
+      </div>
+
+      <div class="article-card">
+        <img src="article-placeholder.png" alt="Revisiting the (anti)inflammatory effects of prolonged fasting">
+        <div class="card-body">
+          <h3>Revisiting the (anti)inflammatory effects of prolonged fasting: the importance of baseline-dependent responses</h3>
+          <p class="authors">Robin Mesnage, Franziska Grundler, Françoise Wilhelmi de Toledo</p>
+          <p class="journal">Frontiers in Nutrition – Nutritional Immunology. <a href="https://doi.org/10.3389/fnut.2025.1715341" target="_blank" rel="noopener">DOI: 10.3389/fnut.2025.1715341</a></p>
+          <a href="library.html">Learn more</a>
+        </div>
+      </div>
+
+      <div class="article-card">
+        <img src="article-placeholder.png" alt="Long-term fasting autonomic nervous system modulation in GENESIS">
+        <div class="card-body">
+          <h3>Long-term fasting-induced parasympathetic and sympathetic autonomic nervous system modulation in a subgroup of the GENESIS study</h3>
+          <p class="authors">Mesnage R, Alfred Holley, Franziska Grundler, Borja Martinez-Tellez, Françoise Wilhelmi de Toledo &amp; Pierre Croisille</p>
+          <p class="journal">International Journal of Obesity. <a href="https://doi.org/10.1038/s41366-025-01843-0" target="_blank" rel="noopener">DOI: 10.1038/s41366-025-01843-0</a></p>
+          <a href="library.html">Learn more</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="studies-cta">
+      <a href="library.html" class="cta-button">See all studies</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2026 Buchinger Science. All rights reserved.</p>
+  </footer>
+
+  <!-- Common scripts -->
+  <script src="script.js"></script>
+
+  <!-- Journey Explorer script -->
+  <script>
+    const slider = document.getElementById('fastingSlider');
+    const statValue = document.getElementById('stat-value');
+    const statLabel = document.getElementById('stat-label');
+    const stageTitle = document.getElementById('stage-title');
+    const stageDescription = document.getElementById('stage-description');
+    const marker1 = document.getElementById('marker-1');
+    const marker2 = document.getElementById('marker-2');
+
+    const stages = {
+      1:  { title: "Metabolic switch",       desc: "Your body starts shifting from sugar to fat-burning. Insulin levels begin to drop.",                                     label: "Initial transition", m1: "Glucose ↓",  m2: "Insulin ↓" },
+      7:  { title: "Cellular recycling",     desc: "Fuel use is now strongly fat-based. Recycling pathways are more active and damaged components are cleared more efficiently.", label: "Cellular repair",    m1: "Ketones ↑",  m2: "Autophagy ↑" },
+      14: { title: "Systemic calm",          desc: "Many people show lower inflammatory tone and improved metabolic markers, especially if baseline levels were elevated.",          label: "Inflammation ↓",     m1: "CRP ↓",     m2: "TG ↓" },
+      21: { title: "Regeneration signals",   desc: "With longer fasting, regenerative signalling becomes more visible. This may involve immune adaptation and tissue renewal.",      label: "Regeneration",       m1: "Immunity ↑", m2: "Stem cells ↑" }
+    };
+
+    function updateJourney(day) {
+      statValue.textContent = "Day " + day;
+
+      let stage;
+      if (day < 7) stage = stages[1];
+      else if (day < 14) stage = stages[7];
+      else if (day < 21) stage = stages[14];
+      else stage = stages[21];
+
+      statLabel.textContent = stage.label;
+      stageTitle.textContent = stage.title;
+      stageDescription.textContent = stage.desc;
+      marker1.textContent = stage.m1;
+      marker2.textContent = stage.m2;
+    }
+
+    slider.addEventListener('input', (e) => {
+      updateJourney(parseInt(e.target.value, 10));
+    });
+
+    updateJourney(parseInt(slider.value, 10));
+  </script>
+</body>
+</html>

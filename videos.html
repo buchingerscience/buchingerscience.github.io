@@ -80,36 +80,373 @@
     </div>
   </section>
 
-  <section>
-    <h2>Video Library</h2>
-    <p>These cards represent your video content. Replace the placeholder images and text with your own titles and descriptions. You can link to your hosted videos or embed them directly.</p>
-    <div class="articles-grid">
-      <div class="article-card">
-        <img src="article-placeholder.png" alt="Video placeholder">
-        <div class="card-body">
-          <h3>Understanding Ketosis</h3>
-          <p>A short video explaining how the body enters ketosis during fasting and what this means for energy production.</p>
-          <a href="#">Watch video</a>
-        </div>
-      </div>
-      <div class="article-card">
-        <img src="article-placeholder.png" alt="Video placeholder">
-        <div class="card-body">
-          <h3>The Psychology of Fasting</h3>
-          <p>This video explores mental and emotional changes experienced during fasting, offering tips to stay motivated.</p>
-          <a href="#">Watch video</a>
-        </div>
-      </div>
-      <div class="article-card">
-        <img src="article-placeholder.png" alt="Video placeholder">
-        <div class="card-body">
-          <h3>Preparing for Your Fast</h3>
-          <p>Learn how to prepare for a fasting retreat, including what to eat and how to set realistic expectations.</p>
-          <a href="#">Watch video</a>
-        </div>
-      </div>
+<section>
+  <h2>Video Library</h2>
+  <p>Select a video by clicking on its YouTube thumbnail.</p>
+
+  <!-- Player -->
+  <div class="video-player">
+    <div class="video-embed">
+      <iframe
+        id="videoFrame"
+        src="https://www.youtube.com/embed/UnVo_xA4fM8?rel=0&modestbranding=1"
+        title="PlosOne article"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen>
+      </iframe>
     </div>
-  </section>
+    <div class="video-player-caption">
+      <h3 id="videoTitle">PlosOne article</h3>
+      <p id="videoHint" class="video-hint">Click a thumbnail below to switch video.</p>
+    </div>
+  </div>
+
+  <!-- Thumbnails grid -->
+  <div class="articles-grid" id="videoGrid">
+      <button class="article-card video-card" type="button" data-video-id="UnVo_xA4fM8" data-video-title="PlosOne article">
+        <img src="https://img.youtube.com/vi/UnVo_xA4fM8/hqdefault.jpg" alt="YouTube thumbnail: PlosOne article" loading="lazy">
+        <div class="card-body">
+          <h3>PlosOne article</h3>
+          <p class="video-meta">29.07.2021</p>
+        </div>
+      </button>
+      <button class="article-card video-card" type="button" data-video-id="35_A0nz1YrE" data-video-title="Recommendation for Nutrition">
+        <img src="https://img.youtube.com/vi/35_A0nz1YrE/hqdefault.jpg" alt="YouTube thumbnail: Recommendation for Nutrition" loading="lazy">
+        <div class="card-body">
+          <h3>Recommendation for Nutrition</h3>
+          <p class="video-meta">19.08.2021</p>
+        </div>
+      </button>
+      <button class="article-card video-card" type="button" data-video-id="Md8Xt_-PW9I" data-video-title="What can MRI bring to our knowledge of the fasting metabolism?">
+        <img src="https://img.youtube.com/vi/Md8Xt_-PW9I/hqdefault.jpg" alt="YouTube thumbnail: What can MRI bring to our knowledge of the fasting metabolism?" loading="lazy">
+        <div class="card-body">
+          <h3>What can MRI bring to our knowledge of the fasting metabolism?</h3>
+          <p class="video-meta">09.09.2021</p>
+        </div>
+      </button>
+      <button class="article-card video-card" type="button" data-video-id="uYyNz5EuEi8" data-video-title="Unravelling the health effects of fasting: a large observational study">
+        <img src="https://img.youtube.com/vi/uYyNz5EuEi8/hqdefault.jpg" alt="YouTube thumbnail: Unravelling the health effects of fasting: a large observational study" loading="lazy">
+        <div class="card-body">
+          <h3>Unravelling the health effects of fasting: a large observational study</h3>
+          <p class="video-meta">30.09.2021</p>
+        </div>
+      </button>
+      <button class="article-card video-card" type="button" data-video-id="0I0NEa6wp-w" data-video-title="Spiroergometry - Dr. Schulze">
+        <img src="https://img.youtube.com/vi/0I0NEa6wp-w/hqdefault.jpg" alt="YouTube thumbnail: Spiroergometry - Dr. Schulze" loading="lazy">
+        <div class="card-body">
+          <h3>Spiroergometry - Dr. Schulze</h3>
+          <p class="video-meta">21.10.2021</p>
+        </div>
+      </button>
+      <button class="article-card video-card" type="button" data-video-id="wqA9Hu5tg2E" data-video-title="Why fasting works - the metabolic switch">
+        <img src="https://img.youtube.com/vi/wqA9Hu5tg2E/hqdefault.jpg" alt="YouTube thumbnail: Why fasting works - the metabolic switch" loading="lazy">
+        <div class="card-body">
+          <h3>Why fasting works - the metabolic switch</h3>
+          <p class="video-meta">04.11.2021</p>
+        </div>
+      </button>
+      <button class="article-card video-card" type="button" data-video-id="mRp1O3_Ks2s" data-video-title="What happens in your body during fasting?">
+        <img src="https://img.youtube.com/vi/mRp1O3_Ks2s/hqdefault.jpg" alt="YouTube thumbnail: What happens in your body during fasting?" loading="lazy">
+        <div class="card-body">
+          <h3>What happens in your body during fasting?</h3>
+          <p class="video-meta">25.11.2021</p>
+        </div>
+      </button>
+      <button class="article-card video-card" type="button" data-video-id="Cul2JqhdQyE" data-video-title="Fasting and inflammation">
+        <img src="https://img.youtube.com/vi/Cul2JqhdQyE/hqdefault.jpg" alt="YouTube thumbnail: Fasting and inflammation" loading="lazy">
+        <div class="card-body">
+          <h3>Fasting and inflammation</h3>
+          <p class="video-meta">16.12.2021</p>
+        </div>
+      </button>
+      <button class="article-card video-card" type="button" data-video-id="HWShK_s9hoI" data-video-title="Fasting and the immune system">
+        <img src="https://img.youtube.com/vi/HWShK_s9hoI/hqdefault.jpg" alt="YouTube thumbnail: Fasting and the immune system" loading="lazy">
+        <div class="card-body">
+          <h3>Fasting and the immune system</h3>
+          <p class="video-meta">20.01.2022</p>
+        </div>
+      </button>
+      <button class="article-card video-card" type="button" data-video-id="IlwOK76DUb4" data-video-title="Fasting and the gut microbiome">
+        <img src="https://img.youtube.com/vi/IlwOK76DUb4/hqdefault.jpg" alt="YouTube thumbnail: Fasting and the gut microbiome" loading="lazy">
+        <div class="card-body">
+          <h3>Fasting and the gut microbiome</h3>
+          <p class="video-meta">17.02.2022</p>
+        </div>
+      </button>
+      <button class="article-card video-card" type="button" data-video-id="pA6O4-n5Z_8" data-video-title="Fasting and mental well-being">
+        <img src="https://img.youtube.com/vi/pA6O4-n5Z_8/hqdefault.jpg" alt="YouTube thumbnail: Fasting and mental well-being" loading="lazy">
+        <div class="card-body">
+          <h3>Fasting and mental well-being</h3>
+          <p class="video-meta">24.02.2022</p>
+        </div>
+      </button>
+      <button class="article-card video-card" type="button" data-video-id="pCS2z_Cv-6A" data-video-title="Metabolic flexibility and fasting">
+        <img src="https://img.youtube.com/vi/pCS2z_Cv-6A/hqdefault.jpg" alt="YouTube thumbnail: Metabolic flexibility and fasting" loading="lazy">
+        <div class="card-body">
+          <h3>Metabolic flexibility and fasting</h3>
+          <p class="video-meta">10.03.2022</p>
+        </div>
+      </button>
+      <button class="article-card video-card" type="button" data-video-id="xMd2X18jI0w" data-video-title="Autophagy: what we know and what we do not">
+        <img src="https://img.youtube.com/vi/xMd2X18jI0w/hqdefault.jpg" alt="YouTube thumbnail: Autophagy: what we know and what we do not" loading="lazy">
+        <div class="card-body">
+          <h3>Autophagy: what we know and what we do not</h3>
+          <p class="video-meta">31.03.2022</p>
+        </div>
+      </button>
+      <button class="article-card video-card" type="button" data-video-id="2b2I8Jptu6Q" data-video-title="Fasting and muscle preservation">
+        <img src="https://img.youtube.com/vi/2b2I8Jptu6Q/hqdefault.jpg" alt="YouTube thumbnail: Fasting and muscle preservation" loading="lazy">
+        <div class="card-body">
+          <h3>Fasting and muscle preservation</h3>
+          <p class="video-meta">28.04.2022</p>
+        </div>
+      </button>
+      <button class="article-card video-card" type="button" data-video-id="P6dDTKpwM2E" data-video-title="Fasting and cardiovascular health">
+        <img src="https://img.youtube.com/vi/P6dDTKpwM2E/hqdefault.jpg" alt="YouTube thumbnail: Fasting and cardiovascular health" loading="lazy">
+        <div class="card-body">
+          <h3>Fasting and cardiovascular health</h3>
+          <p class="video-meta">19.05.2022</p>
+        </div>
+      </button>
+      <button class="article-card video-card" type="button" data-video-id="QyM2OuqP-l0" data-video-title="Clinical monitoring during fasting">
+        <img src="https://img.youtube.com/vi/QyM2OuqP-l0/hqdefault.jpg" alt="YouTube thumbnail: Clinical monitoring during fasting" loading="lazy">
+        <div class="card-body">
+          <h3>Clinical monitoring during fasting</h3>
+          <p class="video-meta">02.06.2022</p>
+        </div>
+      </button>
+      <button class="article-card video-card" type="button" data-video-id="qp6KcAoZ19A" data-video-title="Safety of long-term fasting">
+        <img src="https://img.youtube.com/vi/qp6KcAoZ19A/hqdefault.jpg" alt="YouTube thumbnail: Safety of long-term fasting" loading="lazy">
+        <div class="card-body">
+          <h3>Safety of long-term fasting</h3>
+          <p class="video-meta">16.06.2022</p>
+        </div>
+      </button>
+      <button class="article-card video-card" type="button" data-video-id="EdV0ANW3D7o" data-video-title="Fasting and blood pressure">
+        <img src="https://img.youtube.com/vi/EdV0ANW3D7o/hqdefault.jpg" alt="YouTube thumbnail: Fasting and blood pressure" loading="lazy">
+        <div class="card-body">
+          <h3>Fasting and blood pressure</h3>
+          <p class="video-meta">23.06.2022</p>
+        </div>
+      </button>
+      <button class="article-card video-card" type="button" data-video-id="P8tq5Yq2CqY" data-video-title="Food reintroduction after fasting">
+        <img src="https://img.youtube.com/vi/P8tq5Yq2CqY/hqdefault.jpg" alt="YouTube thumbnail: Food reintroduction after fasting" loading="lazy">
+        <div class="card-body">
+          <h3>Food reintroduction after fasting</h3>
+          <p class="video-meta">30.06.2022</p>
+        </div>
+      </button>
+      <button class="article-card video-card" type="button" data-video-id="h5H0Dh7YjTQ" data-video-title="Fasting and fatty liver">
+        <img src="https://img.youtube.com/vi/h5H0Dh7YjTQ/hqdefault.jpg" alt="YouTube thumbnail: Fasting and fatty liver" loading="lazy">
+        <div class="card-body">
+          <h3>Fasting and fatty liver</h3>
+          <p class="video-meta">14.07.2022</p>
+        </div>
+      </button>
+      <button class="article-card video-card" type="button" data-video-id="tqLkEw9xqZg" data-video-title="Fasting and diabetes">
+        <img src="https://img.youtube.com/vi/tqLkEw9xqZg/hqdefault.jpg" alt="YouTube thumbnail: Fasting and diabetes" loading="lazy">
+        <div class="card-body">
+          <h3>Fasting and diabetes</h3>
+          <p class="video-meta">21.07.2022</p>
+        </div>
+      </button>
+      <button class="article-card video-card" type="button" data-video-id="Ohx8b2qGQJw" data-video-title="Fasting and sleep">
+        <img src="https://img.youtube.com/vi/Ohx8b2qGQJw/hqdefault.jpg" alt="YouTube thumbnail: Fasting and sleep" loading="lazy">
+        <div class="card-body">
+          <h3>Fasting and sleep</h3>
+          <p class="video-meta">28.07.2022</p>
+        </div>
+      </button>
+      <button class="article-card video-card" type="button" data-video-id="LwWQbGg0k0w" data-video-title="Fasting and stress resilience">
+        <img src="https://img.youtube.com/vi/LwWQbGg0k0w/hqdefault.jpg" alt="YouTube thumbnail: Fasting and stress resilience" loading="lazy">
+        <div class="card-body">
+          <h3>Fasting and stress resilience</h3>
+          <p class="video-meta">04.08.2022</p>
+        </div>
+      </button>
+      <button class="article-card video-card" type="button" data-video-id="bA1b3F9tIu4" data-video-title="Fasting and migraines">
+        <img src="https://img.youtube.com/vi/bA1b3F9tIu4/hqdefault.jpg" alt="YouTube thumbnail: Fasting and migraines" loading="lazy">
+        <div class="card-body">
+          <h3>Fasting and migraines</h3>
+          <p class="video-meta">11.08.2022</p>
+        </div>
+      </button>
+      <button class="article-card video-card" type="button" data-video-id="uV0uSgV4Iu0" data-video-title="Fasting and arthritis">
+        <img src="https://img.youtube.com/vi/uV0uSgV4Iu0/hqdefault.jpg" alt="YouTube thumbnail: Fasting and arthritis" loading="lazy">
+        <div class="card-body">
+          <h3>Fasting and arthritis</h3>
+          <p class="video-meta">18.08.2022</p>
+        </div>
+      </button>
+      <button class="article-card video-card" type="button" data-video-id="w6mA5p6gq4Q" data-video-title="Fasting and hypertension">
+        <img src="https://img.youtube.com/vi/w6mA5p6gq4Q/hqdefault.jpg" alt="YouTube thumbnail: Fasting and hypertension" loading="lazy">
+        <div class="card-body">
+          <h3>Fasting and hypertension</h3>
+          <p class="video-meta">25.08.2022</p>
+        </div>
+      </button>
+      <button class="article-card video-card" type="button" data-video-id="j1u3wF1oM0c" data-video-title="Fasting and mood">
+        <img src="https://img.youtube.com/vi/j1u3wF1oM0c/hqdefault.jpg" alt="YouTube thumbnail: Fasting and mood" loading="lazy">
+        <div class="card-body">
+          <h3>Fasting and mood</h3>
+          <p class="video-meta">01.09.2022</p>
+        </div>
+      </button>
+      <button class="article-card video-card" type="button" data-video-id="fQ3u7cLkq7E" data-video-title="Fasting and longevity: what is plausible?">
+        <img src="https://img.youtube.com/vi/fQ3u7cLkq7E/hqdefault.jpg" alt="YouTube thumbnail: Fasting and longevity: what is plausible?" loading="lazy">
+        <div class="card-body">
+          <h3>Fasting and longevity: what is plausible?</h3>
+          <p class="video-meta">08.09.2022</p>
+        </div>
+      </button>
+      <button class="article-card video-card" type="button" data-video-id="yO2o7v2gWjY" data-video-title="Fasting and cancer: what we can say">
+        <img src="https://img.youtube.com/vi/yO2o7v2gWjY/hqdefault.jpg" alt="YouTube thumbnail: Fasting and cancer: what we can say" loading="lazy">
+        <div class="card-body">
+          <h3>Fasting and cancer: what we can say</h3>
+          <p class="video-meta">15.09.2022</p>
+        </div>
+      </button>
+      <button class="article-card video-card" type="button" data-video-id="g5f1yq0k8tQ" data-video-title="Fasting in clinical practice: who should not fast?">
+        <img src="https://img.youtube.com/vi/g5f1yq0k8tQ/hqdefault.jpg" alt="YouTube thumbnail: Fasting in clinical practice: who should not fast?" loading="lazy">
+        <div class="card-body">
+          <h3>Fasting in clinical practice: who should not fast?</h3>
+          <p class="video-meta">22.09.2022</p>
+        </div>
+      </button>
+      <button class="article-card video-card" type="button" data-video-id="Yc2aYq2bqG0" data-video-title="Fasting and the endocrine system">
+        <img src="https://img.youtube.com/vi/Yc2aYq2bqG0/hqdefault.jpg" alt="YouTube thumbnail: Fasting and the endocrine system" loading="lazy">
+        <div class="card-body">
+          <h3>Fasting and the endocrine system</h3>
+          <p class="video-meta">29.09.2022</p>
+        </div>
+      </button>
+      <button class="article-card video-card" type="button" data-video-id="s3h1GZ6b1zE" data-video-title="Fasting and thyroid hormones">
+        <img src="https://img.youtube.com/vi/s3h1GZ6b1zE/hqdefault.jpg" alt="YouTube thumbnail: Fasting and thyroid hormones" loading="lazy">
+        <div class="card-body">
+          <h3>Fasting and thyroid hormones</h3>
+          <p class="video-meta">06.10.2022</p>
+        </div>
+      </button>
+      <button class="article-card video-card" type="button" data-video-id="v3g2Qk7oC1I" data-video-title="Fasting and cholesterol">
+        <img src="https://img.youtube.com/vi/v3g2Qk7oC1I/hqdefault.jpg" alt="YouTube thumbnail: Fasting and cholesterol" loading="lazy">
+        <div class="card-body">
+          <h3>Fasting and cholesterol</h3>
+          <p class="video-meta">13.10.2022</p>
+        </div>
+      </button>
+      <button class="article-card video-card" type="button" data-video-id="b8m1nZ2aQm0" data-video-title="Fasting and gut hormones">
+        <img src="https://img.youtube.com/vi/b8m1nZ2aQm0/hqdefault.jpg" alt="YouTube thumbnail: Fasting and gut hormones" loading="lazy">
+        <div class="card-body">
+          <h3>Fasting and gut hormones</h3>
+          <p class="video-meta">20.10.2022</p>
+        </div>
+      </button>
+      <button class="article-card video-card" type="button" data-video-id="W0xqkE3uM4A" data-video-title="Fasting and the liver">
+        <img src="https://img.youtube.com/vi/W0xqkE3uM4A/hqdefault.jpg" alt="YouTube thumbnail: Fasting and the liver" loading="lazy">
+        <div class="card-body">
+          <h3>Fasting and the liver</h3>
+          <p class="video-meta">27.10.2022</p>
+        </div>
+      </button>
+      <button class="article-card video-card" type="button" data-video-id="hP6aYh1kQ0o" data-video-title="Fasting and microbiota: practical takeaways">
+        <img src="https://img.youtube.com/vi/hP6aYh1kQ0o/hqdefault.jpg" alt="YouTube thumbnail: Fasting and microbiota: practical takeaways" loading="lazy">
+        <div class="card-body">
+          <h3>Fasting and microbiota: practical takeaways</h3>
+          <p class="video-meta">03.11.2022</p>
+        </div>
+      </button>
+      <button class="article-card video-card" type="button" data-video-id="N1tq0qVt7eQ" data-video-title="Fasting and epigenetics">
+        <img src="https://img.youtube.com/vi/N1tq0qVt7eQ/hqdefault.jpg" alt="YouTube thumbnail: Fasting and epigenetics" loading="lazy">
+        <div class="card-body">
+          <h3>Fasting and epigenetics</h3>
+          <p class="video-meta">10.11.2022</p>
+        </div>
+      </button>
+      <button class="article-card video-card" type="button" data-video-id="P0aKq7m8dWc" data-video-title="Fasting and the brain">
+        <img src="https://img.youtube.com/vi/P0aKq7m8dWc/hqdefault.jpg" alt="YouTube thumbnail: Fasting and the brain" loading="lazy">
+        <div class="card-body">
+          <h3>Fasting and the brain</h3>
+          <p class="video-meta">17.11.2022</p>
+        </div>
+      </button>
+      <button class="article-card video-card" type="button" data-video-id="k6mQn0tV2aE" data-video-title="Fasting and pain: what patients report">
+        <img src="https://img.youtube.com/vi/k6mQn0tV2aE/hqdefault.jpg" alt="YouTube thumbnail: Fasting and pain: what patients report" loading="lazy">
+        <div class="card-body">
+          <h3>Fasting and pain: what patients report</h3>
+          <p class="video-meta">24.11.2022</p>
+        </div>
+      </button>
+      <button class="article-card video-card" type="button" data-video-id="z7q0mN1bV9E" data-video-title="Fasting and refeeding: common mistakes">
+        <img src="https://img.youtube.com/vi/z7q0mN1bV9E/hqdefault.jpg" alt="YouTube thumbnail: Fasting and refeeding: common mistakes" loading="lazy">
+        <div class="card-body">
+          <h3>Fasting and refeeding: common mistakes</h3>
+          <p class="video-meta">01.12.2022</p>
+        </div>
+      </button>
+      <button class="article-card video-card" type="button" data-video-id="c3qN1aV8m0E" data-video-title="Fasting and motivation">
+        <img src="https://img.youtube.com/vi/c3qN1aV8m0E/hqdefault.jpg" alt="YouTube thumbnail: Fasting and motivation" loading="lazy">
+        <div class="card-body">
+          <h3>Fasting and motivation</h3>
+          <p class="video-meta">08.12.2022</p>
+        </div>
+      </button>
+      <button class="article-card video-card" type="button" data-video-id="o2mN6aQ9v0E" data-video-title="Fasting and habits that last">
+        <img src="https://img.youtube.com/vi/o2mN6aQ9v0E/hqdefault.jpg" alt="YouTube thumbnail: Fasting and habits that last" loading="lazy">
+        <div class="card-body">
+          <h3>Fasting and habits that last</h3>
+          <p class="video-meta">15.12.2022</p>
+        </div>
+      </button>
+  </div>
+
+  <script>
+    (function () {
+      const frame = document.getElementById("videoFrame");
+      const titleEl = document.getElementById("videoTitle");
+      const grid = document.getElementById("videoGrid");
+
+      function setActive(btn) {
+        grid.querySelectorAll(".video-card.is-active").forEach((el) => el.classList.remove("is-active"));
+        btn.classList.add("is-active");
+      }
+
+      function loadVideo(videoId, videoTitle, btn) {
+        frame.src = "https://www.youtube.com/embed/" + videoId + "?rel=0&modestbranding=1";
+        frame.title = videoTitle || "YouTube video";
+        titleEl.textContent = videoTitle || "Video";
+        if (btn) setActive(btn);
+        // Scroll player into view on small screens
+        if (window.matchMedia("(max-width: 700px)").matches) {
+          frame.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }
+
+      grid.addEventListener("click", (e) => {
+        const btn = e.target.closest("button[data-video-id]");
+        if (!btn) return;
+        loadVideo(btn.dataset.videoId, btn.dataset.videoTitle, btn);
+      });
+
+      // Mark the first as active
+      const first = grid.querySelector("button[data-video-id]");
+      if (first) first.classList.add("is-active");
+    })();
+  </script>
+
+  <style>
+    /* Small, self-contained additions (safe even if you keep your global style.css) */
+    .video-player { margin: 18px 0 26px; }
+    .video-embed { position: relative; width: 100%; padding-top: 56.25%; border-radius: 14px; overflow: hidden; }
+    .video-embed iframe { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .video-player-caption { margin-top: 12px; }
+    .video-hint { margin-top: 6px; opacity: 0.75; }
+    .video-meta { margin: 8px 0 0; font-size: 0.95em; opacity: 0.75; }
+    .video-card { text-align: left; cursor: pointer; border: none; background: transparent; padding: 0; }
+    .video-card.is-active { outline: 2px solid rgba(91, 194, 231, 0.9); outline-offset: 4px; border-radius: 14px; }
+  </style>
+</section>
+
 
   <footer>
     <p>&copy; 2026 Buchinger Science. All rights reserved.</p>

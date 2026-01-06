@@ -1,34 +1,122 @@
 [
   {
-    "title": "Long-term fasting induces metabolic and immune adaptations",
+    "title": "Remodelling of the gut virome after long-term fasting",
+    "authors": "Falshaw N., Ducarmon Q.R., King A., Grundler F., Mesnage R.",
+    "year": 2025,
+    "journal": "medRxiv",
+    "summary": "Preprint study showing that long-term fasting induces major changes in the gut virome, suggesting a role for viruses in fasting-related microbiome adaptations.",
+    "link": "https://doi.org/10.1101/2025.12.19.25342476"
+  },
+  {
+    "title": "Revisiting the (anti)inflammatory effects of prolonged fasting",
+    "authors": "Mesnage R., Grundler F., Wilhelmi de Toledo F.",
+    "year": 2025,
+    "journal": "Frontiers in Nutrition",
+    "summary": "Analysis highlighting that inflammatory responses to prolonged fasting depend strongly on baseline inflammatory status.",
+    "link": "#"
+  },
+  {
+    "title": "Sustained weight loss and glycemic control from repeated long-term fasting in type 2 diabetes",
+    "authors": "Knufinke M., Lebbing M., Mesnage R.",
+    "year": 2025,
+    "journal": "Frontiers in Clinical Diabetes and Healthcare",
+    "summary": "Case report describing long-term metabolic benefits of repeated medically supervised fasting in a patient with type 2 diabetes.",
+    "link": "https://doi.org/10.3389/fcdhc.2025.1572245"
+  },
+  {
+    "title": "Long-term fasting-induced autonomic nervous system modulation",
+    "authors": "Mesnage R., Holley A., Grundler F., Martinez Tellez B., Wilhelmi de Toledo F., Croisille P.",
+    "year": 2025,
+    "journal": "International Journal of Obesity",
+    "summary": "Study showing fasting-induced modulation of sympathetic and parasympathetic activity in a subgroup of the GENESIS cohort.",
+    "link": "https://doi.org/10.1038/s41366-025-01843-0"
+  },
+  {
+    "title": "Impact of prolonged fasting on skeletal muscle",
+    "authors": "Naegel A. et al.",
+    "year": 2025,
+    "journal": "Journal of Cachexia, Sarcopenia and Muscle",
+    "summary": "MRI and MRS-based investigation of muscle structure, energy metabolism, and function during prolonged fasting.",
+    "link": "https://doi.org/10.1002/jcsm.13773"
+  },
+  {
+    "title": "Remodelling of fatty acid composition in erythrocyte membranes during long-term fasting",
+    "authors": "Gewecke K. et al.",
+    "year": 2025,
+    "journal": "European Journal of Clinical Investigation",
+    "summary": "Demonstrates significant changes in erythrocyte membrane fatty acid profiles following long-term fasting.",
+    "link": "https://doi.org/10.1111/eci.14382"
+  },
+  {
+    "title": "Impact of long-term fasting on breath volatile sulphur compounds and oral health",
+    "authors": "Loume A., Grundler F., Wilhelmi de Toledo F., Giannopoulou C., Mesnage R.",
+    "year": 2025,
+    "journal": "Oral Health and Preventive Dentistry",
+    "summary": "Explores fasting-induced changes in breath compounds, inflammation, and saliva microbiota.",
+    "link": "#"
+  },
+  {
+    "title": "Insights Into the Therapeutic Applications of Fasting",
+    "authors": "Mesnage R.",
+    "year": 2024,
+    "journal": "IntechOpen",
+    "summary": "Book chapter discussing myths, facts, and therapeutic perspectives of long-term fasting.",
+    "link": "#"
+  },
+  {
+    "title": "Spermidine is essential for fasting-mediated autophagy and longevity",
+    "authors": "Hofer S.J. et al.",
+    "year": 2024,
+    "journal": "Nature Cell Biology",
+    "summary": "Experimental evidence showing that spermidine is required for fasting-induced autophagy and lifespan extension.",
+    "link": "https://doi.org/10.1038/s41556-024-01468-x"
+  },
+  {
+    "title": "HDL cholesterol efflux capacity during long-term fasting",
+    "authors": "Grundler F. et al.",
+    "year": 2024,
+    "journal": "Atherosclerosis",
+    "summary": "Prospective study showing improved HDL functional properties during prolonged fasting.",
+    "link": "#"
+  },
+  {
+    "title": "Long-term fasting-induced ketosis in 1610 subjects",
+    "authors": "Grundler F., Mesnage R., Ruppert P.M.M., Kouretas D., Wilhelmi de Toledo F.",
+    "year": 2024,
+    "journal": "Nutrients",
+    "summary": "Large cohort analysis of ketosis, metabolic regulation, and safety during long-term fasting.",
+    "link": "https://doi.org/10.3390/nu16121849"
+  },
+  {
+    "title": "Remodelling of the intestinal ecosystem during caloric restriction and fasting",
+    "authors": "Ducarmon Q. et al.",
+    "year": 2023,
+    "journal": "Trends in Microbiology",
+    "summary": "Review describing microbiome and ecosystem-level adaptations to fasting and caloric restriction.",
+    "link": "#"
+  },
+  {
+    "title": "Long-term fasting: Multi-system adaptations in humans (GENESIS study)",
+    "authors": "Grundler F. et al.",
+    "year": 2022,
+    "journal": "Frontiers in Nutrition",
+    "summary": "Single-arm interventional study documenting systemic metabolic, cardiovascular, and inflammatory adaptations.",
+    "link": "#"
+  },
+  {
+    "title": "Changes in gut microbiota during 10 days of Buchinger fasting",
+    "authors": "Mesnage R., Grundler F., Schwiertz A., Le Maho Y., Wilhelmi de Toledo F.",
+    "year": 2019,
+    "journal": "Journal of Nutritional Science",
+    "summary": "Demonstrates microbiota shifts linked to the metabolic switch from glucose to fat-based metabolism.",
+    "link": "#"
+  },
+  {
+    "title": "Safety, health improvement and well-being during long-term fasting",
     "authors": "Wilhelmi de Toledo F. et al.",
     "year": 2019,
     "journal": "PLOS ONE",
-    "summary": "Large observational study describing metabolic, inflammatory and clinical adaptations during prolonged medically supervised fasting.",
+    "summary": "Large observational study showing safety and broad health improvements during 4–21 days of fasting.",
     "link": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0209353"
-  },
-  {
-    "title": "Safety and health improvement of long-term fasting",
-    "authors": "Wilhelmi de Toledo F. et al.",
-    "year": 2020,
-    "journal": "Nutrients",
-    "summary": "Assessment of safety parameters and health markers in more than 1,400 subjects undergoing therapeutic fasting.",
-    "link": "https://www.mdpi.com/2072-6643/12/6/1611"
-  },
-  {
-    "title": "Physiological and psychological responses to fasting",
-    "authors": "Buchinger Wilhelmi Research Group",
-    "year": 2021,
-    "journal": "Frontiers in Nutrition",
-    "summary": "Review of physiological, psychological and metabolic responses observed during different fasting protocols.",
-    "link": "#"
-  },
-  {
-    "title": "Gut microbiome adaptations during fasting",
-    "authors": "Buchinger Wilhelmi Research Group",
-    "year": 2022,
-    "journal": "Clinical Nutrition",
-    "summary": "Exploration of gut microbial shifts during fasting and their potential implications for metabolic health.",
-    "link": "#"
   }
 ]

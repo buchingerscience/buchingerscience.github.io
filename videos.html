@@ -6,7 +6,59 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Buchinger Science – Amplius Videos</title>
   <link rel="stylesheet" href="style.css">
+
+  <!-- Hide content until password is validated -->
+  <style>
+    body { display: none; }
+  </style>
+
+  <!-- Very weak protection (client-side only) -->
+  <script>
+    (function () {
+      // CHANGE THIS PASSWORD
+      const PASSWORD = "buchinger2026";
+
+      // Optional: remember access during this browser session
+      const USE_SESSION = true;
+
+      // Optional: where to send people if denied
+      const DENY_REDIRECT = "index.html";
+
+      if (USE_SESSION && sessionStorage.getItem("amplius_access") === "true") {
+        document.addEventListener("DOMContentLoaded", () => {
+          document.body.style.display = "block";
+        });
+        return;
+      }
+
+      const input = prompt("Please enter the password to access Amplius Videos:");
+
+      if (input === PASSWORD) {
+        if (USE_SESSION) sessionStorage.setItem("amplius_access", "true");
+        document.addEventListener("DOMContentLoaded", () => {
+          document.body.style.display = "block";
+        });
+      } else {
+        document.addEventListener("DOMContentLoaded", () => {
+          document.body.style.display = "block";
+          document.body.innerHTML = `
+            <main style="max-width:720px;margin:80px auto;padding:0 20px;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;">
+              <h1>Access denied</h1>
+              <p>This page is not available without the correct password.</p>
+              <p><a href="${DENY_REDIRECT}">Go back</a></p>
+            </main>
+          `;
+        });
+
+        // Optional redirect after 2 seconds
+        setTimeout(() => {
+          window.location.href = DENY_REDIRECT;
+        }, 2000);
+      }
+    })();
+  </script>
 </head>
+
 <body>
   <nav>
     <div class="logo">Buchinger Science</div>

@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
   <nav>
     <div class="logo">Buchinger Science</div>
     <ul>
@@ -20,43 +21,25 @@
     </ul>
   </nav>
 
-  <!-- Hero section for research library -->
   <section class="hero" style="background-image: url('hero.png');">
     <div class="content">
       <h1>Research Library</h1>
-      <p>Access our archive of peer‑reviewed articles, case studies and newsletters on therapeutic fasting. Each entry links to a full description and, when available, to the published paper.</p>
+      <p>
+        Peer-reviewed publications, clinical studies and scientific reviews
+        produced by the Buchinger Wilhelmi research teams.
+      </p>
     </div>
   </section>
 
   <section>
     <h2>Browse Studies</h2>
-    <p>The cards below are placeholders for your published papers and newsletters. Replace the titles, summaries and links with your actual content.</p>
-    <div class="articles-grid">
-      <!-- repeat cards as needed -->
-      <div class="article-card">
-        <img src="article-placeholder.png" alt="Study placeholder">
-        <div class="card-body">
-          <h3>Long‑Term Fasting Effects on Metabolism</h3>
-          <p>This newsletter discusses how fasting alters metabolic pathways, summarising findings for a general audience.</p>
-          <a href="#">Read article</a>
-        </div>
-      </div>
-      <div class="article-card">
-        <img src="article-placeholder.png" alt="Study placeholder">
-        <div class="card-body">
-          <h3>Fasting and Mental Well‑Being</h3>
-          <p>An overview of research into the psychological benefits of fasting, including mood changes and mental clarity.</p>
-          <a href="#">Read article</a>
-        </div>
-      </div>
-      <div class="article-card">
-        <img src="article-placeholder.png" alt="Study placeholder">
-        <div class="card-body">
-          <h3>Gut Microbiome During Fasting</h3>
-          <p>This newsletter explains how the gut microbiome adapts during fasting and what this means for overall health.</p>
-          <a href="#">Read article</a>
-        </div>
-      </div>
+    <p>
+      This library presents key scientific work on therapeutic fasting.
+      Each entry links to the original publication when available.
+    </p>
+
+    <div class="articles-grid" id="research-library">
+      <!-- studies loaded from JSON -->
     </div>
   </section>
 
@@ -64,6 +47,36 @@
     <p>&copy; 2026 Buchinger Science. All rights reserved.</p>
   </footer>
 
-  <script src="script.js"></script>
+  <script>
+    fetch("library.json")
+      .then(response => response.json())
+      .then(studies => {
+        const container = document.getElementById("research-library");
+
+        studies.forEach(study => {
+          const card = document.createElement("div");
+          card.className = "article-card";
+
+          card.innerHTML = `
+            <div class="card-body">
+              <h3>${study.title}</h3>
+              <p class="meta">
+                ${study.authors} · ${study.year} · <em>${study.journal}</em>
+              </p>
+              <p>${study.summary}</p>
+              <a href="${study.link}" target="_blank" rel="noopener">
+                View study
+              </a>
+            </div>
+          `;
+
+          container.appendChild(card);
+        });
+      })
+      .catch(error => {
+        console.error("Error loading research library:", error);
+      });
+  </script>
+
 </body>
 </html>

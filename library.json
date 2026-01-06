@@ -1,42 +1,34 @@
-{\rtf1\ansi\ansicpg1252\cocoartf2822
-\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
-{\colortbl;\red255\green255\blue255;}
-{\*\expandedcolortbl;;}
-\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
-\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
-
-\f0\fs24 \cf0 [\
-  \{\
-    "title": "Long-term fasting induces metabolic and immune adaptations",\
-    "authors": "Wilhelmi de Toledo F. et al.",\
-    "year": 2019,\
-    "journal": "PLOS ONE",\
-    "summary": "Large observational study describing metabolic, inflammatory and clinical adaptations during prolonged medically supervised fasting.",\
-    "link": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0209353"\
-  \},\
-  \{\
-    "title": "Safety and health improvement of long-term fasting",\
-    "authors": "Wilhelmi de Toledo F. et al.",\
-    "year": 2020,\
-    "journal": "Nutrients",\
-    "summary": "Assessment of safety parameters and health markers in more than 1,400 subjects undergoing therapeutic fasting.",\
-    "link": "https://www.mdpi.com/2072-6643/12/6/1611"\
-  \},\
-  \{\
-    "title": "Physiological and psychological responses to fasting",\
-    "authors": "Buchinger Wilhelmi Research Group",\
-    "year": 2021,\
-    "journal": "Frontiers in Nutrition",\
-    "summary": "Review of physiological, psychological and metabolic responses observed during different fasting protocols.",\
-    "link": "#"\
-  \},\
-  \{\
-    "title": "Gut microbiome adaptations during fasting",\
-    "authors": "Buchinger Wilhelmi Research Group",\
-    "year": 2022,\
-    "journal": "Clinical Nutrition",\
-    "summary": "Exploration of gut microbial shifts during fasting and their potential implications for metabolic health.",\
-    "link": "#"\
-  \}\
-]\
-}
+[
+  {
+    "title": "Long-term fasting induces metabolic and immune adaptations",
+    "authors": "Wilhelmi de Toledo F. et al.",
+    "year": 2019,
+    "journal": "PLOS ONE",
+    "summary": "Large observational study describing metabolic, inflammatory and clinical adaptations during prolonged medically supervised fasting.",
+    "link": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0209353"
+  },
+  {
+    "title": "Safety and health improvement of long-term fasting",
+    "authors": "Wilhelmi de Toledo F. et al.",
+    "year": 2020,
+    "journal": "Nutrients",
+    "summary": "Assessment of safety parameters and health markers in more than 1,400 subjects undergoing therapeutic fasting.",
+    "link": "https://www.mdpi.com/2072-6643/12/6/1611"
+  },
+  {
+    "title": "Physiological and psychological responses to fasting",
+    "authors": "Buchinger Wilhelmi Research Group",
+    "year": 2021,
+    "journal": "Frontiers in Nutrition",
+    "summary": "Review of physiological, psychological and metabolic responses observed during different fasting protocols.",
+    "link": "#"
+  },
+  {
+    "title": "Gut microbiome adaptations during fasting",
+    "authors": "Buchinger Wilhelmi Research Group",
+    "year": 2022,
+    "journal": "Clinical Nutrition",
+    "summary": "Exploration of gut microbial shifts during fasting and their potential implications for metabolic health.",
+    "link": "#"
+  }
+]

@@ -1,0 +1,20 @@
+{
+  "title": "Recent Research on Fasting and Calorie Restriction",
+  "month": "June",
+  "year": 2025,
+  "editorial": "This issue highlights how different forms of calorie restriction and fasting compare in real-world and experimental settings.",
+  "studies": [
+    {
+      "number": 1,
+      "title": "Calorie restriction is better tolerated than time-restricted eating in older adults",
+      "summary": "Older adults adhered better to structured calorie restriction programs than to time-restricted eating, especially when interventions were remotely supported.",
+      "reference": "HALLO-P pilot trial, 2025"
+    },
+    {
+      "number": 2,
+      "title": "Alternate-day fasting shows modest advantage for weight loss",
+      "summary": "Across randomized trials, alternate-day fasting slightly outperformed continuous calorie restriction for short-term weight loss, though differences were small.",
+      "reference": "Network meta-analysis, 2025"
+    }
+  ]
+}

@@ -800,7 +800,7 @@
     },
     {
       "id": 29,
-      "title": "“Safety, health improvement and well-being during a 4 to 21-day fasting period in an observational study including 1422 subjects.” PloS one vol",
+      "title": "Safety, health improvement and well-being during a 4 to 21-day fasting period in an observational study including 1422 subjects.",
       "year": 2019,
       "topics": [
         "safety",
@@ -826,9 +826,9 @@
         "The results showed that Buchinger periodic fasting lasting from 4 to 21 days is safe and well-tolerated, and it led to enhancements of emotional and physical well-being, improvements in relevant cardiovascular and general risk factors, and subjective health complaints.",
         "Medically supervised fasting had only very few side-effects, which could be treated easily and without interruptions to fasting. In individual cases, subjects experienced restless sleep, headaches, tiredness or lumbar spine complaints during the first three days."
       ],
-      "link": null,
-      "youtube": null,
-      "published": false
+      "link": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0209353",
+      "youtube": "https://www.youtube.com/watch?v=6b-EqKYv314",
+      "published": true
     }
   ],
   "generated": "2026-01-08"

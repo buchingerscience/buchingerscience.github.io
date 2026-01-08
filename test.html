@@ -1,0 +1,98 @@
+<!-- Sidebar navigation (replaces the top nav) -->
+<aside class="sidebar" id="sidebar" aria-label="Main navigation">
+  <div class="sidebar-top">
+    <a class="sidebar-logo" href="index.html">Buchinger Science</a>
+
+    <button class="sidebar-toggle" id="sidebarToggle" type="button" aria-label="Toggle menu" aria-expanded="false">
+      ☰
+    </button>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a class="sidebar-link is-active" href="index.html">Home</a>
+
+    <button class="sidebar-group-btn" type="button" aria-expanded="false">
+      Explore
+      <span class="chev" aria-hidden="true">▾</span>
+    </button>
+    <div class="sidebar-group">
+      <a class="sidebar-sublink" href="#journey">Fasting Journey</a>
+      <a class="sidebar-sublink" href="#studies">Featured Studies</a>
+      <a class="sidebar-sublink" href="https://dash.buchinger-science.com">Metabolic Explorer</a>
+    </div>
+
+    <button class="sidebar-group-btn" type="button" aria-expanded="false">
+      Library
+      <span class="chev" aria-hidden="true">▾</span>
+    </button>
+    <div class="sidebar-group">
+      <a class="sidebar-sublink" href="library.html">Research Library</a>
+      <a class="sidebar-sublink" href="newsletter.html">Newsletters</a>
+      <a class="sidebar-sublink" href="videos.html">Amplius Videos</a>
+    </div>
+
+    <button class="sidebar-group-btn" type="button" aria-expanded="false">
+      About
+      <span class="chev" aria-hidden="true">▾</span>
+    </button>
+    <div class="sidebar-group">
+      <a class="sidebar-sublink" href="method.html">Our Method</a>
+      <a class="sidebar-sublink" href="contact.html">Contact</a>
+    </div>
+  </nav>
+</aside>
+
+<!-- Page overlay for mobile -->
+<div class="sidebar-overlay" id="sidebarOverlay" hidden></div>
+
+<!-- Wrap your existing page content in this container (right column) -->
+<div class="page">
+
+
+
+  <script>
+  // Sidebar: dropdown groups + mobile open/close
+  const sidebar = document.getElementById('sidebar');
+  const sidebarToggle = document.getElementById('sidebarToggle');
+  const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+  // Dropdown groups
+  document.querySelectorAll('.sidebar-group-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const group = btn.nextElementSibling;
+      const isOpen = group.classList.toggle('is-open');
+      btn.setAttribute('aria-expanded', String(isOpen));
+    });
+  });
+
+  // Mobile toggle
+  function openSidebar() {
+    sidebar.classList.add('is-open');
+    sidebarToggle?.setAttribute('aria-expanded', 'true');
+    sidebarOverlay.hidden = false;
+  }
+
+  function closeSidebar() {
+    sidebar.classList.remove('is-open');
+    sidebarToggle?.setAttribute('aria-expanded', 'false');
+    sidebarOverlay.hidden = true;
+  }
+
+  sidebarToggle?.addEventListener('click', () => {
+    const isOpen = sidebar.classList.contains('is-open');
+    isOpen ? closeSidebar() : openSidebar();
+  });
+
+  sidebarOverlay?.addEventListener('click', closeSidebar);
+
+  // Close sidebar on mobile after clicking a link
+  document.querySelectorAll('.sidebar a').forEach((a) => {
+    a.addEventListener('click', () => {
+      if (window.matchMedia('(max-width: 980px)').matches) closeSidebar();
+    });
+  });
+
+  // Start with first group open (optional)
+  const firstGroupBtn = document.querySelector('.sidebar-group-btn');
+  if (firstGroupBtn) firstGroupBtn.click();
+</script>

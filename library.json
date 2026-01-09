@@ -131,6 +131,27 @@
   ],
 "studies": [
     {
+      "id": -1,
+      "title": "Weight Loss Drugs Are Not Enough: Patients Need Rehabilitation",
+      "year": 2025,
+      "topics": [
+        "weight loss",
+        "GLP-1"
+      ],
+      "bullets": [
+        "Metabolic syndrome leading to type 2 diabetes has become one of the defining health challenges of our time.", 
+"Glucagon-like peptide-1 (GLP-1) receptor agonists represent a major pharmacological advance, inducing marked weight loss and improved glycemic control. However, their long-term effectiveness remains limited by poor adherence, high cost, and relapse after discontinuation. Pharmacotherapy alone addresses symptoms, not causes.", 
+"Sustainable recovery from metabolic disorders therefore requires a rehabilitative approach. This includes structured behavioral change, nutritional adaptation, and metabolic re-education.", 
+"Therapeutic fasting provides a model for such rehabilitation, promoting rapid metabolic improvements through energy deficit, hepatic lipid mobilization, and enhanced insulin sensitivity.", 
+"Emerging evidences suggest that repeated fasting interventions can induce durable remission of type 2 diabetes.", 
+"Beyond individual biology, true sustainability demands that medicine itself reduce its ecological footprint, as pharmaceuticals and other xenobiotics increasingly contribute to global pollution and greenhouse gas emissions.", 
+"Integrating pharmacological and non-pharmacological strategies offers a pathway toward a medicine of recovery rather than dependency."
+      ],
+      "link": null,
+      "youtube": null,
+      "published": false
+    },
+        {
       "id": 1,
       "title": "Remodelling of the gut virome after long-term fasting",
       "year": 2025,
@@ -158,7 +179,7 @@
       "youtube": null,
       "published": false
     },
-    {
+{
       "id": 2,
       "title": "Revisiting the (anti)inflammatory effects of prolonged fasting: the importance of baseline-dependent responses",
       "year": 2025,

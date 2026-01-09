@@ -1,8 +1,8 @@
 {
   "topics": [
     {
-      "key": "anti inflammation",
-      "label": "Anti Inflammation"
+      "key": "inflammation",
+      "label": "Inflammation"
     },
     {
       "key": "antioxidants",
@@ -25,24 +25,12 @@
       "label": "Cardiovascular Health"
     },
     {
-      "key": "cardiovascular risks",
-      "label": "Cardiovascular Risks"
-    },
-    {
       "key": "case report",
       "label": "Case Report"
     },
     {
       "key": "cholesterol",
       "label": "Cholesterol"
-    },
-    {
-      "key": "chronic disease prevention",
-      "label": "Chronic Disease Prevention"
-    },
-    {
-      "key": "concept of healthy longevity",
-      "label": "Concept Of Healthy Longevity"
     },
     {
       "key": "epigenetic age",
@@ -61,28 +49,8 @@
       "label": "Fat Metabolism"
     },
     {
-      "key": "fatty liver",
-      "label": "Fatty Liver"
-    },
-    {
       "key": "fatty liver disease",
       "label": "Fatty Liver Disease"
-    },
-    {
-      "key": "frailty",
-      "label": "Frailty"
-    },
-    {
-      "key": "glyphosate",
-      "label": "Glyphosate"
-    },
-    {
-      "key": "gut health",
-      "label": "Gut Health"
-    },
-    {
-      "key": "gut microbiome",
-      "label": "Gut Microbiome"
     },
     {
       "key": "gut microbiota",
@@ -91,14 +59,6 @@
     {
       "key": "heavy metals",
       "label": "Heavy Metals"
-    },
-    {
-      "key": "inflammation",
-      "label": "Inflammation"
-    },
-    {
-      "key": "intestinal remodelling",
-      "label": "Intestinal Remodelling"
     },
     {
       "key": "ketosis",
@@ -125,18 +85,6 @@
       "label": "Microbiota"
     },
     {
-      "key": "molecular biology",
-      "label": "Molecular Biology"
-    },
-    {
-      "key": "molecular biology of body mass homeostasis",
-      "label": "Molecular Biology Of Body Mass Homeostasis"
-    },
-    {
-      "key": "mri",
-      "label": "Mri"
-    },
-    {
       "key": "muscle",
       "label": "Muscle"
     },
@@ -157,28 +105,12 @@
       "label": "Perioontitis"
     },
     {
-      "key": "regeneration",
-      "label": "Regeneration"
-    },
-    {
-      "key": "review of litterature",
-      "label": "Review Of Litterature"
-    },
-    {
       "key": "safety",
       "label": "Safety"
     },
     {
       "key": "stress",
       "label": "Stress"
-    },
-    {
-      "key": "structural fat",
-      "label": "Structural Fat"
-    },
-    {
-      "key": "study protocol",
-      "label": "Study Protocol"
     },
     {
       "key": "type 2 diabetes",
@@ -195,16 +127,12 @@
     {
       "key": "wellness",
       "label": "Wellness"
-    },
-    {
-      "key": "world's largest study",
-      "label": "World's Largest Study"
     }
   ],
-  "studies": [
+"studies": [
     {
       "id": 1,
-      "title": "Remodelling of the gut virome after long-term fasting.medRxiv",
+      "title": "Remodelling of the gut virome after long-term fasting",
       "year": 2025,
       "topics": [
         "gut microbiome",
@@ -290,7 +218,7 @@
     },
     {
       "id": 5,
-      "title": "Impact of prolonged fasting on skeletal muscle: delving into the relationship between structure, energy metabolism, and function using 31P/1H MRS and MRI.Journal of Cachexia, Sarcopenia and Muscle.",
+      "title": "Impact of prolonged fasting on skeletal muscle: delving into the relationship between structure, energy metabolism, and function using 31P/1H MRS and MRI",
       "year": 2025,
       "topics": [
         "muscle"
@@ -346,7 +274,7 @@
     },
     {
       "id": 7,
-      "title": "Oral Health and Preventive Dentistry.",
+      "title": "Impact of long-term fasting on breath volatile sulphur compounds, inflammatory markers and saliva microbiota composition",
       "year": 2024,
       "topics": [
         "oral health",
@@ -367,7 +295,7 @@
     },
     {
       "id": 8,
-      "title": "Insights Into the Therapeutic Applications of Fasting",
+      "title": "Myths and Facts in the Debates on the Effects of Long-Term Fasting",
       "year": 2024,
       "topics": [
         "fasting",
@@ -391,7 +319,7 @@
     },
     {
       "id": 9,
-      "title": ". https://doi.org/10.1038/s41556-024-01468-x",
+      "title": "Spermidine is essential for fasting-mediated autophagy and longevity",
       "year": 2024,
       "topics": [
         "autophagy"
@@ -436,7 +364,7 @@
     },
     {
       "id": 11,
-      "title": "; 16(12):1849. https://doi.org/10.3390/nu16121849",
+      "title": "Long-Term Fasting-Induced Ketosis in 1610 Subjects: Metabolic Regulation and Safety",
       "year": 2024,
       "topics": [
         "ketosis"
@@ -480,7 +408,7 @@
     },
     {
       "id": 13,
-      "title": "Improvements during long-term fasting in patients with long COVID a case series and literature review.",
+      "title": "Improvements during long-term fasting in patients with long COVID: a case series and literature review",
       "year": 2023,
       "topics": [
         "long covid"
@@ -539,7 +467,7 @@
     },
     {
       "id": 16,
-      "title": "Nov 17;9:951000.",
+      "title": "Long-term fasting: Multi-system adaptations in humans (GENESIS) study – a single-arm interventional trial",
       "year": 2022,
       "topics": [
         "study protocol"
@@ -555,7 +483,7 @@
     },
     {
       "id": 17,
-      "title": "Jun;152:112187.",
+      "title": "Fasting-mediated metabolic and toxicity reprogramming impacts circulating microRNA levels in humans",
       "year": 2021,
       "topics": [
         "molecular biology",
@@ -576,7 +504,7 @@
     },
     {
       "id": 18,
-      "title": "Oct;60(7):4031-4044.",
+      "title": "Long-term fasting improves lipoprotein-associated atherogenic risk in humans",
       "year": 2021,
       "topics": [
         "cholesterol",
@@ -597,7 +525,7 @@
     },
     {
       "id": 19,
-      "title": "Jun 9;12(6):599.",
+      "title": "Effects of acyl-coenzyme A binding protein (ACBP)/diazepam-binding inhibitor (DBI) on body mass index",
       "year": 2021,
       "topics": [
         "molecular biology of body mass homeostasis"
@@ -616,7 +544,7 @@
     },
     {
       "id": 20,
-      "title": "Sep 28;8:708069.",
+      "title": "Excretion of Heavy Metals and Glyphosate in Urine and Hair Before and After Long-Term Fasting in Humans",
       "year": 2021,
       "topics": [
         "heavy metals",
@@ -637,7 +565,7 @@
     },
     {
       "id": 21,
-      "title": "Dec;12(6):1690-1703.",
+      "title": "Is muscle and protein loss relevant in long-term fasting in healthy men? A prospective trial on physiological adaptations",
       "year": 2021,
       "topics": [
         "muscle"
@@ -659,7 +587,7 @@
     },
     {
       "id": 22,
-      "title": "Jun 6;9(6):496.",
+      "title": "Influence of Long-Term Fasting on Blood Redox Status in Humans",
       "year": 2020,
       "topics": [
         "oxidative stress",
@@ -677,7 +605,7 @@
     },
     {
       "id": 23,
-      "title": "Aug;52(5):147-161.",
+      "title": "Unravelling the health effects of fasting: a long road from obesity treatment to healthy life span increase and improved cognition",
       "year": 2020,
       "topics": [
         "review of litterature"
@@ -695,7 +623,7 @@
     },
     {
       "id": 24,
-      "title": "Nov;145:111701.",
+      "title": "Interplay between oxidative damage, the redox status, and metabolic biomarkers during long-term fasting",
       "year": 2020,
       "topics": [
         "oxidative stress",
@@ -714,7 +642,7 @@
     },
     {
       "id": 25,
-      "title": "Dec;9(23):e018649.",
+      "title": "Blood Pressure Changes in 1610 Subjects With and Without Antihypertensive Medication During Long-Term Fasting",
       "year": 2020,
       "topics": [
         "blood pressure"
@@ -734,7 +662,7 @@
     },
     {
       "id": 26,
-      "title": "Oct 30;11(11):2601.",
+      "title": "Effects of Periodic Fasting on Fatty Liver Index – A Prospective Observational Study",
       "year": 2019,
       "topics": [
         "fatty liver disease"
@@ -751,7 +679,7 @@
     },
     {
       "id": 27,
-      "title": "Nov 12;8:e36.",
+      "title": "Changes in human gut microbiota composition are linked to the energy metabolic switch during 10 d of Buchinger fasting",
       "year": 2019,
       "topics": [
         "gut health",
@@ -774,7 +702,7 @@
     },
     {
       "id": 28,
-      "title": ": 5.",
+      "title": "Chemical-shift-encoded magnetic resonance imaging and spectroscopy to reveal immediate and long-term multi-organ composition changes of a 14-days periodic fasting intervention: a technological and case report",
       "year": 2019,
       "topics": [
         "case report",
@@ -800,7 +728,7 @@
     },
     {
       "id": 29,
-      "title": "Safety, health improvement and well-being during a 4 to 21-day fasting period in an observational study including 1422 subjects.",
+      "title": "Safety, health improvement and well-being during a 4 to 21-day fasting period in an observational study including 1422 subjects",
       "year": 2019,
       "topics": [
         "safety",

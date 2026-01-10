@@ -1,173 +1,438 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Buchinger Science – Amplius Videos</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- Hide content until password is validated -->
+  <title>Buchinger Science – Fasting Coach</title>
+
+  <!-- Keep your existing global stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Page-local CSS (does not change your nav/menu CSS) -->
   <style>
-    body { display: none; }
+    /* Fasting Coach — page-local styles */
+    .fc-wrap { max-width: 1200px; margin: 0 auto; padding: 26px 18px 56px; }
+    .fc-head { display:flex; align-items:flex-end; justify-content:space-between; gap:16px; flex-wrap:wrap; margin-bottom: 16px; }
+    .fc-head h1 { margin:0; font-size: 22px; }
+    .fc-head p { margin:6px 0 0 0; font-size: 13px; opacity: .75; max-width: 70ch; }
+
+    .fc-tools { display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:flex-end; }
+    .fc-input, .fc-select, .fc-btn {
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.15);
+      background: rgba(255,255,255,0.06);
+      color: inherit;
+      font-size: 13px;
+      outline: none;
+    }
+    .fc-input { width: 280px; max-width: 78vw; }
+    .fc-btn { cursor:pointer; user-select:none; transition: transform .08s ease, background .15s ease; }
+    .fc-btn:hover { transform: translateY(-1px); background: rgba(255,255,255,0.09); }
+
+    .fc-grid { display:grid; grid-template-columns: 300px 1fr; gap: 14px; align-items:start; }
+    .fc-card {
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.06);
+      overflow:hidden;
+    }
+
+    .fc-side { padding: 14px; position: sticky; top: 14px; }
+    .fc-side h2 { margin:0 0 10px 0; font-size: 14px; }
+
+    .fc-cat {
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+      padding: 10px 10px; border-radius: 12px; cursor:pointer; user-select:none;
+      border: 1px solid transparent;
+    }
+    .fc-cat:hover { background: rgba(255,255,255,0.06); }
+    .fc-cat.active { background: rgba(91,194,231,0.12); border-color: rgba(91,194,231,0.35); }
+
+    .fc-pill {
+      font-size: 12px; padding: 4px 8px; border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.14);
+      opacity: .8;
+      background: rgba(0,0,0,0.10);
+      white-space: nowrap;
+    }
+
+    .fc-progress { margin-top: 14px; padding: 12px; border-radius: 14px; border: 1px solid rgba(255,255,255,0.12); background: rgba(0,0,0,0.10); }
+    .fc-progress h3 { margin: 0 0 8px 0; font-size: 13px; }
+    .fc-bar { height: 10px; border-radius: 999px; background: rgba(255,255,255,0.10); overflow:hidden; border: 1px solid rgba(255,255,255,0.10); }
+    .fc-bar > div { height:100%; width:0%; background: rgba(91,194,231,0.85); transition: width .2s ease; }
+    .fc-progress p { margin: 8px 0 0 0; font-size: 12px; opacity: .75; }
+
+    .fc-main { padding: 14px; }
+
+    .fc-player { border-radius: 16px; border: 1px solid rgba(255,255,255,0.12); overflow:hidden; background: rgba(0,0,0,0.18); }
+    .fc-player-top {
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+      padding: 12px; border-bottom: 1px solid rgba(255,255,255,0.12);
+      background: rgba(0,0,0,0.10);
+      flex-wrap:wrap;
+    }
+    .fc-now .kicker { font-size: 11px; opacity: .75; margin-bottom: 4px; }
+    .fc-now .title { font-size: 14px; font-weight: 600; line-height: 1.25; }
+    .fc-player-actions { display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+    .fc-check { display:flex; align-items:center; gap:8px; white-space: nowrap; font-size: 13px; opacity: .95; }
+    .fc-check input { transform: translateY(1px); }
+
+    .fc-iframe { position: relative; width: 100%; padding-top: 56.25%; }
+    .fc-iframe iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+
+    .fc-list { margin-top: 14px; display:grid; gap: 10px; }
+    .fc-item {
+      display:grid; grid-template-columns: 168px 1fr; gap: 12px;
+      padding: 10px; border-radius: 16px; cursor:pointer;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(0,0,0,0.10);
+      transition: transform .08s ease, background .15s ease, border-color .15s ease;
+    }
+    .fc-item:hover { transform: translateY(-1px); background: rgba(255,255,255,0.06); border-color: rgba(255,255,255,0.20); }
+    .fc-item.watched { background: rgba(117,234,161,0.14); border-color: rgba(117,234,161,0.22); }
+
+    .fc-thumb { border-radius: 14px; overflow:hidden; border: 1px solid rgba(255,255,255,0.12); background: rgba(0,0,0,0.20); aspect-ratio: 16/9; position:relative; }
+    .fc-thumb img { width:100%; height:100%; object-fit: cover; display:block; opacity: 0.95; }
+    .fc-play {
+      position:absolute; left:10px; bottom:10px;
+      background: rgba(0,0,0,0.55);
+      border: 1px solid rgba(255,255,255,0.18);
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+    }
+
+    .fc-meta { display:flex; align-items:flex-start; justify-content:space-between; gap: 10px; }
+    .fc-meta .title { font-weight: 600; margin: 2px 0 6px 0; line-height: 1.25; }
+    .fc-meta .sub { font-size: 12px; opacity: .75; line-height: 1.35; }
+
+    .fc-empty { padding: 18px 14px; border-radius: 16px; border: 1px dashed rgba(255,255,255,0.18); opacity: .75; background: rgba(0,0,0,0.10); }
+
+    @media (max-width: 980px){
+      .fc-grid { grid-template-columns: 1fr; }
+      .fc-side { position: relative; top: 0; }
+    }
+    @media (max-width: 520px){
+      .fc-item { grid-template-columns: 1fr; }
+      .fc-input { width: 100%; }
+    }
   </style>
-
-  <!-- Very weak protection (client-side only) -->
-  <script>
-    (function () {
-      // CHANGE THIS PASSWORD
-      const PASSWORD = "buchinger2026";
-
-      // Optional: remember access during this browser session
-      const USE_SESSION = true;
-
-      // Optional: where to send people if denied
-      const DENY_REDIRECT = "index.html";
-
-      if (USE_SESSION && sessionStorage.getItem("amplius_access") === "true") {
-        document.addEventListener("DOMContentLoaded", () => {
-          document.body.style.display = "block";
-        });
-        return;
-      }
-
-      const input = prompt("Please enter the password to access Amplius Videos:");
-
-      if (input === PASSWORD) {
-        if (USE_SESSION) sessionStorage.setItem("amplius_access", "true");
-        document.addEventListener("DOMContentLoaded", () => {
-          document.body.style.display = "block";
-        });
-      } else {
-        document.addEventListener("DOMContentLoaded", () => {
-          document.body.style.display = "block";
-          document.body.innerHTML = `
-            <main style="max-width:720px;margin:80px auto;padding:0 20px;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;">
-              <h1>Access denied</h1>
-              <p>This page is not available without the correct password.</p>
-              <p><a href="${DENY_REDIRECT}">Go back</a></p>
-            </main>
-          `;
-        });
-
-        // Optional redirect after 2 seconds
-        setTimeout(() => {
-          window.location.href = DENY_REDIRECT;
-        }, 2000);
-      }
-    })();
-  </script>
 </head>
 
 <body>
+  <!-- Keep your existing menus (same structure as your other pages) -->
   <nav>
     <div class="logo">Buchinger Science</div>
     <ul>
       <li><a href="index.html">Home</a></li>
-      <li><a href="https://dash.buchinger-science.com">Metabolic Explorer</a></li>
-      <li><a href="https://staging.buchinger-wilhelmi.com">Weight loss estimator</a></li>
+      <li><a href="metabolic.html">Metabolic Explorer</a></li>
       <li><a href="library.html">Research Library</a></li>
-      <li><a href="newsletter.html">Newsletters</a></li>
       <li><a href="videos.html">Amplius Videos</a></li>
+      <li><a class="active" href="fasting-coach.html">Fasting Coach</a></li>
+      <li><a href="method.html">Our Method</a></li>
       <li><a href="contact.html">Contact</a></li>
     </ul>
   </nav>
 
-  <!-- Hero section for videos -->
-  <section class="hero" style="background-image: url('hero.png');">
-    <div class="content">
-      <h1>Amplius Science Videos</h1>
-      <p>Watch our educational videos that dive deeper into the science of fasting, metabolism and holistic health. New videos will be added regularly.</p>
-    </div>
-  </section>
+  <main class="fc-wrap">
+    <header class="fc-head">
+      <div>
+        <h1>Fasting Coach</h1>
+        <p>A guided video library: preparation, the daily journey, practical tutorials, and a structured 21-day programme.</p>
+      </div>
 
-<section>
-  <h2>Video Library</h2>
-  <p>Select a video by clicking on its YouTube thumbnail.</p>
+      <div class="fc-tools">
+        <input id="fc_q" class="fc-input" type="search" placeholder="Search videos (title)…" autocomplete="off" />
+        <select id="fc_sort" class="fc-select" aria-label="Sort">
+          <option value="order">Sort: default</option>
+          <option value="az">Sort: A → Z</option>
+          <option value="watched">Sort: watched first</option>
+          <option value="unwatched">Sort: unwatched first</option>
+        </select>
+        <button id="fc_reset" class="fc-btn" type="button">Reset progress</button>
+      </div>
+    </header>
 
-  <!-- Player -->
-  <div class="video-player">
-    <div class="video-embed">
-      <iframe
-        id="videoFrame"
-        src="https://www.youtube.com/embed/UnVo_xA4fM8?rel=0&modestbranding=1"
-        title="PlosOne article"
-        frameborder="0"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        allowfullscreen>
-      </iframe>
-    </div>
-    <div class="video-player-caption">
-      <h3 id="videoTitle">PlosOne article</h3>
-      <p id="videoHint" class="video-hint">Click a thumbnail below to switch video.</p>
-    </div>
-  </div>
+    <section class="fc-grid">
+      <aside class="fc-card fc-side">
+        <h2>Sections</h2>
+        <div id="fc_cats"></div>
 
-  <!-- Thumbnails grid -->
-  <div class="articles-grid" id="videoGrid">
-      <button class="article-card video-card" type="button" data-video-id="UnVo_xA4fM8" data-video-title="PlosOne article">
-        <img src="https://img.youtube.com/vi/UnVo_xA4fM8/hqdefault.jpg" alt="YouTube thumbnail: PlosOne article" loading="lazy">
-        <div class="card-body">
-          <h3>PlosOne article</h3>
-          <p class="video-meta">29.07.2021</p>
+        <div class="fc-progress" aria-live="polite">
+          <h3>Your progress</h3>
+          <div class="fc-bar"><div id="fc_bar"></div></div>
+          <p id="fc_progressText">—</p>
         </div>
-      </button>
-  
-      </button>
-  </div>
+      </aside>
+
+      <section class="fc-card fc-main">
+        <div class="fc-player" role="region" aria-label="Video player">
+          <div class="fc-player-top">
+            <div class="fc-now">
+              <div class="kicker" id="fc_nowKicker">Select a video</div>
+              <div class="title" id="fc_nowTitle">—</div>
+            </div>
+
+            <div class="fc-player-actions">
+              <button id="fc_openYT" class="fc-btn" type="button" disabled>Open on YouTube</button>
+              <label class="fc-check" title="Mark this video as watched">
+                <input id="fc_watchedToggle" type="checkbox" disabled />
+                Watched
+              </label>
+            </div>
+          </div>
+
+          <div class="fc-iframe">
+            <iframe
+              id="fc_player"
+              src=""
+              title="YouTube video player"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allowfullscreen></iframe>
+          </div>
+        </div>
+
+        <div id="fc_list" class="fc-list" aria-label="Video list"></div>
+      </section>
+    </section>
+  </main>
 
   <script>
-    (function () {
-      const frame = document.getElementById("videoFrame");
-      const titleEl = document.getElementById("videoTitle");
-      const grid = document.getElementById("videoGrid");
+    /**
+     * IMPORTANT (GitHub Pages):
+     * This file expects a second file next to it: fasting-coach.json
+     * (same folder). The script fetches it.
+     */
 
-      function setActive(btn) {
-        grid.querySelectorAll(".video-card.is-active").forEach((el) => el.classList.remove("is-active"));
-        btn.classList.add("is-active");
+    const FC_DATA_URL = "fasting-coach.json";
+    const FC_STORAGE_KEY = "fastingCoach_watched_v1";
+
+    function fcYtIdFromUrl(url) {
+      try {
+        const u = new URL(url);
+        if (u.hostname.includes("youtu.be")) return u.pathname.replace("/", "").trim();
+        const v = u.searchParams.get("v");
+        return v ? v.trim() : "";
+      } catch (e) { return ""; }
+    }
+    function fcYtThumb(id) { return `https://img.youtube.com/vi/${id}/hqdefault.jpg`; }
+    function fcYtEmbed(id) { return `https://www.youtube-nocookie.com/embed/${id}?rel=0&modestbranding=1`; }
+
+    function fcLoadWatched() {
+      try { return JSON.parse(localStorage.getItem(FC_STORAGE_KEY) || "{}"); }
+      catch (e) { return {}; }
+    }
+    function fcSaveWatched(obj) { localStorage.setItem(FC_STORAGE_KEY, JSON.stringify(obj)); }
+
+    // Elements
+    const fcCats = document.getElementById("fc_cats");
+    const fcList = document.getElementById("fc_list");
+    const fcQ = document.getElementById("fc_q");
+    const fcSort = document.getElementById("fc_sort");
+    const fcReset = document.getElementById("fc_reset");
+
+    const fcNowKicker = document.getElementById("fc_nowKicker");
+    const fcNowTitle = document.getElementById("fc_nowTitle");
+    const fcPlayer = document.getElementById("fc_player");
+    const fcOpenYT = document.getElementById("fc_openYT");
+    const fcWatchedToggle = document.getElementById("fc_watchedToggle");
+
+    const fcBar = document.getElementById("fc_bar");
+    const fcProgressText = document.getElementById("fc_progressText");
+
+    // State
+    let fcCategories = [];
+    let fcVideos = [];
+    let fcActiveCategory = "all";
+    let fcActiveVideoId = null;
+    let fcWatched = fcLoadWatched();
+
+    function fcIsWatched(id) { return fcWatched[id] ? 1 : 0; }
+
+    function fcRenderCategories() {
+      const counts = { all: fcVideos.length };
+      fcCategories.forEach(c => counts[c.id] = 0);
+      fcVideos.forEach(v => counts[v.categoryId] = (counts[v.categoryId] || 0) + 1);
+
+      const items = [{ id: "all", label: "All videos" }, ...fcCategories];
+
+      fcCats.innerHTML = items.map(item => {
+        const active = item.id === fcActiveCategory ? "active" : "";
+        const n = counts[item.id] || 0;
+        return `
+          <div class="fc-cat ${active}" data-cat="${item.id}" role="button" tabindex="0">
+            <span>${item.label}</span>
+            <span class="fc-pill">${n}</span>
+          </div>
+        `;
+      }).join("");
+
+      fcCats.querySelectorAll(".fc-cat").forEach(node => {
+        node.addEventListener("click", () => {
+          fcActiveCategory = node.dataset.cat;
+          fcRenderCategories();
+          fcRenderList();
+          fcUpdateProgress();
+        });
+        node.addEventListener("keydown", (e) => {
+          if (e.key === "Enter" || e.key === " ") { e.preventDefault(); node.click(); }
+        });
+      });
+    }
+
+    function fcGetFilteredVideos() {
+      const q = (fcQ.value || "").trim().toLowerCase();
+      let vids = fcVideos.slice();
+
+      if (fcActiveCategory !== "all") vids = vids.filter(v => v.categoryId === fcActiveCategory);
+      if (q) vids = vids.filter(v => v.title.toLowerCase().includes(q));
+
+      const mode = fcSort.value;
+      if (mode === "az") vids.sort((a,b) => a.title.localeCompare(b.title));
+      else if (mode === "watched") vids.sort((a,b) => (fcIsWatched(b.id) - fcIsWatched(a.id)) || (a.order - b.order));
+      else if (mode === "unwatched") vids.sort((a,b) => (fcIsWatched(a.id) - fcIsWatched(b.id)) || (a.order - b.order));
+      else vids.sort((a,b) => a.order - b.order;
+
+      return vids;
+    }
+
+    function fcRenderList() {
+      const vids = fcGetFilteredVideos();
+      if (!vids.length) {
+        fcList.innerHTML = `<div class="fc-empty">No video matches your search in this section.</div>`;
+        return;
       }
 
-      function loadVideo(videoId, videoTitle, btn) {
-        frame.src = "https://www.youtube.com/embed/" + videoId + "?rel=0&modestbranding=1";
-        frame.title = videoTitle || "YouTube video";
-        titleEl.textContent = videoTitle || "Video";
-        if (btn) setActive(btn);
-        // Scroll player into view on small screens
-        if (window.matchMedia("(max-width: 700px)").matches) {
-          frame.scrollIntoView({ behavior: "smooth", block: "start" });
-        }
-      }
+      fcList.innerHTML = vids.map(v => {
+        const w = fcIsWatched(v.id);
+        return `
+          <article class="fc-item ${w ? "watched" : ""}" data-id="${v.id}">
+            <div class="fc-thumb">
+              <img src="${fcYtThumb(v.id)}" alt="YouTube thumbnail">
+              <div class="fc-play">Play</div>
+            </div>
+            <div class="fc-meta">
+              <div>
+                <div class="title">${v.title}</div>
+                <div class="sub">${v.categoryLabel} • ${w ? "Watched" : "Not watched"}</div>
+              </div>
+              <label class="fc-check" title="Mark as watched without opening" style="opacity:.9">
+                <input type="checkbox" data-check="${v.id}" ${w ? "checked" : ""} />
+              </label>
+            </div>
+          </article>
+        `;
+      }).join("");
 
-      grid.addEventListener("click", (e) => {
-        const btn = e.target.closest("button[data-video-id]");
-        if (!btn) return;
-        loadVideo(btn.dataset.videoId, btn.dataset.videoTitle, btn);
+      // Open video on card click
+      fcList.querySelectorAll(".fc-item").forEach(card => {
+        card.addEventListener("click", (e) => {
+          if (e.target && e.target.matches('input[type="checkbox"]')) return;
+          fcSetActiveVideo(card.dataset.id);
+        });
       });
 
-      // Mark the first as active
-      const first = grid.querySelector("button[data-video-id]");
-      if (first) first.classList.add("is-active");
-    })();
+      // Toggle watched from list checkbox
+      fcList.querySelectorAll('input[data-check]').forEach(chk => {
+        chk.addEventListener("click", (e) => e.stopPropagation());
+        chk.addEventListener("change", () => {
+          const id = chk.dataset.check;
+          fcWatched[id] = chk.checked;
+          fcSaveWatched(fcWatched);
+          fcRenderList();
+          fcUpdateProgress();
+          fcSyncTopToggle();
+        });
+      });
+    }
+
+    function fcSetActiveVideo(id) {
+      const v = fcVideos.find(x => x.id === id);
+      if (!v) return;
+
+      fcActiveVideoId = id;
+      fcNowKicker.textContent = v.categoryLabel;
+      fcNowTitle.textContent = v.title;
+
+      fcPlayer.src = fcYtEmbed(v.id);
+
+      fcOpenYT.disabled = false;
+      fcOpenYT.onclick = () => window.open(v.url, "_blank", "noopener,noreferrer");
+
+      fcWatchedToggle.disabled = false;
+      fcWatchedToggle.checked = !!fcWatched[id];
+      fcWatchedToggle.onchange = () => {
+        fcWatched[id] = fcWatchedToggle.checked;
+        fcSaveWatched(fcWatched);
+        fcRenderList();
+        fcUpdateProgress();
+      };
+    }
+
+    function fcSyncTopToggle() {
+      if (!fcActiveVideoId) return;
+      fcWatchedToggle.checked = !!fcWatched[fcActiveVideoId];
+    }
+
+    function fcUpdateProgress() {
+      const vids = (fcActiveCategory === "all")
+        ? fcVideos
+        : fcVideos.filter(v => v.categoryId === fcActiveCategory);
+
+      const total = vids.length;
+      const done = vids.reduce((acc, v) => acc + (fcWatched[v.id] ? 1 : 0), 0);
+      const pct = total ? Math.round((done / total) * 100) : 0;
+
+      fcBar.style.width = pct + "%";
+      fcProgressText.textContent = total ? `${done} / ${total} watched (${pct}%)` : "—";
+    }
+
+    async function fcInit() {
+      const res = await fetch(FC_DATA_URL, { cache: "no-store" });
+      const raw = await res.json();
+
+      fcCategories = (raw.categories || []);
+      const catMap = new Map(fcCategories.map(c => [c.id, c.label]));
+
+      fcVideos = (raw.videos || []).map((v, idx) => {
+        const id = fcYtIdFromUrl(v.url) || v.id || "";
+        return {
+          id,
+          url: v.url,
+          title: v.title,
+          categoryId: v.categoryId,
+          categoryLabel: catMap.get(v.categoryId) || "Other",
+          order: typeof v.order === "number" ? v.order : (idx + 1)
+        };
+      }).filter(v => v.id);
+
+      fcRenderCategories();
+      fcRenderList();
+      fcUpdateProgress();
+
+      if (fcVideos[0]) fcSetActiveVideo(fcVideos[0].id);
+
+      fcQ.addEventListener("input", () => fcRenderList());
+      fcSort.addEventListener("change", () => fcRenderList());
+
+      fcReset.addEventListener("click", () => {
+        if (!confirm("Reset watched progress for all videos on this device?")) return;
+        fcWatched = {};
+        fcSaveWatched(fcWatched);
+        fcRenderList();
+        fcUpdateProgress();
+        fcSyncTopToggle();
+      });
+    }
+
+    fcInit().catch(err => {
+      console.error(err);
+      fcList.innerHTML = `<div class="fc-empty">Could not load the video list. Please check that <b>fasting-coach.json</b> is next to this HTML file.</div>`;
+    });
   </script>
-
-  <style>
-    /* Small, self-contained additions (safe even if you keep your global style.css) */
-    .video-player { margin: 18px 0 26px; }
-    .video-embed { position: relative; width: 100%; padding-top: 56.25%; border-radius: 14px; overflow: hidden; }
-    .video-embed iframe { position: absolute; inset: 0; width: 100%; height: 100%; }
-    .video-player-caption { margin-top: 12px; }
-    .video-hint { margin-top: 6px; opacity: 0.75; }
-    .video-meta { margin: 8px 0 0; font-size: 0.95em; opacity: 0.75; }
-    .video-card { text-align: left; cursor: pointer; border: none; background: transparent; padding: 0; }
-    .video-card.is-active { outline: 2px solid rgba(91, 194, 231, 0.9); outline-offset: 4px; border-radius: 14px; }
-  </style>
-</section>
-
-
-  <footer>
-    <p>&copy; 2026 Buchinger Science. All rights reserved.</p>
-  </footer>
-
-  <script src="script.js"></script>
 </body>
 </html>

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Buchinger Science – Amplius Videos</title>
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Hide content until password is validated -->
+  <style>
+    body { display: none; }
+  </style>
+
+  <!-- Very weak protection (client-side only) -->
+  <script>
+    (function () {
+      // CHANGE THIS PASSWORD
+      const PASSWORD = "buchinger2026";
+
+      // Optional: remember access during this browser session
+      const USE_SESSION = true;
+
+      // Optional: where to send people if denied
+      const DENY_REDIRECT = "index.html";
+
+      if (USE_SESSION && sessionStorage.getItem("amplius_access") === "true") {
+        document.addEventListener("DOMContentLoaded", () => {
+          document.body.style.display = "block";
+        });
+        return;
+      }
+
+      const input = prompt("Please enter the password to access Amplius Videos:");
+
+      if (input === PASSWORD) {
+        if (USE_SESSION) sessionStorage.setItem("amplius_access", "true");
+        document.addEventListener("DOMContentLoaded", () => {
+          document.body.style.display = "block";
+        });
+      } else {
+        document.addEventListener("DOMContentLoaded", () => {
+          document.body.style.display = "block";
+          document.body.innerHTML = `
+            <main style="max-width:720px;margin:80px auto;padding:0 20px;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;">
+              <h1>Access denied</h1>
+              <p>This page is not available without the correct password.</p>
+              <p><a href="${DENY_REDIRECT}">Go back</a></p>
+            </main>
+          `;
+        });
+
+        // Optional redirect after 2 seconds
+        setTimeout(() => {
+          window.location.href = DENY_REDIRECT;
+        }, 2000);
+      }
+    })();
+  </script>
+</head>
+
+<body>
+  <nav>
+    <div class="logo">Buchinger Science</div>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="https://dash.buchinger-science.com">Metabolic Explorer</a></li>
+      <li><a href="https://staging.buchinger-wilhelmi.com">Weight loss estimator</a></li>
+      <li><a href="library.html">Research Library</a></li>
+      <li><a href="newsletter.html">Newsletters</a></li>
+      <li><a href="videos.html">Amplius Videos</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero section for videos -->
+  <section class="hero" style="background-image: url('hero.png');">
+    <div class="content">
+      <h1>Amplius Science Videos</h1>
+      <p>Watch our educational videos that dive deeper into the science of fasting, metabolism and holistic health. New videos will be added regularly.</p>
+    </div>
+  </section>
+
+<section>
+  <h2>Video Library</h2>
+  <p>Select a video by clicking on its YouTube thumbnail.</p>
+
+  <!-- Player -->
+  <div class="video-player">
+    <div class="video-embed">
+      <iframe
+        id="videoFrame"
+        src="https://www.youtube.com/embed/UnVo_xA4fM8?rel=0&modestbranding=1"
+        title="PlosOne article"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen>
+      </iframe>
+    </div>
+    <div class="video-player-caption">
+      <h3 id="videoTitle">PlosOne article</h3>
+      <p id="videoHint" class="video-hint">Click a thumbnail below to switch video.</p>
+    </div>
+  </div>
+
+  <!-- Thumbnails grid -->
+  <div class="articles-grid" id="videoGrid">
+      <button class="article-card video-card" type="button" data-video-id="UnVo_xA4fM8" data-video-title="PlosOne article">
+        <img src="https://img.youtube.com/vi/UnVo_xA4fM8/hqdefault.jpg" alt="YouTube thumbnail: PlosOne article" loading="lazy">
+        <div class="card-body">
+          <h3>PlosOne article</h3>
+          <p class="video-meta">29.07.2021</p>
+        </div>
+      </button>
+  
+      </button>
+  </div>
+
+  <script>
+    (function () {
+      const frame = document.getElementById("videoFrame");
+      const titleEl = document.getElementById("videoTitle");
+      const grid = document.getElementById("videoGrid");
+
+      function setActive(btn) {
+        grid.querySelectorAll(".video-card.is-active").forEach((el) => el.classList.remove("is-active"));
+        btn.classList.add("is-active");
+      }
+
+      function loadVideo(videoId, videoTitle, btn) {
+        frame.src = "https://www.youtube.com/embed/" + videoId + "?rel=0&modestbranding=1";
+        frame.title = videoTitle || "YouTube video";
+        titleEl.textContent = videoTitle || "Video";
+        if (btn) setActive(btn);
+        // Scroll player into view on small screens
+        if (window.matchMedia("(max-width: 700px)").matches) {
+          frame.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }
+
+      grid.addEventListener("click", (e) => {
+        const btn = e.target.closest("button[data-video-id]");
+        if (!btn) return;
+        loadVideo(btn.dataset.videoId, btn.dataset.videoTitle, btn);
+      });
+
+      // Mark the first as active
+      const first = grid.querySelector("button[data-video-id]");
+      if (first) first.classList.add("is-active");
+    })();
+  </script>
+
+  <style>
+    /* Small, self-contained additions (safe even if you keep your global style.css) */
+    .video-player { margin: 18px 0 26px; }
+    .video-embed { position: relative; width: 100%; padding-top: 56.25%; border-radius: 14px; overflow: hidden; }
+    .video-embed iframe { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .video-player-caption { margin-top: 12px; }
+    .video-hint { margin-top: 6px; opacity: 0.75; }
+    .video-meta { margin: 8px 0 0; font-size: 0.95em; opacity: 0.75; }
+    .video-card { text-align: left; cursor: pointer; border: none; background: transparent; padding: 0; }
+    .video-card.is-active { outline: 2px solid rgba(91, 194, 231, 0.9); outline-offset: 4px; border-radius: 14px; }
+  </style>
+</section>
+
+
+  <footer>
+    <p>&copy; 2026 Buchinger Science. All rights reserved.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

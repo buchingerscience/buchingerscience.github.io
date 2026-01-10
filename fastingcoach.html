@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
   <title>Buchinger Science – Fasting Coach</title>
 
   <!-- Keep your existing global stylesheet -->
@@ -12,7 +11,6 @@
 
   <!-- Page-local CSS (does not change your nav/menu CSS) -->
   <style>
-    /* Fasting Coach — page-local styles */
     .fc-wrap { max-width: 1200px; margin: 0 auto; padding: 26px 18px 56px; }
     .fc-head { display:flex; align-items:flex-end; justify-content:space-between; gap:16px; flex-wrap:wrap; margin-bottom: 16px; }
     .fc-head h1 { margin:0; font-size: 22px; }
@@ -202,16 +200,79 @@
   </main>
 
   <script>
-    /**
-     * IMPORTANT (GitHub Pages):
-     * This file expects a second file next to it: fasting-coach.json
-     * (same folder). The script fetches it.
-     */
-
-    const FC_DATA_URL = "fasting-coach.json";
+    // Single-file GitHub Pages version (video list is embedded below)
     const FC_STORAGE_KEY = "fastingCoach_watched_v1";
 
-    function fcYtIdFromUrl(url) {
+    const FC_DATA = {
+      categories: [
+        { id: "prearrival", label: "Before arrival" },
+        { id: "chats", label: "Chats" },
+        { id: "tutorials", label: "Tutorials" },
+        { id: "program21", label: "21-day program" }
+      ],
+      videos: [
+        // Before arrival
+        { categoryId: "prearrival", order: 1, title: "VAV 1", url: "https://youtu.be/twBwtoId46A" },
+        { categoryId: "prearrival", order: 2, title: "VAV 2", url: "https://youtu.be/P2K6T5NdJo8" },
+        { categoryId: "prearrival", order: 3, title: "VAV 3", url: "https://youtu.be/0US0bUG1oew" },
+        { categoryId: "prearrival", order: 4, title: "VAV 4", url: "https://youtu.be/SK7r7p5suLA" },
+
+        // Chats
+        { categoryId: "chats", order: 1, title: "1. What can I expect during my fasting journey?", url: "https://youtu.be/B3qfb5GuLJo" },
+        { categoryId: "chats", order: 2, title: "2. What happens on digestive rest day?", url: "https://youtu.be/6Zl4O-zcHgs" },
+        { categoryId: "chats", order: 3, title: "3. What happens on the first day of fasting?", url: "https://youtu.be/J_M-wuvSChk" },
+        { categoryId: "chats", order: 4, title: "4. What happens on the second day?", url: "https://youtu.be/cJTNK_gIHdA" },
+        { categoryId: "chats", order: 5, title: "5. What happens on the third day?", url: "https://youtu.be/XSAaOHxlQkY" },
+        { categoryId: "chats", order: 6, title: "6. What happens on the fourth day?", url: "https://youtu.be/zu0AJZoikkk" },
+        { categoryId: "chats", order: 7, title: "7. Breaking the fast", url: "https://youtu.be/x7YWNX8J-H8" },
+        { categoryId: "chats", order: 8, title: "8. First build up day", url: "https://youtu.be/jTGvCKC0Ic4" },
+        { categoryId: "chats", order: 9, title: "9. Second build up day", url: "https://youtu.be/FVWQ0PD8SUs" },
+        { categoryId: "chats", order: 10, title: "10. Third build up day", url: "https://youtu.be/jS8GxZmn-v8" },
+        { categoryId: "chats", order: 11, title: "11. Departure day", url: "https://youtu.be/7Gg_5oB2s8g" },
+
+        // Tutorials
+        { categoryId: "tutorials", order: 1, title: "1. Autogenic training", url: "https://youtu.be/Psegp4XMDsE" },
+        { categoryId: "tutorials", order: 2, title: "2. 1-3-5-7-9 method", url: "https://youtu.be/K_moPCLwUg8" },
+        { categoryId: "tutorials", order: 3, title: "3. Enema", url: "https://youtu.be/zyirQds0BX8" },
+        { categoryId: "tutorials", order: 4, title: "4. The right clothes", url: "https://youtu.be/rkBskYDGnbw?si=afy8zJbMXJ4gtGUB" },
+        { categoryId: "tutorials", order: 5, title: "5. Nutrional guidelines", url: "https://youtu.be/slpZuIDZjTU" },
+        { categoryId: "tutorials", order: 6, title: "6. Hunger and satiety", url: "https://youtu.be/dGILOwQYRQU" },
+        { categoryId: "tutorials", order: 7, title: "7. Indications for fasting", url: "https://youtu.be/qJ6JC8CG9yw" },
+        { categoryId: "tutorials", order: 8, title: "8. Weight fluctuations", url: "https://youtu.be/Wl4E-J2g3ms" },
+        { categoryId: "tutorials", order: 9, title: "9. Glauber´s salt", url: "https://youtu.be/HwRZJ_7zC94" },
+        { categoryId: "tutorials", order: 10, title: "10. Forms of fasting", url: "https://youtu.be/uXxqri1ZxPo" },
+        { categoryId: "tutorials", order: 11, title: "11. Liver pack", url: "https://youtu.be/VV29jTSY6so" },
+        { categoryId: "tutorials", order: 12, title: "12. Meditation", url: "https://youtu.be/q5i1XYIXlj0" },
+        { categoryId: "tutorials", order: 13, title: "13. Daily care to support your fasting journey", url: "https://youtu.be/z5VNwFZB7jY" },
+        { categoryId: "tutorials", order: 14, title: "14. Yoga breathing", url: "https://youtu.be/p171ctUTzCY" },
+        { categoryId: "tutorials", order: 15, title: "15. Colonic massage", url: "https://youtu.be/549OCqikJlU" },
+
+        // 21-day program
+        { categoryId: "program21", order: 1, title: "1. Awareness", url: "https://youtu.be/ITKKfBc33js" },
+        { categoryId: "program21", order: 2, title: "2. Circadian Rhythms", url: "https://youtu.be/YRvXpxCHmxo" },
+        { categoryId: "program21", order: 3, title: "3. Conscious Eating 1", url: "https://youtu.be/6EyW-ZbC-n4" },
+        { categoryId: "program21", order: 4, title: "4. Conscious Eating 2", url: "https://youtu.be/WCPuUO45lGk" },
+        { categoryId: "program21", order: 5, title: "5. Conscious Eating 3", url: "https://youtu.be/WchCNJtLyp4" },
+        { categoryId: "program21", order: 6, title: "6. Conscious Eating 4", url: "https://youtu.be/qrqwFxQds6I?si=c_mFA3L-m9lCAtN6" },
+        { categoryId: "program21", order: 7, title: "7. Coping Strategies", url: "https://youtu.be/5eNS1XObUh4" },
+        { categoryId: "program21", order: 8, title: "8. Dietary Guidelines", url: "https://youtu.be/Z6z-jDy4C7Q" },
+        { categoryId: "program21", order: 9, title: "9. Energy 1", url: "https://youtu.be/2c3-VVouW_c" },
+        { categoryId: "program21", order: 10, title: "10. Energy 2", url: "https://youtu.be/MYtdc366TkE" },
+        { categoryId: "program21", order: 11, title: "11. Intermittent Fasting", url: "https://youtu.be/aUJmi_Y3hp0" },
+        { categoryId: "program21", order: 12, title: "12. Intro", url: "https://youtu.be/2qFx3wU4-bg" },
+        { categoryId: "program21", order: 13, title: "13. Low carb high good fats diet", url: "https://youtu.be/w6w38HfWrQc" },
+        { categoryId: "program21", order: 14, title: "14. Movement", url: "https://youtu.be/03S2vBNrnVE" },
+        { categoryId: "program21", order: 15, title: "15. Outro", url: "https://youtu.be/YGvFhWgXqLQ" },
+        { categoryId: "program21", order: 16, title: "16. Self Observation", url: "https://youtu.be/UDWK1uJd6XQ" },
+        { categoryId: "program21", order: 17, title: "17. Sleep I", url: "https://youtu.be/8pvs1SVpV9M" },
+        { categoryId: "program21", order: 18, title: "18. Sleep II Powernap", url: "https://youtu.be/eIpNNGz7J10" },
+        { categoryId: "program21", order: 19, title: "19. Soul Food", url: "https://youtu.be/BMhVVezT_Hs" },
+        { categoryId: "program21", order: 20, title: "20. Time management", url: "https://youtu.be/ZZvA7pnXDq0" },
+        { categoryId: "program21", order: 21, title: "21. Longterm Fasting", url: "https://youtu.be/384YBA6WGUA" }
+      ]
+    };
+
+    function ytIdFromUrl(url) {
       try {
         const u = new URL(url);
         if (u.hostname.includes("youtu.be")) return u.pathname.replace("/", "").trim();
@@ -219,49 +280,62 @@
         return v ? v.trim() : "";
       } catch (e) { return ""; }
     }
-    function fcYtThumb(id) { return `https://img.youtube.com/vi/${id}/hqdefault.jpg`; }
-    function fcYtEmbed(id) { return `https://www.youtube-nocookie.com/embed/${id}?rel=0&modestbranding=1`; }
+    function ytThumb(id) { return `https://img.youtube.com/vi/${id}/hqdefault.jpg`; }
+    function ytEmbed(id) { return `https://www.youtube-nocookie.com/embed/${id}?rel=0&modestbranding=1`; }
 
-    function fcLoadWatched() {
+    function loadWatched() {
       try { return JSON.parse(localStorage.getItem(FC_STORAGE_KEY) || "{}"); }
       catch (e) { return {}; }
     }
-    function fcSaveWatched(obj) { localStorage.setItem(FC_STORAGE_KEY, JSON.stringify(obj)); }
+    function saveWatched(obj) { localStorage.setItem(FC_STORAGE_KEY, JSON.stringify(obj)); }
 
     // Elements
-    const fcCats = document.getElementById("fc_cats");
-    const fcList = document.getElementById("fc_list");
-    const fcQ = document.getElementById("fc_q");
-    const fcSort = document.getElementById("fc_sort");
-    const fcReset = document.getElementById("fc_reset");
+    const elCats = document.getElementById("fc_cats");
+    const elList = document.getElementById("fc_list");
+    const elQ = document.getElementById("fc_q");
+    const elSort = document.getElementById("fc_sort");
+    const elReset = document.getElementById("fc_reset");
 
-    const fcNowKicker = document.getElementById("fc_nowKicker");
-    const fcNowTitle = document.getElementById("fc_nowTitle");
-    const fcPlayer = document.getElementById("fc_player");
-    const fcOpenYT = document.getElementById("fc_openYT");
-    const fcWatchedToggle = document.getElementById("fc_watchedToggle");
+    const elNowKicker = document.getElementById("fc_nowKicker");
+    const elNowTitle = document.getElementById("fc_nowTitle");
+    const elPlayer = document.getElementById("fc_player");
+    const elOpenYT = document.getElementById("fc_openYT");
+    const elWatchedToggle = document.getElementById("fc_watchedToggle");
 
-    const fcBar = document.getElementById("fc_bar");
-    const fcProgressText = document.getElementById("fc_progressText");
+    const elBar = document.getElementById("fc_bar");
+    const elProgressText = document.getElementById("fc_progressText");
 
     // State
-    let fcCategories = [];
-    let fcVideos = [];
-    let fcActiveCategory = "all";
-    let fcActiveVideoId = null;
-    let fcWatched = fcLoadWatched();
+    const categories = FC_DATA.categories.slice();
+    const catMap = new Map(categories.map(c => [c.id, c.label]));
+    let watched = loadWatched();
 
-    function fcIsWatched(id) { return fcWatched[id] ? 1 : 0; }
+    const videos = FC_DATA.videos.map((v, idx) => {
+      const id = ytIdFromUrl(v.url);
+      return {
+        id,
+        url: v.url,
+        title: v.title,
+        categoryId: v.categoryId,
+        categoryLabel: catMap.get(v.categoryId) || "Other",
+        order: (typeof v.order === "number") ? v.order : (idx + 1)
+      };
+    }).filter(v => v.id);
 
-    function fcRenderCategories() {
-      const counts = { all: fcVideos.length };
-      fcCategories.forEach(c => counts[c.id] = 0);
-      fcVideos.forEach(v => counts[v.categoryId] = (counts[v.categoryId] || 0) + 1);
+    let activeCategory = "all";
+    let activeVideoId = null;
 
-      const items = [{ id: "all", label: "All videos" }, ...fcCategories];
+    function isWatched(id) { return watched[id] ? 1 : 0; }
 
-      fcCats.innerHTML = items.map(item => {
-        const active = item.id === fcActiveCategory ? "active" : "";
+    function renderCategories() {
+      const counts = { all: videos.length };
+      categories.forEach(c => counts[c.id] = 0);
+      videos.forEach(v => counts[v.categoryId] = (counts[v.categoryId] || 0) + 1);
+
+      const items = [{ id: "all", label: "All videos" }, ...categories];
+
+      elCats.innerHTML = items.map(item => {
+        const active = item.id === activeCategory ? "active" : "";
         const n = counts[item.id] || 0;
         return `
           <div class="fc-cat ${active}" data-cat="${item.id}" role="button" tabindex="0">
@@ -271,12 +345,12 @@
         `;
       }).join("");
 
-      fcCats.querySelectorAll(".fc-cat").forEach(node => {
+      elCats.querySelectorAll(".fc-cat").forEach(node => {
         node.addEventListener("click", () => {
-          fcActiveCategory = node.dataset.cat;
-          fcRenderCategories();
-          fcRenderList();
-          fcUpdateProgress();
+          activeCategory = node.dataset.cat;
+          renderCategories();
+          renderList();
+          updateProgress();
         });
         node.addEventListener("keydown", (e) => {
           if (e.key === "Enter" || e.key === " ") { e.preventDefault(); node.click(); }
@@ -284,41 +358,41 @@
       });
     }
 
-    function fcGetFilteredVideos() {
-      const q = (fcQ.value || "").trim().toLowerCase();
-      let vids = fcVideos.slice();
+    function getFilteredVideos() {
+      const q = (elQ.value || "").trim().toLowerCase();
+      let vids = videos.slice();
 
-      if (fcActiveCategory !== "all") vids = vids.filter(v => v.categoryId === fcActiveCategory);
+      if (activeCategory !== "all") vids = vids.filter(v => v.categoryId === activeCategory);
       if (q) vids = vids.filter(v => v.title.toLowerCase().includes(q));
 
-      const mode = fcSort.value;
+      const mode = elSort.value;
       if (mode === "az") vids.sort((a,b) => a.title.localeCompare(b.title));
-      else if (mode === "watched") vids.sort((a,b) => (fcIsWatched(b.id) - fcIsWatched(a.id)) || (a.order - b.order));
-      else if (mode === "unwatched") vids.sort((a,b) => (fcIsWatched(a.id) - fcIsWatched(b.id)) || (a.order - b.order));
-      else vids.sort((a,b) => a.order - b.order;
+      else if (mode === "watched") vids.sort((a,b) => (isWatched(b.id) - isWatched(a.id)) || (a.order - b.order));
+      else if (mode === "unwatched") vids.sort((a,b) => (isWatched(a.id) - isWatched(b.id)) || (a.order - b.order));
+      else vids.sort((a,b) => a.order - b.order);
 
       return vids;
     }
 
-    function fcRenderList() {
-      const vids = fcGetFilteredVideos();
+    function renderList() {
+      const vids = getFilteredVideos();
       if (!vids.length) {
-        fcList.innerHTML = `<div class="fc-empty">No video matches your search in this section.</div>`;
+        elList.innerHTML = `<div class="fc-empty">No video matches your search in this section.</div>`;
         return;
       }
 
-      fcList.innerHTML = vids.map(v => {
-        const w = fcIsWatched(v.id);
+      elList.innerHTML = vids.map(v => {
+        const w = isWatched(v.id);
         return `
           <article class="fc-item ${w ? "watched" : ""}" data-id="${v.id}">
             <div class="fc-thumb">
-              <img src="${fcYtThumb(v.id)}" alt="YouTube thumbnail">
+              <img src="${ytThumb(v.id)}" alt="YouTube thumbnail">
               <div class="fc-play">Play</div>
             </div>
             <div class="fc-meta">
               <div>
-                <div class="title">${v.title}</div>
-                <div class="sub">${v.categoryLabel} • ${w ? "Watched" : "Not watched"}</div>
+                <div class="title">${escapeHtml(v.title)}</div>
+                <div class="sub">${escapeHtml(v.categoryLabel)} • ${w ? "Watched" : "Not watched"}</div>
               </div>
               <label class="fc-check" title="Mark as watched without opening" style="opacity:.9">
                 <input type="checkbox" data-check="${v.id}" ${w ? "checked" : ""} />
@@ -328,111 +402,95 @@
         `;
       }).join("");
 
-      // Open video on card click
-      fcList.querySelectorAll(".fc-item").forEach(card => {
+      elList.querySelectorAll(".fc-item").forEach(card => {
         card.addEventListener("click", (e) => {
           if (e.target && e.target.matches('input[type="checkbox"]')) return;
-          fcSetActiveVideo(card.dataset.id);
+          setActiveVideo(card.dataset.id);
         });
       });
 
-      // Toggle watched from list checkbox
-      fcList.querySelectorAll('input[data-check]').forEach(chk => {
+      elList.querySelectorAll('input[data-check]').forEach(chk => {
         chk.addEventListener("click", (e) => e.stopPropagation());
         chk.addEventListener("change", () => {
           const id = chk.dataset.check;
-          fcWatched[id] = chk.checked;
-          fcSaveWatched(fcWatched);
-          fcRenderList();
-          fcUpdateProgress();
-          fcSyncTopToggle();
+          watched[id] = chk.checked;
+          saveWatched(watched);
+          renderList();
+          updateProgress();
+          syncTopToggle();
         });
       });
     }
 
-    function fcSetActiveVideo(id) {
-      const v = fcVideos.find(x => x.id === id);
+    function setActiveVideo(id) {
+      const v = videos.find(x => x.id === id);
       if (!v) return;
 
-      fcActiveVideoId = id;
-      fcNowKicker.textContent = v.categoryLabel;
-      fcNowTitle.textContent = v.title;
+      activeVideoId = id;
+      elNowKicker.textContent = v.categoryLabel;
+      elNowTitle.textContent = v.title;
 
-      fcPlayer.src = fcYtEmbed(v.id);
+      elPlayer.src = ytEmbed(v.id);
 
-      fcOpenYT.disabled = false;
-      fcOpenYT.onclick = () => window.open(v.url, "_blank", "noopener,noreferrer");
+      elOpenYT.disabled = false;
+      elOpenYT.onclick = () => window.open(v.url, "_blank", "noopener,noreferrer");
 
-      fcWatchedToggle.disabled = false;
-      fcWatchedToggle.checked = !!fcWatched[id];
-      fcWatchedToggle.onchange = () => {
-        fcWatched[id] = fcWatchedToggle.checked;
-        fcSaveWatched(fcWatched);
-        fcRenderList();
-        fcUpdateProgress();
+      elWatchedToggle.disabled = false;
+      elWatchedToggle.checked = !!watched[id];
+      elWatchedToggle.onchange = () => {
+        watched[id] = elWatchedToggle.checked;
+        saveWatched(watched);
+        renderList();
+        updateProgress();
       };
     }
 
-    function fcSyncTopToggle() {
-      if (!fcActiveVideoId) return;
-      fcWatchedToggle.checked = !!fcWatched[fcActiveVideoId];
+    function syncTopToggle() {
+      if (!activeVideoId) return;
+      elWatchedToggle.checked = !!watched[activeVideoId];
     }
 
-    function fcUpdateProgress() {
-      const vids = (fcActiveCategory === "all")
-        ? fcVideos
-        : fcVideos.filter(v => v.categoryId === fcActiveCategory);
+    function updateProgress() {
+      const vids = (activeCategory === "all")
+        ? videos
+        : videos.filter(v => v.categoryId === activeCategory);
 
       const total = vids.length;
-      const done = vids.reduce((acc, v) => acc + (fcWatched[v.id] ? 1 : 0), 0);
+      const done = vids.reduce((acc, v) => acc + (watched[v.id] ? 1 : 0), 0);
       const pct = total ? Math.round((done / total) * 100) : 0;
 
-      fcBar.style.width = pct + "%";
-      fcProgressText.textContent = total ? `${done} / ${total} watched (${pct}%)` : "—";
+      elBar.style.width = pct + "%";
+      elProgressText.textContent = total ? `${done} / ${total} watched (${pct}%)` : "—";
     }
 
-    async function fcInit() {
-      const res = await fetch(FC_DATA_URL, { cache: "no-store" });
-      const raw = await res.json();
+    function escapeHtml(s) {
+      return (s || "").replace(/[&<>"']/g, c => ({
+        "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;"
+      }[c]));
+    }
 
-      fcCategories = (raw.categories || []);
-      const catMap = new Map(fcCategories.map(c => [c.id, c.label]));
+    // Init
+    function init() {
+      renderCategories();
+      renderList();
+      updateProgress();
 
-      fcVideos = (raw.videos || []).map((v, idx) => {
-        const id = fcYtIdFromUrl(v.url) || v.id || "";
-        return {
-          id,
-          url: v.url,
-          title: v.title,
-          categoryId: v.categoryId,
-          categoryLabel: catMap.get(v.categoryId) || "Other",
-          order: typeof v.order === "number" ? v.order : (idx + 1)
-        };
-      }).filter(v => v.id);
+      if (videos[0]) setActiveVideo(videos[0].id);
 
-      fcRenderCategories();
-      fcRenderList();
-      fcUpdateProgress();
+      elQ.addEventListener("input", () => renderList());
+      elSort.addEventListener("change", () => renderList());
 
-      if (fcVideos[0]) fcSetActiveVideo(fcVideos[0].id);
-
-      fcQ.addEventListener("input", () => fcRenderList());
-      fcSort.addEventListener("change", () => fcRenderList());
-
-      fcReset.addEventListener("click", () => {
+      elReset.addEventListener("click", () => {
         if (!confirm("Reset watched progress for all videos on this device?")) return;
-        fcWatched = {};
-        fcSaveWatched(fcWatched);
-        fcRenderList();
-        fcUpdateProgress();
-        fcSyncTopToggle();
+        watched = {};
+        saveWatched(watched);
+        renderList();
+        updateProgress();
+        syncTopToggle();
       });
     }
 
-    fcInit().catch(err => {
-      console.error(err);
-      fcList.innerHTML = `<div class="fc-empty">Could not load the video list. Please check that <b>fasting-coach.json</b> is next to this HTML file.</div>`;
-    });
+    init();
   </script>
 </body>
 </html>

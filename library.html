@@ -113,19 +113,36 @@
       line-height: 1;
     }
     .btn-mini:hover { border-color: rgba(91,194,231,0.45); opacity: 1; text-decoration:none; }
+
+    /* NEW: clickable status button */
+    .status-btn {
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      border: 1px solid rgba(255,255,255,0.14);
+      border-radius: 999px;
+      padding: 6px 10px;
+      background: rgba(255,255,255,0.03);
+      color: inherit;
+      font-size: 11px;
+      opacity: .90;
+      text-decoration: none;
+      line-height: 1;
+      cursor: pointer;
+      user-select:none;
+    }
+    .status-btn:hover { border-color: rgba(91,194,231,0.45); opacity: 1; text-decoration:none; }
+    .status-btn.pub { border-color: rgba(119,242,183,0.35); background: rgba(119,242,183,0.08); }
+    .status-btn.pre { border-color: rgba(255,210,138,0.35); background: rgba(255,210,138,0.08); }
+    .status-btn.disabled {
+      opacity: .55;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
     .yt-dot { width: 8px; height: 8px; border-radius: 999px; background: rgba(255, 80, 80, 0.95); display:inline-block; }
 
     .study-title { margin: 10px 0 0; font-size: 14px; line-height: 1.25; }
-
-    .chip-row { margin-top: 10px; display:flex; gap:6px; flex-wrap:wrap; }
-    .chip {
-      font-size: 11px;
-      padding: 6px 8px;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,0.14);
-      background: rgba(255,255,255,0.03);
-      opacity: .9;
-    }
 
     details.findings { margin-top: 12px; }
     details.findings summary { cursor:pointer; font-size: 12px; opacity: .85; }
@@ -280,16 +297,16 @@
             const card = document.createElement("div");
             card.className = "study-card";
 
-            const badgeClass = s.published ? "badge pub" : "badge pre";
-            const badgeText = s.published ? "Published / Link" : "Preprint / No link";
+            const statusClass = s.published ? "status-btn pub" : "status-btn pre";
 
-            const chips = (s.topics || []).slice(0, 6)
-              .map(k => `<span class="chip">${esc(topicLabel(k))}</span>`)
-              .join("");
+            // NEW: status button is clickable if link exists, otherwise disabled
+            const statusText = s.published
+              ? (s.link ? "Published / Link" : "Published / No link")
+              : (s.link ? "Preprint / Link" : "Preprint / No link");
 
-            const more = (s.topics || []).length > 6
-              ? `<span class="chip">+${(s.topics.length - 6)}</span>`
-              : "";
+            const statusBtn = s.link
+              ? `<a class="${statusClass}" href="${esc(s.link)}" target="_blank" rel="noopener">${statusText}</a>`
+              : `<span class="${statusClass} disabled" aria-disabled="true">${statusText}</span>`;
 
             const bullets = (s.bullets || []).map(b => `<li>${esc(b)}</li>`).join("");
 
@@ -304,15 +321,13 @@
             card.innerHTML = `
               <div class="study-top">
                 <div class="badge-row">
-                  <span class="${badgeClass}">${badgeText}</span>
+                  ${statusBtn}
                   <span class="badge">${s.year || "—"}</span>
                 </div>
                 ${ytBtn}
               </div>
 
               <h3 class="study-title">${esc(s.title)}</h3>
-
-              <div class="chip-row">${chips}${more}</div>
 
               <details class="findings">
                 <summary>Show key findings</summary>

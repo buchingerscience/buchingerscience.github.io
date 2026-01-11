@@ -7,7 +7,7 @@ const loadBtn = document.getElementById("loadNewsletterBtn");
 
 // Update this to your real path pattern:
 function getNewsletterUrl(year, month) {
-  return `data/newsletters/${year}.${month}.json`;
+  return `newsletters/${year}.${month}.json`;
 }
 
 function escapeHtml(str = "") {

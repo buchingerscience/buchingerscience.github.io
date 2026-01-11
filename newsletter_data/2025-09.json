@@ -2,50 +2,43 @@
   "title": "Recent Research on Fasting and Calorie Restriction",
   "month": "September",
   "year": 2025,
-  "editorial": "This issue highlights new insights into how calorie restriction and intermittent fasting reshape adipose tissue, muscle stem cell biology, eye and bone health, dietary patterns, and cancer care. Together, these studies illustrate the systemic and tissue-specific coordination of metabolic rhythms.",
+  "editorial": "This issue brings together recent studies exploring how fasting, calorie restriction, ketogenic diets, and eating rhythms influence fertility, inflammation, brain health, liver metabolism, microbiota, and cardiometabolic risk. Several papers also highlight the importance of structure, predictability, and individual context when applying fasting strategies.",
   "studies": [
     {
       "number": 1,
-      "title": "Caloric restriction reprograms adipose tissues in rhesus monkeys",
-      "summary": "In rhesus monkeys, long-term caloric restriction profoundly remodeled adipose tissue metabolism, improving mitochondrial function and reducing inflammatory signaling.",
-      "commentary": "These findings reinforce the translational relevance of primate models for understanding long-term metabolic adaptation to calorie restriction.",
-      "link": "https://pubmed.ncbi.nlm.nih.gov/41042069/"
+      "title": "Very-low-calorie ketogenic diet before IVF",
+      "summary": "In a case series of forty women with overweight, a three-month very-low-calorie ketogenic diet led to substantial weight loss without muscle loss. Eleven women conceived naturally before IVF, and among the remaining participants the pregnancy rate reached 58%.",
+      "commentary": "Beyond weight loss, short and structured dietary interventions may enhance fertility and metabolic health.",
+      "link": ""
     },
     {
       "number": 2,
-      "title": "The central clock drives metabolic rhythms in muscle stem cells",
-      "summary": "This study showed that the circadian clock orchestrates metabolic rhythms in muscle stem cells, regulating their activation, maintenance, and regenerative capacity.",
-      "commentary": "Muscle health depends not only on energy availability, but also on precise temporal coordination of metabolism.",
-      "link": "https://pubmed.ncbi.nlm.nih.gov/41037398/"
+      "title": "Gut microbes that reduce fat mass",
+      "summary": "Researchers identified gut bacteria producing two molecules associated with lower fat mass in humans. In mice, these molecules improved glucose control, reduced body fat, increased GLP-1 secretion, and lowered hepatic glucose production.",
+      "commentary": "The gut microbiota may provide new metabolic signals that mimic some effects of weight-loss drugs.",
+      "link": ""
     },
     {
       "number": 3,
-      "title": "Intermittent fasting protects against retinal degeneration",
-      "summary": "In a mouse model of age-related macular degeneration, intermittent fasting reduced glial hyperactivation and preserved photoreceptor structure.",
-      "commentary": "Fasting rhythms may offer neuroprotective benefits for age-related eye diseases.",
-      "link": "https://pubmed.ncbi.nlm.nih.gov/41034378/"
+      "title": "Spermidine mimics fasting to reduce crystal-driven inflammation",
+      "summary": "In mouse models of crystal-induced inflammation, fasting twice weekly reduced swelling and inflammation. Spermidine reproduced these effects by inhibiting the NLRP3 inflammasome.",
+      "commentary": "Specific fasting-related metabolites may drive anti-inflammatory benefits independently of energy restriction.",
+      "link": ""
     },
     {
       "number": 4,
-      "title": "Intermittent fasting improves diabetic osteoporosis via interorgan communication",
-      "summary": "Intermittent fasting slowed the progression of diabetic osteoporosis in mice by coordinating signaling between the gut, bone, and metabolic tissues.",
-      "commentary": "These results highlight fasting as a systemic intervention acting through interorgan crosstalk.",
-      "link": "https://pubmed.ncbi.nlm.nih.gov/41025329/"
+      "title": "Intermittent fasting protects synapses and memory in vascular dementia",
+      "summary": "In a mouse model of vascular dementia, daily 16-hour fasting preserved memory, synaptic integrity, and reduced microglial overactivation.",
+      "commentary": "Fasting rhythms may support brain resilience by stabilising synaptic maintenance and immune activity.",
+      "link": ""
     },
     {
       "number": 5,
-      "title": "South Asian dietary pattern supports calorie restriction in young adults",
-      "summary": "A randomized controlled trial in young adults with overweight showed that a South Asian food pattern was effective within a calorie-restricted diet for weight management.",
-      "commentary": "Culturally adapted diets can support calorie restriction without compromising adherence.",
-      "link": "https://pubmed.ncbi.nlm.nih.gov/41024141/"
+      "title": "Tirzepatide combined with ketogenic nutrition improves fatty liver disease",
+      "summary": "In patients with fatty liver disease treated with tirzepatide, a low-energy ketogenic diet led to greater reductions in liver fat and stiffness compared with a standard low-calorie diet.",
+      "commentary": "Combining pharmacological and nutritional ketosis may amplify liver-specific benefits.",
+      "link": ""
     },
     {
       "number": 6,
-      "title": "Intermittent energy restriction during chemotherapy for breast cancer",
-      "summary": "In a phase-2 trial, intermittent energy restriction combined with resistance exercise was tested during chemotherapy for advanced breast cancer.",
-      "commentary": "This study explores how metabolic interventions may complement cancer treatment while preserving physical function.",
-      "link": "https://pubmed.ncbi.nlm.nih.gov/40745221/"
-    }
-  ],
-  "closing_note": "As usual, feel free to comment, raise questions, or share this issue to help spread awareness about the science of fasting."
-}
+      "title": "When microbes starve: fasti

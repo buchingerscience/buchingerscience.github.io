@@ -1,98 +1,269 @@
-<!-- Sidebar navigation (replaces the top nav) -->
-<aside class="sidebar" id="sidebar" aria-label="Main navigation">
-  <div class="sidebar-top">
-    <a class="sidebar-logo" href="index.html">Buchinger Science</a>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Buchinger Science – Home</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Chart.js library for pages that require charts -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
 
-    <button class="sidebar-toggle" id="sidebarToggle" type="button" aria-label="Toggle menu" aria-expanded="false">
-      ☰
-    </button>
-  </div>
-
-  <nav class="sidebar-nav">
-    <a class="sidebar-link is-active" href="index.html">Home</a>
-
-    <button class="sidebar-group-btn" type="button" aria-expanded="false">
-      Explore
-      <span class="chev" aria-hidden="true">▾</span>
-    </button>
-    <div class="sidebar-group">
-      <a class="sidebar-sublink" href="#journey">Fasting Journey</a>
-      <a class="sidebar-sublink" href="#studies">Featured Studies</a>
-      <a class="sidebar-sublink" href="https://dash.buchinger-science.com">Metabolic Explorer</a>
-    </div>
-
-    <button class="sidebar-group-btn" type="button" aria-expanded="false">
-      Library
-      <span class="chev" aria-hidden="true">▾</span>
-    </button>
-    <div class="sidebar-group">
-      <a class="sidebar-sublink" href="library.html">Research Library</a>
-      <a class="sidebar-sublink" href="newsletter.html">Newsletters</a>
-      <a class="sidebar-sublink" href="videos.html">Amplius Videos</a>
-    </div>
-
-    <button class="sidebar-group-btn" type="button" aria-expanded="false">
-      About
-      <span class="chev" aria-hidden="true">▾</span>
-    </button>
-    <div class="sidebar-group">
-      <a class="sidebar-sublink" href="method.html">Our Method</a>
-      <a class="sidebar-sublink" href="contact.html">Contact</a>
-    </div>
+<body>
+  <!-- Navigation bar linking to other pages -->
+  <nav>
+    <div class="logo">Buchinger Science</div>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="https://dash.buchinger-science.com">Metabolic Explorer</a></li>
+      <li><a href="https://staging.buchinger-wilhelmi.com">Weight loss estimator</a></li>
+      <li><a href="library.html">Research Library</a></li>
+      <li><a href="newsletter.html">Newsletters</a></li>
+      <li><a href="videos.html">Amplius Videos</a></li>
+      <li><a href="fastingcoach.html">Fasting Coach</a></li>
+      <li><a href="contact.html">About us</a></li>
+    </ul>
   </nav>
-</aside>
 
-<!-- Page overlay for mobile -->
-<div class="sidebar-overlay" id="sidebarOverlay" hidden></div>
+  <!-- Hero Section -->
+  <section id="home" class="hero" style="background-image: url('hero.png');">
+    <div class="content">
+      <h1>Embark on Your Fasting Journey</h1>
+      <p>
+        Dive inside the scientific data from the medical clinic where fasting is tracked, tested, and published. 
+        In a world of fake news selling hope, we do not play with your health. 
+        We measure it, to build personalised preventive medicine.
+      </p>
+            <p>
+In collaboration with top universities, we scientifically document how Buchinger fasting is one of the most effective health interventions to reset metabolic and physiological health in as little as two weeks.     
+            </p>
+      <a href="contact.html" class="cta-button">More about us</a>
+    </div>
+  </section>
 
-<!-- Wrap your existing page content in this container (right column) -->
-<div class="page">
+  <!-- NEW: Fasting Journey Explorer (slider-based, styled to match your site) -->
+  <section id="journey" class="journey-explorer">
+    <div class="journey-header">
+      <h2>Fasting Journey Explorer</h2>
+      <p>
+        Slide to see the main biological phases of fasting. This is a simplified overview, designed for clarity.
+      </p>
+    </div>
 
+    <div class="journey-slider-wrap">
+      <input type="range" min="1" max="21" value="1" class="journey-slider" id="fastingSlider" aria-label="Fasting day slider">
+      <div class="journey-ticks" aria-hidden="true">
+        <span>Day 1</span>
+        <span>Day 7</span>
+        <span>Day 14</span>
+        <span>Day 21</span>
+      </div>
+    </div>
 
+    <div class="journey-grid">
+      <div class="journey-visual" role="group" aria-label="Selected day summary">
+        <div class="journey-day" id="stat-value">Day 1</div>
+        <div class="journey-label" id="stat-label">Initial transition</div>
+      </div>
 
-  <script>
-  // Sidebar: dropdown groups + mobile open/close
-  const sidebar = document.getElementById('sidebar');
-  const sidebarToggle = document.getElementById('sidebarToggle');
-  const sidebarOverlay = document.getElementById('sidebarOverlay');
+      <div class="journey-copy">
+        <h3 id="stage-title">Metabolic switch</h3>
+        <p id="stage-description">
+          Your body starts shifting from sugar to fat-burning. Insulin levels begin to drop.
+        </p>
 
-  // Dropdown groups
-  document.querySelectorAll('.sidebar-group-btn').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const group = btn.nextElementSibling;
-      const isOpen = group.classList.toggle('is-open');
-      btn.setAttribute('aria-expanded', String(isOpen));
-    });
-  });
+        <div class="journey-markers" aria-label="Key markers">
+          <span class="journey-chip" id="marker-1">Glucose ↓</span>
+          <span class="journey-chip journey-chip--alt" id="marker-2">Insulin ↓</span>
+        </div>
+      </div>
+    </div>
+  </section>
 
-  // Mobile toggle
-  function openSidebar() {
-    sidebar.classList.add('is-open');
-    sidebarToggle?.setAttribute('aria-expanded', 'true');
-    sidebarOverlay.hidden = false;
+  <!-- List of studies on the landing page -->
+  <section id="studies">
+    <h2>Our Scientific Studies</h2>
+    <p>Below is a selection of our recent publications. Each card links to a detailed article in our research library.</p>
+
+    <div class="articles-grid">
+      <div class="article-card">
+        <img src="featured_article_1.png" alt="Remodelling of the gut virome after long-term fasting">
+        <div class="card-body">
+          <h3>Remodelling of the gut virome after long-term fasting</h3>
+          <p class="authors">Natalie Falshaw, Quinten R Ducarmon, Alexandra King, Franziska Grundler, Robin Mesnage</p>
+          <p class="journal">medRxiv. <a href="https://doi.org/10.1101/2025.12.19.25342476" target="_blank" rel="noopener">DOI: 10.1101/2025.12.19.25342476</a></p>
+          <a href="library.html">Learn more</a>
+        </div>
+      </div>
+
+      <div class="article-card">
+        <img src="featured_article_2.png" alt="Revisiting the (anti)inflammatory effects of prolonged fasting">
+        <div class="card-body">
+          <h3>Revisiting the (anti)inflammatory effects of prolonged fasting: the importance of baseline-dependent responses</h3>
+          <p class="authors">Robin Mesnage, Franziska Grundler, Françoise Wilhelmi de Toledo</p>
+          <p class="journal">Frontiers in Nutrition – Nutritional Immunology. <a href="https://doi.org/10.3389/fnut.2025.1715341" target="_blank" rel="noopener">DOI: 10.3389/fnut.2025.1715341</a></p>
+          <a href="library.html">Learn more</a>
+        </div>
+      </div>
+
+      <div class="article-card">
+        <img src="featured_article_3.png" alt="Long-term fasting autonomic nervous system modulation in GENESIS">
+        <div class="card-body">
+          <h3>Long-term fasting-induced parasympathetic and sympathetic autonomic nervous system modulation in a subgroup of the GENESIS study</h3>
+          <p class="authors">Mesnage R, Alfred Holley, Franziska Grundler, Borja Martinez-Tellez, Françoise Wilhelmi de Toledo &amp; Pierre Croisille</p>
+          <p class="journal">International Journal of Obesity. <a href="https://doi.org/10.1038/s41366-025-01843-0" target="_blank" rel="noopener">DOI: 10.1038/s41366-025-01843-0</a></p>
+          <a href="library.html">Learn more</a>
+        </div>
+      </div>
+    </div>
+
+<div class="studies-cta">
+  <a href="library.html" class="cta-button cta-button--large">See all studies</a>
+</div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2026 Buchinger Science. All rights reserved.</p>
+  </footer>
+
+  <!-- Common scripts -->
+  <script src="script.js"></script>
+
+  <!-- Journey Explorer script -->
+<script>
+  const slider = document.getElementById('fastingSlider');
+  const statValue = document.getElementById('stat-value');
+  const statLabel = document.getElementById('stat-label');
+  const stageTitle = document.getElementById('stage-title');
+  const stageDescription = document.getElementById('stage-description');
+
+  // Optional container in your HTML:
+  // <div id="metrics"></div>
+  // <div id="data-note"></div>
+  const metricsWrap = document.getElementById('metrics');
+  const dataNote = document.getElementById('data-note');
+
+  // Helper formatting
+  function fmtDelta(x) {
+    if (x === null || x === undefined) return "—";
+    const sign = x > 0 ? "+" : "";
+    return sign + x;
   }
 
-  function closeSidebar() {
-    sidebar.classList.remove('is-open');
-    sidebarToggle?.setAttribute('aria-expanded', 'false');
-    sidebarOverlay.hidden = true;
+  function fmtRange(r) {
+    if (!r || r.low === null || r.high === null || r.low === undefined || r.high === undefined) return "";
+    return ` (${r.low} to ${r.high})`;
   }
 
-  sidebarToggle?.addEventListener('click', () => {
-    const isOpen = sidebar.classList.contains('is-open');
-    isOpen ? closeSidebar() : openSidebar();
+  // Core idea: numbers + uncertainty + units + timepoint + cohort note
+  const stages = {
+    1: {
+      title: "Metabolic switch",
+      label: "Early metabolic transition",
+      desc: "Fuel use begins shifting from glucose to fat oxidation. Insulin demand decreases, and ketones start rising.",
+      timeWindow: "Typical by day 1–3",
+      cohortNote: "Medically supervised long-term fasting cohort (Buchinger Wilhelmi).",
+      metrics: [
+        { key: "Glucose", unit: "mmol/L", delta: null, range: {low: null, high: null}, note: "Change vs baseline" },
+        { key: "Insulin", unit: "µIU/mL", delta: null, range: {low: null, high: null}, note: "Change vs baseline" },
+        { key: "BHB (ketones)", unit: "mmol/L", delta: null, range: {low: null, high: null}, note: "Often rising rapidly" }
+      ]
+    },
+    7: {
+      title: "Cellular recycling",
+      label: "Fat-based metabolism established",
+      desc: "Ketone availability is higher and energy supply is stable. Cellular stress-response and recycling pathways are more active.",
+      timeWindow: "Typical by day 4–10",
+      cohortNote: "Add endpoint note: measured at end-of-fast or during fast (specify).",
+      metrics: [
+        { key: "BHB (ketones)", unit: "mmol/L", delta: null, range: {low: null, high: null}, note: "Peak varies with activity and baseline glycogen" },
+        { key: "Triglycerides", unit: "mmol/L", delta: null, range: {low: null, high: null}, note: "Change vs baseline" },
+        { key: "Waist circumference", unit: "cm", delta: null, range: {low: null, high: null}, note: "Change vs baseline" }
+      ]
+    },
+    14: {
+      title: "Systemic calm",
+      label: "Inflammatory tone may decrease",
+      desc: "In many participants, inflammatory markers and cardiometabolic risk factors improve, especially when baseline values are elevated.",
+      timeWindow: "Typical by day 10–14",
+      cohortNote: "Consider showing ‘All’ vs ‘High baseline’ toggle for CRP and similar markers.",
+      metrics: [
+        { key: "CRP", unit: "mg/L", delta: null, range: {low: null, high: null}, note: "Stronger effect when baseline CRP is elevated" },
+        { key: "Systolic BP", unit: "mmHg", delta: null, range: {low: null, high: null}, note: "Change vs baseline" },
+        { key: "HbA1c", unit: "%", delta: null, range: {low: null, high: null}, note: "If measured post-fast (timepoint matters)" }
+      ]
+    },
+    21: {
+      title: "Regeneration signals",
+      label: "Longer adaptation phase",
+      desc: "With longer fasting, immune adaptation and recovery signals may become more visible. Effects are heterogeneous and depend on baseline and clinical context.",
+      timeWindow: "Typical by day 15–21+",
+      cohortNote: "Be careful with claims here; prefer measurable endpoints (immune cell counts, HRV, etc.) rather than ‘stem cells’.",
+      metrics: [
+        { key: "Resting heart rate", unit: "bpm", delta: null, range: {low: null, high: null}, note: "Change vs baseline" },
+        { key: "HRV (RMSSD)", unit: "ms", delta: null, range: {low: null, high: null}, note: "If available from GENESIS subgroup" },
+        { key: "Leukocytes", unit: "10⁹/L", delta: null, range: {low: null, high: null}, note: "Often decreases; interpret clinically" }
+      ]
+    }
+  };
+
+  function getStageForDay(day) {
+    if (day < 7) return stages[1];
+    if (day < 14) return stages[7];
+    if (day < 21) return stages[14];
+    return stages[21];
+  }
+
+  function renderMetrics(stage) {
+    if (!metricsWrap) return;
+
+    const rows = stage.metrics.map(m => {
+      const value = `${fmtDelta(m.delta)} ${m.unit}${fmtRange(m.range)}`;
+      const note = m.note ? `<div style="font-size:12px; opacity:.75; margin-top:2px;">${m.note}</div>` : "";
+      return `
+        <div style="padding:10px 12px; border:1px solid rgba(0,0,0,.08); border-radius:12px; margin-bottom:10px;">
+          <div style="display:flex; justify-content:space-between; gap:12px;">
+            <div style="font-weight:600;">${m.key}</div>
+            <div style="font-variant-numeric: tabular-nums; font-weight:600;">${value}</div>
+          </div>
+          ${note}
+        </div>
+      `;
+    }).join("");
+
+    metricsWrap.innerHTML = `
+      <div style="margin-top:14px;">
+        <div style="font-size:12px; opacity:.8; margin-bottom:10px;">
+          ${stage.timeWindow} • Values are change vs baseline (example format). Add CI/IQR when available.
+        </div>
+        ${rows}
+      </div>
+    `;
+  }
+
+  function updateJourney(day) {
+    statValue.textContent = "Day " + day;
+
+    const stage = getStageForDay(day);
+    statLabel.textContent = stage.label;
+    stageTitle.textContent = stage.title;
+    stageDescription.textContent = stage.desc;
+
+    renderMetrics(stage);
+
+    if (dataNote) {
+      dataNote.textContent = stage.cohortNote || "";
+    }
+  }
+
+  slider.addEventListener('input', (e) => {
+    updateJourney(parseInt(e.target.value, 10));
   });
 
-  sidebarOverlay?.addEventListener('click', closeSidebar);
-
-  // Close sidebar on mobile after clicking a link
-  document.querySelectorAll('.sidebar a').forEach((a) => {
-    a.addEventListener('click', () => {
-      if (window.matchMedia('(max-width: 980px)').matches) closeSidebar();
-    });
-  });
-
-  // Start with first group open (optional)
-  const firstGroupBtn = document.querySelector('.sidebar-group-btn');
-  if (firstGroupBtn) firstGroupBtn.click();
+  updateJourney(parseInt(slider.value, 10));
 </script>
+
+</body>
+</html>

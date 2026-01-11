@@ -1,12 +1,116 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Buchinger Science – About Us</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Page-local layout improvements (safe to keep here, or move into style.css later) -->
+  <style>
+    /* Keep these class names page-specific to avoid breaking other pages */
+    .about-wrap { max-width: 1100px; margin: 0 auto; padding: 34px 18px 56px; }
+    .about-lede { max-width: 820px; font-size: 14px; line-height: 1.6; opacity: .9; }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 22px;
+      align-items: start;
+      margin-top: 22px;
+    }
+    @media (max-width: 920px) { .about-grid { grid-template-columns: 1fr; } }
+
+    .panel {
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 16px;
+      padding: 18px;
+    }
+
+    .section-title { margin: 0 0 10px; font-size: 18px; }
+    .muted { opacity: .78; }
+
+    /* Visual timeline */
+    .timeline { margin: 0; padding: 0; list-style: none; display: grid; gap: 14px; }
+    .t-item { display: grid; grid-template-columns: 120px 1fr; gap: 14px; align-items: start; }
+    @media (max-width: 560px) { .t-item { grid-template-columns: 1fr; } }
+    .t-year {
+      font-size: 12px;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      opacity: .75;
+      padding-top: 4px;
+      white-space: nowrap;
+    }
+    .t-body p { margin: 0; line-height: 1.6; }
+
+    /* Photo placeholders */
+    .photo {
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      border-radius: 14px;
+      border: 1px dashed rgba(255,255,255,.22);
+      background: rgba(255,255,255,.03);
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 14px;
+      overflow: hidden;
+    }
+    .photo span { font-size: 12px; opacity: .8; }
+    .photo small { display: block; margin-top: 6px; opacity: .65; line-height: 1.4; }
+
+    .photo-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px; }
+    @media (max-width: 560px) { .photo-row { grid-template-columns: 1fr; } }
+
+    /* Quote / highlights */
+    .callout {
+      border-left: 3px solid rgba(91, 194, 231, .7);
+      padding-left: 14px;
+      margin: 0;
+      opacity: .95;
+    }
+    .callout p { margin: 0; line-height: 1.6; }
+    .kpis { display: grid; gap: 10px; margin-top: 14px; }
+    .kpi {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.08);
+      font-size: 13px;
+    }
+    .kpi b { font-weight: 600; }
+    .kpi span { opacity: .8; text-align: right; }
+
+    /* Contact card */
+    .contact-card { display:In; }
+    .contact-list { list-style: none; padding-left: 0; margin: 10px 0 0; display: grid; gap: 10px; }
+    .contact-list li { line-height: 1.5; }
+    .contact-list a { text-decoration: none; }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(255,255,255,.03);
+      font-size: 13px;
+    }
+
+    /* “Three pillars” cards */
+    .pillars { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 18px; }
+    @media (max-width: 920px) { .pillars { grid-template-columns: 1fr; } }
+    .pillar h3 { margin: 0 0 6px; font-size: 15px; }
+    .pillar p { margin: 0; font-size: 13px; line-height: 1.55; opacity: .9; }
+  </style>
 </head>
+
 <body>
   <nav>
     <div class="logo">Buchinger Science</div>
@@ -22,7 +126,7 @@
     </ul>
   </nav>
 
-  <!-- Hero section -->
+  <!-- Hero -->
   <section class="hero" style="background-image: url('hero.png');">
     <div class="content">
       <h1>About Us</h1>
@@ -33,130 +137,200 @@
     </div>
   </section>
 
-  <!-- About Us section -->
-  <section>
-    <h2>Our Scientific Path</h2>
+  <main class="about-wrap">
+    <header>
+      <h2 class="section-title">Our Scientific Path</h2>
+      <p class="about-lede">
+        The Buchinger Wilhelmi method was born from clinical observation and refined through science.
+        Our work follows a simple principle: care and research must remain connected, day after day.
+      </p>
+    </header>
 
-    <p>
-      Fasting has been used in our clinics for more than 100 years.
-      It began with Dr Otto Buchinger, who observed that carefully guided fasting
-      could cure the debilitating rheumatoid arthritis that had confined him to a wheelchair.
-    </p>
+    <section class="about-grid" aria-label="About layout">
+      <!-- LEFT: Story, structured as timeline + short paragraphs -->
+      <div class="panel">
+        <ul class="timeline">
+          <li class="t-item">
+            <div class="t-year">Early 20th century</div>
+            <div class="t-body">
+              <p>
+                Dr Otto Buchinger observed that carefully guided fasting could relieve the debilitating rheumatoid arthritis
+                that had confined him to a wheelchair. This clinical insight became the foundation of the method.
+              </p>
+            </div>
+          </li>
 
-    <p>
-      For a long time, this knowledge was mainly clinical.
-      Patients improved, doctors observed, and the method was transmitted through experience.
-    </p>
+          <li class="t-item">
+            <div class="t-year">Decades of practice</div>
+            <div class="t-body">
+              <p>
+                For a long time, knowledge was mainly clinical. Patients improved, doctors observed, and the method was transmitted
+                through experience.
+              </p>
+            </div>
+          </li>
 
-    <p>
-      Then medicine changed.
-      From the second half of the twentieth century, scientific evidence became essential.
-      At medical conferences, a simple question was asked more and more often:
-      where are your studies?
-    </p>
+          <li class="t-item">
+            <div class="t-year">Late 20th century</div>
+            <div class="t-body">
+              <p>
+                Medicine changed. Scientific evidence became essential. A simple question appeared more often:
+                where are your studies?
+              </p>
+            </div>
+          </li>
 
-    <p>
-      Dr Françoise Wilhelmi de Toledo took this question seriously.
-      Instead of defending tradition alone, she decided to build evidence.
-      She created a scientific department and developed strong connections with leading universities.
-    </p>
+          <li class="t-item">
+            <div class="t-year">Building evidence</div>
+            <div class="t-body">
+              <p>
+                Dr Françoise Wilhelmi de Toledo created a scientific department and developed strong connections with leading universities.
+                She trained a PhD student whose doctoral work was carried out at Charité Berlin, Dr Franziska Grundler,
+                bringing high academic standards directly into the clinic.
+              </p>
+            </div>
+          </li>
 
-    <p>
-      She trained a PhD student whose doctoral work was carried out at Charité Berlin,
-      Dr Franziska Grundler, bringing the highest academic standards directly into the clinic.
-      From that moment, fasting at Buchinger Wilhelmi was no longer only a medical practice.
-      It became a field of scientific research.
-    </p>
+          <li class="t-item">
+            <div class="t-year">What we measure</div>
+            <div class="t-body">
+              <p>
+                Over the years, thousands of patients followed the programme under medical supervision.
+                We studied what happened in their bodies: blood pressure, blood sugar, inflammation, muscle function,
+                the gut microbiome, and the nervous system.
+              </p>
+            </div>
+          </li>
 
-    <p>
-      Over the years, thousands of patients followed the programme under medical supervision.
-      We did not only care for them. We studied what happened in their bodies.
-      Blood pressure. Blood sugar. Inflammation. Muscle function.
-      The gut microbiome. The nervous system.
-    </p>
+          <li class="t-item">
+            <div class="t-year">A broader field</div>
+            <div class="t-body">
+              <p>
+                Research on fasting expanded globally. In 2016, the Nobel Prize in Medicine was awarded to Yoshinori Ohsumi
+                for discoveries on autophagy, a key cellular process linked to fasting biology.
+              </p>
+            </div>
+          </li>
 
-    <p>
-      This is how we learned that fasting is not just about weight loss.
-      It helps the body switch energy sources, calm inflammation, unload the liver,
-      and move from constant stress to recovery mode.
-    </p>
+          <li class="t-item">
+            <div class="t-year">Safety and adaptation</div>
+            <div class="t-body">
+              <p>
+                We also studied what people fear most: loss of muscle, weakness, and safety.
+                Using advanced tools such as MRI, metabolic measurements, and long-term follow-up,
+                we showed that when fasting is done properly, the body adapts and remains protected.
+                Potential adverse effects are known, expected, and medically managed.
+              </p>
+            </div>
+          </li>
 
-    <p>
-      What we observed was confirmed by the scientific community.
-      The number of research groups studying fasting increased steadily.
-      In 2016, the Nobel Prize in Medicine was awarded to Yoshinori Ohsumi
-      for his discoveries on autophagy, a key cellular regeneration process activated during fasting.
-    </p>
+          <li class="t-item">
+            <div class="t-year">Today</div>
+            <div class="t-body">
+              <p>
+                The scientific department is led by Dr Robin Mesnage. Research now extends to what happens after fasting,
+                during food reintroduction, and how patients can be supported when they return home.
+                We collaborate with institutions including King’s College London, ETH Zurich, Charité Berlin,
+                and Princeton University, and share our findings at international conferences.
+              </p>
+            </div>
+          </li>
+        </ul>
 
-    <p>
-      We also studied what people fear most.
-      Loss of muscle. Weakness. Safety.
-      Using advanced tools such as MRI, metabolic measurements, and long-term follow-up,
-      we showed that when fasting is done properly, the body adapts and remains protected.
-      Potential adverse effects are known, expected, and medically managed.
-    </p>
+        <div style="margin-top: 18px;">
+          <blockquote class="callout">
+            <p>
+              We do not use science as decoration. We produce our own science, directly connected to the care we provide.
+              For patients, this means a method that is known, measured, and continuously improved.
+            </p>
+          </blockquote>
+        </div>
 
-    <p>
-      This knowledge is why, when you come to the clinic, you do not simply stop eating and drink water.
-      You follow a precise, scientifically established programme,
-      refined through decades of care and more than thirty published scientific articles.
-    </p>
+        <div class="pillars" aria-label="Three core ideas">
+          <div class="panel pillar">
+            <h3>Clinical roots</h3>
+            <p>More than a century of supervised practice, with a structured programme and experienced teams.</p>
+          </div>
+          <div class="panel pillar">
+            <h3>Research-grade evidence</h3>
+            <p>We measure physiology with modern tools and publish scientific work from our own patient cohorts.</p>
+          </div>
+          <div class="panel pillar">
+            <h3>Safety first</h3>
+            <p>We know expected reactions, monitor them closely, and manage risks with medical oversight.</p>
+          </div>
+        </div>
+      </div>
 
-    <p>
-      Today, the scientific department is led by Dr Robin Mesnage,
-      a researcher ranked among the top one percent of scientists worldwide,
-      known for his work on how the environment and lifestyle affect human health.
-      Under his leadership, research has expanded to study what happens after fasting,
-      during food reintroduction, and how patients can be supported when they return home.
-    </p>
+      <!-- RIGHT: Visuals + highlights + contact -->
+      <aside class="panel" aria-label="Images and contact">
+        <h3 class="section-title" style="margin-bottom: 8px;">Images</h3>
+        <p class="muted" style="margin-top: 0;">
+          Use these placeholders to add photos that make the story concrete and human.
+        </p>
 
-    <p>
-      We work closely with institutions such as King’s College London,
-      ETH Zurich, Charité Berlin, and Princeton University,
-      and we share our findings at international medical conferences.
-      This gives us access to research-grade diagnostics and the most recent scientific knowledge,
-      sometimes before they enter routine clinical care.
-    </p>
+        <!-- Replace the placeholder blocks below with real <img> tags when ready -->
+        <div class="photo" role="img" aria-label="Placeholder for historic photo">
+          <div>
+            <span>Photo placeholder: Dr Otto Buchinger (archive)</span>
+            <small>Suggested file: about-otto-buchinger.jpg</small>
+          </div>
+        </div>
 
-    <p>
-      We do not use science as decoration.
-      We do not rely on the work of others to appear scientific.
-      We produce our own science, directly connected to the care we provide.
-    </p>
+        <div class="photo-row">
+          <div class="photo" role="img" aria-label="Placeholder for research team photo">
+            <div>
+              <span>Photo placeholder: scientific team</span>
+              <small>Suggested file: about-team.jpg</small>
+            </div>
+          </div>
+          <div class="photo" role="img" aria-label="Placeholder for research tools photo">
+            <div>
+              <span>Photo placeholder: research tools (MRI / lab)</span>
+              <small>Suggested file: about-research-tools.jpg</small>
+            </div>
+          </div>
+        </div>
 
-    <p>
-      Today, no other clinic, hospital, or university has accumulated this level of
-      clinical experience and scientific data on fasting, year after year, in thousands of patients.
-      This is why we are often described as the leading laboratory for human fasting.
-    </p>
+        <div class="photo" style="margin-top: 12px;" role="img" aria-label="Placeholder for clinic photo">
+          <div>
+            <span>Photo placeholder: clinic / lake setting</span>
+            <small>Suggested file: about-clinic.jpg</small>
+          </div>
+        </div>
 
-    <p>
-      For our patients, this means something simple and essential.
-      You are not trying an experiment.
-      You are entering a method that is known, measured, and continuously improved.
-    </p>
+        <div class="kpis" aria-label="Key numbers">
+          <div class="kpi"><b>Clinical experience</b><span>100+ years</span></div>
+          <div class="kpi"><b>Scientific publications</b><span>30+ articles</span></div>
+          <div class="kpi"><b>Ongoing focus</b><span>fasting + refeeding + follow-up</span></div>
+        </div>
 
-    <p>
-      Fasting, when guided properly, is not about deprivation.
-      It is about giving the body the conditions it needs to recover,
-      safely, calmly, and with confidence.
-    </p>
-  </section>
+        <div style="margin-top: 18px;">
+          <h3 class="section-title">Contact</h3>
+          <p class="muted" style="margin-top: 0;">You can reach the scientific team at:</p>
 
-  <!-- Contact details -->
-  <section>
-    <h2>Contact</h2>
-    <p>You can reach the scientific team at:</p>
-    <ul style="list-style: none; padding-left: 0;">
-      <li><strong>Email:</strong> forschung@buchinger-wilhelmi.com</li>
-      <li>
-        <strong>Address:</strong><br>
-        Wilhelm-Beck-Str. 27<br>
-        88662 Überlingen<br>
-        Germany
-      </li>
-    </ul>
-  </section>
+          <ul class="contact-list">
+            <li>
+              <span class="pill">
+                <strong>Email:</strong>
+                <a href="mailto:forschung@buchinger-wilhelmi.com">forschung@buchinger-wilhelmi.com</a>
+              </span>
+            </li>
+            <li>
+              <div class="pill" style="border-radius: 16px; align-items: flex-start;">
+                <div>
+                  <strong>Address:</strong><br />
+                  Wilhelm-Beck-Str. 27<br />
+                  88662 Überlingen<br />
+                  Germany
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </aside>
+    </section>
+  </main>
 
   <footer>
     <p>&copy; 2026 Buchinger Science. All rights reserved.</p>

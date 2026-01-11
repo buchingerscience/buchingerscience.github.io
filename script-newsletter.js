@@ -1,8 +1,7 @@
 /* script-newsletter.js
-   Robust loader:
-   - Handles local file:// limitation with a clear message
-   - Tries multiple common JSON filename conventions automatically
-   - Renders study "Read study" links from `link`
+   Final version – corrected to load JSON files from:
+   /newsletter_data/
+   (folder located directly at the root of the repository)
 */
 
 const yearSelect = document.getElementById("yearSelect");
@@ -19,27 +18,26 @@ function escapeHtml(str = "") {
     .replaceAll("'", "&#039;");
 }
 
+/**
+ * Expected JSON filenames inside /newsletter_data/
+ * You can keep any ONE of these conventions:
+ *   2025.12.json
+ *   2025-12.json
+ *   2025_12.json
+ */
 function buildCandidateUrls(year, month) {
-  // Adjust or extend if you have a different naming convention.
-  // The loader will try them in order.
   return [
-    `newsletters/${year}.${month}.json`,   // e.g. 2025.12.json
-    `newsletters/${year}-${month}.json`,   // e.g. 2025-12.json
-    `newsletters/${year}_${month}.json`,   // e.g. 2025_12.json
-    `newsletters/${year}/${month}.json`,   // e.g. 2025/12.json
-
-    `newsletters/${year}.${month}.json`,
-    `newsletters/${year}-${month}.json`,
-    `newsletters/${year}_${month}.json`,
-    `newsletters/${year}/${month}.json`
+    `/newsletter_data/${year}.${month}.json`,
+    `/newsletter_data/${year}-${month}.json`,
+    `/newsletter_data/${year}_${month}.json`
   ];
 }
 
 function renderError(title, message, triedUrls = []) {
   const tried = triedUrls.length
-    ? `<details class="error-details">
-         <summary>Show paths tried</summary>
-         <ul class="error-list">
+    ? `<details>
+         <summary>Paths tried</summary>
+         <ul>
            ${triedUrls.map(u => `<li><code>${escapeHtml(u)}</code></li>`).join("")}
          </ul>
        </details>`
@@ -57,19 +55,15 @@ function renderError(title, message, triedUrls = []) {
 function renderNewsletter(data) {
   const issueLabel = `${data.month ?? ""} ${data.year ?? ""}`.trim();
 
-  const studies = Array.isArray(data.studies) ? data.studies : [];
-  const studiesHtml = studies.map((s) => {
-    const link = typeof s.link === "string" ? s.link.trim() : "";
-    const hasLink = link.length > 0;
+  const studiesHtml = (data.studies || []).map(s => {
+    const link = (s.link || "").trim();
 
     return `
       <article class="study-card">
-        <div class="study-card__header">
-          <div class="study-card__meta">Study ${escapeHtml(String(s.number ?? ""))}</div>
-          <h3 class="study-card__title">${escapeHtml(s.title ?? "")}</h3>
-        </div>
+        <div class="study-card__meta">Study ${escapeHtml(s.number)}</div>
+        <h3 class="study-card__title">${escapeHtml(s.title)}</h3>
 
-        ${s.summary ? `<p class="study-card__summary">${escapeHtml(s.summary)}</p>` : ""}
+        <p class="study-card__summary">${escapeHtml(s.summary)}</p>
 
         ${s.commentary ? `
           <div class="study-card__commentary">
@@ -79,15 +73,12 @@ function renderNewsletter(data) {
         ` : ""}
 
         <div class="study-card__actions">
-          ${hasLink ? `
-            <a class="study-link" href="${link}" target="_blank" rel="noopener noreferrer">
-              Read study <span aria-hidden="true">↗</span>
-            </a>
-          ` : `
-            <span class="study-link study-link--disabled" title="Link not available">
-              Link not available
-            </span>
-          `}
+          ${link
+            ? `<a class="study-link" href="${link}" target="_blank" rel="noopener noreferrer">
+                 Read study ↗
+               </a>`
+            : `<span class="study-link study-link--disabled">Link not available</span>`
+          }
         </div>
       </article>
     `;
@@ -98,94 +89,69 @@ function renderNewsletter(data) {
       <header class="issue__header">
         <div class="issue__kicker">Newsletter issue</div>
         <h2 class="issue__title">
-          ${escapeHtml(data.title ?? "Newsletter")}${issueLabel ? ` — ${escapeHtml(issueLabel)}` : ""}
+          ${escapeHtml(data.title)} — ${escapeHtml(issueLabel)}
         </h2>
       </header>
 
-      ${data.editorial ? `
-        <section class="issue__editorial">
-          <div class="label">Editorial</div>
-          <p>${escapeHtml(data.editorial)}</p>
-        </section>
-      ` : ""}
+      <section class="issue__editorial">
+        <div class="label">Editorial</div>
+        <p>${escapeHtml(data.editorial)}</p>
+      </section>
 
       <section class="issue__studies">
-        <h3 class="issue__section-title">Studies</h3>
+        <h3>Studies</h3>
         <div class="study-grid">
-          ${studiesHtml || `<p class="muted">No studies found in this issue.</p>`}
+          ${studiesHtml}
         </div>
       </section>
 
-      ${data.closing_note ? `
-        <section class="issue__closing">
-          <div class="label">Closing note</div>
-          <p>${escapeHtml(data.closing_note)}</p>
-        </section>
-      ` : ""}
+      <section class="issue__closing">
+        <div class="label">Closing note</div>
+        <p>${escapeHtml(data.closing_note)}</p>
+      </section>
     </section>
   `;
 }
 
-async function fetchFirstWorkingJson(urls) {
-  const tried = [];
+async function loadNewsletter() {
+  newsletterContent.innerHTML = `<p class="loading">Loading newsletter…</p>`;
+
+  if (window.location.protocol === "file:") {
+    renderError(
+      "Cannot load newsletter",
+      "This page must be served from a web server. Loading JSON files is blocked when using file://."
+    );
+    return;
+  }
+
+  const year = yearSelect.value;
+  const month = monthSelect.value;
+  const urls = buildCandidateUrls(year, month);
 
   for (const url of urls) {
-    tried.push(url);
-
     try {
       const res = await fetch(url, { cache: "no-store" });
       if (!res.ok) continue;
 
       const data = await res.json();
-      return { data, tried, okUrl: url };
-    } catch (_) {
-      // Keep trying
+      renderNewsletter(data);
+      console.info("Newsletter loaded from:", url);
+      return;
+    } catch {
+      // try next
     }
   }
 
-  return { data: null, tried, okUrl: null };
-}
-
-async function loadNewsletter() {
-  const year = yearSelect?.value || "";
-  const month = monthSelect?.value || "";
-
-  newsletterContent.innerHTML = `<p class="loading">Loading newsletter…</p>`;
-
-  // Most frequent real-world failure: running from file://
-  if (window.location.protocol === "file:") {
-    renderError(
-      "Cannot load newsletters from a local file URL",
-      "Your browser blocks fetch() when this page is opened as file://. Please run the site from a local server (or your normal hosting) and reload this page.",
-      []
-    );
-    return;
-  }
-
-  const candidates = buildCandidateUrls(year, month);
-  const { data, tried, okUrl } = await fetchFirstWorkingJson(candidates);
-
-  if (!data) {
-    renderError(
-      "Unable to load this issue",
-      "No newsletter JSON file could be found at the expected paths. Check that the JSON exists and that its filename matches one of the tried patterns.",
-      tried
-    );
-    return;
-  }
-
-  // Optional: small hint in the console to confirm what worked
-  // eslint-disable-next-line no-console
-  console.info("Loaded newsletter from:", okUrl);
-
-  renderNewsletter(data);
+  renderError(
+    "Newsletter not found",
+    "No JSON file could be loaded for this issue.",
+    urls
+  );
 }
 
 // Events
-if (loadBtn) loadBtn.addEventListener("click", loadNewsletter);
-
-// Also load automatically when selectors change (more pleasant UX)
-if (yearSelect) yearSelect.addEventListener("change", loadNewsletter);
-if (monthSelect) monthSelect.addEventListener("change", loadNewsletter);
+loadBtn.addEventListener("click", loadNewsletter);
+yearSelect.addEventListener("change", loadNewsletter);
+monthSelect.addEventListener("change", loadNewsletter);
 
 window.addEventListener("DOMContentLoaded", loadNewsletter);

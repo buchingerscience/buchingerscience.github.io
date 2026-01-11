@@ -232,7 +232,7 @@ nav a.active {
   color: rgba(255, 255, 255, 0.9);
 }
 
-.hero .cta-button {
+.cta-button {
   display: inline-block;
   background-color: var(--accent);
   color: #ffffff;
@@ -248,11 +248,18 @@ nav a.active {
   box-shadow: 0 3px 10px rgba(74, 144, 226, 0.25);
 }
 
-.hero .cta-button:hover,
-.hero .cta-button:focus {
+.cta-button:hover,
+.cta-button:focus {
   background-color: #67c9ea;
   transform: translateY(-1px);
   outline: none;
+}
+
+.cta-button--large {
+  padding: 1rem 1.8rem;
+  font-size: 1rem;
+  font-weight: 600;
+  min-width: 280px;
 }
 
 /* -----------------------------

@@ -1,0 +1,128 @@
+{
+  "title": "Recent Research on Fasting and Calorie Restriction",
+  "month": "August",
+  "year": 2025,
+  "editorial": "This issue focuses on how fasting, calorie restriction, and fasting-mimicking diets affect brain health, neurodegeneration, inflammation, kidney and cardiovascular function, metabolic adaptation, and chronic disease management. Several studies also highlight that context matters: fasting can be protective, neutral, or harmful depending on physiology, timing, and disease state.",
+  "studies": [
+    {
+      "number": 1,
+      "title": "Fasting drives key benefits of calorie restriction in Alzheimer’s models",
+      "summary": "In mice predisposed to Alzheimer’s disease, calorie restriction improved weight and glucose control, but fasting was required to reduce pathology, improve cognition, and activate neuroprotective signaling.",
+      "commentary": "These findings suggest fasting provides benefits beyond calorie reduction alone.",
+      "link": ""
+    },
+    {
+      "number": 2,
+      "title": "Calorie restriction worsens decision-making after brain injury",
+      "summary": "In a rat model of traumatic brain injury, calorie restriction aggravated deficits in decision-making and motivation and worsened gut microbiome disruption.",
+      "commentary": "Calorie restriction may not be universally beneficial in the context of acute brain injury.",
+      "link": ""
+    },
+    {
+      "number": 3,
+      "title": "Time-restricted feeding prevents depressive-like behavior via the gut",
+      "summary": "In high-fat-diet-fed mice, time-restricted feeding prevented obesity, gut inflammation, brain inflammation, and depressive-like behaviors.",
+      "commentary": "Circadian-aligned feeding appears to protect mood through gut–brain interactions.",
+      "link": ""
+    },
+    {
+      "number": 4,
+      "title": "Calorie restriction maps protective mechanisms in the aging brain",
+      "summary": "Using single-cell and spatial transcriptomics across more than 500,000 brain cells, calorie restriction delayed inflammatory cell expansion, preserved neural precursors, and reduced stress and DNA-damage signatures.",
+      "commentary": "This work provides a molecular atlas of how calorie restriction protects brain aging.",
+      "link": ""
+    },
+    {
+      "number": 5,
+      "title": "Fasting and ketogenic diets in multiple sclerosis",
+      "summary": "In an 18-month randomized trial, fasting and ketogenic diets did not reduce new MRI lesions compared with a standard diet, but showed exploratory benefits on neurofilament light chain, depressive symptoms, or cognition.",
+      "commentary": "Dietary interventions may complement multiple sclerosis management, though trial design remains challenging.",
+      "link": ""
+    },
+    {
+      "number": 6,
+      "title": "Fasting-mimicking diets protect against kidney injury",
+      "summary": "In mouse models of acute and chronic kidney injury, fasting-mimicking diet cycles reduced inflammation, tissue damage, and maladaptive repair.",
+      "commentary": "Benefits were linked to reduced monocyte recruitment, highlighting immune modulation as a key mechanism.",
+      "link": ""
+    },
+    {
+      "number": 7,
+      "title": "Time-restricted feeding reduces salt-sensitive hypertension",
+      "summary": "In salt-sensitive rats, time-restricted feeding reduced blood pressure and kidney damage without altering sodium intake or body weight.",
+      "commentary": "Circadian modulation of feeding may complement sodium management in hypertension.",
+      "link": ""
+    },
+    {
+      "number": 8,
+      "title": "Protein content modifies responses to fasting-mimicking diets in humans",
+      "summary": "A seven-day fasting-mimicking diet improved weight, glucose, and IGF-1 regardless of protein intake, while higher protein also improved visceral fat, lipid profiles, heart rate variability, and microbiome diversity.",
+      "commentary": "Macronutrient tailoring may help adapt fasting-mimicking diets to individual goals.",
+      "link": ""
+    },
+    {
+      "number": 9,
+      "title": "Short-term severe energy restriction reverses aging signatures in prediabetes",
+      "summary": "An eight-week severe calorie restriction in adults with prediabetes reduced inflammatory and senescence-related proteins and improved extracellular vesicle signaling.",
+      "commentary": "Rapid metabolic improvement may be accompanied by molecular rejuvenation signals.",
+      "link": ""
+    },
+    {
+      "number": 10,
+      "title": "Calorie restriction and exercise in postmenopausal women",
+      "summary": "Six months of calorie restriction, with or without exercise, reduced fat mass and improved some biomarkers, but paradoxically increased overall physiological dysregulation.",
+      "commentary": "Weight loss does not uniformly translate into systemic rejuvenation.",
+      "link": ""
+    },
+    {
+      "number": 11,
+      "title": "Organ-level metabolic adaptation to long-term calorie restriction",
+      "summary": "MRI analyses from the CALERIE-2 trial showed reductions in muscle and adipose tissue mass that contributed to larger-than-predicted drops in energy expenditure.",
+      "commentary": "Tissue-level changes help explain metabolic adaptation during sustained calorie restriction.",
+      "link": ""
+    },
+    {
+      "number": 12,
+      "title": "Intermittent fasting reduces systemic inflammation",
+      "summary": "A meta-analysis of 21 trials found intermittent fasting reduced TNF-α, CRP, and leptin, with time-restricted feeding showing the strongest effects.",
+      "commentary": "Anti-inflammatory benefits depend on the fasting regimen used.",
+      "link": ""
+    },
+    {
+      "number": 13,
+      "title": "NHS low-calorie diet pilot and diabetes remission",
+      "summary": "A national low-calorie diet program led to an average 10 kg weight loss and diabetes remission in 32% of participants with type 2 diabetes.",
+      "commentary": "The program is effective but faces challenges related to equity and implementation.",
+      "link": ""
+    },
+    {
+      "number": 14,
+      "title": "Intermittent fasting for Long COVID",
+      "summary": "In a randomized crossover trial, both mild time-restricted eating and extended fasting improved Long COVID symptoms, with greater reductions after longer fasts.",
+      "commentary": "Fasting may offer a supportive, non-pharmacological approach for symptom management.",
+      "link": ""
+    },
+    {
+      "number": 15,
+      "title": "Intermittent fasting improves glycemic control in type 2 diabetes",
+      "summary": "A meta-analysis of 17 studies showed intermittent fasting improved HbA1c and fasting glucose, especially in individuals with higher BMI and better adherence.",
+      "commentary": "Standardized protocols may help maximize clinical benefits.",
+      "link": ""
+    },
+    {
+      "number": 16,
+      "title": "Intermittent fasting does not disrupt sleep in healthy adults",
+      "summary": "One week of time-restricted eating had no significant effect on sleep duration, architecture, or subjective sleep quality in healthy individuals.",
+      "commentary": "Sleep appears resilient to short-term fasting in healthy populations.",
+      "link": ""
+    },
+    {
+      "number": 17,
+      "title": "Repeated long-term fasting in type 2 diabetes",
+      "summary": "A case report described sustained weight loss, improved glycemic control, and reduced medication needs in a patient undergoing repeated medically supervised long-term fasts.",
+      "commentary": "The case supports the therapeutic potential of supervised long-term fasting and the need for larger trials.",
+      "link": ""
+    }
+  ],
+  "closing_note": "As usual, feel free to comment, raise questions, or share this issue to help spread awareness about the science of fasting."
+}

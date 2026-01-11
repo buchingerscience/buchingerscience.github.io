@@ -1,7 +1,10 @@
 /* script-newsletter.js
-   Final version – corrected to load JSON files from:
-   /newsletter_data/
-   (folder located directly at the root of the repository)
+   Newsletter loader + library-style rendering for studies.
+   JSON files are expected in: /newsletter_data/
+   Supported filename patterns:
+     /newsletter_data/YYYY.MM.json
+     /newsletter_data/YYYY-MM.json
+     /newsletter_data/YYYY_MM.json
 */
 
 const yearSelect = document.getElementById("yearSelect");
@@ -18,13 +21,6 @@ function escapeHtml(str = "") {
     .replaceAll("'", "&#039;");
 }
 
-/**
- * Expected JSON filenames inside /newsletter_data/
- * You can keep any ONE of these conventions:
- *   2025.12.json
- *   2025-12.json
- *   2025_12.json
- */
 function buildCandidateUrls(year, month) {
   return [
     `/newsletter_data/${year}.${month}.json`,
@@ -52,34 +48,60 @@ function renderError(title, message, triedUrls = []) {
   `;
 }
 
+/**
+ * Renders the newsletter with "Research Library" style cards:
+ * - Each study is a separate card (block)
+ * - Badge with study number
+ * - "Read study" button using s.link
+ * - Collapsible sections for Summary and Commentary
+ */
 function renderNewsletter(data) {
   const issueLabel = `${data.month ?? ""} ${data.year ?? ""}`.trim();
+  const studies = Array.isArray(data.studies) ? data.studies : [];
 
-  const studiesHtml = (data.studies || []).map(s => {
-    const link = (s.link || "").trim();
+  const studiesHtml = studies.map((s) => {
+    const link = typeof s.link === "string" ? s.link.trim() : "";
+    const hasLink = link.length > 0;
 
-    return `
-      <article class="study-card">
-        <div class="study-card__meta">Study ${escapeHtml(s.number)}</div>
-        <h3 class="study-card__title">${escapeHtml(s.title)}</h3>
+    const statusBtn = hasLink
+      ? `<a class="status-btn pub" href="${link}" target="_blank" rel="noopener noreferrer">Read study ↗</a>`
+      : `<span class="status-btn disabled" aria-disabled="true">Link not available</span>`;
 
-        <p class="study-card__summary">${escapeHtml(s.summary)}</p>
+    const summaryBlock = s.summary
+      ? `
+        <details class="findings" open>
+          <summary>Summary</summary>
+          <div class="findings-body">
+            <p>${escapeHtml(s.summary)}</p>
+          </div>
+        </details>
+      `
+      : "";
 
-        ${s.commentary ? `
-          <div class="study-card__commentary">
-            <div class="label">Commentary</div>
+    const commentaryBlock = s.commentary
+      ? `
+        <details class="findings">
+          <summary>Commentary</summary>
+          <div class="findings-body">
             <p>${escapeHtml(s.commentary)}</p>
           </div>
-        ` : ""}
+        </details>
+      `
+      : "";
 
-        <div class="study-card__actions">
-          ${link
-            ? `<a class="study-link" href="${link}" target="_blank" rel="noopener noreferrer">
-                 Read study ↗
-               </a>`
-            : `<span class="study-link study-link--disabled">Link not available</span>`
-          }
+    return `
+      <article class="nl-card">
+        <div class="study-top">
+          <div class="badge-row">
+            <span class="badge">Study ${escapeHtml(String(s.number ?? ""))}</span>
+          </div>
+          ${statusBtn}
         </div>
+
+        <h3 class="study-title">${escapeHtml(s.title ?? "")}</h3>
+
+        ${summaryBlock}
+        ${commentaryBlock}
       </article>
     `;
   }).join("");
@@ -89,26 +111,30 @@ function renderNewsletter(data) {
       <header class="issue__header">
         <div class="issue__kicker">Newsletter issue</div>
         <h2 class="issue__title">
-          ${escapeHtml(data.title)} — ${escapeHtml(issueLabel)}
+          ${escapeHtml(data.title ?? "Newsletter")}${issueLabel ? ` — ${escapeHtml(issueLabel)}` : ""}
         </h2>
       </header>
 
-      <section class="issue__editorial">
-        <div class="label">Editorial</div>
-        <p>${escapeHtml(data.editorial)}</p>
-      </section>
+      ${data.editorial ? `
+        <section class="issue__editorial">
+          <div class="label">Editorial</div>
+          <p>${escapeHtml(data.editorial)}</p>
+        </section>
+      ` : ""}
 
       <section class="issue__studies">
-        <h3>Studies</h3>
-        <div class="study-grid">
-          ${studiesHtml}
+        <h3 class="issue__section-title">Studies</h3>
+        <div class="nl-grid">
+          ${studiesHtml || `<p class="muted">No studies found in this issue.</p>`}
         </div>
       </section>
 
-      <section class="issue__closing">
-        <div class="label">Closing note</div>
-        <p>${escapeHtml(data.closing_note)}</p>
-      </section>
+      ${data.closing_note ? `
+        <section class="issue__closing">
+          <div class="label">Closing note</div>
+          <p>${escapeHtml(data.closing_note)}</p>
+        </section>
+      ` : ""}
     </section>
   `;
 }
@@ -124,8 +150,8 @@ async function loadNewsletter() {
     return;
   }
 
-  const year = yearSelect.value;
-  const month = monthSelect.value;
+  const year = yearSelect?.value || "";
+  const month = monthSelect?.value || "";
   const urls = buildCandidateUrls(year, month);
 
   for (const url of urls) {
@@ -144,14 +170,14 @@ async function loadNewsletter() {
 
   renderError(
     "Newsletter not found",
-    "No JSON file could be loaded for this issue.",
+    "No JSON file could be loaded for this issue. Check the filename and location in /newsletter_data/.",
     urls
   );
 }
 
 // Events
-loadBtn.addEventListener("click", loadNewsletter);
-yearSelect.addEventListener("change", loadNewsletter);
-monthSelect.addEventListener("change", loadNewsletter);
+if (loadBtn) loadBtn.addEventListener("click", loadNewsletter);
+if (yearSelect) yearSelect.addEventListener("change", loadNewsletter);
+if (monthSelect) monthSelect.addEventListener("change", loadNewsletter);
 
 window.addEventListener("DOMContentLoaded", loadNewsletter);

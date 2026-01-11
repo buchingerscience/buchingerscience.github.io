@@ -21,7 +21,7 @@
       ],
       "link": "https://www.sciltp.com/journals/ijet/articles/2601002763",
       "youtube": null,
-      "published": false
+      "published": true
     },
         {
       "id": 1,
@@ -66,7 +66,7 @@
       ],
       "link": "https://www.frontiersin.org/articles/10.3389/fcdhc.2025.1572245/full",
       "youtube": null,
-      "published": false
+      "published": true
     },
     {
       "id": 3,
@@ -165,6 +165,33 @@
       "youtube": null,
       "published": true
     },
+  {
+      "id": 6a,
+      "title": "Health benefits of a five-day at-home modified fasting program: a randomised controlled trial",
+      "year": 2025,
+      "topics": [
+        "fasting",
+        "fasting box",
+        "safety",
+        "cardiovascular health"
+      ],
+      "bullets": [
+        "We studied a 5-day hypocaloric (~600 kcal/day) and ketogenic, modified fasting program (MFP) for at-home interventions. ",
+        "MFP participants (n=32) experienced weight loss (-3.1 ± 1.1 kg) persisting one month after the intervention. ",
+        "The MFP induced significant, but transient reductions, in systolic (-6.4 ± 11.5 mmHg) and diastolic (-4.4 ± 7.7 mmHg) blood pressure, glucose levels, HbA1c and coagulation factors. ",
+        "The MFP led to greater reductions in BMI (p=0.006), diastolic pressure (p = 0.009), cholesterol (p = 0.02), and LDL (p = 0.02) in individuals at risk of cardiometabolic diseases compared to healthy individuals. ",
+        "Total cholesterol, LDL-C and HDL-C levels continued decreasing during food reintroduction. ",
+        "The MFP also increased emotional and physical well-being. ",
+        "There was no muscle weakness.",
+        "Blood metabolomics revealed a significant decrease in chronic inflammation markers. ",
+        "Shotgun metagenomics of the gut microbiome showed a decrease in families metabolising dietary fibre substrates and an increase in families metabolising host-derived glycan substrates.",
+        "Comparing MFP effects with a previous cohort's 5-day prolonged fasting showed similar metabolic changes.",
+        "While individuals with higher resting energy expenditure  lose more weight due to a greater negative calorie balance, the 600 kcal per day provided in this program is able to produce similar metabolic benefits in people with lower resting energy expenditure."
+      ],
+      "link": "https://www.medrxiv.org/content/10.1101/2024.11.01.24316348v1",
+      "youtube": null,
+      "published": true
+    },
     {
       "id": 7,
       "title": "Impact of long-term fasting on breath volatile sulphur compounds, inflammatory markers and saliva microbiota composition",
@@ -185,6 +212,27 @@
       "link": "https://www.quintessence-publishing.com/deu/en/article/5795653",
       "youtube": null,
       "published": true
+    },
+      {
+      "id": 8a,
+      "title": "Long-term fasting remodels gut microbial metabolism and host metabolism",
+      "year": 2024,
+      "topics": [
+        "fasting",
+        "gut microbiota",
+        "gut health"
+      ],
+      "bullets": [
+        "Long-term fasting has become a promising research subject for its potential of treating and preventing metabolic diseases. However, little is known about its impact on the functional capacity of the gut microbiome and the combined effect on the serum metabolome.",
+        "Here, we demonstrate extensive remodelling of the gut microbial ecosystem in humans (n=92) after an average of 9.8 days of fasting (∼250 kcal / day).",
+        "Fasting transiently affected the relative abundance of the majority of bacterial species (306 decreased and 210 increased out of 772).",
+        "Species changes could largely be explained by their genomic repertoire of carbohydrate-active enzymes (CAZymes), which were investigated here for the first time. Fasting induced extensive abundance changes in CAZyme families, depleting families with dietary fibre substrates and increasing families with host-derived glycan substrates.",
+        "Likewise, we observed extensive changes in the serum metabolome, with 382 out of 721 metabolites significantly affected (246 increased and 136 decreased). ",
+        "Together, our results provide an unprecedented view on the impact of long-term fasting on gut microbiome composition and function."
+      ],
+      "link": "https://www.biorxiv.org/content/10.1101/2024.04.19.590209v1",
+      "youtube": null,
+      "published": false
     },
     {
       "id": 8,
@@ -356,7 +404,7 @@
       ],
       "link": "https://doi.org/10.18332/pht/161464",
       "youtube": "https://www.youtube.com/watch?v=rnj8VvPEeLc",
-      "published": false
+      "published": true
     },
     {
       "id": 16,
@@ -372,7 +420,7 @@
       ],
       "link": "https://www.frontiersin.org/articles/10.3389/fnut.2022.951000/full",
       "youtube": null,
-      "published": false
+      "published": true
     },
     {
       "id": 17,
@@ -393,7 +441,7 @@
       ],
       "link": "https://doi.org/10.1016/j.fct.2021.112187",
       "youtube": null,
-      "published": false
+      "published": true
     },
     {
       "id": 18,
@@ -414,7 +462,7 @@
       ],
       "link": "https://link.springer.com/article/10.1007/s00394-021-02578-0",
       "youtube": "https://www.youtube.com/watch?v=gbrvO2rXvo8&t=38s",
-      "published": false
+      "published": true
     },
     {
       "id": 19,
@@ -531,7 +579,7 @@
       ],
       "link": "https://doi.org/10.1016/j.fct.2020.111701",
       "youtube": null,
-      "published": false
+      "published": true
     },
     {
       "id": 25,
@@ -551,7 +599,7 @@
       ],
       "link": "https://doi.org/10.1161/JAHA.120.018649",
       "youtube": "https://www.youtube.com/watch?v=bh9ExCaxowg",
-      "published": false
+      "published": true
     },
     {
       "id": 26,
@@ -568,7 +616,7 @@
       ],
       "link": "https://doi.org/10.3390/nu11112601",
       "youtube": "https://www.youtube.com/watch?v=dDdG1Nb2cME",
-      "published": false
+      "published": true
     },
     {
       "id": 27,
@@ -591,7 +639,7 @@
       ],
       "link": "https://doi.org/10.1017/jns.2019.24",
       "youtube": "https://www.youtube.com/watch?v=jjDvsHx95O4",
-      "published": false
+      "published": true
     },
     {
       "id": 28,
@@ -617,7 +665,7 @@
       ],
       "link": "https://www.frontiersin.org/articles/10.3389/fnut.2019.00005/full",
       "youtube": "https://www.youtube.com/watch?v=ZdDTJiI2crg",
-      "published": false
+      "published": true
     },
     {
       "id": 29,

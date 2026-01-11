@@ -1,0 +1,93 @@
+{
+  "title": "Recent Research on Fasting and Calorie Restriction",
+  "month": "October",
+  "year": 2025,
+  "editorial": "This issue presents twelve studies that challenge and refine our understanding of fasting and calorie restriction. Together, they address fertility, brain and heart health, cancer metabolism, individual variability in weight loss, and emerging epigenetic and microbial mechanisms of metabolic recovery.",
+  "studies": [
+    {
+      "number": 1,
+      "title": "Timing and duration of calorie restriction determine ovarian aging",
+      "summary": "In female mice, only long-term calorie restriction preserved the ovarian primordial follicle pool and reduced ovarian inflammation. Shorter periods of restriction failed to protect fertility.",
+      "commentary": "Reproductive benefits of calorie restriction appear to require sustained intervention rather than short-term exposure.",
+      "link": ""
+    },
+    {
+      "number": 2,
+      "title": "Time-restricted feeding partially protects the obese brain",
+      "summary": "In obese rats, time-restricted feeding reduced fat mass and restored rhythmic gene expression in microglia, but did not fully reverse mitochondrial dysfunction or inflammatory reprogramming.",
+      "commentary": "Obesity may leave a persistent metabolic imprint in the brain that resists rhythm restoration alone.",
+      "link": ""
+    },
+    {
+      "number": 3,
+      "title": "Physical activity amplifies the benefits of calorie restriction",
+      "summary": "Analysis of the CALERIE trial showed that individuals who maintained physical activity during calorie restriction had better insulin sensitivity, higher HDL cholesterol, and improved grip strength.",
+      "commentary": "Energy restriction without movement risks undermining functional and metabolic health.",
+      "link": ""
+    },
+    {
+      "number": 4,
+      "title": "Long-term calorie restriction reshapes energy allocation for longevity",
+      "summary": "In mice subjected to lifelong calorie restriction, vital organs such as the brain and heart were preserved, while energy investment was reduced in reproductive and some immune tissues.",
+      "commentary": "Longevity may arise from strategic energy prioritisation rather than uniform energy saving.",
+      "link": ""
+    },
+    {
+      "number": 5,
+      "title": "Tumour cells cooperate to survive nutrient deprivation",
+      "summary": "Under amino acid scarcity, tumour cells shared nutrients through extracellular peptide digestion, allowing collective survival under metabolic stress.",
+      "commentary": "Nutrient deprivation alone may not be sufficient to suppress tumour growth without targeting cooperative metabolic strategies.",
+      "link": ""
+    },
+    {
+      "number": 6,
+      "title": "Fasting poses significant risks in adrenal insufficiency",
+      "summary": "In patients with primary adrenal insufficiency attempting prolonged fasting, most experienced hypoglycaemia, dehydration, or early discontinuation despite medical supervision.",
+      "commentary": "Fasting is not universally safe and requires careful personalisation.",
+      "link": ""
+    },
+    {
+      "number": 7,
+      "title": "Ketogenic diet induces cardiac remodelling in postmenopausal women",
+      "summary": "A six-month very-low-calorie ketogenic diet reduced left ventricular mass, epicardial fat, and improved diastolic function in postmenopausal women with obesity and hypertension.",
+      "commentary": "A structured ketogenic phase may reduce cardiac metabolic load after menopause.",
+      "link": ""
+    },
+    {
+      "number": 8,
+      "title": "Gene expression explains variability in weight loss response",
+      "summary": "Despite identical calorie restriction, individuals showed large differences in weight loss linked to extracellular matrix and cell-cycle gene expression profiles.",
+      "commentary": "Metabolic response may depend on tissue structure and flexibility, not only energy intake.",
+      "link": ""
+    },
+    {
+      "number": 9,
+      "title": "Microbial guilds drive the benefits of time-restricted feeding",
+      "summary": "Time-restricted feeding improved metabolic health in mice by reshaping cooperative microbial guilds rather than individual bacterial species.",
+      "commentary": "Gut health emerges from coordinated microbial networks, not single microbes.",
+      "link": ""
+    },
+    {
+      "number": 10,
+      "title": "DNA methylation predicts diabetes remission after calorie restriction",
+      "summary": "Baseline DNA methylation patterns accurately predicted which individuals achieved diabetes remission following a very-low-calorie diet.",
+      "commentary": "Epigenetic state may shape the capacity for metabolic recovery.",
+      "link": ""
+    },
+    {
+      "number": 11,
+      "title": "Phase angle predicts success of intensive dietary intervention in diabetes",
+      "summary": "A higher baseline phase angle strongly predicted improvement in insulin resistance during a short very-low-calorie intervention in newly diagnosed diabetics.",
+      "commentary": "Cellular integrity may guide patient selection for intensive fasting-based therapies.",
+      "link": ""
+    },
+    {
+      "number": 12,
+      "title": "Plasma from fasted donors rejuvenates the aged gut",
+      "summary": "Plasma from intermittently fasted young rats reduced gut inflammation, improved intestinal structure, and supported a healthier microbiome when transferred to aged rats.",
+      "commentary": "Fasting may generate circulating signals capable of systemic rejuvenation.",
+      "link": ""
+    }
+  ],
+  "closing_note": "As usual, feel free to comment, raise questions, or share this issue to help spread awareness about the science of fasting."
+}

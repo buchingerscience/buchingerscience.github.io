@@ -8,111 +8,131 @@
       "number": 1,
       "title": "Time-restricted eating may be easier to sustain than calorie counting",
       "summary": "After a 12-week intervention, participants practicing time-restricted eating maintained their weight for up to six months, whereas those following calorie restriction returned to baseline within three months.",
-      "commentary": "Both strategies were equally accepted, but time-restricted eating was perceived as psychologically gentler, despite morning hunger and scheduling challenges."
+      "commentary": "Both strategies were equally accepted, but time-restricted eating was perceived as psychologically gentler, despite morning hunger and scheduling challenges.",
+      "link": "https://pubmed.ncbi.nlm.nih.gov/41315749/"
     },
     {
       "number": 2,
       "title": "Calorie restriction reduces anxiety by calming brain inflammation",
       "summary": "In obese mice, calorie restriction reduced anxiety-like behavior alongside major improvements in weight, glucose tolerance, and insulin sensitivity.",
-      "commentary": "The effects were linked to reduced neuroinflammation and microbiota-driven increases in short-chain fatty acid production."
+      "commentary": "The effects were linked to reduced neuroinflammation and microbiota-driven increases in short-chain fatty acid production.",
+      "link": "https://pubmed.ncbi.nlm.nih.gov/41314293/"
     },
     {
       "number": 3,
       "title": "Hypoxic training amplifies lipid-lowering effects of calorie restriction",
-      "summary": "Combining calorie restriction with intermittent hypoxic training led to larger reductions in body fat, LDL cholesterol, and triglycerides than the same program under normal oxygen conditions."
+      "summary": "Combining calorie restriction with intermittent hypoxic training led to larger reductions in body fat, LDL cholesterol, and triglycerides than the same program under normal oxygen conditions.",
+      "link": "https://pubmed.ncbi.nlm.nih.gov/41303531/"
     },
     {
       "number": 4,
       "title": "Intermittent fasting remains effective after disease onset in multiple sclerosis",
       "summary": "When initiated after symptom onset in a mouse model of multiple sclerosis, intermittent fasting slowed disease progression and preserved myelin integrity.",
-      "commentary": "Benefits were linked to autophagy and cellular stress-response pathways involving the TRIB3–PERK axis."
+      "commentary": "Benefits were linked to autophagy and cellular stress-response pathways involving the TRIB3–PERK axis.",
+      "link": "https://pubmed.ncbi.nlm.nih.gov/41299682/"
     },
     {
       "number": 5,
       "title": "Lifelong calorie restriction preserves white matter in primate brains",
-      "summary": "Single-cell transcriptomics in rhesus monkeys showed that lifelong calorie restriction enhanced myelin maintenance, improved oligodendrocyte metabolism, and reduced microglial debris accumulation."
+      "summary": "Single-cell transcriptomics in rhesus monkeys showed that lifelong calorie restriction enhanced myelin maintenance, improved oligodendrocyte metabolism, and reduced microglial debris accumulation.",
+      "link": "https://pubmed.ncbi.nlm.nih.gov/41283828/"
     },
     {
       "number": 6,
       "title": "Calorie restriction slows cancer growth by reprogramming immune cells",
       "summary": "Rather than acting directly on tumors, calorie restriction altered neutrophil lipid metabolism, limiting lipid transfer to cancer cells and enhancing anti-tumour immunity.",
-      "commentary": "Low neutrophil HIF-1α expression was associated with better immunotherapy responses in lung cancer patients."
+      "commentary": "Low neutrophil HIF-1α expression was associated with better immunotherapy responses in lung cancer patients.",
+      "link": "https://pubmed.ncbi.nlm.nih.gov/41352341/"
     },
     {
       "number": 7,
       "title": "Time-restricted feeding improves social behavior during aging",
-      "summary": "In aged mice, time-restricted feeding reduced brain inflammation, restored microglial rhythms, and improved social behavior."
+      "summary": "In aged mice, time-restricted feeding reduced brain inflammation, restored microglial rhythms, and improved social behavior.",
+      "link": "https://pubmed.ncbi.nlm.nih.gov/41337822/"
     },
     {
       "number": 8,
       "title": "Weight loss without suppressing appetite",
       "summary": "A novel peptide targeting GPR10 and NPFFR2 reduced body weight by increasing energy expenditure and fat oxidation, without lowering food intake.",
-      "commentary": "This contrasts with GLP-1–based approaches and points toward metabolism-focused obesity therapies."
+      "commentary": "This contrasts with GLP-1–based approaches and points toward metabolism-focused obesity therapies.",
+      "link": "https://pubmed.ncbi.nlm.nih.gov/41330374/"
     },
     {
       "number": 9,
       "title": "Fasting-mimicking diets reverse accelerated aging in multiple sclerosis",
-      "summary": "In people with multiple sclerosis, intermittent calorie restriction and ketogenic diets reduced metabolomic age, whereas daily calorie restriction did not."
+      "summary": "In people with multiple sclerosis, intermittent calorie restriction and ketogenic diets reduced metabolomic age, whereas daily calorie restriction did not.",
+      "link": "https://pubmed.ncbi.nlm.nih.gov/40970462/"
     },
     {
       "number": 10,
       "title": "Six months of intermittent fasting reshapes human metabolism",
-      "summary": "A randomized clinical trial showed that six months of intermittent fasting improved body composition, lipid profiles, and induced coordinated changes in lipid, bile acid, and immune pathways."
+      "summary": "A randomized clinical trial showed that six months of intermittent fasting improved body composition, lipid profiles, and induced coordinated changes in lipid, bile acid, and immune pathways.",
+      "link": "https://pubmed.ncbi.nlm.nih.gov/41390492/"
     },
     {
       "number": 11,
       "title": "Hormone rhythms are essential for calorie restriction benefits",
       "summary": "Calorie restriction increased the amplitude of glucocorticoid rhythms, which were required to activate fasting-adapted gene programs in the liver.",
-      "commentary": "These findings highlight circadian hormone signaling as a core component of calorie restriction biology."
+      "commentary": "These findings highlight circadian hormone signaling as a core component of calorie restriction biology.",
+      "link": "https://pubmed.ncbi.nlm.nih.gov/41381594/"
     },
     {
       "number": 12,
       "title": "Short pre-surgery very-low-calorie diets are safe and effective",
-      "summary": "In patients awaiting colorectal cancer surgery, a short supervised very-low-calorie diet produced rapid weight loss and fewer surgical complications without adverse events."
+      "summary": "In patients awaiting colorectal cancer surgery, a short supervised very-low-calorie diet produced rapid weight loss and fewer surgical complications without adverse events.",
+      "link": "https://pubmed.ncbi.nlm.nih.gov/41381407/"
     },
     {
       "number": 13,
       "title": "Calorie restriction reverses age-related lipid signatures in primates",
-      "summary": "Over 25 years of follow-up, long-term calorie restriction in rhesus monkeys opposed age-related rises in triglycerides and restored a more youthful lipid profile."
+      "summary": "Over 25 years of follow-up, long-term calorie restriction in rhesus monkeys opposed age-related rises in triglycerides and restored a more youthful lipid profile.",
+      "link": "https://pubmed.ncbi.nlm.nih.gov/41372706/"
     },
     {
       "number": 14,
       "title": "Ketones are not required for most calorie restriction benefits",
       "summary": "Mice unable to produce ketones still experienced most metabolic benefits of calorie restriction, including improved glucose control and liver autophagy.",
-      "commentary": "Ketone production declined with long-term adaptation, suggesting a transient signaling role."
+      "commentary": "Ketone production declined with long-term adaptation, suggesting a transient signaling role.",
+      "link": "https://pubmed.ncbi.nlm.nih.gov/41369866/"
     },
     {
       "number": 15,
       "title": "Long-term dietary restriction strongly improves insulin sensitivity",
-      "summary": "Lifelong dietary restriction markedly improved hepatic and peripheral insulin sensitivity in mice, with effects depending on diet composition and age."
+      "summary": "Lifelong dietary restriction markedly improved hepatic and peripheral insulin sensitivity in mice, with effects depending on diet composition and age.",
+      "link": "https://pubmed.ncbi.nlm.nih.gov/41215620/"
     },
     {
       "number": 16,
       "title": "Alternate-day fasting protects against Parkinson-like pathology",
       "summary": "In a Parkinson’s disease mouse model, alternate-day fasting preserved dopamine neurons, reduced α-synuclein accumulation, and lowered inflammation.",
-      "commentary": "Gut microbiota transfer reproduced much of the neuroprotective effect, highlighting the gut–brain axis."
+      "commentary": "Gut microbiota transfer reproduced much of the neuroprotective effect, highlighting the gut–brain axis.",
+      "link": "https://pubmed.ncbi.nlm.nih.gov/41408061/"
     },
     {
       "number": 17,
       "title": "Exercise and calorie restriction converge on shared molecular signals",
-      "summary": "Combining muscle contraction with calorie restriction amplified irisin release in mice, exceeding the effects of either intervention alone."
+      "summary": "Combining muscle contraction with calorie restriction amplified irisin release in mice, exceeding the effects of either intervention alone.",
+      "link": "https://pubmed.ncbi.nlm.nih.gov/41406482/"
     },
     {
       "number": 18,
       "title": "Succinate links intermittent fasting to brain and metabolic health",
       "summary": "Intermittent fasting altered tissue distribution of succinate in obese mice, correlating with reduced anxiety and brain inflammation.",
-      "commentary": "Succinate supplementation reproduced many fasting-associated benefits."
+      "commentary": "Succinate supplementation reproduced many fasting-associated benefits.",
+      "link": "https://pubmed.ncbi.nlm.nih.gov/41395785/"
     },
     {
       "number": 19,
       "title": "Diet matters more than age for mitochondrial protein damage",
-      "summary": "Calorie restriction, rather than aging itself, strongly reduced oxidative damage in heart mitochondria and reshaped brain oxidation patterns in rats."
+      "summary": "Calorie restriction, rather than aging itself, strongly reduced oxidative damage in heart mitochondria and reshaped brain oxidation patterns in rats.",
+      "link": "https://pubmed.ncbi.nlm.nih.gov/41457343/"
     },
     {
       "number": 20,
       "title": "More restriction leads to slower epigenetic aging",
       "summary": "Increasing levels of calorie restriction produced graded slowing of epigenetic aging in mice, with highly restricted old mice resembling much younger animals.",
-      "commentary": "Changes were closely linked to glucose and insulin regulation."
+      "commentary": "Changes were closely linked to glucose and insulin regulation.",
+      "link": "https://pubmed.ncbi.nlm.nih.gov/41432313/"
     }
   ],
   "closing_note": "As usual, feel free to comment, raise questions, or share this issue to help spread awareness about the science of fasting."

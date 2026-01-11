@@ -1,0 +1,93 @@
+{
+  "title": "Recent Research on Fasting and Calorie Restriction",
+  "month": "July",
+  "year": 2025,
+  "editorial": "This issue explores how fasting and calorie restriction interact with the gut microbiota, taste perception, weight loss strategies, metabolic rhythms, brain function, and stress regulation. Several studies highlight both promising applications and important caveats, reinforcing the need for context-specific and personalized approaches.",
+  "studies": [
+    {
+      "number": 1,
+      "title": "Fasting primes the gut for targeted microbiota modulation with fiber",
+      "summary": "Fasting altered gut microbial communities in a way that enhanced the effects of microbiota-accessible carbohydrate supplementation, increasing fecal IgA and the growth of beneficial bacteria such as Bifidobacterium.",
+      "commentary": "Fasting may be used strategically to overcome microbiota resilience and facilitate targeted dietary interventions.",
+      "link": ""
+    },
+    {
+      "number": 2,
+      "title": "Sweet taste sensitivity increases with calorie restriction",
+      "summary": "In mice, caloric restriction and intermittent fasting increased fungiform papillae density and enhanced sensitivity to sweet taste, alongside upregulation of sweet taste receptors.",
+      "commentary": "Restrictive diets may remodel taste perception, potentially influencing food choices after dieting.",
+      "link": ""
+    },
+    {
+      "number": 3,
+      "title": "Ketogenic, alternate-day fasting, and late TRE outperform Mediterranean diet for weight loss",
+      "summary": "In a randomized trial, ketogenic diet, modified alternate-day fasting, and late time-restricted eating produced greater short-term weight loss than a Mediterranean diet, while early TRE did not.",
+      "commentary": "Different fasting-based strategies may yield distinct outcomes, informing real-world dietary choices.",
+      "link": ""
+    },
+    {
+      "number": 4,
+      "title": "High-fiber diet mimics metabolic signatures of calorie restriction",
+      "summary": "In mice, replacing part of dietary macronutrients with indigestible fiber reproduced many metabolic effects of calorie restriction without reducing food intake.",
+      "commentary": "Fiber-induced metabolic changes may partially substitute for energy restriction.",
+      "link": ""
+    },
+    {
+      "number": 5,
+      "title": "Hypocaloric diet temporarily improves PCOS phenotype",
+      "summary": "A three-month low-calorie diet led to short-term improvements in menstrual cycle characteristics and follicle count in women with PCOS, but most effects were not sustained after six months.",
+      "commentary": "Maintenance strategies are essential to preserve metabolic and reproductive benefits.",
+      "link": ""
+    },
+    {
+      "number": 6,
+      "title": "Time-restricted feeding reshapes bacterial gene expression rhythms",
+      "summary": "Metatranscriptomic analysis showed that time-restricted feeding induced diurnal gene expression changes in the microbiota not captured by standard metagenomics.",
+      "commentary": "Microbial rhythmicity may play a functional role in host metabolic regulation.",
+      "link": ""
+    },
+    {
+      "number": 7,
+      "title": "Intermittent fasting induces region- and sex-specific astrocyte remodeling",
+      "summary": "Six weeks of 16:8 intermittent fasting in mice led to anxiety-like behavior and significant, sex-dependent changes in astrocyte morphology, particularly in the amygdala.",
+      "commentary": "Neuroglial adaptations may contribute to emotional side effects of prolonged fasting.",
+      "link": ""
+    },
+    {
+      "number": 8,
+      "title": "Low-carbohydrate time-restricted feeding improves metabolic markers",
+      "summary": "In a real-world cohort, six months of low-carbohydrate time-restricted feeding improved BMI, HbA1c, triglycerides, and HDL cholesterol, though total cholesterol increased.",
+      "commentary": "Long-term time-restricted feeding may support metabolic health when combined with carbohydrate restriction.",
+      "link": ""
+    },
+    {
+      "number": 9,
+      "title": "Intermittent fasting reduces colon oxidative stress via the microbiota",
+      "summary": "In obese mice, intermittent fasting reduced oxidative stress in the colon through improved mitochondrial efficiency and microbiota-mediated mechanisms.",
+      "commentary": "Gut microbes appear essential for fasting-induced intestinal protection.",
+      "link": ""
+    },
+    {
+      "number": 10,
+      "title": "A balanced review of fasting’s promises and caveats",
+      "summary": "This review presents fasting as an evolutionarily conserved response with potential benefits in modern metabolic disease, while cautioning about possible risks such as bone fragility.",
+      "commentary": "Balanced communication is key when discussing fasting with patients.",
+      "link": ""
+    },
+    {
+      "number": 11,
+      "title": "Ketone levels decline after adaptation to time-restricted eating",
+      "summary": "In a comparison of 14:10 and 12:12 eating windows, breath acetone rose early but declined after adaptation in the longer fasting group.",
+      "commentary": "Ketone levels may not linearly reflect metabolic benefits as fasting adaptation progresses.",
+      "link": ""
+    },
+    {
+      "number": 12,
+      "title": "Long-term fasting shifts autonomic nervous system balance",
+      "summary": "In a 12-day medically supervised fasting program, participants showed increased parasympathetic activity, reduced sympathetic tone, and improved mood, with effects persisting after refeeding.",
+      "commentary": "Fasting may promote stress recovery and emotional regulation through autonomic nervous system modulation.",
+      "link": ""
+    }
+  ],
+  "closing_note": "As usual, feel free to comment, raise questions, or share this issue to help spread awareness about the science of fasting."
+}

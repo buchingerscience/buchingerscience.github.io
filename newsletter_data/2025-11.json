@@ -1,0 +1,116 @@
+{
+  "title": "Recent Research on Fasting and Calorie Restriction",
+  "month": "November",
+  "year": 2025,
+  "editorial": "This issue explores how fasting and calorie restriction interact with inflammation, liver health, brain function, aging, and metabolic adaptation. Several studies also highlight the importance of timing, predictability, and potential trade-offs of dietary restriction.",
+  "studies": [
+    {
+      "number": 1,
+      "title": "Revisiting the anti-inflammatory effects of prolonged fasting",
+      "summary": "Analysis of 1,422 individuals showed that the inflammatory response to prolonged fasting depends on baseline CRP levels. Participants with high baseline inflammation experienced marked reductions, while those with low baseline CRP showed mild, transient increases.",
+      "commentary": "These findings suggest that fasting acts as an immune recalibration process. A temporary rise in inflammatory markers in healthy individuals likely reflects physiological stress adaptation rather than harm.",
+      "link": ""
+    },
+    {
+      "number": 2,
+      "title": "Time-restricted eating improves fatty liver disease as effectively as calorie restriction",
+      "summary": "In patients with metabolic dysfunction-associated steatotic liver disease, time-restricted eating reduced hepatic steatosis by 25.8%, with improvements comparable to calorie restriction.",
+      "commentary": "Limiting the eating window may offer a more practical and sustainable alternative to calorie counting for liver health.",
+      "link": ""
+    },
+    {
+      "number": 3,
+      "title": "Early time-restricted eating reduces anxiety and muscle damage in older men",
+      "summary": "Consuming all meals between 7:00 and 15:00 for two months improved body composition, reduced inflammatory and muscle damage markers, and lowered anxiety levels in healthy older men.",
+      "commentary": "Aligning food intake with early circadian rhythms may reduce physiological stress and support mental well-being during aging.",
+      "link": ""
+    },
+    {
+      "number": 4,
+      "title": "Combining intermittent hypoxia training and intermittent fasting enhances outcomes",
+      "summary": "A meta-analysis of 28 studies showed that combining intermittent hypoxia training with intermittent fasting led to greater weight loss and cognitive improvements than either intervention alone.",
+      "link": ""
+    },
+    {
+      "number": 5,
+      "title": "Intermittent fasting reduces seizures in absence epilepsy models",
+      "summary": "Daily intermittent fasting reduced seizure frequency and improved social behavior in mouse models of absence epilepsy.",
+      "commentary": "Fasting remodeled cerebral vascular structures and normalized gene expression in key brain regions involved in seizure generation.",
+      "link": ""
+    },
+    {
+      "number": 6,
+      "title": "Calorie restriction improves metabolism but weakens bone structure in obesity",
+      "summary": "In obese mice, a 30% calorie-restricted diet improved metabolic health but caused cortical bone loss and trabecular thinning.",
+      "commentary": "These findings highlight the need to monitor bone health during aggressive weight loss interventions.",
+      "link": ""
+    },
+    {
+      "number": 7,
+      "title": "Very-low-calorie ketogenic diets trigger metabolic adaptation",
+      "summary": "Women with obesity following a 700–800 kcal ketogenic diet showed major shifts toward fat oxidation but also a 10% reduction in daily energy expenditure.",
+      "commentary": "Metabolic downregulation may complicate long-term weight maintenance after rapid weight loss.",
+      "link": ""
+    },
+    {
+      "number": 8,
+      "title": "Exercise modulates inflammatory responses during prolonged fasting",
+      "summary": "During a 36-hour fast, inflammatory markers decreased, but initiating the fast with exercise blunted reductions in MCP-1.",
+      "commentary": "The timing of physical activity during fasting influences immune signaling and should be adapted to individual goals.",
+      "link": ""
+    },
+    {
+      "number": 9,
+      "title": "Calorie restriction protects against age-related dry eye disease",
+      "summary": "In aging mice, long-term calorie restriction preserved lacrimal gland function and reduced immune cell infiltration.",
+      "link": ""
+    },
+    {
+      "number": 10,
+      "title": "Skipping breakfast and night eating worsen lipid profiles",
+      "summary": "In over 30,000 adults, habitual breakfast skipping combined with night eating accelerated increases in LDL cholesterol and triglycerides.",
+      "commentary": "Disrupted eating rhythms negatively affect cardiovascular risk beyond their impact on body weight.",
+      "link": ""
+    },
+    {
+      "number": 11,
+      "title": "Irregular breakfast habits impair vascular function",
+      "summary": "Both regular and irregular breakfast skipping acutely reduced endothelial function and altered glucose-insulin dynamics in healthy adults.",
+      "link": ""
+    },
+    {
+      "number": 12,
+      "title": "Time-restricted feeding induces browning of white fat",
+      "summary": "In mice, time-restricted feeding improved metabolic health independently of weight loss by promoting thermogenic gene expression in white adipose tissue.",
+      "link": ""
+    },
+    {
+      "number": 13,
+      "title": "Sirt6 links calorie restriction to hydrogen sulfide and longevity",
+      "summary": "Activation of Sirt6 preserved hepatic hydrogen sulfide production by maintaining one-carbon metabolism, counteracting age-related metabolic decline.",
+      "commentary": "This pathway provides a molecular explanation for the anti-aging effects of calorie restriction.",
+      "link": ""
+    },
+    {
+      "number": 14,
+      "title": "Calorie restriction rescues age-related microRNA changes in muscle",
+      "summary": "Calorie restriction normalized more than one-third of aging-associated microRNA alterations in skeletal muscle, supporting autophagy and mitochondrial function.",
+      "link": ""
+    },
+    {
+      "number": 15,
+      "title": "Pre-exercise snacking during prolonged fasting moderates ketosis",
+      "summary": "A small snack before exercise during a 30-hour fast reduced hunger without fully suppressing ketosis, although post-exercise ketone levels were lower.",
+      "commentary": "This strategy may help manage adherence while slightly reducing metabolic depth.",
+      "link": ""
+    },
+    {
+      "number": 16,
+      "title": "Predictability of fasting determines metabolic outcomes",
+      "summary": "In birds, predictable food deprivation improved weight regulation, whereas unpredictable deprivation promoted fat accumulation.",
+      "commentary": "Structured, voluntary fasting appears fundamentally different from food insecurity in its metabolic effects.",
+      "link": ""
+    }
+  ],
+  "closing_note": "As usual, feel free to comment, raise questions, or share this issue to help spread awareness about the science of fasting."
+}

@@ -5,62 +5,80 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Buchinger Science – Fasting Research Newsletter</title>
+
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
+
+<body class="page-newsletter">
 
 <nav>
   <div class="logo">Buchinger Science</div>
   <ul>
-      <li><a href="index.html">Home</a></li>
-      <li><a href="https://dash.buchinger-science.com">Metabolic Explorer</a></li>
-      <li><a href="https://staging.buchinger-wilhelmi.com">Weight loss estimator</a></li>
-      <li><a href="library.html">Research Library</a></li>
-      <li><a href="newsletter.html">Newsletters</a></li>
-      <li><a href="videos.html">Amplius Videos</a></li>
-      <li><a href="fastingcoach.html">Fasting Coach</a></li>
-      <li><a href="contact.html">About us</a></li>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="https://dash.buchinger-science.com">Metabolic Explorer</a></li>
+    <li><a href="https://staging.buchinger-wilhelmi.com">Weight loss estimator</a></li>
+    <li><a href="library.html">Research Library</a></li>
+    <li><a href="newsletter.html" aria-current="page">Newsletters</a></li>
+    <li><a href="videos.html">Amplius Videos</a></li>
+    <li><a href="fastingcoach.html">Fasting Coach</a></li>
+    <li><a href="contact.html">About us</a></li>
   </ul>
 </nav>
 
-<section class="hero" style="background-image: url('hero.png');">
+<header class="hero hero--newsletter" style="background-image: url('hero.png');">
   <div class="content">
     <h1>Fasting Research Newsletter</h1>
     <p>Monthly scientific insights on fasting, calorie restriction, metabolism, and health.</p>
   </div>
-</section>
+</header>
 
-<section class="newsletter-selector">
-  <h2>Select an issue</h2>
-  <div class="selector-row">
-    <label for="yearSelect">Year</label>
-    <select id="yearSelect">
-      <option value="2026">2026</option>
-      <option value="2025" selected>2025</option>
-      <option value="2024">2024</option>
-    </select>
+<section class="newsletter-selector" aria-label="Newsletter issue selector">
+  <div class="selector-inner">
+    <div class="selector-title">
+      <h2>Select an issue</h2>
+      <p class="selector-subtitle">Choose a month to load the full summary and linked studies.</p>
+    </div>
 
-    <label for="monthSelect">Month</label>
-    <select id="monthSelect">
-      <option value="01">January</option>
-      <option value="02">February</option>
-      <option value="03">March</option>
-      <option value="04">April</option>
-      <option value="05">May</option>
-      <option value="06">June</option>
-      <option value="07" selected>July</option>
-      <option value="08">August</option>
-      <option value="09">September</option>
-      <option value="10">October</option>
-      <option value="11">November</option>
-      <option value="12">December</option>
-    </select>
+    <div class="selector-row">
+      <div class="field">
+        <label for="yearSelect">Year</label>
+        <select id="yearSelect">
+          <option value="2026">2026</option>
+          <option value="2025" selected>2025</option>
+          <option value="2024">2024</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="monthSelect">Month</label>
+        <select id="monthSelect">
+          <option value="01">January</option>
+          <option value="02">February</option>
+          <option value="03">March</option>
+          <option value="04">April</option>
+          <option value="05">May</option>
+          <option value="06">June</option>
+          <option value="07" selected>July</option>
+          <option value="08">August</option>
+          <option value="09">September</option>
+          <option value="10">October</option>
+          <option value="11">November</option>
+          <option value="12">December</option>
+        </select>
+      </div>
+
+      <button id="loadNewsletterBtn" class="btn btn-primary" type="button">
+        Load issue
+      </button>
+    </div>
   </div>
 </section>
 
-<section id="newsletterContent">
-  <p class="loading">Loading newsletter…</p>
-</section>
+<main class="newsletter-main">
+  <section id="newsletterContent" class="newsletter-content" aria-live="polite">
+    <p class="loading">Loading newsletter…</p>
+  </section>
+</main>
 
 <footer>
   <p>&copy; 2026 Buchinger Science. All rights reserved.</p>

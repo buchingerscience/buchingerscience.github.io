@@ -3,7 +3,7 @@
   ],
 "studies": [
     {
-      "id": -1,
+      "id": -2,
       "title": "Weight Loss Drugs Are Not Enough: Patients Need Rehabilitation",
       "year": 2025,
       "topics": [
@@ -24,7 +24,7 @@
       "published": true
     },
         {
-      "id": 1,
+      "id": -1,
       "title": "Remodelling of the gut virome after long-term fasting",
       "year": 2025,
       "topics": [
@@ -52,7 +52,7 @@
       "published": false
     },
 {
-      "id": 2,
+      "id": 0,
       "title": "Revisiting the (anti)inflammatory effects of prolonged fasting: the importance of baseline-dependent responses",
       "year": 2025,
       "topics": [
@@ -69,7 +69,7 @@
       "published": true
     },
     {
-      "id": 3,
+      "id": 1,
       "title": "Case Report: Sustained weight loss and glycemic control from repeated long-term fasting in type 2 diabetes",
       "year": 2025,
       "topics": [
@@ -88,7 +88,7 @@
       "published": true
     },
     {
-      "id": 4,
+      "id": 2,
       "title": "Long-term fasting-induced parasympathetic and sympathetic autonomic nervous system modulation in a subgroup of the GENESIS study",
       "year": 2025,
       "topics": [
@@ -110,7 +110,7 @@
       "published": true
     },
     {
-      "id": 5,
+      "id": 3,
       "title": "Impact of prolonged fasting on skeletal muscle: delving into the relationship between structure, energy metabolism, and function using 31P/1H MRS and MRI",
       "year": 2025,
       "topics": [
@@ -140,7 +140,7 @@
       "published": true
     },
     {
-      "id": 6,
+      "id": 4,
       "title": "Long-term fasting induces a remodelling of fatty acid composition in erythrocyte membranes",
       "year": 2025,
       "topics": [
@@ -166,7 +166,7 @@
       "published": true
     },
   {
-      "id": 6a,
+      "id": 5,
       "title": "Health benefits of a five-day at-home modified fasting program: a randomised controlled trial",
       "year": 2025,
       "topics": [
@@ -193,7 +193,7 @@
       "published": true
     },
     {
-      "id": 7,
+      "id": 6,
       "title": "Impact of long-term fasting on breath volatile sulphur compounds, inflammatory markers and saliva microbiota composition",
       "year": 2024,
       "topics": [
@@ -214,7 +214,7 @@
       "published": true
     },
       {
-      "id": 8a,
+      "id": 7,
       "title": "Long-term fasting remodels gut microbial metabolism and host metabolism",
       "year": 2024,
       "topics": [

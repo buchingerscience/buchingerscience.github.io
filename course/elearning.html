@@ -6,13 +6,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Buchinger Science – E-Learning</title>
 
-  <!-- Your global stylesheet -->
-  <link rel="stylesheet" href="style.css" />
+  <!-- style.css is at the ROOT (one level above /course/) -->
+  <link rel="stylesheet" href="../style.css" />
 
   <style>
-    /* Page-local styles aligned with your dash-like theme */
+    /* (same page-local CSS as before) */
     .el-wrap { max-width: 1200px; margin: 0 auto; padding: 26px 18px 56px; }
-
     .el-head { display:flex; align-items:flex-end; justify-content:space-between; gap:14px; flex-wrap:wrap; margin-bottom: 14px; }
     .el-head h1 { margin:0; font-size: 22px; }
     .el-head p { margin:6px 0 0 0; font-size: 13px; color: var(--muted); max-width: 76ch; }
@@ -72,7 +71,6 @@
 
     .el-main { padding: 14px; }
 
-    /* Player */
     .el-player { border: 1px solid var(--border-soft); border-radius: var(--radius); overflow:hidden; background: #fff; }
     .el-player-top { display:flex; align-items:center; justify-content:space-between; gap:12px; padding: 10px 12px; border-bottom: 1px solid var(--border-soft); background: var(--panel); flex-wrap:wrap; }
     .el-now .kicker { font-size: 11px; color: var(--muted); letter-spacing: .12em; text-transform: uppercase; margin-bottom: 2px; }
@@ -84,7 +82,6 @@
     .el-iframe { position: relative; width: 100%; padding-top: 56.25%; background: rgba(0,0,0,0.03); }
     .el-iframe iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
 
-    /* Accordion */
     .el-accordion { margin-top: 12px; display:grid; gap: 10px; }
     .el-acc-item { border: 1px solid var(--border-soft); border-radius: var(--radius); overflow:hidden; background:#fff; }
     .el-acc-btn {
@@ -166,15 +163,16 @@
 </head>
 
 <body>
+  <!-- If this page is in /course/, use ../ to reach root pages -->
   <nav>
     <div class="logo">Buchinger Science</div>
     <ul>
-      <li><a href="index.html">Home</a></li>
+      <li><a href="../index.html">Home</a></li>
       <li><a href="https://dash.buchinger-science.com">Metabolic Explorer</a></li>
-      <li><a href="library.html">Research Library</a></li>
-      <li><a href="newsletter.html">Newsletters</a></li>
-      <li><a class="active" href="elearning.html">E-Learning</a></li>
-      <li><a href="contact.html">About us</a></li>
+      <li><a href="../library.html">Research Library</a></li>
+      <li><a href="../newsletter.html">Newsletters</a></li>
+      <li><a class="active" href="./elearning.html">E-Learning</a></li>
+      <li><a href="../contact.html">About us</a></li>
     </ul>
   </nav>
 
@@ -239,14 +237,17 @@
 
   <script>
     /**
-     * E-learning infrastructure:
-     * - Loads course index (e-learning.json)
-     * - Loads 4 module files (module-1.json .. module-4.json)
-     * - Renders accordion + player
-     * - Tracks completion in localStorage
+     * PATHS:
+     * - This HTML is in /course/elearning.html
+     * - JSON files are also in /course/
+     * - style.css is at /
+     *
+     * So we use relative URLs like:
+     *   e-learning.json, module-1.json, ...
+     * and downloads inside /course/downloads/... (or adjust as you wish).
      */
 
-    const COURSE_INDEX_URL = "e-learning.json";
+    const COURSE_INDEX_URL = "./e-learning.json";
     const STORAGE_KEY = "bw_elearning_progress_v1";
 
     // Elements
@@ -269,10 +270,10 @@
     const elProgressText = document.getElementById("el_progressText");
 
     // State
-    let progress = loadProgress();        // { [lessonId]: true/false }
-    let courseIndex = null;              // from e-learning.json
-    let modules = [];                    // loaded module objects
-    let lessonsFlat = [];                // flattened lessons with module context
+    let progress = loadProgress();
+    let courseIndex = null;
+    let modules = [];
+    let lessonsFlat = [];
     let activeModuleId = null;
     let activeLessonId = null;
 
@@ -359,10 +360,7 @@
     function getFilteredLessonsForModule(moduleObj) {
       const q = (elQ.value || "").trim().toLowerCase();
       let list = lessonsFlat.filter(l => l.moduleId === moduleObj.moduleId);
-
       if (q) list = list.filter(l => (l.title || "").toLowerCase().includes(q));
-
-      // Keep module ordering based on module JSON `order`
       list.sort((a, b) => (a.order ?? 999) - (b.order ?? 999));
       return list;
     }
@@ -405,7 +403,7 @@
         `;
       }).join("");
 
-      // Accordion open/close
+      // Accordion toggles
       elAccordion.querySelectorAll(".el-acc-btn").forEach(btn => {
         btn.addEventListener("click", () => {
           const id = btn.dataset.acc;
@@ -419,7 +417,7 @@
         });
       });
 
-      // Render lesson cards inside each module panel
+      // Lessons
       modules.forEach(m => {
         const host = elAccordion.querySelector(`.el-lessons[data-lessons="${m.moduleId}"]`);
         if (!host) return;
@@ -460,7 +458,6 @@
           `;
         }).join("");
 
-        // Open lesson by clicking thumbnail
         host.querySelectorAll(".el-thumb").forEach(thumb => {
           thumb.addEventListener("click", () => setActiveLesson(thumb.closest(".el-lesson").dataset.lesson));
           thumb.addEventListener("keydown", (e) => {
@@ -468,12 +465,10 @@
           });
         });
 
-        // Open button
         host.querySelectorAll('button[data-open]').forEach(btn => {
           btn.addEventListener("click", () => setActiveLesson(btn.dataset.open));
         });
 
-        // Checkbox
         host.querySelectorAll('input[data-done]').forEach(chk => {
           chk.addEventListener("click", (e) => e.stopPropagation());
           chk.addEventListener("change", () => {
@@ -536,11 +531,7 @@
     }
 
     function exportProgress() {
-      const payload = {
-        exportedAt: new Date().toISOString(),
-        key: STORAGE_KEY,
-        progress
-      };
+      const payload = { exportedAt: new Date().toISOString(), key: STORAGE_KEY, progress };
       const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
       const url = URL.createObjectURL(blob);
 
@@ -561,16 +552,15 @@
         elCourseTitle.textContent = courseIndex.title || "E-Learning";
         elCourseDesc.textContent = courseIndex.description || "—";
 
-        // Load module JSON files listed in the index
+        // Module JSON files are in /course/ too, so use the filename as-is
         const loaded = [];
         for (const modRef of (courseIndex.modules || [])) {
-          const mod = await fetchJson(modRef.file);
+          const mod = await fetchJson("./" + modRef.file.replace(/^\.?\//, ""));
           loaded.push(mod);
         }
-
         modules = loaded;
 
-        // Flatten lessons for search/progress
+        // Flatten lessons
         lessonsFlat = [];
         for (const m of modules) {
           for (const lesson of (m.lessons || [])) {
@@ -585,26 +575,22 @@
               notes: lesson.notes || "",
               videoUrl: lesson.videoUrl,
               ytId,
-              textDownload: lesson.textDownload || "#",
-              extraDownload: lesson.extraDownload || "#"
+              // Downloads live under /course/downloads/... by default
+              textDownload: lesson.textDownload || "./downloads/placeholder.pdf",
+              extraDownload: lesson.extraDownload || "./downloads/placeholder.zip"
             });
           }
         }
 
-        // Default selections
         activeModuleId = modules[0]?.moduleId || null;
 
         renderModuleList();
         renderAccordion();
         updateProgressUI();
 
-        // Open first lesson
         if (lessonsFlat[0]) setActiveLesson(lessonsFlat[0].lessonId);
 
-        elQ.addEventListener("input", () => {
-          renderAccordion();
-          updateProgressUI();
-        });
+        elQ.addEventListener("input", () => { renderAccordion(); updateProgressUI(); });
 
         elReset.addEventListener("click", () => {
           if (!confirm("Reset completion progress for this course on this device?")) return;
@@ -621,6 +607,13 @@
         elCourseDesc.textContent = "Could not load course files. Check file names and paths.";
         console.error(err);
       }
+    }
+
+    function overallProgress() {
+      const total = lessonsFlat.length;
+      const done = lessonsFlat.reduce((acc, l) => acc + (isDone(l.lessonId) ? 1 : 0), 0);
+      const pct = total ? Math.round((done / total) * 100) : 0;
+      return { total, done, pct };
     }
 
     init();

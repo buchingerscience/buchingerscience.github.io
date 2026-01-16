@@ -1,0 +1,45 @@
+{
+  "moduleId": "m4",
+  "label": "Module 4",
+  "title": "After fasting: food reintroduction and relapse prevention",
+  "description": "How to break the fast, build habits, and reduce relapse risk.",
+  "quizLink": "https://typeform.com/to/PLACEHOLDER-M4",
+  "lessons": [
+    {
+      "lessonId": "m4l1",
+      "order": 1,
+      "title": "Lesson 1 — Breaking the fast (core principles)",
+      "videoUrl": "https://youtu.be/dQw4w9WgXcQ",
+      "textDownload": "downloads/module4_lesson1_text.pdf",
+      "extraDownload": "downloads/module4_lesson1_extra.pdf",
+      "notes": "Placeholder: digestive sensitivity, portions, pacing."
+    },
+    {
+      "lessonId": "m4l2",
+      "order": 2,
+      "title": "Lesson 2 — Build-up days: what to prioritise",
+      "videoUrl": "https://youtu.be/dQw4w9WgXcQ",
+      "textDownload": "downloads/module4_lesson2_text.pdf",
+      "extraDownload": "downloads/module4_lesson2_extra.pdf",
+      "notes": "Placeholder: vegetables, protein reintroduction, avoiding extremes."
+    },
+    {
+      "lessonId": "m4l3",
+      "order": 3,
+      "title": "Lesson 3 — Long-term patterns: time windows and structure",
+      "videoUrl": "https://youtu.be/dQw4w9WgXcQ",
+      "textDownload": "downloads/module4_lesson3_text.pdf",
+      "extraDownload": "downloads/module4_lesson3_extra.pdf",
+      "notes": "Placeholder: realistic routine that can be maintained."
+    },
+    {
+      "lessonId": "m4l4",
+      "order": 4,
+      "title": "Lesson 4 — Follow-up and self-monitoring",
+      "videoUrl": "https://youtu.be/dQw4w9WgXcQ",
+      "textDownload": "downloads/module4_lesson4_text.pdf",
+      "extraDownload": "downloads/module4_lesson4_extra.pdf",
+      "notes": "Placeholder: simple tracking and when to seek help."
+    }
+  ]
+}

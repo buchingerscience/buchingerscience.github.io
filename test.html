@@ -1,157 +1,851 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My React GitHub Page</title>
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Digit Span Test</title>
 
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 40px;
-        background: #f6f7fb;
-        color: #222;
-      }
+  <!-- style.css is at the root, this page is in /course/ -->
+  <link rel="stylesheet" href="../style.css" />
 
-      .card {
-        max-width: 520px;
-        margin: 0 auto;
-        background: white;
-        border-radius: 12px;
-        padding: 24px;
-        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
-      }
+  <style>
+    /* Page-local styling (kept minimal, matches your “dash” look) */
+    :root { --maxw: 980px; }
 
-      h1 {
-        margin-top: 0;
-        font-size: 22px;
-      }
+    .wrap { max-width: var(--maxw); margin: 0 auto; padding: 32px 18px 64px; }
+    .topbar {
+      display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;
+      position: sticky; top: 0; z-index: 10;
+      background: rgba(248,249,250,0.85); backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border, #e9ecef);
+      padding: 10px 18px;
+      margin: 0 -18px 18px;
+    }
+    .brand { font-weight: 650; letter-spacing: 0.2px; }
+    .pill-row { display:flex; gap:8px; flex-wrap:wrap; align-items:center; justify-content:flex-end; }
 
-      button {
-        border: 0;
-        padding: 10px 14px;
-        border-radius: 10px;
-        cursor: pointer;
-        margin-right: 10px;
-        background: #2d6cdf;
-        color: white;
-        font-weight: 600;
-      }
+    .pill {
+      display:inline-flex; align-items:center; gap:8px;
+      padding: 7px 12px;
+      border-radius: 16px;
+      border: 1px solid var(--border, #e9ecef);
+      background: rgba(255,255,255,0.9);
+      font-size: 13px;
+      color: inherit;
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform .15s ease, box-shadow .15s ease, background-color .15s ease;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.04);
+    }
+    .pill:hover { transform: translateY(-1px); box-shadow: 0 4px 14px rgba(0,0,0,0.08); }
+    .pill.primary { background: var(--accent, #5bc2e7); color: #fff; border-color: rgba(0,0,0,0.05); }
+    .pill.primary:hover { background: #67c9ea; }
+    .pill.danger { background: #fff; border-color: rgba(220,53,69,0.25); }
+    .pill.danger:hover { background: rgba(220,53,69,0.06); }
 
-      button.secondary {
-        background: #e9ecf2;
-        color: #222;
-      }
+    .grid { display:grid; grid-template-columns: 1.15fr 0.85fr; gap: 16px; }
+    @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
 
-      input {
-        width: 100%;
-        padding: 10px 12px;
-        margin-top: 10px;
-        border-radius: 10px;
-        border: 1px solid #d8dbe2;
-        font-size: 14px;
-      }
+    .card {
+      background: rgba(255,255,255,0.95);
+      border: 1px solid var(--border, #e9ecef);
+      border-radius: 8px;
+      box-shadow: 0 2px 14px rgba(0,0,0,0.05);
+      padding: 18px;
+    }
+    .muted { opacity: .78; }
+    .small { font-size: 12.5px; }
 
-      ul {
-        padding-left: 18px;
-      }
+    .row { display:flex; gap:12px; flex-wrap:wrap; align-items:center; }
+    .row.spread { justify-content: space-between; }
+    .stack { display:flex; flex-direction:column; gap:10px; }
 
-      li {
-        margin: 6px 0;
-      }
+    .label { font-size: 12px; opacity: .8; margin-bottom: 6px; }
+    .value {
+      font-size: 28px; font-weight: 700; letter-spacing: 0.4px;
+      padding: 16px;
+      text-align:center;
+      border: 1px solid var(--border, #e9ecef);
+      border-radius: 8px;
+      background: linear-gradient(180deg, rgba(248,249,250,0.95), rgba(255,255,255,0.95));
+      min-height: 74px;
+      display:flex; align-items:center; justify-content:center;
+      user-select: none;
+    }
 
-      .small {
-        margin-top: 14px;
-        font-size: 13px;
-        color: #666;
-      }
-    </style>
-  </head>
+    .seg {
+      display:flex; border: 1px solid var(--border, #e9ecef); border-radius: 16px; overflow:hidden;
+      background: rgba(255,255,255,0.9);
+    }
+    .seg button {
+      border: 0; background: transparent; padding: 8px 12px; cursor:pointer;
+      font-size: 13px;
+    }
+    .seg button.active { background: rgba(91,194,231,0.18); color: #0b4f6c; }
 
-  <body>
-    <div id="root"></div>
+    .kv { display:grid; grid-template-columns: 1fr auto; gap: 8px 10px; font-size: 13px; }
+    .kv div:nth-child(odd) { opacity: .78; }
 
-    <!-- React + ReactDOM (CDN) -->
-    <script
-      crossorigin
-      src="https://unpkg.com/react@18/umd/react.development.js"
-    ></script>
-    <script
-      crossorigin
-      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
-    ></script>
+    .kbd {
+      display:grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 10px;
+    }
+    .kbd button {
+      padding: 14px 10px;
+      border-radius: 8px;
+      border: 1px solid var(--border, #e9ecef);
+      background: rgba(255,255,255,0.95);
+      cursor: pointer;
+      font-size: 16px;
+      transition: transform .12s ease, box-shadow .12s ease, background-color .12s ease;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.04);
+    }
+    .kbd button:hover { transform: translateY(-1px); box-shadow: 0 4px 14px rgba(0,0,0,0.08); }
+    .kbd button.wide { grid-column: span 2; }
+    .kbd button.action { background: rgba(248,249,250,0.95); }
 
-    <!-- Babel (so we can write JSX directly in the browser) -->
-    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    .answer {
+      border: 1px solid var(--border, #e9ecef);
+      border-radius: 8px;
+      padding: 10px 12px;
+      min-height: 44px;
+      display:flex;
+      align-items:center;
+      gap: 8px;
+      justify-content: space-between;
+      background: rgba(255,255,255,0.95);
+      font-size: 16px;
+    }
+    .answer .digits { letter-spacing: 3px; font-weight: 650; }
+    .answer .hint { font-size: 12px; opacity: .65; }
 
-    <!-- Your React code -->
-    <script type="text/babel">
-      function App() {
-        const [name, setName] = React.useState("World");
-        const [count, setCount] = React.useState(0);
-        const [items, setItems] = React.useState([]);
+    .status {
+      display:flex; gap:8px; flex-wrap:wrap; align-items:center;
+      font-size: 12.5px;
+    }
+    .badge {
+      padding: 5px 9px;
+      border-radius: 16px;
+      border: 1px solid var(--border, #e9ecef);
+      background: rgba(248,249,250,0.9);
+    }
+    .badge.ok { border-color: rgba(25,135,84,0.25); background: rgba(25,135,84,0.08); }
+    .badge.bad { border-color: rgba(220,53,69,0.25); background: rgba(220,53,69,0.08); }
 
-        function addItem() {
-          const text = `Item ${items.length + 1}`;
-          setItems([...items, text]);
-        }
+    table { width:100%; border-collapse: collapse; }
+    th, td { text-align:left; padding: 10px 8px; border-bottom: 1px solid var(--border, #e9ecef); font-size: 13px; }
+    th { background: rgba(248,249,250,0.9); font-weight: 650; }
+    .right { text-align:right; }
 
-        function clearItems() {
-          setItems([]);
-        }
+    .footnote { margin-top: 12px; font-size: 12px; opacity: .75; line-height: 1.35; }
+  </style>
+</head>
 
-        return (
-          <div className="card">
-            <h1>Hello, {name} 👋</h1>
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand">Digit Span Test</div>
 
-            <label>
-              Your name:
-              <input
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                placeholder="Type your name..."
-              />
-            </label>
+      <div class="pill-row">
+        <div class="seg" role="tablist" aria-label="Mode">
+          <button id="modeForward" class="active" type="button" role="tab" aria-selected="true">Forward</button>
+          <button id="modeBackward" type="button" role="tab" aria-selected="false">Backward</button>
+        </div>
+        <button id="btnStart" class="pill primary" type="button">Start</button>
+        <button id="btnReset" class="pill danger" type="button" title="Clears your saved history">Reset history</button>
+      </div>
+    </div>
 
-            <hr style={{ margin: "18px 0", border: "none", borderTop: "1px solid #eee" }} />
-
-            <p>
-              Counter: <strong>{count}</strong>
-            </p>
-
-            <button onClick={() => setCount(count + 1)}>+1</button>
-            <button className="secondary" onClick={() => setCount(0)}>
-              Reset
-            </button>
-
-            <hr style={{ margin: "18px 0", border: "none", borderTop: "1px solid #eee" }} />
-
-            <p>
-              Simple list ({items.length})
-            </p>
-
-            <button onClick={addItem}>Add item</button>
-            <button className="secondary" onClick={clearItems}>
-              Clear
-            </button>
-
-            <ul>
-              {items.map((x, i) => (
-                <li key={i}>{x}</li>
-              ))}
-            </ul>
-
-            <div className="small">
-              This page is a single <code>index.html</code> using React from a CDN.
-              Perfect for GitHub Pages demos.
+    <div class="grid">
+      <!-- Main test card -->
+      <section class="card" aria-live="polite">
+        <div class="row spread">
+          <div class="stack" style="gap:4px;">
+            <div class="muted small" id="subtitle">A short attention and working-memory test. Two trials per length.</div>
+            <div class="status" id="statusRow">
+              <span class="badge" id="badgePhase">Idle</span>
+              <span class="badge" id="badgeLength">Length: –</span>
+              <span class="badge" id="badgeTrial">Trial: –</span>
             </div>
           </div>
-        );
+
+          <div class="kv" style="min-width: 220px;">
+            <div>Digit speed</div><div><span id="speedLabel">900</span> ms</div>
+            <div>Gap</div><div><span id="gapLabel">250</span> ms</div>
+            <div>Practice</div><div><span id="practiceLabel">2</span> trials</div>
+          </div>
+        </div>
+
+        <div style="height: 14px;"></div>
+
+        <div class="label" id="mainLabel">Stimulus</div>
+        <div class="value" id="display">Press Start</div>
+
+        <div style="height: 12px;"></div>
+
+        <div class="label">Your answer</div>
+        <div class="answer">
+          <div class="digits" id="answerDigits">—</div>
+          <div class="hint" id="answerHint">Tap digits below</div>
+        </div>
+
+        <div class="kbd" aria-label="Numeric keypad">
+          <button type="button" data-digit="1">1</button>
+          <button type="button" data-digit="2">2</button>
+          <button type="button" data-digit="3">3</button>
+          <button type="button" data-digit="4">4</button>
+          <button type="button" data-digit="5">5</button>
+          <button type="button" data-digit="6">6</button>
+          <button type="button" data-digit="7">7</button>
+          <button type="button" data-digit="8">8</button>
+          <button type="button" data-digit="9">9</button>
+          <button type="button" class="action wide" id="btnBackspace">Backspace</button>
+          <button type="button" data-digit="0">0</button>
+          <button type="button" class="action" id="btnClear">Clear</button>
+          <button type="button" class="action wide" id="btnSubmit">Submit</button>
+        </div>
+
+        <div class="footnote" id="instructions">
+          <strong>Forward:</strong> repeat the digits in the same order.<br />
+          <strong>Backward:</strong> repeat the digits in reverse order.<br />
+          Tip: keep the same device and the same time of day for comparisons.
+        </div>
+      </section>
+
+      <!-- Results + history -->
+      <aside class="card">
+        <div class="row spread">
+          <div>
+            <div style="font-weight:650;">Results</div>
+            <div class="muted small">Saved locally in your browser (localStorage).</div>
+          </div>
+          <button class="pill" id="btnExport" type="button">Export JSON</button>
+        </div>
+
+        <div style="height: 12px;"></div>
+
+        <div class="kv">
+          <div>Forward span (latest)</div><div id="latestForward">–</div>
+          <div>Backward span (latest)</div><div id="latestBackward">–</div>
+          <div>Last session</div><div id="latestDate">–</div>
+        </div>
+
+        <div style="height: 14px;"></div>
+
+        <div style="font-weight:650; margin-bottom: 8px;">History</div>
+        <div style="overflow:auto; border:1px solid var(--border, #e9ecef); border-radius: 8px;">
+          <table>
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Mode</th>
+                <th class="right">Span</th>
+                <th class="right">Trials</th>
+              </tr>
+            </thead>
+            <tbody id="historyBody">
+              <tr><td colspan="4" class="muted">No sessions yet.</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="footnote">
+          <strong>Scoring:</strong> two trials per length. If you get at least 1/2 correct, you move up.
+          The test stops when you get 0/2 correct at a given length.
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <script>
+    /********************************************************************
+     * Digit Span Test — single-file app
+     * - Forward / Backward
+     * - 2 practice trials
+     * - 2 trials per length (pass if >= 1 correct)
+     * - Stores sessions in localStorage
+     ********************************************************************/
+
+    // ---------- Config ----------
+    const CONFIG = {
+      speedMs: 900,
+      gapMs: 250,
+      practiceTrials: 2,
+      trialsPerLength: 2,
+      forward: { startLen: 3, maxLen: 9 },
+      backward:{ startLen: 2, maxLen: 8 },
+      storageKey: "digitSpan.sessions.v1"
+    };
+
+    // ---------- Elements ----------
+    const el = {
+      modeForward: document.getElementById("modeForward"),
+      modeBackward: document.getElementById("modeBackward"),
+      btnStart: document.getElementById("btnStart"),
+      btnReset: document.getElementById("btnReset"),
+      btnExport: document.getElementById("btnExport"),
+
+      subtitle: document.getElementById("subtitle"),
+      badgePhase: document.getElementById("badgePhase"),
+      badgeLength: document.getElementById("badgeLength"),
+      badgeTrial: document.getElementById("badgeTrial"),
+
+      speedLabel: document.getElementById("speedLabel"),
+      gapLabel: document.getElementById("gapLabel"),
+      practiceLabel: document.getElementById("practiceLabel"),
+
+      mainLabel: document.getElementById("mainLabel"),
+      display: document.getElementById("display"),
+      answerDigits: document.getElementById("answerDigits"),
+      answerHint: document.getElementById("answerHint"),
+
+      btnBackspace: document.getElementById("btnBackspace"),
+      btnClear: document.getElementById("btnClear"),
+      btnSubmit: document.getElementById("btnSubmit"),
+
+      historyBody: document.getElementById("historyBody"),
+      latestForward: document.getElementById("latestForward"),
+      latestBackward: document.getElementById("latestBackward"),
+      latestDate: document.getElementById("latestDate"),
+      instructions: document.getElementById("instructions")
+    };
+
+    // ---------- State ----------
+    const state = {
+      mode: "forward", // "forward" | "backward"
+      phase: "idle",   // idle | practice_show | show | input | feedback | done
+      isRunning: false,
+      isShowing: false,
+
+      // per run:
+      startedAt: null,
+      currentLen: null,
+      currentTrialIndex: 0, // 0..(trialsPerLength-1)
+      correctInThisLen: 0,
+      totalTrials: 0,
+
+      // practice:
+      practiceDone: 0,
+
+      // current trial:
+      sequence: "",
+      expected: "",
+      answer: "",
+
+      // scoring:
+      maxPassedLen: 0,
+
+      // timeouts:
+      timers: []
+    };
+
+    // ---------- Utils ----------
+    function nowISO() {
+      return new Date().toISOString();
+    }
+
+    function fmtDate(iso) {
+      try {
+        const d = new Date(iso);
+        return d.toLocaleString(undefined, { year:"numeric", month:"short", day:"2-digit", hour:"2-digit", minute:"2-digit" });
+      } catch {
+        return iso;
+      }
+    }
+
+    function clamp(n, a, b) {
+      return Math.max(a, Math.min(b, n));
+    }
+
+    function clearTimers() {
+      state.timers.forEach(t => clearTimeout(t));
+      state.timers = [];
+    }
+
+    function setBadge(elm, text, kind = null) {
+      elm.textContent = text;
+      elm.classList.remove("ok", "bad");
+      if (kind) elm.classList.add(kind);
+    }
+
+    function setMode(mode) {
+      state.mode = mode;
+      const isF = (mode === "forward");
+      el.modeForward.classList.toggle("active", isF);
+      el.modeBackward.classList.toggle("active", !isF);
+      el.modeForward.setAttribute("aria-selected", isF ? "true" : "false");
+      el.modeBackward.setAttribute("aria-selected", !isF ? "true" : "false");
+
+      el.instructions.innerHTML = isF
+        ? "<strong>Forward:</strong> repeat the digits in the same order.<br /><strong>Tip:</strong> keep the same device and the same time of day for comparisons."
+        : "<strong>Backward:</strong> repeat the digits in reverse order.<br /><strong>Tip:</strong> keep the same device and the same time of day for comparisons.";
+
+      if (!state.isRunning) {
+        el.display.textContent = "Press Start";
+        el.mainLabel.textContent = "Stimulus";
+        resetAnswer();
+        updateBadges();
+      }
+    }
+
+    function resetAnswer() {
+      state.answer = "";
+      el.answerDigits.textContent = "—";
+      el.answerHint.textContent = "Tap digits below";
+    }
+
+    function setAnswerText() {
+      if (!state.answer) {
+        el.answerDigits.textContent = "—";
+        el.answerHint.textContent = "Tap digits below";
+      } else {
+        el.answerDigits.textContent = state.answer;
+        el.answerHint.textContent = `${state.answer.length} digits`;
+      }
+    }
+
+    // Random sequence with simple constraints:
+    // - no identical consecutive digits
+    // - at most 2 repeats in entire sequence
+    // - avoid long consecutive runs (e.g., 1234 or 9876)
+    function generateSequence(len) {
+      const digits = "0123456789";
+      let seq = "";
+
+      function isBadRun(s) {
+        if (s.length < 4) return false;
+        const last4 = s.slice(-4).split("").map(Number);
+        const diffs = [last4[1]-last4[0], last4[2]-last4[1], last4[3]-last4[2]];
+        const allPlus1 = diffs.every(d => d === 1);
+        const allMinus1 = diffs.every(d => d === -1);
+        return allPlus1 || allMinus1;
       }
 
-      const root = ReactDOM.createRoot(document.getElementById("root"));
-      root.render(<App />);
-    </script>
-  </body>
+      for (let i = 0; i < len; i++) {
+        let tries = 0;
+        while (tries < 60) {
+          tries++;
+          const d = digits[Math.floor(Math.random() * digits.length)];
+          const candidate = seq + d;
+
+          // rule: no identical consecutive digits
+          if (seq.length > 0 && seq[seq.length - 1] === d) continue;
+
+          // rule: repeats limited
+          const counts = {};
+          for (const ch of candidate) counts[ch] = (counts[ch] || 0) + 1;
+          const repeatsTotal = Object.values(counts).reduce((acc, v) => acc + Math.max(0, v - 1), 0);
+          if (repeatsTotal > 2) continue;
+
+          // rule: avoid long runs
+          if (isBadRun(candidate)) continue;
+
+          seq = candidate;
+          break;
+        }
+      }
+
+      // If something went weird, fall back to a simple random
+      if (seq.length !== len) {
+        seq = "";
+        for (let i = 0; i < len; i++) seq += digits[Math.floor(Math.random() * 10)];
+      }
+      return seq;
+    }
+
+    function expectedFromSequence(seq) {
+      if (state.mode === "forward") return seq;
+      return seq.split("").reverse().join("");
+    }
+
+    // ---------- Storage ----------
+    function loadSessions() {
+      try {
+        const raw = localStorage.getItem(CONFIG.storageKey);
+        if (!raw) return [];
+        const data = JSON.parse(raw);
+        return Array.isArray(data) ? data : [];
+      } catch {
+        return [];
+      }
+    }
+
+    function saveSessions(sessions) {
+      localStorage.setItem(CONFIG.storageKey, JSON.stringify(sessions));
+    }
+
+    function addSession(session) {
+      const sessions = loadSessions();
+      sessions.unshift(session);
+      saveSessions(sessions.slice(0, 200)); // keep it tidy
+      renderHistory();
+      renderLatest();
+    }
+
+    function renderLatest() {
+      const sessions = loadSessions();
+      const latest = sessions[0] || null;
+
+      // latest forward and backward (search)
+      const latestF = sessions.find(s => s.mode === "forward") || null;
+      const latestB = sessions.find(s => s.mode === "backward") || null;
+
+      el.latestForward.textContent = latestF ? String(latestF.span) : "–";
+      el.latestBackward.textContent = latestB ? String(latestB.span) : "–";
+      el.latestDate.textContent = latest ? fmtDate(latest.completedAt) : "–";
+    }
+
+    function renderHistory() {
+      const sessions = loadSessions();
+      const body = el.historyBody;
+      body.innerHTML = "";
+
+      if (!sessions.length) {
+        body.innerHTML = '<tr><td colspan="4" class="muted">No sessions yet.</td></tr>';
+        return;
+      }
+
+      for (const s of sessions.slice(0, 12)) {
+        const tr = document.createElement("tr");
+
+        const tdDate = document.createElement("td");
+        tdDate.textContent = fmtDate(s.completedAt);
+
+        const tdMode = document.createElement("td");
+        tdMode.textContent = s.mode === "forward" ? "Forward" : "Backward";
+
+        const tdSpan = document.createElement("td");
+        tdSpan.className = "right";
+        tdSpan.textContent = String(s.span);
+
+        const tdTrials = document.createElement("td");
+        tdTrials.className = "right";
+        tdTrials.textContent = String(s.totalTrials);
+
+        tr.appendChild(tdDate);
+        tr.appendChild(tdMode);
+        tr.appendChild(tdSpan);
+        tr.appendChild(tdTrials);
+        body.appendChild(tr);
+      }
+    }
+
+    // ---------- UI updates ----------
+    function updateBadges() {
+      setBadge(el.badgePhase, phaseLabel());
+      setBadge(el.badgeLength, state.currentLen ? `Length: ${state.currentLen}` : "Length: –");
+      setBadge(el.badgeTrial, state.isRunning ? `Trial: ${state.currentTrialIndex + 1}/${CONFIG.trialsPerLength}` : "Trial: –");
+    }
+
+    function phaseLabel() {
+      if (!state.isRunning) return "Idle";
+      if (state.phase.startsWith("practice")) return "Practice";
+      if (state.phase === "show") return "Showing";
+      if (state.phase === "input") return "Enter";
+      if (state.phase === "feedback") return "Feedback";
+      if (state.phase === "done") return "Done";
+      return "Running";
+    }
+
+    function setDisplay(text) {
+      el.display.textContent = text;
+    }
+
+    function lockInput(locked) {
+      // we keep keypad clickable but ignore presses while locked
+      state.isShowing = locked;
+      el.btnSubmit.disabled = locked;
+    }
+
+    // ---------- Flow ----------
+    function startTest() {
+      clearTimers();
+
+      state.isRunning = true;
+      state.startedAt = nowISO();
+      state.practiceDone = 0;
+      state.maxPassedLen = 0;
+
+      state.totalTrials = 0;
+
+      const startLen = (state.mode === "forward") ? CONFIG.forward.startLen : CONFIG.backward.startLen;
+      state.currentLen = startLen;
+      state.currentTrialIndex = 0;
+      state.correctInThisLen = 0;
+
+      resetAnswer();
+
+      el.btnStart.textContent = "Restart";
+      el.subtitle.textContent = "Focus. Digits will appear one by one.";
+
+      runPracticeOrTrial();
+    }
+
+    function stopToIdle() {
+      clearTimers();
+      state.isRunning = false;
+      state.phase = "idle";
+      state.currentLen = null;
+      state.currentTrialIndex = 0;
+      state.correctInThisLen = 0;
+      state.sequence = "";
+      state.expected = "";
+      resetAnswer();
+      el.subtitle.textContent = "A short attention and working-memory test. Two trials per length.";
+      el.btnStart.textContent = "Start";
+      el.mainLabel.textContent = "Stimulus";
+      setDisplay("Press Start");
+      lockInput(true);
+      updateBadges();
+    }
+
+    function finishAndSave() {
+      state.phase = "done";
+      updateBadges();
+
+      const span = state.maxPassedLen || 0;
+      const session = {
+        mode: state.mode,
+        span,
+        totalTrials: state.totalTrials,
+        startedAt: state.startedAt,
+        completedAt: nowISO(),
+        settings: { speedMs: CONFIG.speedMs, gapMs: CONFIG.gapMs, practiceTrials: CONFIG.practiceTrials }
+      };
+
+      addSession(session);
+
+      el.subtitle.textContent = "Session saved. You can run it again for tracking.";
+      el.mainLabel.textContent = "Result";
+      setDisplay(`Span = ${span}`);
+      lockInput(true);
+      resetAnswer();
+
+      // keep running state false after save
+      state.isRunning = false;
+      el.btnStart.textContent = "Start";
+    }
+
+    function runPracticeOrTrial() {
+      updateBadges();
+      resetAnswer();
+
+      if (state.practiceDone < CONFIG.practiceTrials) {
+        state.phase = "practice_show";
+        el.mainLabel.textContent = `Practice ${state.practiceDone + 1}/${CONFIG.practiceTrials}`;
+        runOneTrial(/*isPractice*/ true);
+      } else {
+        state.phase = "show";
+        el.mainLabel.textContent = `${state.mode === "forward" ? "Forward" : "Backward"} — watch carefully`;
+        runOneTrial(/*isPractice*/ false);
+      }
+    }
+
+    function runOneTrial(isPractice) {
+      clearTimers();
+      lockInput(true);
+
+      // generate
+      const len = isPractice ? clamp(3, 2, 4) : state.currentLen;
+      state.sequence = generateSequence(len);
+      state.expected = (state.mode === "forward") ? state.sequence : state.sequence.split("").reverse().join("");
+
+      // show digits one by one
+      setDisplay("•");
+      const chars = state.sequence.split("");
+
+      let t = 0;
+      for (let i = 0; i < chars.length; i++) {
+        t += (i === 0 ? 250 : CONFIG.gapMs);
+        state.timers.push(setTimeout(() => setDisplay(chars[i]), t));
+        t += CONFIG.speedMs;
+        state.timers.push(setTimeout(() => setDisplay("•"), t));
+      }
+
+      // after showing, switch to input
+      t += 120;
+      state.timers.push(setTimeout(() => {
+        state.phase = "input";
+        el.mainLabel.textContent = isPractice ? "Practice — enter the sequence" : "Enter the sequence";
+        setDisplay("Enter");
+        lockInput(false);
+        resetAnswer();
+        updateBadges();
+      }, t));
+    }
+
+    function submitAnswer() {
+      if (!state.isRunning) return;
+      if (state.isShowing) return;
+      if (state.phase !== "input") return;
+
+      const ans = state.answer;
+      const exp = state.expected;
+
+      // basic guard: require exact length
+      if (ans.length !== exp.length) {
+        el.answerHint.textContent = `Need ${exp.length} digits`;
+        return;
+      }
+
+      state.phase = "feedback";
+      lockInput(true);
+
+      const correct = (ans === exp);
+      state.totalTrials += 1;
+
+      if (state.practiceDone < CONFIG.practiceTrials) {
+        // Practice feedback only
+        state.practiceDone += 1;
+        el.mainLabel.textContent = "Practice feedback";
+        setDisplay(correct ? "Correct ✓" : "Incorrect ✕");
+        setBadge(el.badgePhase, "Practice", correct ? "ok" : "bad");
+
+        state.timers.push(setTimeout(() => {
+          // continue
+          runPracticeOrTrial();
+        }, 900));
+
+        return;
+      }
+
+      // Real trial feedback
+      if (correct) state.correctInThisLen += 1;
+
+      setDisplay(correct ? "Correct ✓" : "Incorrect ✕");
+      setBadge(el.badgePhase, "Feedback", correct ? "ok" : "bad");
+
+      // advance trial index
+      state.currentTrialIndex += 1;
+
+      state.timers.push(setTimeout(() => {
+        // If finished 2 trials for this length, decide pass/fail
+        if (state.currentTrialIndex >= CONFIG.trialsPerLength) {
+          const passed = (state.correctInThisLen >= 1);
+
+          if (passed) {
+            state.maxPassedLen = Math.max(state.maxPassedLen, state.currentLen);
+
+            // move up one length (until max)
+            const maxLen = (state.mode === "forward") ? CONFIG.forward.maxLen : CONFIG.backward.maxLen;
+            if (state.currentLen >= maxLen) {
+              finishAndSave();
+              return;
+            }
+
+            state.currentLen += 1;
+            state.currentTrialIndex = 0;
+            state.correctInThisLen = 0;
+
+            el.subtitle.textContent = "Good. Next length.";
+            runPracticeOrTrial();
+          } else {
+            // stop test
+            finishAndSave();
+          }
+        } else {
+          // second trial at same length
+          el.subtitle.textContent = "Same length, second trial.";
+          runPracticeOrTrial();
+        }
+      }, 900));
+    }
+
+    // ---------- Events ----------
+    el.modeForward.addEventListener("click", () => { if (!state.isRunning) setMode("forward"); });
+    el.modeBackward.addEventListener("click", () => { if (!state.isRunning) setMode("backward"); });
+
+    el.btnStart.addEventListener("click", () => {
+      // If currently running, restart cleanly
+      if (state.isRunning) {
+        stopToIdle();
+        startTest();
+      } else {
+        startTest();
+      }
+    });
+
+    el.btnReset.addEventListener("click", () => {
+      // Clear saved history only
+      localStorage.removeItem(CONFIG.storageKey);
+      renderHistory();
+      renderLatest();
+      // If user is mid-test, do not interrupt (but it is fine to keep it)
+    });
+
+    // Keypad digits
+    document.querySelectorAll("[data-digit]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        if (!state.isRunning || state.isShowing || state.phase !== "input") return;
+        const d = btn.getAttribute("data-digit");
+        // limit to expected length
+        if (state.answer.length >= state.expected.length) return;
+        state.answer += d;
+        setAnswerText();
+      });
+    });
+
+    el.btnBackspace.addEventListener("click", () => {
+      if (!state.isRunning || state.isShowing || state.phase !== "input") return;
+      state.answer = state.answer.slice(0, -1);
+      setAnswerText();
+    });
+
+    el.btnClear.addEventListener("click", () => {
+      if (!state.isRunning || state.isShowing || state.phase !== "input") return;
+      resetAnswer();
+      setAnswerText();
+    });
+
+    el.btnSubmit.addEventListener("click", submitAnswer);
+
+    // Keyboard support (optional but nice on desktop)
+    window.addEventListener("keydown", (e) => {
+      if (!state.isRunning || state.isShowing || state.phase !== "input") return;
+
+      if (e.key >= "0" && e.key <= "9") {
+        if (state.answer.length < state.expected.length) {
+          state.answer += e.key;
+          setAnswerText();
+        }
+      } else if (e.key === "Backspace") {
+        state.answer = state.answer.slice(0, -1);
+        setAnswerText();
+      } else if (e.key === "Enter") {
+        submitAnswer();
+      } else if (e.key === "Escape") {
+        resetAnswer();
+        setAnswerText();
+      }
+    });
+
+    el.btnExport.addEventListener("click", () => {
+      const sessions = loadSessions();
+      const blob = new Blob([JSON.stringify(sessions, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "digit-span-sessions.json";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    });
+
+    // ---------- Init ----------
+    (function init() {
+      el.speedLabel.textContent = String(CONFIG.speedMs);
+      el.gapLabel.textContent = String(CONFIG.gapMs);
+      el.practiceLabel.textContent = String(CONFIG.practiceTrials);
+
+      setMode("forward");
+      lockInput(true);
+
+      renderHistory();
+      renderLatest();
+      updateBadges();
+      setAnswerText();
+    })();
+  </script>
+</body>
 </html>

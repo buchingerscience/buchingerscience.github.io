@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My React GitHub Page</title>
+
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 40px;
+        background: #f6f7fb;
+        color: #222;
+      }
+
+      .card {
+        max-width: 520px;
+        margin: 0 auto;
+        background: white;
+        border-radius: 12px;
+        padding: 24px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+      }
+
+      h1 {
+        margin-top: 0;
+        font-size: 22px;
+      }
+
+      button {
+        border: 0;
+        padding: 10px 14px;
+        border-radius: 10px;
+        cursor: pointer;
+        margin-right: 10px;
+        background: #2d6cdf;
+        color: white;
+        font-weight: 600;
+      }
+
+      button.secondary {
+        background: #e9ecf2;
+        color: #222;
+      }
+
+      input {
+        width: 100%;
+        padding: 10px 12px;
+        margin-top: 10px;
+        border-radius: 10px;
+        border: 1px solid #d8dbe2;
+        font-size: 14px;
+      }
+
+      ul {
+        padding-left: 18px;
+      }
+
+      li {
+        margin: 6px 0;
+      }
+
+      .small {
+        margin-top: 14px;
+        font-size: 13px;
+        color: #666;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div id="root"></div>
+
+    <!-- React + ReactDOM (CDN) -->
+    <script
+      crossorigin
+      src="https://unpkg.com/react@18/umd/react.development.js"
+    ></script>
+    <script
+      crossorigin
+      src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
+    ></script>
+
+    <!-- Babel (so we can write JSX directly in the browser) -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <!-- Your React code -->
+    <script type="text/babel">
+      function App() {
+        const [name, setName] = React.useState("World");
+        const [count, setCount] = React.useState(0);
+        const [items, setItems] = React.useState([]);
+
+        function addItem() {
+          const text = `Item ${items.length + 1}`;
+          setItems([...items, text]);
+        }
+
+        function clearItems() {
+          setItems([]);
+        }
+
+        return (
+          <div className="card">
+            <h1>Hello, {name} 👋</h1>
+
+            <label>
+              Your name:
+              <input
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="Type your name..."
+              />
+            </label>
+
+            <hr style={{ margin: "18px 0", border: "none", borderTop: "1px solid #eee" }} />
+
+            <p>
+              Counter: <strong>{count}</strong>
+            </p>
+
+            <button onClick={() => setCount(count + 1)}>+1</button>
+            <button className="secondary" onClick={() => setCount(0)}>
+              Reset
+            </button>
+
+            <hr style={{ margin: "18px 0", border: "none", borderTop: "1px solid #eee" }} />
+
+            <p>
+              Simple list ({items.length})
+            </p>
+
+            <button onClick={addItem}>Add item</button>
+            <button className="secondary" onClick={clearItems}>
+              Clear
+            </button>
+
+            <ul>
+              {items.map((x, i) => (
+                <li key={i}>{x}</li>
+              ))}
+            </ul>
+
+            <div className="small">
+              This page is a single <code>index.html</code> using React from a CDN.
+              Perfect for GitHub Pages demos.
+            </div>
+          </div>
+        );
+      }
+
+      const root = ReactDOM.createRoot(document.getElementById("root"));
+      root.render(<App />);
+    </script>
+  </body>
+</html>

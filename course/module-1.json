@@ -1,0 +1,45 @@
+{
+  "moduleId": "m1",
+  "label": "Module 1",
+  "title": "Foundations: what fasting is (and is not)",
+  "description": "Key concepts, safety principles, and the clinical logic of the method.",
+  "quizLink": "https://typeform.com/to/PLACEHOLDER-M1",
+  "lessons": [
+    {
+      "lessonId": "m1l1",
+      "order": 1,
+      "title": "Lesson 1 — Course introduction",
+      "videoUrl": "https://youtu.be/dQw4w9WgXcQ",
+      "textDownload": "downloads/module1_lesson1_text.pdf",
+      "extraDownload": "downloads/module1_lesson1_extra.zip",
+      "notes": "Placeholder: 2–3 lines describing what the student learns in this lesson."
+    },
+    {
+      "lessonId": "m1l2",
+      "order": 2,
+      "title": "Lesson 2 — Indications and contraindications",
+      "videoUrl": "https://youtu.be/dQw4w9WgXcQ",
+      "textDownload": "downloads/module1_lesson2_text.pdf",
+      "extraDownload": "downloads/module1_lesson2_extra.pdf",
+      "notes": "Placeholder: practical overview of who benefits and who needs caution."
+    },
+    {
+      "lessonId": "m1l3",
+      "order": 3,
+      "title": "Lesson 3 — Typical timeline of a fasting stay",
+      "videoUrl": "https://youtu.be/dQw4w9WgXcQ",
+      "textDownload": "downloads/module1_lesson3_text.pdf",
+      "extraDownload": "downloads/module1_lesson3_extra.pdf",
+      "notes": "Placeholder: preparation, fasting days, breaking the fast, and build-up."
+    },
+    {
+      "lessonId": "m1l4",
+      "order": 4,
+      "title": "Lesson 4 — Managing common discomforts",
+      "videoUrl": "https://youtu.be/dQw4w9WgXcQ",
+      "textDownload": "downloads/module1_lesson4_text.pdf",
+      "extraDownload": "downloads/module1_lesson4_extra.pdf",
+      "notes": "Placeholder: headache, fatigue, cold sensation, sleep changes, what helps."
+    }
+  ]
+}

@@ -10,7 +10,6 @@
   <link rel="stylesheet" href="../style.css" />
 
   <style>
-    /* Single-screen, compact perceptual accuracy test (dot comparison) */
     :root { --maxw: 1100px; }
 
     html, body { height: 100%; }
@@ -125,12 +124,14 @@
       overflow: hidden;
     }
 
+    /* Overlay masks the canvas completely when shown */
     .overlay{
       position:absolute; inset:0;
       display:flex; align-items:center; justify-content:center;
-      background: rgba(248,249,250,0.86);
-      font-size: 13px; opacity:.9;
+      background: rgba(248,249,250,0.92);
+      font-size: 13px; opacity:.95;
       padding: 14px; text-align:center;
+      z-index: 5;
     }
     .overlay.hidden{ display:none; }
 
@@ -156,7 +157,7 @@
     .controls{
       display:flex; gap:8px; flex-wrap:wrap; align-items:center;
     }
-    select, input[type="number"]{
+    select{
       border: 1px solid var(--border, #e9ecef);
       border-radius: 8px;
       padding: 7px 9px;
@@ -164,7 +165,7 @@
       font-size: 12.5px;
       outline: none;
     }
-    select:focus, input[type="number"]:focus{
+    select:focus{
       box-shadow: 0 0 0 4px rgba(91,194,231,0.25);
       border-color: rgba(91,194,231,0.65);
     }
@@ -190,7 +191,7 @@
     <div class="topbar">
       <div>
         <div class="brand">Perceptual Accuracy</div>
-        <div class="muted small">Dot comparison (numerosity). Choose which side has more dots.</div>
+        <div class="muted small">Dot comparison (numerosity). Dots disappear completely before response.</div>
       </div>
 
       <div class="pill-row">
@@ -216,29 +217,29 @@
           </div>
         </div>
 
-        <div class="progress" aria-label="Time progress"><div class="bar" id="timeBar"></div></div>
+        <div class="progress"><div class="bar" id="timeBar"></div></div>
 
         <div style="height:10px;"></div>
 
         <div class="arena">
           <div class="panel">
             <canvas id="canLeft" width="520" height="380" style="width:100%; height:100%;"></canvas>
-            <div class="overlay" id="ovLeft">Left panel</div>
+            <div class="overlay" id="ovLeft">Press Start</div>
           </div>
           <div class="panel">
             <canvas id="canRight" width="520" height="380" style="width:100%; height:100%;"></canvas>
-            <div class="overlay" id="ovRight">Right panel</div>
+            <div class="overlay" id="ovRight">Press Start</div>
           </div>
         </div>
 
-        <div class="choices" aria-label="Response buttons">
+        <div class="choices">
           <button class="choiceBtn" id="btnLeft" type="button">Left has more</button>
           <button class="choiceBtn" id="btnRight" type="button">Right has more</button>
         </div>
 
-        <div class="footnote" id="hint">
-          The dots appear briefly. Then choose the side that had more dots.
-          Try to answer without counting.
+        <div class="footnote">
+          The dots appear briefly, then the screen is masked and the canvases are cleared.
+          Answer without counting.
         </div>
       </section>
 
@@ -247,11 +248,11 @@
         <div class="row spread" style="margin-bottom:8px;">
           <div>
             <div style="font-weight:650;">Session</div>
-            <div class="muted small">Saved in your browser (localStorage).</div>
+            <div class="muted small">Saved in localStorage.</div>
           </div>
 
           <div class="controls">
-            <select id="durationSelect" aria-label="Duration">
+            <select id="durationSelect">
               <option value="60">1 min</option>
               <option value="120" selected>2 min</option>
               <option value="180">3 min</option>
@@ -259,13 +260,13 @@
               <option value="300">5 min</option>
             </select>
 
-            <select id="stimSelect" aria-label="Stimulus time">
+            <select id="stimSelect">
               <option value="500">500 ms</option>
               <option value="800" selected>800 ms</option>
               <option value="1000">1000 ms</option>
             </select>
 
-            <select id="ratioSelect" aria-label="Difficulty ratio">
+            <select id="ratioSelect">
               <option value="1.15">1.15</option>
               <option value="1.20" selected>1.20</option>
               <option value="1.30">1.30</option>
@@ -308,27 +309,18 @@
         </div>
 
         <div class="footnote">
-          This task estimates perceptual accuracy for numerosity.
-          Difficulty is controlled by the dot-count ratio between sides.
+          Ratio closer to 1 is harder.
         </div>
       </aside>
     </div>
   </div>
 
   <script>
-    /********************************************************************
-     * Perceptual accuracy test: dot comparison (numerosity)
-     * - Brief stimulus, then forced choice left/right
-     * - Timed session (1–5 min)
-     * - Saves local history + export-ready structure in storage
-     ********************************************************************/
-
     const CONFIG = {
-      storageKey: "perceptualAccuracy.dotCompare.v1",
+      storageKey: "perceptualAccuracy.dotCompare.v2",
       dotRadius: 4,
       minDots: 8,
-      maxDots: 30,
-      // we try to make dot size/area similar across sides by varying radius slightly if needed
+      maxDots: 30
     };
 
     const el = {
@@ -372,7 +364,7 @@
 
     const state = {
       running: false,
-      phase: "idle", // idle | show | respond | done
+      phase: "idle",
       durationSec: 120,
       stimMs: 800,
       minRatio: 1.20,
@@ -381,22 +373,20 @@
       tEnd: null,
       tickTimer: null,
 
-      // current trial
-      trialShownAt: null,
       responseOpenedAt: null,
-      correctSide: null, // "L" | "R"
+      correctSide: null,
       leftCount: null,
       rightCount: null,
 
-      // stats
       correct: 0,
       errors: 0,
       rts: [],
-      trials: [] // {ts, leftCount, rightCount, correctSide, answerSide, correct, rtMs}
+      trials: []
     };
 
     function now() { return Date.now(); }
     function nowISO() { return new Date().toISOString(); }
+
     function fmtDate(iso) {
       try {
         const d = new Date(iso);
@@ -498,7 +488,7 @@
         for (const p of dots) {
           const dx = p.x - x;
           const dy = p.y - y;
-          if ((dx*dx + dy*dy) < ( (2*r + 2) * (2*r + 2) )) { ok = false; break; }
+          if ((dx*dx + dy*dy) < ((2*r + 2) * (2*r + 2))) { ok = false; break; }
         }
         if (ok) dots.push({x,y});
       }
@@ -512,23 +502,20 @@
       ctx.fill();
     }
 
+    function randInt(a, b) {
+      return a + Math.floor(Math.random() * (b - a + 1));
+    }
+
     function pickCounts() {
-      // Choose a base count, then apply ratio (ensures perceptual difficulty)
       const base = randInt(CONFIG.minDots, CONFIG.maxDots);
       const bigger = Math.max(base, Math.round(base * state.minRatio));
       const smaller = base;
 
-      // Randomly decide which side is larger
       const largeOnLeft = Math.random() < 0.5;
-
       const L = largeOnLeft ? bigger : smaller;
       const R = largeOnLeft ? smaller : bigger;
 
       return { L, R, correctSide: largeOnLeft ? "L" : "R" };
-    }
-
-    function randInt(a, b) {
-      return a + Math.floor(Math.random() * (b - a + 1));
     }
 
     function setProgressBar() {
@@ -573,7 +560,6 @@
     }
 
     function start() {
-      // settings
       state.durationSec = parseInt(el.durationSelect.value, 10) || 120;
       state.stimMs = parseInt(el.stimSelect.value, 10) || 800;
       state.minRatio = parseFloat(el.ratioSelect.value) || 1.2;
@@ -582,7 +568,6 @@
       el.stimLabel.textContent = String(state.stimMs);
       el.ratioLabel.textContent = state.minRatio.toFixed(2);
 
-      // reset
       state.running = true;
       state.phase = "show";
       state.correct = 0;
@@ -592,7 +577,6 @@
 
       setBadge(el.badgePhase, "Running", "ok");
       updateStatsUI();
-      setProgressBar();
 
       state.tStart = now();
       state.tEnd = state.tStart + state.durationSec * 1000;
@@ -609,6 +593,7 @@
         if (now() >= state.tEnd) finish();
       }, 120);
 
+      setProgressBar();
       updateTimeBadge();
 
       setTimeout(() => nextTrial(), 600);
@@ -626,17 +611,20 @@
       state.rightCount = pick.R;
       state.correctSide = pick.correctSide;
 
-      // draw
       drawDots(ctxL, state.leftCount);
       drawDots(ctxR, state.rightCount);
 
-      // show stimulus briefly
+      // show dots only during stimulus window
       setOverlays("", "", false);
-      state.trialShownAt = now();
 
       setTimeout(() => {
-        // mask and open response
+        // HARD MASK: fully remove dots BEFORE response prompt
+        clearCanvas(ctxL);
+        clearCanvas(ctxR);
+
+        // prompt appears with empty canvases underneath
         setOverlays("Choose the side with more dots", "Choose the side with more dots", true);
+
         state.phase = "respond";
         state.responseOpenedAt = now();
         lockChoices(false);
@@ -667,8 +655,6 @@
       if (rt !== null) state.rts.push(rt);
 
       updateStatsUI();
-
-      // short feedback via phase badge only (keeps it calm)
       setBadge(el.badgePhase, correct ? "✓" : "✕", correct ? "ok" : "bad");
 
       setTimeout(() => {
@@ -692,6 +678,8 @@
       const acc = attempted ? (state.correct / attempted) : 0;
       const med = median(state.rts);
 
+      clearCanvas(ctxL);
+      clearCanvas(ctxR);
       setOverlays("Session finished", "Session finished", true);
 
       const session = {
@@ -730,7 +718,6 @@
     el.btnLeft.addEventListener("click", () => answer("L"));
     el.btnRight.addEventListener("click", () => answer("R"));
 
-    // Keyboard support
     window.addEventListener("keydown", (e) => {
       if (!state.running) return;
       if (state.phase !== "respond") return;
@@ -740,14 +727,12 @@
 
     // Init
     (function init() {
-      el.durationLabel.textContent = "120";
-      el.stimLabel.textContent = "800";
-      el.ratioLabel.textContent = "1.20";
-
       setBadge(el.badgePhase, "Idle");
       setBadge(el.badgeTime, "Time: –");
       setBadge(el.badgeScore, "Accuracy: –");
 
+      clearCanvas(ctxL);
+      clearCanvas(ctxR);
       setOverlays("Press Start", "Press Start", true);
       lockChoices(true);
 

@@ -4,16 +4,17 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Digit Span Test</title>
+  <title>Emoji Span Test (Fruits & Vegetables)</title>
 
   <!-- style.css is at the root, this page is in /course/ -->
   <link rel="stylesheet" href="../style.css" />
 
   <style>
-    /* Page-local styling (kept minimal, matches your “dash” look) */
+    /* Same “dash” feel, adapted for emojis */
     :root { --maxw: 980px; }
 
     .wrap { max-width: var(--maxw); margin: 0 auto; padding: 32px 18px 64px; }
+
     .topbar {
       display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;
       position: sticky; top: 0; z-index: 10;
@@ -37,6 +38,7 @@
       text-decoration: none;
       transition: transform .15s ease, box-shadow .15s ease, background-color .15s ease;
       box-shadow: 0 1px 6px rgba(0,0,0,0.04);
+      white-space: nowrap;
     }
     .pill:hover { transform: translateY(-1px); box-shadow: 0 4px 14px rgba(0,0,0,0.08); }
     .pill.primary { background: var(--accent, #5bc2e7); color: #fff; border-color: rgba(0,0,0,0.05); }
@@ -63,15 +65,17 @@
 
     .label { font-size: 12px; opacity: .8; margin-bottom: 6px; }
     .value {
-      font-size: 28px; font-weight: 700; letter-spacing: 0.4px;
+      font-size: 44px;
+      font-weight: 700;
       padding: 16px;
       text-align:center;
       border: 1px solid var(--border, #e9ecef);
       border-radius: 8px;
       background: linear-gradient(180deg, rgba(248,249,250,0.95), rgba(255,255,255,0.95));
-      min-height: 74px;
+      min-height: 84px;
       display:flex; align-items:center; justify-content:center;
       user-select: none;
+      line-height: 1.2;
     }
 
     .seg {
@@ -96,27 +100,27 @@
       border: 1px solid var(--border, #e9ecef);
       background: rgba(255,255,255,0.95);
       cursor: pointer;
-      font-size: 16px;
+      font-size: 22px;
       transition: transform .12s ease, box-shadow .12s ease, background-color .12s ease;
       box-shadow: 0 1px 6px rgba(0,0,0,0.04);
     }
     .kbd button:hover { transform: translateY(-1px); box-shadow: 0 4px 14px rgba(0,0,0,0.08); }
     .kbd button.wide { grid-column: span 2; }
-    .kbd button.action { background: rgba(248,249,250,0.95); }
+    .kbd button.action { background: rgba(248,249,250,0.95); font-size: 14px; }
 
     .answer {
       border: 1px solid var(--border, #e9ecef);
       border-radius: 8px;
       padding: 10px 12px;
-      min-height: 44px;
+      min-height: 52px;
       display:flex;
       align-items:center;
       gap: 8px;
       justify-content: space-between;
       background: rgba(255,255,255,0.95);
-      font-size: 16px;
+      font-size: 18px;
     }
-    .answer .digits { letter-spacing: 3px; font-weight: 650; }
+    .answer .digits { font-weight: 650; line-height: 1.2; }
     .answer .hint { font-size: 12px; opacity: .65; }
 
     .status {
@@ -144,7 +148,7 @@
 <body>
   <div class="wrap">
     <div class="topbar">
-      <div class="brand">Digit Span Test</div>
+      <div class="brand">Emoji Span Test</div>
 
       <div class="pill-row">
         <div class="seg" role="tablist" aria-label="Mode">
@@ -161,7 +165,7 @@
       <section class="card" aria-live="polite">
         <div class="row spread">
           <div class="stack" style="gap:4px;">
-            <div class="muted small" id="subtitle">A short attention and working-memory test. Two trials per length.</div>
+            <div class="muted small" id="subtitle">A short attention and working-memory test using food emojis. Two trials per length.</div>
             <div class="status" id="statusRow">
               <span class="badge" id="badgePhase">Idle</span>
               <span class="badge" id="badgeLength">Length: –</span>
@@ -170,7 +174,7 @@
           </div>
 
           <div class="kv" style="min-width: 220px;">
-            <div>Digit speed</div><div><span id="speedLabel">900</span> ms</div>
+            <div>Speed</div><div><span id="speedLabel">900</span> ms</div>
             <div>Gap</div><div><span id="gapLabel">250</span> ms</div>
             <div>Practice</div><div><span id="practiceLabel">2</span> trials</div>
           </div>
@@ -186,28 +190,29 @@
         <div class="label">Your answer</div>
         <div class="answer">
           <div class="digits" id="answerDigits">—</div>
-          <div class="hint" id="answerHint">Tap digits below</div>
+          <div class="hint" id="answerHint">Tap emojis below</div>
         </div>
 
-        <div class="kbd" aria-label="Numeric keypad">
-          <button type="button" data-digit="1">1</button>
-          <button type="button" data-digit="2">2</button>
-          <button type="button" data-digit="3">3</button>
-          <button type="button" data-digit="4">4</button>
-          <button type="button" data-digit="5">5</button>
-          <button type="button" data-digit="6">6</button>
-          <button type="button" data-digit="7">7</button>
-          <button type="button" data-digit="8">8</button>
-          <button type="button" data-digit="9">9</button>
+        <div class="kbd" aria-label="Emoji keypad">
+          <button type="button" data-emo="0">🍎</button>
+          <button type="button" data-emo="1">🍌</button>
+          <button type="button" data-emo="2">🍇</button>
+          <button type="button" data-emo="3">🍓</button>
+          <button type="button" data-emo="4">🥝</button>
+          <button type="button" data-emo="5">🍍</button>
+          <button type="button" data-emo="6">🥕</button>
+          <button type="button" data-emo="7">🥦</button>
+          <button type="button" data-emo="8">🌽</button>
+
           <button type="button" class="action wide" id="btnBackspace">Backspace</button>
-          <button type="button" data-digit="0">0</button>
+          <button type="button" data-emo="9">🥒</button>
           <button type="button" class="action" id="btnClear">Clear</button>
           <button type="button" class="action wide" id="btnSubmit">Submit</button>
         </div>
 
         <div class="footnote" id="instructions">
-          <strong>Forward:</strong> repeat the digits in the same order.<br />
-          <strong>Backward:</strong> repeat the digits in reverse order.<br />
+          <strong>Forward:</strong> repeat the emojis in the same order.<br />
+          <strong>Backward:</strong> repeat the emojis in reverse order.<br />
           Tip: keep the same device and the same time of day for comparisons.
         </div>
       </section>
@@ -259,14 +264,13 @@
 
   <script>
     /********************************************************************
-     * Digit Span Test — single-file app
+     * Emoji Span Test — single-file app
      * - Forward / Backward
      * - 2 practice trials
      * - 2 trials per length (pass if >= 1 correct)
      * - Stores sessions in localStorage
      ********************************************************************/
 
-    // ---------- Config ----------
     const CONFIG = {
       speedMs: 900,
       gapMs: 250,
@@ -274,10 +278,11 @@
       trialsPerLength: 2,
       forward: { startLen: 3, maxLen: 9 },
       backward:{ startLen: 2, maxLen: 8 },
-      storageKey: "digitSpan.sessions.v1"
+      storageKey: "emojiSpan.sessions.v1",
+      // Stable mapping to keep keypad consistent
+      emojiKeys: ["🍎","🍌","🍇","🍓","🥝","🍍","🥕","🥦","🌽","🥒"]
     };
 
-    // ---------- Elements ----------
     const el = {
       modeForward: document.getElementById("modeForward"),
       modeBackward: document.getElementById("modeBackward"),
@@ -310,57 +315,36 @@
       instructions: document.getElementById("instructions")
     };
 
-    // ---------- State ----------
     const state = {
-      mode: "forward", // "forward" | "backward"
-      phase: "idle",   // idle | practice_show | show | input | feedback | done
+      mode: "forward",
+      phase: "idle",
       isRunning: false,
       isShowing: false,
 
-      // per run:
       startedAt: null,
       currentLen: null,
-      currentTrialIndex: 0, // 0..(trialsPerLength-1)
+      currentTrialIndex: 0,
       correctInThisLen: 0,
       totalTrials: 0,
 
-      // practice:
       practiceDone: 0,
 
-      // current trial:
-      sequence: "",
-      expected: "",
-      answer: "",
+      sequence: [],   // array of emoji strings
+      expected: [],   // array of emoji strings
+      answer: [],     // array of emoji strings
 
-      // scoring:
       maxPassedLen: 0,
-
-      // timeouts:
       timers: []
     };
 
-    // ---------- Utils ----------
-    function nowISO() {
-      return new Date().toISOString();
-    }
-
+    function nowISO() { return new Date().toISOString(); }
     function fmtDate(iso) {
       try {
         const d = new Date(iso);
         return d.toLocaleString(undefined, { year:"numeric", month:"short", day:"2-digit", hour:"2-digit", minute:"2-digit" });
-      } catch {
-        return iso;
-      }
+      } catch { return iso; }
     }
-
-    function clamp(n, a, b) {
-      return Math.max(a, Math.min(b, n));
-    }
-
-    function clearTimers() {
-      state.timers.forEach(t => clearTimeout(t));
-      state.timers = [];
-    }
+    function clearTimers() { state.timers.forEach(t => clearTimeout(t)); state.timers = []; }
 
     function setBadge(elm, text, kind = null) {
       elm.textContent = text;
@@ -377,8 +361,8 @@
       el.modeBackward.setAttribute("aria-selected", !isF ? "true" : "false");
 
       el.instructions.innerHTML = isF
-        ? "<strong>Forward:</strong> repeat the digits in the same order.<br /><strong>Tip:</strong> keep the same device and the same time of day for comparisons."
-        : "<strong>Backward:</strong> repeat the digits in reverse order.<br /><strong>Tip:</strong> keep the same device and the same time of day for comparisons.";
+        ? "<strong>Forward:</strong> repeat the emojis in the same order.<br /><strong>Tip:</strong> keep the same device and the same time of day for comparisons."
+        : "<strong>Backward:</strong> repeat the emojis in reverse order.<br /><strong>Tip:</strong> keep the same device and the same time of day for comparisons.";
 
       if (!state.isRunning) {
         el.display.textContent = "Press Start";
@@ -388,86 +372,83 @@
       }
     }
 
+    function updateBadges() {
+      setBadge(el.badgePhase, phaseLabel());
+      setBadge(el.badgeLength, state.currentLen ? `Length: ${state.currentLen}` : "Length: –");
+      setBadge(el.badgeTrial, state.isRunning ? `Trial: ${state.currentTrialIndex + 1}/${CONFIG.trialsPerLength}` : "Trial: –");
+    }
+
+    function phaseLabel() {
+      if (!state.isRunning) return "Idle";
+      if (state.phase.startsWith("practice")) return "Practice";
+      if (state.phase === "show") return "Showing";
+      if (state.phase === "input") return "Enter";
+      if (state.phase === "feedback") return "Feedback";
+      if (state.phase === "done") return "Done";
+      return "Running";
+    }
+
+    function setDisplay(text) { el.display.textContent = text; }
+
     function resetAnswer() {
-      state.answer = "";
+      state.answer = [];
       el.answerDigits.textContent = "—";
-      el.answerHint.textContent = "Tap digits below";
+      el.answerHint.textContent = "Tap emojis below";
     }
 
     function setAnswerText() {
-      if (!state.answer) {
+      if (!state.answer.length) {
         el.answerDigits.textContent = "—";
-        el.answerHint.textContent = "Tap digits below";
+        el.answerHint.textContent = "Tap emojis below";
       } else {
-        el.answerDigits.textContent = state.answer;
-        el.answerHint.textContent = `${state.answer.length} digits`;
+        el.answerDigits.textContent = state.answer.join(" ");
+        el.answerHint.textContent = `${state.answer.length} items`;
       }
     }
 
-    // Random sequence with simple constraints:
-    // - no identical consecutive digits
-    // - at most 2 repeats in entire sequence
-    // - avoid long consecutive runs (e.g., 1234 or 9876)
+    function lockInput(locked) {
+      state.isShowing = locked;
+      el.btnSubmit.disabled = locked;
+    }
+
     function generateSequence(len) {
-      const digits = "0123456789";
-      let seq = "";
+      // Sample from emojiKeys (0–9), keep it simple: no 3 identical in a row, and avoid monotony
+      const pool = CONFIG.emojiKeys;
+      const seq = [];
 
-      function isBadRun(s) {
-        if (s.length < 4) return false;
-        const last4 = s.slice(-4).split("").map(Number);
-        const diffs = [last4[1]-last4[0], last4[2]-last4[1], last4[3]-last4[2]];
-        const allPlus1 = diffs.every(d => d === 1);
-        const allMinus1 = diffs.every(d => d === -1);
-        return allPlus1 || allMinus1;
+      let tries = 0;
+      while (seq.length < len && tries < 2000) {
+        tries++;
+        const emo = pool[Math.floor(Math.random() * pool.length)];
+
+        // avoid 3 in a row
+        const n = seq.length;
+        if (n >= 2 && seq[n-1] === emo && seq[n-2] === emo) continue;
+
+        // avoid too many repeats overall (soft)
+        const counts = {};
+        for (const e of seq) counts[e] = (counts[e] || 0) + 1;
+        if ((counts[emo] || 0) >= Math.ceil(len / 2)) continue;
+
+        seq.push(emo);
       }
 
-      for (let i = 0; i < len; i++) {
-        let tries = 0;
-        while (tries < 60) {
-          tries++;
-          const d = digits[Math.floor(Math.random() * digits.length)];
-          const candidate = seq + d;
-
-          // rule: no identical consecutive digits
-          if (seq.length > 0 && seq[seq.length - 1] === d) continue;
-
-          // rule: repeats limited
-          const counts = {};
-          for (const ch of candidate) counts[ch] = (counts[ch] || 0) + 1;
-          const repeatsTotal = Object.values(counts).reduce((acc, v) => acc + Math.max(0, v - 1), 0);
-          if (repeatsTotal > 2) continue;
-
-          // rule: avoid long runs
-          if (isBadRun(candidate)) continue;
-
-          seq = candidate;
-          break;
-        }
-      }
-
-      // If something went weird, fall back to a simple random
-      if (seq.length !== len) {
-        seq = "";
-        for (let i = 0; i < len; i++) seq += digits[Math.floor(Math.random() * 10)];
-      }
+      // fallback if needed
+      while (seq.length < len) seq.push(pool[Math.floor(Math.random() * pool.length)]);
       return seq;
     }
 
     function expectedFromSequence(seq) {
-      if (state.mode === "forward") return seq;
-      return seq.split("").reverse().join("");
+      return (state.mode === "forward") ? seq.slice() : seq.slice().reverse();
     }
 
-    // ---------- Storage ----------
     function loadSessions() {
       try {
         const raw = localStorage.getItem(CONFIG.storageKey);
         if (!raw) return [];
         const data = JSON.parse(raw);
         return Array.isArray(data) ? data : [];
-      } catch {
-        return [];
-      }
+      } catch { return []; }
     }
 
     function saveSessions(sessions) {
@@ -477,7 +458,7 @@
     function addSession(session) {
       const sessions = loadSessions();
       sessions.unshift(session);
-      saveSessions(sessions.slice(0, 200)); // keep it tidy
+      saveSessions(sessions.slice(0, 200));
       renderHistory();
       renderLatest();
     }
@@ -485,8 +466,6 @@
     function renderLatest() {
       const sessions = loadSessions();
       const latest = sessions[0] || null;
-
-      // latest forward and backward (search)
       const latestF = sessions.find(s => s.mode === "forward") || null;
       const latestB = sessions.find(s => s.mode === "backward") || null;
 
@@ -530,34 +509,6 @@
       }
     }
 
-    // ---------- UI updates ----------
-    function updateBadges() {
-      setBadge(el.badgePhase, phaseLabel());
-      setBadge(el.badgeLength, state.currentLen ? `Length: ${state.currentLen}` : "Length: –");
-      setBadge(el.badgeTrial, state.isRunning ? `Trial: ${state.currentTrialIndex + 1}/${CONFIG.trialsPerLength}` : "Trial: –");
-    }
-
-    function phaseLabel() {
-      if (!state.isRunning) return "Idle";
-      if (state.phase.startsWith("practice")) return "Practice";
-      if (state.phase === "show") return "Showing";
-      if (state.phase === "input") return "Enter";
-      if (state.phase === "feedback") return "Feedback";
-      if (state.phase === "done") return "Done";
-      return "Running";
-    }
-
-    function setDisplay(text) {
-      el.display.textContent = text;
-    }
-
-    function lockInput(locked) {
-      // we keep keypad clickable but ignore presses while locked
-      state.isShowing = locked;
-      el.btnSubmit.disabled = locked;
-    }
-
-    // ---------- Flow ----------
     function startTest() {
       clearTimers();
 
@@ -576,7 +527,7 @@
       resetAnswer();
 
       el.btnStart.textContent = "Restart";
-      el.subtitle.textContent = "Focus. Digits will appear one by one.";
+      el.subtitle.textContent = "Focus. Emojis will appear one by one.";
 
       runPracticeOrTrial();
     }
@@ -588,10 +539,11 @@
       state.currentLen = null;
       state.currentTrialIndex = 0;
       state.correctInThisLen = 0;
-      state.sequence = "";
-      state.expected = "";
+      state.sequence = [];
+      state.expected = [];
       resetAnswer();
-      el.subtitle.textContent = "A short attention and working-memory test. Two trials per length.";
+
+      el.subtitle.textContent = "A short attention and working-memory test using food emojis. Two trials per length.";
       el.btnStart.textContent = "Start";
       el.mainLabel.textContent = "Stimulus";
       setDisplay("Press Start");
@@ -621,7 +573,6 @@
       lockInput(true);
       resetAnswer();
 
-      // keep running state false after save
       state.isRunning = false;
       el.btnStart.textContent = "Start";
     }
@@ -633,11 +584,11 @@
       if (state.practiceDone < CONFIG.practiceTrials) {
         state.phase = "practice_show";
         el.mainLabel.textContent = `Practice ${state.practiceDone + 1}/${CONFIG.practiceTrials}`;
-        runOneTrial(/*isPractice*/ true);
+        runOneTrial(true);
       } else {
         state.phase = "show";
         el.mainLabel.textContent = `${state.mode === "forward" ? "Forward" : "Backward"} — watch carefully`;
-        runOneTrial(/*isPractice*/ false);
+        runOneTrial(false);
       }
     }
 
@@ -645,24 +596,20 @@
       clearTimers();
       lockInput(true);
 
-      // generate
-      const len = isPractice ? clamp(3, 2, 4) : state.currentLen;
+      const len = isPractice ? 3 : state.currentLen;
       state.sequence = generateSequence(len);
-      state.expected = (state.mode === "forward") ? state.sequence : state.sequence.split("").reverse().join("");
+      state.expected = expectedFromSequence(state.sequence);
 
-      // show digits one by one
       setDisplay("•");
-      const chars = state.sequence.split("");
 
       let t = 0;
-      for (let i = 0; i < chars.length; i++) {
+      for (let i = 0; i < state.sequence.length; i++) {
         t += (i === 0 ? 250 : CONFIG.gapMs);
-        state.timers.push(setTimeout(() => setDisplay(chars[i]), t));
+        state.timers.push(setTimeout(() => setDisplay(state.sequence[i]), t));
         t += CONFIG.speedMs;
         state.timers.push(setTimeout(() => setDisplay("•"), t));
       }
 
-      // after showing, switch to input
       t += 120;
       state.timers.push(setTimeout(() => {
         state.phase = "input";
@@ -679,59 +626,43 @@
       if (state.isShowing) return;
       if (state.phase !== "input") return;
 
-      const ans = state.answer;
-      const exp = state.expected;
-
-      // basic guard: require exact length
-      if (ans.length !== exp.length) {
-        el.answerHint.textContent = `Need ${exp.length} digits`;
+      if (state.answer.length !== state.expected.length) {
+        el.answerHint.textContent = `Need ${state.expected.length} emojis`;
         return;
       }
 
       state.phase = "feedback";
       lockInput(true);
 
-      const correct = (ans === exp);
+      const correct = state.answer.join("|") === state.expected.join("|");
       state.totalTrials += 1;
 
       if (state.practiceDone < CONFIG.practiceTrials) {
-        // Practice feedback only
         state.practiceDone += 1;
         el.mainLabel.textContent = "Practice feedback";
         setDisplay(correct ? "Correct ✓" : "Incorrect ✕");
         setBadge(el.badgePhase, "Practice", correct ? "ok" : "bad");
 
-        state.timers.push(setTimeout(() => {
-          // continue
-          runPracticeOrTrial();
-        }, 900));
-
+        state.timers.push(setTimeout(runPracticeOrTrial, 900));
         return;
       }
 
-      // Real trial feedback
       if (correct) state.correctInThisLen += 1;
 
       setDisplay(correct ? "Correct ✓" : "Incorrect ✕");
       setBadge(el.badgePhase, "Feedback", correct ? "ok" : "bad");
 
-      // advance trial index
       state.currentTrialIndex += 1;
 
       state.timers.push(setTimeout(() => {
-        // If finished 2 trials for this length, decide pass/fail
         if (state.currentTrialIndex >= CONFIG.trialsPerLength) {
           const passed = (state.correctInThisLen >= 1);
 
           if (passed) {
             state.maxPassedLen = Math.max(state.maxPassedLen, state.currentLen);
 
-            // move up one length (until max)
             const maxLen = (state.mode === "forward") ? CONFIG.forward.maxLen : CONFIG.backward.maxLen;
-            if (state.currentLen >= maxLen) {
-              finishAndSave();
-              return;
-            }
+            if (state.currentLen >= maxLen) { finishAndSave(); return; }
 
             state.currentLen += 1;
             state.currentTrialIndex = 0;
@@ -740,54 +671,45 @@
             el.subtitle.textContent = "Good. Next length.";
             runPracticeOrTrial();
           } else {
-            // stop test
             finishAndSave();
           }
         } else {
-          // second trial at same length
           el.subtitle.textContent = "Same length, second trial.";
           runPracticeOrTrial();
         }
       }, 900));
     }
 
-    // ---------- Events ----------
+    // Events
     el.modeForward.addEventListener("click", () => { if (!state.isRunning) setMode("forward"); });
     el.modeBackward.addEventListener("click", () => { if (!state.isRunning) setMode("backward"); });
 
     el.btnStart.addEventListener("click", () => {
-      // If currently running, restart cleanly
-      if (state.isRunning) {
-        stopToIdle();
-        startTest();
-      } else {
-        startTest();
-      }
+      if (state.isRunning) { stopToIdle(); startTest(); }
+      else { startTest(); }
     });
 
     el.btnReset.addEventListener("click", () => {
-      // Clear saved history only
       localStorage.removeItem(CONFIG.storageKey);
       renderHistory();
       renderLatest();
-      // If user is mid-test, do not interrupt (but it is fine to keep it)
     });
 
-    // Keypad digits
-    document.querySelectorAll("[data-digit]").forEach(btn => {
+    // Emoji keypad
+    document.querySelectorAll("[data-emo]").forEach(btn => {
       btn.addEventListener("click", () => {
         if (!state.isRunning || state.isShowing || state.phase !== "input") return;
-        const d = btn.getAttribute("data-digit");
-        // limit to expected length
+        const idx = parseInt(btn.getAttribute("data-emo"), 10);
+        const emo = CONFIG.emojiKeys[idx];
         if (state.answer.length >= state.expected.length) return;
-        state.answer += d;
+        state.answer.push(emo);
         setAnswerText();
       });
     });
 
     el.btnBackspace.addEventListener("click", () => {
       if (!state.isRunning || state.isShowing || state.phase !== "input") return;
-      state.answer = state.answer.slice(0, -1);
+      state.answer.pop();
       setAnswerText();
     });
 
@@ -799,17 +721,25 @@
 
     el.btnSubmit.addEventListener("click", submitAnswer);
 
-    // Keyboard support (optional but nice on desktop)
+    // Keyboard support: 1–9 = first 9 emojis, 0 = last emoji
     window.addEventListener("keydown", (e) => {
       if (!state.isRunning || state.isShowing || state.phase !== "input") return;
 
       if (e.key >= "0" && e.key <= "9") {
+        const map = {
+          "1": 0, "2": 1, "3": 2,
+          "4": 3, "5": 4, "6": 5,
+          "7": 6, "8": 7, "9": 8,
+          "0": 9
+        };
+        const idx = map[e.key];
+        const emo = CONFIG.emojiKeys[idx];
         if (state.answer.length < state.expected.length) {
-          state.answer += e.key;
+          state.answer.push(emo);
           setAnswerText();
         }
       } else if (e.key === "Backspace") {
-        state.answer = state.answer.slice(0, -1);
+        state.answer.pop();
         setAnswerText();
       } else if (e.key === "Enter") {
         submitAnswer();
@@ -825,14 +755,14 @@
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
-      a.download = "digit-span-sessions.json";
+      a.download = "emoji-span-sessions.json";
       document.body.appendChild(a);
       a.click();
       a.remove();
       URL.revokeObjectURL(url);
     });
 
-    // ---------- Init ----------
+    // Init
     (function init() {
       el.speedLabel.textContent = String(CONFIG.speedMs);
       el.gapLabel.textContent = String(CONFIG.gapMs);

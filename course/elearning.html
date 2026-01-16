@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Buchinger Science – E-Learning</title>
+
+  <!-- Your global stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+
+  <style>
+    /* Page-local styles aligned with your dash-like theme */
+    .el-wrap { max-width: 1200px; margin: 0 auto; padding: 26px 18px 56px; }
+
+    .el-head { display:flex; align-items:flex-end; justify-content:space-between; gap:14px; flex-wrap:wrap; margin-bottom: 14px; }
+    .el-head h1 { margin:0; font-size: 22px; }
+    .el-head p { margin:6px 0 0 0; font-size: 13px; color: var(--muted); max-width: 76ch; }
+
+    .el-tools { display:flex; gap:10px; flex-wrap:wrap; align-items:center; justify-content:flex-end; }
+    .el-input, .el-btn {
+      padding: 10px 12px;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--border);
+      background: #ffffff;
+      color: var(--heading);
+      font-size: 13px;
+      outline: none;
+    }
+    .el-input { width: 280px; max-width: 78vw; }
+    .el-btn { cursor:pointer; user-select:none; transition: transform .08s ease, background .15s ease, border-color .15s ease; }
+    .el-btn:hover { transform: translateY(-1px); background: var(--panel); border-color: var(--accent); }
+    .el-btn.primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+    .el-btn.primary:hover { background: #67c9ea; border-color: #67c9ea; }
+
+    .el-grid { display:grid; grid-template-columns: 320px 1fr; gap: 14px; align-items:start; }
+    .el-card {
+      border-radius: var(--radius);
+      border: 1px solid var(--border-soft);
+      background: var(--surface);
+      box-shadow: var(--shadow-soft);
+      overflow:hidden;
+    }
+
+    .el-side { padding: 14px; position: sticky; top: 14px; }
+    .el-side h2 { margin:0 0 10px 0; font-size: 14px; font-weight: 500; color: var(--heading); }
+
+    .el-progress { margin-top: 12px; padding: 12px; border-radius: var(--radius); border: 1px solid var(--border-soft); background: var(--panel); }
+    .el-progress h3 { margin: 0 0 8px 0; font-size: 13px; font-weight: 500; color: var(--heading); }
+    .el-bar { height: 10px; border-radius: 999px; background: rgba(0,0,0,0.06); overflow:hidden; border: 1px solid var(--border-soft); }
+    .el-bar > div { height:100%; width:0%; background: var(--accent); transition: width .2s ease; }
+    .el-progress p { margin: 8px 0 0 0; font-size: 12px; color: var(--muted); }
+
+    .el-pill {
+      font-size: 12px; padding: 4px 8px; border-radius: var(--radius-pill);
+      border: 1px solid var(--border);
+      background: #fff;
+      color: var(--heading);
+      white-space: nowrap;
+    }
+
+    .el-mod-list { display:grid; gap: 8px; }
+    .el-mod {
+      display:flex; align-items:center; justify-content:space-between; gap: 10px;
+      padding: 10px 10px; border-radius: var(--radius);
+      cursor:pointer; user-select:none;
+      border: 1px solid transparent;
+      background: #fff;
+    }
+    .el-mod:hover { background: var(--panel); border-color: var(--border-soft); }
+    .el-mod.active { background: rgba(91,194,231,0.14); border-color: rgba(91,194,231,0.35); }
+
+    .el-main { padding: 14px; }
+
+    /* Player */
+    .el-player { border: 1px solid var(--border-soft); border-radius: var(--radius); overflow:hidden; background: #fff; }
+    .el-player-top { display:flex; align-items:center; justify-content:space-between; gap:12px; padding: 10px 12px; border-bottom: 1px solid var(--border-soft); background: var(--panel); flex-wrap:wrap; }
+    .el-now .kicker { font-size: 11px; color: var(--muted); letter-spacing: .12em; text-transform: uppercase; margin-bottom: 2px; }
+    .el-now .name { font-size: 14px; font-weight: 500; color: var(--heading); }
+    .el-player-actions { display:flex; gap: 8px; flex-wrap:wrap; align-items:center; }
+    .el-check { display:inline-flex; gap: 8px; align-items:center; font-size: 13px; color: var(--heading); }
+    .el-check input { transform: translateY(1px); }
+
+    .el-iframe { position: relative; width: 100%; padding-top: 56.25%; background: rgba(0,0,0,0.03); }
+    .el-iframe iframe { position:absolute; inset:0; width:100%; height:100%; border:0; }
+
+    /* Accordion */
+    .el-accordion { margin-top: 12px; display:grid; gap: 10px; }
+    .el-acc-item { border: 1px solid var(--border-soft); border-radius: var(--radius); overflow:hidden; background:#fff; }
+    .el-acc-btn {
+      width:100%;
+      display:flex; align-items:center; justify-content:space-between; gap: 12px;
+      padding: 12px 12px;
+      border:0;
+      background: #fff;
+      cursor:pointer;
+      text-align:left;
+    }
+    .el-acc-btn:hover { background: var(--panel); }
+    .el-acc-title { display:flex; flex-direction:column; gap: 2px; }
+    .el-acc-title .kicker { font-size: 11px; color: var(--muted); letter-spacing: .12em; text-transform: uppercase; }
+    .el-acc-title .name { font-size: 14px; font-weight: 500; color: var(--heading); }
+    .el-acc-right { display:flex; gap: 10px; align-items:center; }
+    .el-acc-chevron { font-size: 14px; color: var(--muted); }
+
+    .el-acc-panel { display:none; border-top: 1px solid var(--border-soft); background: #fff; padding: 12px; }
+    .el-acc-item.open .el-acc-panel { display:block; }
+
+    .el-lessons { display:grid; gap: 10px; }
+    .el-lesson {
+      display:grid; grid-template-columns: 210px 1fr; gap: 12px;
+      padding: 10px;
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius);
+      background: #fff;
+    }
+    .el-lesson.done { background: rgba(117,234,161,0.14); border-color: rgba(117,234,161,0.22); }
+
+    .el-thumb { border-radius: var(--radius); overflow:hidden; border: 1px solid var(--border-soft); background: rgba(0,0,0,0.04); aspect-ratio: 16/9; position:relative; cursor:pointer; }
+    .el-thumb img { width:100%; height:100%; object-fit: cover; display:block; }
+    .el-thumb .play { position:absolute; left:10px; bottom:10px; background: rgba(0,0,0,0.55); border: 1px solid rgba(255,255,255,0.35); color:#fff; padding: 6px 10px; border-radius: var(--radius-pill); font-size: 12px; }
+
+    .el-meta .title { font-weight: 500; color: var(--heading); margin: 2px 0 6px 0; line-height: 1.25; }
+    .el-meta .sub { font-size: 12px; color: var(--muted); line-height: 1.35; margin-bottom: 8px; }
+
+    .el-actions { display:flex; gap: 8px; flex-wrap:wrap; align-items:center; }
+    .el-link {
+      display:inline-flex; align-items:center; justify-content:center;
+      padding: 8px 10px;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--border);
+      background: #fff;
+      text-decoration:none;
+      font-size: 12px;
+      color: var(--heading);
+      transition: transform .08s ease, background .15s ease, border-color .15s ease;
+    }
+    .el-link:hover { transform: translateY(-1px); background: var(--panel); border-color: var(--accent); }
+
+    .el-empty { padding: 14px; border-radius: var(--radius); border: 1px dashed var(--border); background: #fff; color: var(--muted); }
+
+    .el-quiz {
+      margin-top: 12px;
+      padding: 12px;
+      border: 1px dashed var(--border);
+      border-radius: var(--radius);
+      background: rgba(239, 247, 250, 1);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 12px;
+      flex-wrap:wrap;
+    }
+    .el-quiz .title { font-weight: 500; color: var(--heading); }
+    .el-quiz .hint { font-size: 12px; color: var(--muted); margin-top: 2px; }
+
+    @media (max-width: 980px){
+      .el-grid { grid-template-columns: 1fr; }
+      .el-side { position: relative; top: 0; }
+    }
+    @media (max-width: 560px){
+      .el-lesson { grid-template-columns: 1fr; }
+      .el-input { width: 100%; }
+    }
+  </style>
+</head>
+
+<body>
+  <nav>
+    <div class="logo">Buchinger Science</div>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="https://dash.buchinger-science.com">Metabolic Explorer</a></li>
+      <li><a href="library.html">Research Library</a></li>
+      <li><a href="newsletter.html">Newsletters</a></li>
+      <li><a class="active" href="elearning.html">E-Learning</a></li>
+      <li><a href="contact.html">About us</a></li>
+    </ul>
+  </nav>
+
+  <main class="el-wrap">
+    <header class="el-head">
+      <div>
+        <h1 id="courseTitle">E-Learning</h1>
+        <p id="courseDesc">Loading course…</p>
+      </div>
+
+      <div class="el-tools">
+        <input id="el_q" class="el-input" type="search" placeholder="Search lessons (title)…" autocomplete="off" />
+        <button id="el_export" class="el-btn" type="button">Export progress</button>
+        <button id="el_reset" class="el-btn" type="button">Reset progress</button>
+      </div>
+    </header>
+
+    <section class="el-grid">
+      <aside class="el-card el-side">
+        <h2>Course overview</h2>
+        <div id="el_modList" class="el-mod-list"></div>
+
+        <div class="el-progress" aria-live="polite">
+          <h3>Your progress</h3>
+          <div class="el-bar"><div id="el_bar"></div></div>
+          <p id="el_progressText">—</p>
+        </div>
+      </aside>
+
+      <section class="el-card el-main">
+        <div class="el-player" role="region" aria-label="Lesson player">
+          <div class="el-player-top">
+            <div class="el-now">
+              <div class="kicker" id="el_nowKicker">Select a lesson</div>
+              <div class="name" id="el_nowTitle">—</div>
+            </div>
+
+            <div class="el-player-actions">
+              <button id="el_openVideo" class="el-btn primary" type="button" disabled>Open video</button>
+              <label class="el-check" title="Mark this lesson as complete">
+                <input id="el_doneToggle" type="checkbox" disabled />
+                Completed
+              </label>
+            </div>
+          </div>
+
+          <div class="el-iframe">
+            <iframe
+              id="el_player"
+              src=""
+              title="Video player"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerpolicy="strict-origin-when-cross-origin"
+              allowfullscreen></iframe>
+          </div>
+        </div>
+
+        <div class="el-accordion" id="el_accordion"></div>
+      </section>
+    </section>
+  </main>
+
+  <script>
+    /**
+     * E-learning infrastructure:
+     * - Loads course index (e-learning.json)
+     * - Loads 4 module files (module-1.json .. module-4.json)
+     * - Renders accordion + player
+     * - Tracks completion in localStorage
+     */
+
+    const COURSE_INDEX_URL = "e-learning.json";
+    const STORAGE_KEY = "bw_elearning_progress_v1";
+
+    // Elements
+    const elCourseTitle = document.getElementById("courseTitle");
+    const elCourseDesc = document.getElementById("courseDesc");
+
+    const elModList = document.getElementById("el_modList");
+    const elAccordion = document.getElementById("el_accordion");
+    const elQ = document.getElementById("el_q");
+    const elReset = document.getElementById("el_reset");
+    const elExport = document.getElementById("el_export");
+
+    const elPlayer = document.getElementById("el_player");
+    const elNowKicker = document.getElementById("el_nowKicker");
+    const elNowTitle = document.getElementById("el_nowTitle");
+    const elOpenVideo = document.getElementById("el_openVideo");
+    const elDoneToggle = document.getElementById("el_doneToggle");
+
+    const elBar = document.getElementById("el_bar");
+    const elProgressText = document.getElementById("el_progressText");
+
+    // State
+    let progress = loadProgress();        // { [lessonId]: true/false }
+    let courseIndex = null;              // from e-learning.json
+    let modules = [];                    // loaded module objects
+    let lessonsFlat = [];                // flattened lessons with module context
+    let activeModuleId = null;
+    let activeLessonId = null;
+
+    function escapeHtml(s) {
+      return (s || "").replace(/[&<>"']/g, c => ({
+        "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;"
+      }[c]));
+    }
+
+    function loadProgress() {
+      try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}"); }
+      catch (e) { return {}; }
+    }
+    function saveProgress(obj) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(obj));
+    }
+    function isDone(lessonId) { return !!progress[lessonId]; }
+
+    function ytIdFromUrl(url) {
+      try {
+        const u = new URL(url);
+        if (u.hostname.includes("youtu.be")) return u.pathname.replace("/", "").trim();
+        const v = u.searchParams.get("v");
+        return v ? v.trim() : "";
+      } catch (e) { return ""; }
+    }
+    function ytThumb(id) { return `https://img.youtube.com/vi/${id}/hqdefault.jpg`; }
+    function ytEmbed(id) { return `https://www.youtube-nocookie.com/embed/${id}?rel=0&modestbranding=1`; }
+
+    async function fetchJson(url) {
+      const res = await fetch(url, { cache: "no-store" });
+      if (!res.ok) throw new Error(`Failed to load ${url} (${res.status})`);
+      return res.json();
+    }
+
+    function overallProgress() {
+      const total = lessonsFlat.length;
+      const done = lessonsFlat.reduce((acc, l) => acc + (isDone(l.lessonId) ? 1 : 0), 0);
+      const pct = total ? Math.round((done / total) * 100) : 0;
+      return { total, done, pct };
+    }
+
+    function moduleProgress(moduleId) {
+      const mLessons = lessonsFlat.filter(l => l.moduleId === moduleId);
+      const total = mLessons.length;
+      const done = mLessons.reduce((acc, l) => acc + (isDone(l.lessonId) ? 1 : 0), 0);
+      const pct = total ? Math.round((done / total) * 100) : 0;
+      return { total, done, pct };
+    }
+
+    function updateProgressUI() {
+      const { total, done, pct } = overallProgress();
+      elBar.style.width = pct + "%";
+      elProgressText.textContent = total ? `${done} / ${total} completed (${pct}%)` : "—";
+      renderModuleList();
+    }
+
+    function renderModuleList() {
+      if (!modules.length) return;
+
+      elModList.innerHTML = modules.map(m => {
+        const mp = moduleProgress(m.moduleId);
+        const active = (m.moduleId === activeModuleId) ? "active" : "";
+        return `
+          <div class="el-mod ${active}" data-mod="${m.moduleId}" role="button" tabindex="0">
+            <span>${escapeHtml(m.label)} • ${escapeHtml(m.title)}</span>
+            <span class="el-pill">${mp.done}/${mp.total}</span>
+          </div>
+        `;
+      }).join("");
+
+      elModList.querySelectorAll(".el-mod").forEach(node => {
+        node.addEventListener("click", () => {
+          activeModuleId = node.dataset.mod;
+          openAndScrollToModule(activeModuleId);
+          renderModuleList();
+        });
+        node.addEventListener("keydown", (e) => {
+          if (e.key === "Enter" || e.key === " ") { e.preventDefault(); node.click(); }
+        });
+      });
+    }
+
+    function getFilteredLessonsForModule(moduleObj) {
+      const q = (elQ.value || "").trim().toLowerCase();
+      let list = lessonsFlat.filter(l => l.moduleId === moduleObj.moduleId);
+
+      if (q) list = list.filter(l => (l.title || "").toLowerCase().includes(q));
+
+      // Keep module ordering based on module JSON `order`
+      list.sort((a, b) => (a.order ?? 999) - (b.order ?? 999));
+      return list;
+    }
+
+    function renderAccordion() {
+      if (!modules.length) return;
+
+      elAccordion.innerHTML = modules.map((m, idx) => {
+        const mp = moduleProgress(m.moduleId);
+        const open = (idx === 0) ? "open" : "";
+        return `
+          <div class="el-acc-item ${open}" id="mod_${m.moduleId}">
+            <button class="el-acc-btn" type="button" data-acc="${m.moduleId}">
+              <div class="el-acc-title">
+                <div class="kicker">${escapeHtml(m.label)}</div>
+                <div class="name">${escapeHtml(m.title)}</div>
+              </div>
+              <div class="el-acc-right">
+                <span class="el-pill">${mp.done}/${mp.total} completed</span>
+                <span class="el-acc-chevron">${open ? "▾" : "▸"}</span>
+              </div>
+            </button>
+
+            <div class="el-acc-panel">
+              <div style="margin-bottom:10px; color: var(--muted); font-size: 13px;">
+                ${escapeHtml(m.description)}
+              </div>
+
+              <div class="el-lessons" data-lessons="${m.moduleId}"></div>
+
+              <div class="el-quiz">
+                <div>
+                  <div class="title">Module questionnaire</div>
+                  <div class="hint">Submit via Typeform (placeholder link).</div>
+                </div>
+                <a class="el-link" href="${m.quizLink}" target="_blank" rel="noopener noreferrer">Open questionnaire</a>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join("");
+
+      // Accordion open/close
+      elAccordion.querySelectorAll(".el-acc-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const id = btn.dataset.acc;
+          const item = document.getElementById("mod_" + id);
+          const chev = btn.querySelector(".el-acc-chevron");
+          const willOpen = !item.classList.contains("open");
+          item.classList.toggle("open");
+          if (chev) chev.textContent = willOpen ? "▾" : "▸";
+          activeModuleId = id;
+          renderModuleList();
+        });
+      });
+
+      // Render lesson cards inside each module panel
+      modules.forEach(m => {
+        const host = elAccordion.querySelector(`.el-lessons[data-lessons="${m.moduleId}"]`);
+        if (!host) return;
+
+        const list = getFilteredLessonsForModule(m);
+        if (!list.length) {
+          host.innerHTML = `<div class="el-empty">No lesson matches your search in this module.</div>`;
+          return;
+        }
+
+        host.innerHTML = list.map(l => {
+          const done = isDone(l.lessonId);
+          return `
+            <article class="el-lesson ${done ? "done" : ""}" data-lesson="${l.lessonId}">
+              <div class="el-thumb" role="button" tabindex="0" aria-label="Play ${escapeHtml(l.title)}">
+                <img src="${ytThumb(l.ytId)}" alt="Lesson thumbnail">
+                <div class="play">Play</div>
+              </div>
+
+              <div class="el-meta">
+                <div class="title">${escapeHtml(l.title)}</div>
+                <div class="sub">
+                  ${escapeHtml(m.label)} • ${done ? "Completed" : "Not completed"}<br/>
+                  ${escapeHtml(l.notes)}
+                </div>
+
+                <div class="el-actions">
+                  <a class="el-link" href="${l.textDownload}" download>Download text</a>
+                  <a class="el-link" href="${l.extraDownload}" download>Extra material</a>
+                  <button class="el-link" type="button" data-open="${l.lessonId}">Open</button>
+                  <label class="el-check" title="Mark as completed">
+                    <input type="checkbox" data-done="${l.lessonId}" ${done ? "checked" : ""} />
+                    Completed
+                  </label>
+                </div>
+              </div>
+            </article>
+          `;
+        }).join("");
+
+        // Open lesson by clicking thumbnail
+        host.querySelectorAll(".el-thumb").forEach(thumb => {
+          thumb.addEventListener("click", () => setActiveLesson(thumb.closest(".el-lesson").dataset.lesson));
+          thumb.addEventListener("keydown", (e) => {
+            if (e.key === "Enter" || e.key === " ") { e.preventDefault(); thumb.click(); }
+          });
+        });
+
+        // Open button
+        host.querySelectorAll('button[data-open]').forEach(btn => {
+          btn.addEventListener("click", () => setActiveLesson(btn.dataset.open));
+        });
+
+        // Checkbox
+        host.querySelectorAll('input[data-done]').forEach(chk => {
+          chk.addEventListener("click", (e) => e.stopPropagation());
+          chk.addEventListener("change", () => {
+            const lessonId = chk.dataset.done;
+            progress[lessonId] = chk.checked;
+            saveProgress(progress);
+            renderAccordion();
+            updateProgressUI();
+            syncTopToggle();
+          });
+        });
+      });
+    }
+
+    function setActiveLesson(lessonId) {
+      const l = lessonsFlat.find(x => x.lessonId === lessonId);
+      if (!l) return;
+
+      const m = modules.find(mm => mm.moduleId === l.moduleId);
+      if (!m) return;
+
+      activeLessonId = lessonId;
+      activeModuleId = l.moduleId;
+
+      elNowKicker.textContent = `${m.label} • ${m.title}`;
+      elNowTitle.textContent = l.title;
+
+      elPlayer.src = ytEmbed(l.ytId);
+
+      elOpenVideo.disabled = false;
+      elOpenVideo.onclick = () => window.open(l.videoUrl, "_blank", "noopener,noreferrer");
+
+      elDoneToggle.disabled = false;
+      elDoneToggle.checked = isDone(lessonId);
+      elDoneToggle.onchange = () => {
+        progress[lessonId] = elDoneToggle.checked;
+        saveProgress(progress);
+        renderAccordion();
+        updateProgressUI();
+      };
+
+      renderModuleList();
+    }
+
+    function syncTopToggle() {
+      if (!activeLessonId) return;
+      elDoneToggle.checked = isDone(activeLessonId);
+    }
+
+    function openAndScrollToModule(moduleId) {
+      const node = document.getElementById("mod_" + moduleId);
+      if (!node) return;
+
+      node.classList.add("open");
+      const btn = node.querySelector(".el-acc-btn");
+      const chev = btn ? btn.querySelector(".el-acc-chevron") : null;
+      if (chev) chev.textContent = "▾";
+
+      node.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    function exportProgress() {
+      const payload = {
+        exportedAt: new Date().toISOString(),
+        key: STORAGE_KEY,
+        progress
+      };
+      const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "elearning_progress.json";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+    }
+
+    async function init() {
+      try {
+        courseIndex = await fetchJson(COURSE_INDEX_URL);
+
+        elCourseTitle.textContent = courseIndex.title || "E-Learning";
+        elCourseDesc.textContent = courseIndex.description || "—";
+
+        // Load module JSON files listed in the index
+        const loaded = [];
+        for (const modRef of (courseIndex.modules || [])) {
+          const mod = await fetchJson(modRef.file);
+          loaded.push(mod);
+        }
+
+        modules = loaded;
+
+        // Flatten lessons for search/progress
+        lessonsFlat = [];
+        for (const m of modules) {
+          for (const lesson of (m.lessons || [])) {
+            const ytId = ytIdFromUrl(lesson.videoUrl);
+            if (!ytId) continue;
+
+            lessonsFlat.push({
+              moduleId: m.moduleId,
+              lessonId: lesson.lessonId,
+              order: lesson.order,
+              title: lesson.title,
+              notes: lesson.notes || "",
+              videoUrl: lesson.videoUrl,
+              ytId,
+              textDownload: lesson.textDownload || "#",
+              extraDownload: lesson.extraDownload || "#"
+            });
+          }
+        }
+
+        // Default selections
+        activeModuleId = modules[0]?.moduleId || null;
+
+        renderModuleList();
+        renderAccordion();
+        updateProgressUI();
+
+        // Open first lesson
+        if (lessonsFlat[0]) setActiveLesson(lessonsFlat[0].lessonId);
+
+        elQ.addEventListener("input", () => {
+          renderAccordion();
+          updateProgressUI();
+        });
+
+        elReset.addEventListener("click", () => {
+          if (!confirm("Reset completion progress for this course on this device?")) return;
+          progress = {};
+          saveProgress(progress);
+          renderAccordion();
+          updateProgressUI();
+          syncTopToggle();
+        });
+
+        elExport.addEventListener("click", exportProgress);
+
+      } catch (err) {
+        elCourseDesc.textContent = "Could not load course files. Check file names and paths.";
+        console.error(err);
+      }
+    }
+
+    init();
+  </script>
+</body>
+</html>

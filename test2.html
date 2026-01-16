@@ -10,28 +10,37 @@
   <link rel="stylesheet" href="../style.css" />
 
   <style>
+    /* Compact, single-screen DSST layout (no scroll on typical laptop screens) */
     :root { --maxw: 1100px; }
 
-    .wrap { max-width: var(--maxw); margin: 0 auto; padding: 32px 18px 64px; }
+    html, body { height: 100%; }
+    body { overflow: hidden; } /* keep single screen */
+    @media (max-width: 768px) {
+      body { overflow: auto; } /* allow scroll on small screens */
+    }
+
+    .wrap { max-width: var(--maxw); margin: 0 auto; padding: 14px 14px 14px; height: 100%; box-sizing: border-box; }
 
     .topbar{
-      display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;
-      position: sticky; top: 0; z-index: 10;
+      display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap;
       background: rgba(248,249,250,0.85); backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--border, #e9ecef);
-      padding: 10px 18px; margin: 0 -18px 18px;
+      border: 1px solid var(--border, #e9ecef);
+      border-radius: 8px;
+      padding: 8px 10px;
+      margin-bottom: 10px;
     }
     .brand{ font-weight:650; letter-spacing:.2px; }
-
     .pill-row{ display:flex; gap:8px; flex-wrap:wrap; align-items:center; justify-content:flex-end; }
+
     .pill{
       display:inline-flex; align-items:center; gap:8px;
-      padding: 7px 12px; border-radius: 16px;
+      padding: 7px 11px; border-radius: 16px;
       border: 1px solid var(--border, #e9ecef);
       background: rgba(255,255,255,0.9);
       font-size: 13px; color: inherit; cursor: pointer; text-decoration:none;
       transition: transform .15s ease, box-shadow .15s ease, background-color .15s ease;
       box-shadow: 0 1px 6px rgba(0,0,0,0.04);
+      white-space: nowrap;
     }
     .pill:hover{ transform: translateY(-1px); box-shadow: 0 4px 14px rgba(0,0,0,0.08); }
     .pill.primary{ background: var(--accent, #5bc2e7); color:#fff; border-color: rgba(0,0,0,0.05); }
@@ -39,51 +48,62 @@
     .pill.danger{ background:#fff; border-color: rgba(220,53,69,0.25); }
     .pill.danger:hover{ background: rgba(220,53,69,0.06); }
 
-    .grid{ display:grid; grid-template-columns: 1.25fr 0.75fr; gap: 16px; }
-    @media (max-width: 900px){ .grid{ grid-template-columns: 1fr; } }
+    .grid{
+      display:grid;
+      grid-template-columns: 1.6fr 1fr;
+      gap: 10px;
+      height: calc(100% - 56px);
+      min-height: 520px;
+    }
+    @media (max-width: 900px){
+      body { overflow: auto; }
+      .grid{ grid-template-columns: 1fr; height: auto; min-height: 0; }
+    }
 
     .card{
       background: rgba(255,255,255,0.95);
       border: 1px solid var(--border, #e9ecef);
       border-radius: 8px;
       box-shadow: 0 2px 14px rgba(0,0,0,0.05);
-      padding: 18px;
+      padding: 12px;
+      box-sizing: border-box;
+      overflow: hidden;
     }
     .muted{ opacity:.78; }
-    .small{ font-size: 12.5px; }
-    .row{ display:flex; gap:12px; flex-wrap:wrap; align-items:center; }
+    .small{ font-size: 12px; }
+    .row{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
     .row.spread{ justify-content: space-between; }
-    .stack{ display:flex; flex-direction:column; gap:10px; }
+    .status{ display:flex; gap:8px; flex-wrap:wrap; align-items:center; font-size:12px; }
 
-    .status{ display:flex; gap:8px; flex-wrap:wrap; align-items:center; font-size:12.5px; }
     .badge{
-      padding: 5px 9px; border-radius: 16px;
+      padding: 4px 8px; border-radius: 16px;
       border: 1px solid var(--border, #e9ecef);
       background: rgba(248,249,250,0.9);
+      white-space: nowrap;
     }
     .badge.ok{ border-color: rgba(25,135,84,0.25); background: rgba(25,135,84,0.08); }
     .badge.bad{ border-color: rgba(220,53,69,0.25); background: rgba(220,53,69,0.08); }
 
-    .kv{ display:grid; grid-template-columns: 1fr auto; gap: 8px 10px; font-size: 13px; }
+    .kv{ display:grid; grid-template-columns: 1fr auto; gap: 6px 10px; font-size: 12.5px; }
     .kv div:nth-child(odd){ opacity:.78; }
 
-    .label{ font-size: 12px; opacity:.8; margin-bottom: 6px; }
-    .symbol-box{
+    .progress{
+      height: 9px; border-radius: 999px;
+      background: rgba(222,226,230,0.7);
+      overflow: hidden;
       border: 1px solid var(--border, #e9ecef);
-      border-radius: 8px;
-      background: linear-gradient(180deg, rgba(248,249,250,0.95), rgba(255,255,255,0.95));
-      min-height: 120px;
-      display:flex; align-items:center; justify-content:center;
-      user-select:none;
+      margin-top: 8px;
     }
-    .symbol{
-      font-size: 54px;
-      font-weight: 700;
-      letter-spacing: 2px;
+    .bar{
+      height: 100%;
+      width: 0%;
+      background: var(--accent, #5bc2e7);
+      transition: width .12s linear;
     }
-    .hintline{ margin-top: 8px; font-size: 12.5px; opacity:.75; line-height:1.35; }
 
-    /* Key table */
+    .label{ font-size: 12px; opacity:.8; margin-bottom: 6px; }
+
+    /* Key grid: 9 digits + 9 symbols, very compact */
     .keywrap{
       border: 1px solid var(--border, #e9ecef);
       border-radius: 8px;
@@ -92,56 +112,82 @@
     }
     .keybar{
       display:flex; gap:8px; align-items:center; justify-content:space-between;
-      padding: 10px 12px;
+      padding: 7px 10px;
       background: rgba(248,249,250,0.9);
       border-bottom: 1px solid var(--border, #e9ecef);
     }
-    .keygrid{
-      display:grid;
-      grid-template-columns: repeat(9, 1fr);
-      gap: 0;
-    }
+    .keygrid{ display:grid; grid-template-columns: repeat(9, 1fr); }
     .cell{
-      padding: 10px 6px;
+      padding: 7px 4px;
       text-align:center;
       border-right: 1px solid var(--border, #e9ecef);
       border-bottom: 1px solid var(--border, #e9ecef);
-      font-size: 13px;
+      font-size: 12.5px;
     }
     .cell:nth-child(9n){ border-right: 0; }
     .cell.digit{ font-weight: 700; background: rgba(255,255,255,0.96); }
-    .cell.sym{ font-size: 20px; background: rgba(255,255,255,0.96); }
+    .cell.sym{ font-size: 18px; background: rgba(255,255,255,0.96); }
+
+    /* Current item */
+    .itemRow{
+      display:grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 10px;
+      margin-top: 10px;
+      align-items: stretch;
+    }
+    @media (max-width: 900px){ .itemRow{ grid-template-columns: 1fr; } }
+
+    .symbolBox{
+      border: 1px solid var(--border, #e9ecef);
+      border-radius: 8px;
+      background: linear-gradient(180deg, rgba(248,249,250,0.95), rgba(255,255,255,0.95));
+      display:flex; align-items:center; justify-content:center;
+      user-select:none;
+      min-height: 96px;
+    }
+    .symbol{
+      font-size: 52px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      line-height: 1;
+    }
+    .hintline{ margin-top: 6px; font-size: 12px; opacity:.75; line-height:1.25; }
 
     /* Response buttons */
     .kbd{
       display:grid;
-      grid-template-columns: repeat(3, 1fr);
+      grid-template-columns: repeat(9, 1fr);
       gap: 8px;
       margin-top: 10px;
     }
     .kbd button{
-      padding: 14px 10px;
+      padding: 12px 0;
       border-radius: 8px;
       border: 1px solid var(--border, #e9ecef);
       background: rgba(255,255,255,0.95);
       cursor: pointer;
-      font-size: 16px;
+      font-size: 15px;
       transition: transform .12s ease, box-shadow .12s ease, background-color .12s ease;
       box-shadow: 0 1px 6px rgba(0,0,0,0.04);
     }
     .kbd button:hover{ transform: translateY(-1px); box-shadow: 0 4px 14px rgba(0,0,0,0.08); }
     .kbd button:disabled{ opacity:.55; cursor:not-allowed; transform:none; box-shadow:none; }
 
+    /* Right panel: settings + stats + history (short) */
+    .rightTop{
+      display:flex; align-items:flex-start; justify-content:space-between; gap:10px; flex-wrap:wrap;
+      margin-bottom: 8px;
+    }
     .controls{
-      display:flex; gap:10px; flex-wrap:wrap; align-items:center;
-      margin-top: 10px;
+      display:flex; gap:8px; flex-wrap:wrap; align-items:center;
     }
     select, input[type="number"]{
       border: 1px solid var(--border, #e9ecef);
       border-radius: 8px;
-      padding: 9px 10px;
+      padding: 7px 9px;
       background: rgba(255,255,255,0.95);
-      font-size: 13px;
+      font-size: 12.5px;
       outline: none;
     }
     select:focus, input[type="number"]:focus{
@@ -150,171 +196,154 @@
     }
 
     table{ width:100%; border-collapse: collapse; }
-    th, td{ text-align:left; padding: 10px 8px; border-bottom: 1px solid var(--border, #e9ecef); font-size: 13px; }
+    th, td{ text-align:left; padding: 7px 6px; border-bottom: 1px solid var(--border, #e9ecef); font-size: 12.5px; }
     th{ background: rgba(248,249,250,0.9); font-weight: 650; }
     .right{ text-align:right; }
 
-    .progress{
-      height: 10px; border-radius: 999px;
-      background: rgba(222,226,230,0.7);
-      overflow: hidden;
-      border: 1px solid var(--border, #e9ecef);
-    }
-    .bar{
-      height: 100%;
-      width: 0%;
-      background: var(--accent, #5bc2e7);
-      transition: width .15s linear;
+    .historyBox{
+      border:1px solid var(--border, #e9ecef);
+      border-radius: 8px;
+      overflow:hidden;
+      max-height: 210px;
     }
 
-    .footnote{ margin-top: 12px; font-size: 12px; opacity: .75; line-height: 1.35; }
+    .footnote{ margin-top: 8px; font-size: 11.5px; opacity: .72; line-height: 1.25; }
+
+    /* Small screens: allow scroll, enlarge taps slightly */
+    @media (max-width: 480px){
+      .kbd{ grid-template-columns: repeat(3, 1fr); }
+      .kbd button{ padding: 14px 0; font-size: 16px; }
+      body { overflow: auto; }
+    }
   </style>
 </head>
 
 <body>
   <div class="wrap">
     <div class="topbar">
-      <div class="brand">DSST – Digit Symbol Substitution Test</div>
+      <div>
+        <div class="brand">DSST</div>
+        <div class="muted small">Digit Symbol Substitution Test (2–5 min)</div>
+      </div>
 
       <div class="pill-row">
         <button id="btnStart" class="pill primary" type="button">Start</button>
         <button id="btnNewKey" class="pill" type="button" title="Generate a new symbol–digit key">New key</button>
-        <button id="btnReset" class="pill danger" type="button" title="Clears your saved history">Reset history</button>
+        <button id="btnExport" class="pill" type="button">Export</button>
+        <button id="btnReset" class="pill danger" type="button" title="Clears your saved history">Reset</button>
       </div>
     </div>
 
     <div class="grid">
-      <!-- Main -->
+      <!-- Main panel -->
       <section class="card" aria-live="polite">
         <div class="row spread">
-          <div class="stack" style="gap:4px;">
-            <div class="muted small" id="subtitle">Processing speed and executive efficiency. Widely used. Very sensitive.</div>
-            <div class="status">
-              <span class="badge" id="badgePhase">Idle</span>
-              <span class="badge" id="badgeTime">Time: –</span>
-              <span class="badge" id="badgeScore">Score: –</span>
-            </div>
+          <div class="status">
+            <span class="badge" id="badgePhase">Idle</span>
+            <span class="badge" id="badgeTime">Time: –</span>
+            <span class="badge" id="badgeScore">Score: –</span>
           </div>
 
-          <div class="kv" style="min-width: 260px;">
+          <div class="kv" style="min-width:210px;">
             <div>Duration</div><div><span id="durationLabel">120</span> s</div>
             <div>Practice</div><div><span id="practiceLabel">10</span> items</div>
-            <div>Key size</div><div>9 symbols</div>
+            <div>Key</div><div>9 symbols</div>
           </div>
         </div>
 
-        <div style="height: 12px;"></div>
-
-        <div class="label">Progress</div>
         <div class="progress" aria-label="Time progress"><div class="bar" id="timeBar"></div></div>
 
-        <div style="height: 14px;"></div>
+        <div style="height:10px;"></div>
 
-        <div class="label">Symbol–digit key</div>
+        <div class="label">Key</div>
         <div class="keywrap">
           <div class="keybar">
-            <div style="font-weight:650;">Match the symbol to its digit</div>
-            <div class="muted small">Try to be fast and accurate</div>
+            <div style="font-weight:650; font-size:12.5px;">Match symbol → digit</div>
+            <div class="muted small" id="subtitle">Fast and accurate.</div>
           </div>
-
           <div class="keygrid" id="keyGrid" aria-label="DSST key grid"></div>
         </div>
 
-        <div style="height: 14px;"></div>
-
-        <div class="row spread">
+        <div class="itemRow">
           <div>
             <div class="label" id="itemLabel">Current item</div>
-            <div class="symbol-box">
-              <div class="symbol" id="currentSymbol">—</div>
-            </div>
-            <div class="hintline" id="itemHint">Press Start. You will see one symbol at a time.</div>
+            <div class="symbolBox"><div class="symbol" id="currentSymbol">—</div></div>
+            <div class="hintline" id="itemHint">Press Start. Practice comes first, then the timed test.</div>
           </div>
 
-          <div style="min-width: 260px; flex: 0 0 260px;">
-            <div class="label">Session settings</div>
-            <div class="controls">
-              <label class="small muted" for="durationSelect" style="margin-right:6px;">Duration</label>
-              <select id="durationSelect" aria-label="Duration">
-                <option value="120">2 min</option>
-                <option value="180">3 min</option>
-                <option value="240">4 min</option>
-                <option value="300">5 min</option>
-              </select>
-
-              <label class="small muted" for="practiceCount" style="margin-left:4px;">Practice</label>
-              <input id="practiceCount" type="number" min="0" max="30" step="1" value="10" style="width:90px;" />
+          <div>
+            <div class="label">Respond (1–9)</div>
+            <div class="kbd" aria-label="Digit response buttons">
+              <button type="button" data-digit="1">1</button>
+              <button type="button" data-digit="2">2</button>
+              <button type="button" data-digit="3">3</button>
+              <button type="button" data-digit="4">4</button>
+              <button type="button" data-digit="5">5</button>
+              <button type="button" data-digit="6">6</button>
+              <button type="button" data-digit="7">7</button>
+              <button type="button" data-digit="8">8</button>
+              <button type="button" data-digit="9">9</button>
             </div>
-
-            <div style="height: 10px;"></div>
-
-            <div class="kv">
-              <div>Correct</div><div id="statCorrect">0</div>
-              <div>Errors</div><div id="statErrors">0</div>
-              <div>Items/min</div><div id="statIPM">0.0</div>
-              <div>Median RT</div><div id="statRT">–</div>
-            </div>
-
-            <div class="footnote">
-              This is a simplified digital DSST. Keep conditions stable (device, time of day).
-              For research use, you may want fixed symbol sets and controlled settings.
-            </div>
+            <div class="hintline">Keyboard works too (1–9).</div>
           </div>
-        </div>
-
-        <div class="kbd" aria-label="Digit response buttons">
-          <button type="button" data-digit="1">1</button>
-          <button type="button" data-digit="2">2</button>
-          <button type="button" data-digit="3">3</button>
-          <button type="button" data-digit="4">4</button>
-          <button type="button" data-digit="5">5</button>
-          <button type="button" data-digit="6">6</button>
-          <button type="button" data-digit="7">7</button>
-          <button type="button" data-digit="8">8</button>
-          <button type="button" data-digit="9">9</button>
         </div>
       </section>
 
-      <!-- History -->
+      <!-- Right panel -->
       <aside class="card">
-        <div class="row spread">
+        <div class="rightTop">
           <div>
-            <div style="font-weight:650;">Results</div>
-            <div class="muted small">Saved locally in your browser (localStorage).</div>
+            <div style="font-weight:650;">Session</div>
+            <div class="muted small">Saved in your browser.</div>
           </div>
-          <button class="pill" id="btnExport" type="button">Export JSON</button>
+
+          <div class="controls">
+            <select id="durationSelect" aria-label="Duration">
+              <option value="120">2 min</option>
+              <option value="180">3 min</option>
+              <option value="240">4 min</option>
+              <option value="300">5 min</option>
+            </select>
+            <input id="practiceCount" type="number" min="0" max="30" step="1" value="10" title="Practice items" aria-label="Practice items" style="width:78px;" />
+          </div>
         </div>
 
-        <div style="height: 12px;"></div>
+        <div class="kv">
+          <div>Correct</div><div id="statCorrect">0</div>
+          <div>Errors</div><div id="statErrors">0</div>
+          <div>Items/min</div><div id="statIPM">0.0</div>
+          <div>Median RT</div><div id="statRT">–</div>
+        </div>
+
+        <div style="height:10px;"></div>
 
         <div class="kv">
           <div>Latest score</div><div id="latestScore">–</div>
-          <div>Latest items/min</div><div id="latestIPM">–</div>
+          <div>Latest IPM</div><div id="latestIPM">–</div>
           <div>Last session</div><div id="latestDate">–</div>
         </div>
 
-        <div style="height: 14px;"></div>
+        <div style="height:10px;"></div>
 
-        <div style="font-weight:650; margin-bottom: 8px;">History</div>
-        <div style="overflow:auto; border:1px solid var(--border, #e9ecef); border-radius: 8px;">
+        <div style="font-weight:650; font-size:12.5px; margin-bottom:6px;">History</div>
+        <div class="historyBox">
           <table>
             <thead>
               <tr>
                 <th>Date</th>
                 <th class="right">Score</th>
                 <th class="right">IPM</th>
-                <th class="right">Errors</th>
               </tr>
             </thead>
             <tbody id="historyBody">
-              <tr><td colspan="4" class="muted">No sessions yet.</td></tr>
+              <tr><td colspan="3" class="muted">No sessions yet.</td></tr>
             </tbody>
           </table>
         </div>
 
         <div class="footnote">
-          <strong>Primary outcome:</strong> number correct within time.<br/>
-          <strong>Secondary:</strong> errors and response times.
+          Primary outcome: <strong>correct responses</strong> within time.<br/>
+          Keep the same device and similar conditions for comparisons.
         </div>
       </aside>
     </div>
@@ -322,15 +351,15 @@
 
   <script>
     /********************************************************************
-     * DSST – Digit Symbol Substitution Test (single-file app)
+     * Compact DSST – single-screen app
      * - 9 symbol ↔ digit key (1–9)
-     * - 2–5 min timed session
      * - practice items (not counted)
-     * - Stores sessions in localStorage + export JSON
+     * - 2–5 min timed session
+     * - localStorage history + export
      ********************************************************************/
 
     const CONFIG = {
-      storageKey: "dsst.sessions.v1",
+      storageKey: "dsst.sessions.v2.compact",
       symbolsPool: ["◆","■","●","▲","▼","★","✚","✖","✦","✶","✷","✹","✺","✧","⬟","⬢","⬣","⬤","⬥","◼","◻","◉","◈","◊","⬦","⬧","⬨","⬩"],
       keySize: 9
     };
@@ -338,8 +367,8 @@
     const el = {
       btnStart: document.getElementById("btnStart"),
       btnNewKey: document.getElementById("btnNewKey"),
-      btnReset: document.getElementById("btnReset"),
       btnExport: document.getElementById("btnExport"),
+      btnReset: document.getElementById("btnReset"),
 
       subtitle: document.getElementById("subtitle"),
       badgePhase: document.getElementById("badgePhase"),
@@ -370,31 +399,25 @@
     };
 
     const state = {
-      phase: "idle", // idle | practice | test | done
-      key: null,     // {digitToSym: {1:"◆"...}, symToDigit: {"◆":1...}}
+      phase: "idle", // idle | practice | test
+      key: null,
       running: false,
 
-      // session settings:
       durationSec: 120,
       practiceN: 10,
 
-      // timers:
       tStart: null,
       tEnd: null,
       tickTimer: null,
 
-      // item:
       currentDigit: null,
       currentSym: null,
       itemShownAt: null,
 
-      // stats:
       practiceDone: 0,
       correct: 0,
       errors: 0,
       rts: [],
-
-      // logging:
       trials: [] // {ts, phase, symbol, correctDigit, answerDigit, correct, rtMs}
     };
 
@@ -404,7 +427,7 @@
     function fmtDate(iso) {
       try {
         const d = new Date(iso);
-        return d.toLocaleString(undefined, { year:"numeric", month:"short", day:"2-digit", hour:"2-digit", minute:"2-digit" });
+        return d.toLocaleString(undefined, { month:"short", day:"2-digit", hour:"2-digit", minute:"2-digit" });
       } catch { return iso; }
     }
 
@@ -469,13 +492,12 @@
       body.innerHTML = "";
 
       if (!sessions.length) {
-        body.innerHTML = '<tr><td colspan="4" class="muted">No sessions yet.</td></tr>';
+        body.innerHTML = '<tr><td colspan="3" class="muted">No sessions yet.</td></tr>';
         return;
       }
 
-      for (const s of sessions.slice(0, 12)) {
+      for (const s of sessions.slice(0, 6)) {
         const tr = document.createElement("tr");
-
         const tdDate = document.createElement("td");
         tdDate.textContent = fmtDate(s.completedAt);
 
@@ -487,15 +509,9 @@
         tdIpm.className = "right";
         tdIpm.textContent = s.itemsPerMin.toFixed(1);
 
-        const tdErr = document.createElement("td");
-        tdErr.className = "right";
-        tdErr.textContent = String(s.errors);
-
         tr.appendChild(tdDate);
         tr.appendChild(tdScore);
         tr.appendChild(tdIpm);
-        tr.appendChild(tdErr);
-
         body.appendChild(tr);
       }
     }
@@ -504,11 +520,9 @@
       el.statCorrect.textContent = String(state.correct);
       el.statErrors.textContent = String(state.errors);
 
-      const effectiveDuration = state.durationSec;
-      const itemsPerMin = (state.correct + state.errors) > 0
-        ? ((state.correct + state.errors) / effectiveDuration) * 60
-        : 0;
-      el.statIPM.textContent = itemsPerMin.toFixed(1);
+      const attempted = state.correct + state.errors;
+      const ipm = attempted ? (attempted / state.durationSec) * 60 : 0;
+      el.statIPM.textContent = ipm.toFixed(1);
 
       const med = median(state.rts);
       el.statRT.textContent = med ? `${Math.round(med)} ms` : "–";
@@ -521,21 +535,28 @@
         el.timeBar.style.width = "0%";
         return;
       }
-      const t = now();
-      const frac = Math.max(0, Math.min(1, (t - state.tStart) / (state.tEnd - state.tStart)));
+      const frac = Math.max(0, Math.min(1, (now() - state.tStart) / (state.tEnd - state.tStart)));
       el.timeBar.style.width = (frac * 100).toFixed(1) + "%";
     }
 
     function updateTimeBadge() {
-      if (!state.running || !state.tEnd) {
-        setBadge(el.badgeTime, "Time: –");
-        return;
-      }
+      if (!state.running || !state.tEnd) { setBadge(el.badgeTime, "Time: –"); return; }
       const remainMs = Math.max(0, state.tEnd - now());
       const remainSec = Math.ceil(remainMs / 1000);
       const m = Math.floor(remainSec / 60);
       const s = remainSec % 60;
       setBadge(el.badgeTime, `Time: ${m}:${String(s).padStart(2,"0")}`);
+    }
+
+    function setSettingsFromUI() {
+      const dur = parseInt(el.durationSelect.value, 10);
+      const pr = parseInt(el.practiceCount.value, 10);
+
+      state.durationSec = [120,180,240,300].includes(dur) ? dur : 120;
+      state.practiceN = Math.max(0, Math.min(30, isFinite(pr) ? pr : 10));
+
+      el.durationLabel.textContent = String(state.durationSec);
+      el.practiceLabel.textContent = String(state.practiceN);
     }
 
     function pickKey() {
@@ -553,32 +574,18 @@
     function renderKey() {
       const g = el.keyGrid;
       g.innerHTML = "";
-
-      // Row 1: digits
       for (let d = 1; d <= 9; d++) {
         const c = document.createElement("div");
         c.className = "cell digit";
         c.textContent = String(d);
         g.appendChild(c);
       }
-      // Row 2: symbols
       for (let d = 1; d <= 9; d++) {
         const c = document.createElement("div");
         c.className = "cell sym";
         c.textContent = state.key ? state.key.digitToSym[d] : "–";
         g.appendChild(c);
       }
-    }
-
-    function setSettingsFromUI() {
-      const dur = parseInt(el.durationSelect.value, 10);
-      const pr = parseInt(el.practiceCount.value, 10);
-
-      state.durationSec = [120,180,240,300].includes(dur) ? dur : 120;
-      state.practiceN = Math.max(0, Math.min(30, isFinite(pr) ? pr : 10));
-
-      el.durationLabel.textContent = String(state.durationSec);
-      el.practiceLabel.textContent = String(state.practiceN);
     }
 
     function resetSessionState() {
@@ -592,31 +599,54 @@
       state.currentSym = null;
       state.itemShownAt = null;
 
+      state.tStart = null;
+      state.tEnd = null;
+
       updateStatsUI();
       setProgressBar();
       updateTimeBadge();
+      el.currentSymbol.textContent = "—";
+      el.itemLabel.textContent = "Current item";
+      el.itemHint.textContent = "Press Start. Practice comes first, then the timed test.";
     }
 
     function nextItem() {
-      if (!state.key) return;
-
-      // Choose a digit 1–9 uniformly
       const d = 1 + Math.floor(Math.random() * 9);
       const sym = state.key.digitToSym[d];
-
       state.currentDigit = d;
       state.currentSym = sym;
       state.itemShownAt = now();
-
       el.currentSymbol.textContent = sym;
 
       if (state.phase === "practice") {
-        el.itemLabel.textContent = `Practice item ${state.practiceDone + 1}/${state.practiceN}`;
-        el.itemHint.textContent = "Practice is not counted. Use it to learn the key.";
+        el.itemLabel.textContent = `Practice ${state.practiceDone + 1}/${state.practiceN}`;
+        el.itemHint.textContent = "Practice is not counted. Learn the key.";
       } else {
-        el.itemLabel.textContent = "Test item";
-        el.itemHint.textContent = "Answer as fast as you can, without guessing too much.";
+        el.itemLabel.textContent = "Test";
+        el.itemHint.textContent = "Fast and accurate.";
       }
+    }
+
+    function beginTimedTest() {
+      state.phase = "test";
+      setBadge(el.badgePhase, "Test", "ok");
+      el.subtitle.textContent = "Timed test. Respond quickly.";
+
+      state.tStart = now();
+      state.tEnd = state.tStart + state.durationSec * 1000;
+
+      lockResponses(false);
+      nextItem();
+
+      clearInterval(state.tickTimer);
+      state.tickTimer = setInterval(() => {
+        setProgressBar();
+        updateTimeBadge();
+        if (now() >= state.tEnd) finish();
+      }, 120);
+
+      setProgressBar();
+      updateTimeBadge();
     }
 
     function start() {
@@ -627,44 +657,17 @@
       resetSessionState();
 
       state.running = true;
+      el.btnStart.textContent = "Restart";
 
-      // Practice first (if any), then timed test
       if (state.practiceN > 0) {
         state.phase = "practice";
         setBadge(el.badgePhase, "Practice");
-        el.subtitle.textContent = "Practice items first. Then the timed test starts automatically.";
+        el.subtitle.textContent = "Practice first, then timed test.";
         lockResponses(false);
         nextItem();
       } else {
         beginTimedTest();
       }
-
-      el.btnStart.textContent = "Restart";
-    }
-
-    function beginTimedTest() {
-      state.phase = "test";
-      setBadge(el.badgePhase, "Test", "ok");
-      el.subtitle.textContent = "Timed test started. Keep your eyes on the key and respond quickly.";
-
-      state.tStart = now();
-      state.tEnd = state.tStart + (state.durationSec * 1000);
-
-      lockResponses(false);
-      nextItem();
-
-      state.tickTimer = setInterval(() => {
-        setProgressBar();
-        updateTimeBadge();
-
-        if (now() >= state.tEnd) {
-          finish();
-        }
-      }, 120);
-
-      // Immediate UI update
-      setProgressBar();
-      updateTimeBadge();
     }
 
     function finish() {
@@ -673,17 +676,17 @@
       state.running = false;
       clearInterval(state.tickTimer);
       state.tickTimer = null;
-
       lockResponses(true);
+
       setBadge(el.badgePhase, "Done");
       updateTimeBadge();
       setProgressBar();
 
       const med = median(state.rts);
-      const itemsAttempted = state.correct + state.errors;
-      const itemsPerMin = (itemsAttempted / state.durationSec) * 60;
+      const attempted = state.correct + state.errors;
+      const itemsPerMin = attempted ? (attempted / state.durationSec) * 60 : 0;
 
-      el.subtitle.textContent = "Session saved. Repeat under similar conditions for tracking.";
+      el.subtitle.textContent = "Session saved.";
       el.itemLabel.textContent = "Result";
       el.currentSymbol.textContent = String(state.correct);
 
@@ -691,18 +694,17 @@
         test: "DSST",
         durationSec: state.durationSec,
         practiceN: state.practiceN,
-        key: state.key, // you can remove this if you want more standardisation / privacy
+        // key: state.key, // keep if you want exact reproducibility; remove if you prefer not to store it
         correct: state.correct,
         errors: state.errors,
-        itemsAttempted,
+        itemsAttempted: attempted,
         itemsPerMin,
         medianRtMs: med ? Math.round(med) : null,
-        startedAt: new Date(state.tStart || now()).toISOString(),
         completedAt: nowISO(),
         trials: state.trials
       };
-
       addSession(session);
+
       el.btnStart.textContent = "Start";
     }
 
@@ -713,7 +715,7 @@
       const rt = state.itemShownAt ? (now() - state.itemShownAt) : null;
       const correct = (answerDigit === state.currentDigit);
 
-      const log = {
+      state.trials.push({
         ts: nowISO(),
         phase: state.phase,
         symbol: state.currentSym,
@@ -721,51 +723,36 @@
         answerDigit,
         correct,
         rtMs: rt
-      };
-      state.trials.push(log);
+      });
 
       if (state.phase === "practice") {
+        setBadge(el.badgePhase, correct ? "Practice ✓" : "Practice ✕", correct ? "ok" : "bad");
         state.practiceDone += 1;
 
-        // brief feedback in the phase badge (no loud UI changes)
-        setBadge(el.badgePhase, correct ? "Practice ✓" : "Practice ✕", correct ? "ok" : "bad");
-
         if (state.practiceDone >= state.practiceN) {
-          // short transition
           lockResponses(true);
-          el.itemHint.textContent = "Practice complete. The timed test starts now.";
-          setTimeout(() => {
-            setBadge(el.badgePhase, "Test", "ok");
-            beginTimedTest();
-          }, 650);
+          el.itemHint.textContent = "Practice complete. Starting timed test.";
+          setTimeout(() => beginTimedTest(), 450);
           return;
         }
-
-        // next practice item
         nextItem();
         return;
       }
 
-      // test phase scoring
-      if (correct) {
-        state.correct += 1;
-      } else {
-        state.errors += 1;
-      }
-      if (rt !== null) state.rts.push(rt);
+      // test phase
+      if (correct) state.correct += 1;
+      else state.errors += 1;
 
+      if (rt !== null) state.rts.push(rt);
       updateStatsUI();
       nextItem();
     }
 
-    // ---------- Events ----------
-    el.btnStart.addEventListener("click", () => {
-      // Restart at any point
-      start();
-    });
+    // Events
+    el.btnStart.addEventListener("click", start);
 
     el.btnNewKey.addEventListener("click", () => {
-      if (state.running) return; // keep stable during a run
+      if (state.running) return;
       pickKey();
     });
 
@@ -789,30 +776,18 @@
     });
 
     document.querySelectorAll("[data-digit]").forEach(btn => {
-      btn.addEventListener("click", () => {
-        const d = parseInt(btn.getAttribute("data-digit"), 10);
-        handleAnswer(d);
-      });
+      btn.addEventListener("click", () => handleAnswer(parseInt(btn.getAttribute("data-digit"), 10)));
     });
 
-    // Keyboard support (1–9)
     window.addEventListener("keydown", (e) => {
       if (!state.running) return;
-      if (e.key >= "1" && e.key <= "9") {
-        handleAnswer(parseInt(e.key, 10));
-      }
+      if (e.key >= "1" && e.key <= "9") handleAnswer(parseInt(e.key, 10));
     });
 
-    el.durationSelect.addEventListener("change", () => {
-      if (state.running) return;
-      setSettingsFromUI();
-    });
-    el.practiceCount.addEventListener("change", () => {
-      if (state.running) return;
-      setSettingsFromUI();
-    });
+    el.durationSelect.addEventListener("change", () => { if (!state.running) setSettingsFromUI(); });
+    el.practiceCount.addEventListener("change", () => { if (!state.running) setSettingsFromUI(); });
 
-    // ---------- Init ----------
+    // Init
     (function init() {
       setSettingsFromUI();
       pickKey();
@@ -823,7 +798,6 @@
       setBadge(el.badgeTime, "Time: –");
       setBadge(el.badgeScore, "Score: –");
       lockResponses(true);
-      el.currentSymbol.textContent = "—";
       updateStatsUI();
     })();
   </script>

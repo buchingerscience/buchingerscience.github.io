@@ -1,0 +1,10 @@
+{
+  "title": "Buchinger Method — Onboarding Programme",
+  "description": "Four modules. Each module includes four lessons (video + downloads) and ends with a questionnaire.",
+  "modules": [
+    { "moduleId": "m1", "label": "Module 1", "file": "module-1.json" },
+    { "moduleId": "m2", "label": "Module 2", "file": "module-2.json" },
+    { "moduleId": "m3", "label": "Module 3", "file": "module-3.json" },
+    { "moduleId": "m4", "label": "Module 4", "file": "module-4.json" }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "moduleId": "m3",
+  "label": "Module 3",
+  "title": "Practice: the daily method (care, routines, movement)",
+  "description": "Daily structure, practical tools, and how to support adherence.",
+  "quizLink": "https://typeform.com/to/PLACEHOLDER-M3",
+  "lessons": [
+    {
+      "lessonId": "m3l1",
+      "order": 1,
+      "title": "Lesson 1 — Daily schedule and clinical supervision",
+      "videoUrl": "https://youtu.be/dQw4w9WgXcQ",
+      "textDownload": "downloads/module3_lesson1_text.pdf",
+      "extraDownload": "downloads/module3_lesson1_extra.pdf",
+      "notes": "Placeholder: what happens each day and why structure helps."
+    },
+    {
+      "lessonId": "m3l2",
+      "order": 2,
+      "title": "Lesson 2 — Hydration, electrolytes, and basics",
+      "videoUrl": "https://youtu.be/dQw4w9WgXcQ",
+      "textDownload": "downloads/module3_lesson2_text.pdf",
+      "extraDownload": "downloads/module3_lesson2_extra.pdf",
+      "notes": "Placeholder: simple guidance without overcomplicating."
+    },
+    {
+      "lessonId": "m3l3",
+      "order": 3,
+      "title": "Lesson 3 — Movement and recovery during fasting",
+      "videoUrl": "https://youtu.be/dQw4w9WgXcQ",
+      "textDownload": "downloads/module3_lesson3_text.pdf",
+      "extraDownload": "downloads/module3_lesson3_extra.pdf",
+      "notes": "Placeholder: walking, gentle strength, adapting to fatigue."
+    },
+    {
+      "lessonId": "m3l4",
+      "order": 4,
+      "title": "Lesson 4 — Mindset and emotional balance",
+      "videoUrl": "https://youtu.be/dQw4w9WgXcQ",
+      "textDownload": "downloads/module3_lesson4_text.pdf",
+      "extraDownload": "downloads/module3_lesson4_extra.pdf",
+      "notes": "Placeholder: practical tools (journaling, breathing, relaxation)."
+    }
+  ]
+}

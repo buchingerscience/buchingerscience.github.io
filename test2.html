@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DSST – Digit Symbol Substitution Test</title>
+
+  <!-- style.css is at the root, this page is in /course/ -->
+  <link rel="stylesheet" href="../style.css" />
+
+  <style>
+    :root { --maxw: 1100px; }
+
+    .wrap { max-width: var(--maxw); margin: 0 auto; padding: 32px 18px 64px; }
+
+    .topbar{
+      display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;
+      position: sticky; top: 0; z-index: 10;
+      background: rgba(248,249,250,0.85); backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border, #e9ecef);
+      padding: 10px 18px; margin: 0 -18px 18px;
+    }
+    .brand{ font-weight:650; letter-spacing:.2px; }
+
+    .pill-row{ display:flex; gap:8px; flex-wrap:wrap; align-items:center; justify-content:flex-end; }
+    .pill{
+      display:inline-flex; align-items:center; gap:8px;
+      padding: 7px 12px; border-radius: 16px;
+      border: 1px solid var(--border, #e9ecef);
+      background: rgba(255,255,255,0.9);
+      font-size: 13px; color: inherit; cursor: pointer; text-decoration:none;
+      transition: transform .15s ease, box-shadow .15s ease, background-color .15s ease;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.04);
+    }
+    .pill:hover{ transform: translateY(-1px); box-shadow: 0 4px 14px rgba(0,0,0,0.08); }
+    .pill.primary{ background: var(--accent, #5bc2e7); color:#fff; border-color: rgba(0,0,0,0.05); }
+    .pill.primary:hover{ background:#67c9ea; }
+    .pill.danger{ background:#fff; border-color: rgba(220,53,69,0.25); }
+    .pill.danger:hover{ background: rgba(220,53,69,0.06); }
+
+    .grid{ display:grid; grid-template-columns: 1.25fr 0.75fr; gap: 16px; }
+    @media (max-width: 900px){ .grid{ grid-template-columns: 1fr; } }
+
+    .card{
+      background: rgba(255,255,255,0.95);
+      border: 1px solid var(--border, #e9ecef);
+      border-radius: 8px;
+      box-shadow: 0 2px 14px rgba(0,0,0,0.05);
+      padding: 18px;
+    }
+    .muted{ opacity:.78; }
+    .small{ font-size: 12.5px; }
+    .row{ display:flex; gap:12px; flex-wrap:wrap; align-items:center; }
+    .row.spread{ justify-content: space-between; }
+    .stack{ display:flex; flex-direction:column; gap:10px; }
+
+    .status{ display:flex; gap:8px; flex-wrap:wrap; align-items:center; font-size:12.5px; }
+    .badge{
+      padding: 5px 9px; border-radius: 16px;
+      border: 1px solid var(--border, #e9ecef);
+      background: rgba(248,249,250,0.9);
+    }
+    .badge.ok{ border-color: rgba(25,135,84,0.25); background: rgba(25,135,84,0.08); }
+    .badge.bad{ border-color: rgba(220,53,69,0.25); background: rgba(220,53,69,0.08); }
+
+    .kv{ display:grid; grid-template-columns: 1fr auto; gap: 8px 10px; font-size: 13px; }
+    .kv div:nth-child(odd){ opacity:.78; }
+
+    .label{ font-size: 12px; opacity:.8; margin-bottom: 6px; }
+    .symbol-box{
+      border: 1px solid var(--border, #e9ecef);
+      border-radius: 8px;
+      background: linear-gradient(180deg, rgba(248,249,250,0.95), rgba(255,255,255,0.95));
+      min-height: 120px;
+      display:flex; align-items:center; justify-content:center;
+      user-select:none;
+    }
+    .symbol{
+      font-size: 54px;
+      font-weight: 700;
+      letter-spacing: 2px;
+    }
+    .hintline{ margin-top: 8px; font-size: 12.5px; opacity:.75; line-height:1.35; }
+
+    /* Key table */
+    .keywrap{
+      border: 1px solid var(--border, #e9ecef);
+      border-radius: 8px;
+      overflow:hidden;
+      background: rgba(255,255,255,0.95);
+    }
+    .keybar{
+      display:flex; gap:8px; align-items:center; justify-content:space-between;
+      padding: 10px 12px;
+      background: rgba(248,249,250,0.9);
+      border-bottom: 1px solid var(--border, #e9ecef);
+    }
+    .keygrid{
+      display:grid;
+      grid-template-columns: repeat(9, 1fr);
+      gap: 0;
+    }
+    .cell{
+      padding: 10px 6px;
+      text-align:center;
+      border-right: 1px solid var(--border, #e9ecef);
+      border-bottom: 1px solid var(--border, #e9ecef);
+      font-size: 13px;
+    }
+    .cell:nth-child(9n){ border-right: 0; }
+    .cell.digit{ font-weight: 700; background: rgba(255,255,255,0.96); }
+    .cell.sym{ font-size: 20px; background: rgba(255,255,255,0.96); }
+
+    /* Response buttons */
+    .kbd{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .kbd button{
+      padding: 14px 10px;
+      border-radius: 8px;
+      border: 1px solid var(--border, #e9ecef);
+      background: rgba(255,255,255,0.95);
+      cursor: pointer;
+      font-size: 16px;
+      transition: transform .12s ease, box-shadow .12s ease, background-color .12s ease;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.04);
+    }
+    .kbd button:hover{ transform: translateY(-1px); box-shadow: 0 4px 14px rgba(0,0,0,0.08); }
+    .kbd button:disabled{ opacity:.55; cursor:not-allowed; transform:none; box-shadow:none; }
+
+    .controls{
+      display:flex; gap:10px; flex-wrap:wrap; align-items:center;
+      margin-top: 10px;
+    }
+    select, input[type="number"]{
+      border: 1px solid var(--border, #e9ecef);
+      border-radius: 8px;
+      padding: 9px 10px;
+      background: rgba(255,255,255,0.95);
+      font-size: 13px;
+      outline: none;
+    }
+    select:focus, input[type="number"]:focus{
+      box-shadow: 0 0 0 4px rgba(91,194,231,0.25);
+      border-color: rgba(91,194,231,0.65);
+    }
+
+    table{ width:100%; border-collapse: collapse; }
+    th, td{ text-align:left; padding: 10px 8px; border-bottom: 1px solid var(--border, #e9ecef); font-size: 13px; }
+    th{ background: rgba(248,249,250,0.9); font-weight: 650; }
+    .right{ text-align:right; }
+
+    .progress{
+      height: 10px; border-radius: 999px;
+      background: rgba(222,226,230,0.7);
+      overflow: hidden;
+      border: 1px solid var(--border, #e9ecef);
+    }
+    .bar{
+      height: 100%;
+      width: 0%;
+      background: var(--accent, #5bc2e7);
+      transition: width .15s linear;
+    }
+
+    .footnote{ margin-top: 12px; font-size: 12px; opacity: .75; line-height: 1.35; }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand">DSST – Digit Symbol Substitution Test</div>
+
+      <div class="pill-row">
+        <button id="btnStart" class="pill primary" type="button">Start</button>
+        <button id="btnNewKey" class="pill" type="button" title="Generate a new symbol–digit key">New key</button>
+        <button id="btnReset" class="pill danger" type="button" title="Clears your saved history">Reset history</button>
+      </div>
+    </div>
+
+    <div class="grid">
+      <!-- Main -->
+      <section class="card" aria-live="polite">
+        <div class="row spread">
+          <div class="stack" style="gap:4px;">
+            <div class="muted small" id="subtitle">Processing speed and executive efficiency. Widely used. Very sensitive.</div>
+            <div class="status">
+              <span class="badge" id="badgePhase">Idle</span>
+              <span class="badge" id="badgeTime">Time: –</span>
+              <span class="badge" id="badgeScore">Score: –</span>
+            </div>
+          </div>
+
+          <div class="kv" style="min-width: 260px;">
+            <div>Duration</div><div><span id="durationLabel">120</span> s</div>
+            <div>Practice</div><div><span id="practiceLabel">10</span> items</div>
+            <div>Key size</div><div>9 symbols</div>
+          </div>
+        </div>
+
+        <div style="height: 12px;"></div>
+
+        <div class="label">Progress</div>
+        <div class="progress" aria-label="Time progress"><div class="bar" id="timeBar"></div></div>
+
+        <div style="height: 14px;"></div>
+
+        <div class="label">Symbol–digit key</div>
+        <div class="keywrap">
+          <div class="keybar">
+            <div style="font-weight:650;">Match the symbol to its digit</div>
+            <div class="muted small">Try to be fast and accurate</div>
+          </div>
+
+          <div class="keygrid" id="keyGrid" aria-label="DSST key grid"></div>
+        </div>
+
+        <div style="height: 14px;"></div>
+
+        <div class="row spread">
+          <div>
+            <div class="label" id="itemLabel">Current item</div>
+            <div class="symbol-box">
+              <div class="symbol" id="currentSymbol">—</div>
+            </div>
+            <div class="hintline" id="itemHint">Press Start. You will see one symbol at a time.</div>
+          </div>
+
+          <div style="min-width: 260px; flex: 0 0 260px;">
+            <div class="label">Session settings</div>
+            <div class="controls">
+              <label class="small muted" for="durationSelect" style="margin-right:6px;">Duration</label>
+              <select id="durationSelect" aria-label="Duration">
+                <option value="120">2 min</option>
+                <option value="180">3 min</option>
+                <option value="240">4 min</option>
+                <option value="300">5 min</option>
+              </select>
+
+              <label class="small muted" for="practiceCount" style="margin-left:4px;">Practice</label>
+              <input id="practiceCount" type="number" min="0" max="30" step="1" value="10" style="width:90px;" />
+            </div>
+
+            <div style="height: 10px;"></div>
+
+            <div class="kv">
+              <div>Correct</div><div id="statCorrect">0</div>
+              <div>Errors</div><div id="statErrors">0</div>
+              <div>Items/min</div><div id="statIPM">0.0</div>
+              <div>Median RT</div><div id="statRT">–</div>
+            </div>
+
+            <div class="footnote">
+              This is a simplified digital DSST. Keep conditions stable (device, time of day).
+              For research use, you may want fixed symbol sets and controlled settings.
+            </div>
+          </div>
+        </div>
+
+        <div class="kbd" aria-label="Digit response buttons">
+          <button type="button" data-digit="1">1</button>
+          <button type="button" data-digit="2">2</button>
+          <button type="button" data-digit="3">3</button>
+          <button type="button" data-digit="4">4</button>
+          <button type="button" data-digit="5">5</button>
+          <button type="button" data-digit="6">6</button>
+          <button type="button" data-digit="7">7</button>
+          <button type="button" data-digit="8">8</button>
+          <button type="button" data-digit="9">9</button>
+        </div>
+      </section>
+
+      <!-- History -->
+      <aside class="card">
+        <div class="row spread">
+          <div>
+            <div style="font-weight:650;">Results</div>
+            <div class="muted small">Saved locally in your browser (localStorage).</div>
+          </div>
+          <button class="pill" id="btnExport" type="button">Export JSON</button>
+        </div>
+
+        <div style="height: 12px;"></div>
+
+        <div class="kv">
+          <div>Latest score</div><div id="latestScore">–</div>
+          <div>Latest items/min</div><div id="latestIPM">–</div>
+          <div>Last session</div><div id="latestDate">–</div>
+        </div>
+
+        <div style="height: 14px;"></div>
+
+        <div style="font-weight:650; margin-bottom: 8px;">History</div>
+        <div style="overflow:auto; border:1px solid var(--border, #e9ecef); border-radius: 8px;">
+          <table>
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th class="right">Score</th>
+                <th class="right">IPM</th>
+                <th class="right">Errors</th>
+              </tr>
+            </thead>
+            <tbody id="historyBody">
+              <tr><td colspan="4" class="muted">No sessions yet.</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="footnote">
+          <strong>Primary outcome:</strong> number correct within time.<br/>
+          <strong>Secondary:</strong> errors and response times.
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <script>
+    /********************************************************************
+     * DSST – Digit Symbol Substitution Test (single-file app)
+     * - 9 symbol ↔ digit key (1–9)
+     * - 2–5 min timed session
+     * - practice items (not counted)
+     * - Stores sessions in localStorage + export JSON
+     ********************************************************************/
+
+    const CONFIG = {
+      storageKey: "dsst.sessions.v1",
+      symbolsPool: ["◆","■","●","▲","▼","★","✚","✖","✦","✶","✷","✹","✺","✧","⬟","⬢","⬣","⬤","⬥","◼","◻","◉","◈","◊","⬦","⬧","⬨","⬩"],
+      keySize: 9
+    };
+
+    const el = {
+      btnStart: document.getElementById("btnStart"),
+      btnNewKey: document.getElementById("btnNewKey"),
+      btnReset: document.getElementById("btnReset"),
+      btnExport: document.getElementById("btnExport"),
+
+      subtitle: document.getElementById("subtitle"),
+      badgePhase: document.getElementById("badgePhase"),
+      badgeTime: document.getElementById("badgeTime"),
+      badgeScore: document.getElementById("badgeScore"),
+
+      durationLabel: document.getElementById("durationLabel"),
+      practiceLabel: document.getElementById("practiceLabel"),
+      durationSelect: document.getElementById("durationSelect"),
+      practiceCount: document.getElementById("practiceCount"),
+
+      timeBar: document.getElementById("timeBar"),
+
+      keyGrid: document.getElementById("keyGrid"),
+      currentSymbol: document.getElementById("currentSymbol"),
+      itemHint: document.getElementById("itemHint"),
+      itemLabel: document.getElementById("itemLabel"),
+
+      statCorrect: document.getElementById("statCorrect"),
+      statErrors: document.getElementById("statErrors"),
+      statIPM: document.getElementById("statIPM"),
+      statRT: document.getElementById("statRT"),
+
+      latestScore: document.getElementById("latestScore"),
+      latestIPM: document.getElementById("latestIPM"),
+      latestDate: document.getElementById("latestDate"),
+      historyBody: document.getElementById("historyBody")
+    };
+
+    const state = {
+      phase: "idle", // idle | practice | test | done
+      key: null,     // {digitToSym: {1:"◆"...}, symToDigit: {"◆":1...}}
+      running: false,
+
+      // session settings:
+      durationSec: 120,
+      practiceN: 10,
+
+      // timers:
+      tStart: null,
+      tEnd: null,
+      tickTimer: null,
+
+      // item:
+      currentDigit: null,
+      currentSym: null,
+      itemShownAt: null,
+
+      // stats:
+      practiceDone: 0,
+      correct: 0,
+      errors: 0,
+      rts: [],
+
+      // logging:
+      trials: [] // {ts, phase, symbol, correctDigit, answerDigit, correct, rtMs}
+    };
+
+    function now() { return Date.now(); }
+    function nowISO() { return new Date().toISOString(); }
+
+    function fmtDate(iso) {
+      try {
+        const d = new Date(iso);
+        return d.toLocaleString(undefined, { year:"numeric", month:"short", day:"2-digit", hour:"2-digit", minute:"2-digit" });
+      } catch { return iso; }
+    }
+
+    function median(arr) {
+      if (!arr.length) return null;
+      const a = arr.slice().sort((x,y) => x-y);
+      const mid = Math.floor(a.length / 2);
+      return (a.length % 2) ? a[mid] : (a[mid-1] + a[mid]) / 2;
+    }
+
+    function shuffle(a) {
+      const arr = a.slice();
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
+    function setBadge(elm, text, kind=null) {
+      elm.textContent = text;
+      elm.classList.remove("ok","bad");
+      if (kind) elm.classList.add(kind);
+    }
+
+    function lockResponses(locked) {
+      document.querySelectorAll("[data-digit]").forEach(b => b.disabled = locked);
+    }
+
+    function loadSessions() {
+      try {
+        const raw = localStorage.getItem(CONFIG.storageKey);
+        if (!raw) return [];
+        const data = JSON.parse(raw);
+        return Array.isArray(data) ? data : [];
+      } catch { return []; }
+    }
+
+    function saveSessions(sessions) {
+      localStorage.setItem(CONFIG.storageKey, JSON.stringify(sessions));
+    }
+
+    function addSession(session) {
+      const sessions = loadSessions();
+      sessions.unshift(session);
+      saveSessions(sessions.slice(0, 200));
+      renderHistory();
+      renderLatest();
+    }
+
+    function renderLatest() {
+      const sessions = loadSessions();
+      const s = sessions[0] || null;
+      el.latestScore.textContent = s ? String(s.correct) : "–";
+      el.latestIPM.textContent = s ? String(s.itemsPerMin.toFixed(1)) : "–";
+      el.latestDate.textContent = s ? fmtDate(s.completedAt) : "–";
+    }
+
+    function renderHistory() {
+      const sessions = loadSessions();
+      const body = el.historyBody;
+      body.innerHTML = "";
+
+      if (!sessions.length) {
+        body.innerHTML = '<tr><td colspan="4" class="muted">No sessions yet.</td></tr>';
+        return;
+      }
+
+      for (const s of sessions.slice(0, 12)) {
+        const tr = document.createElement("tr");
+
+        const tdDate = document.createElement("td");
+        tdDate.textContent = fmtDate(s.completedAt);
+
+        const tdScore = document.createElement("td");
+        tdScore.className = "right";
+        tdScore.textContent = String(s.correct);
+
+        const tdIpm = document.createElement("td");
+        tdIpm.className = "right";
+        tdIpm.textContent = s.itemsPerMin.toFixed(1);
+
+        const tdErr = document.createElement("td");
+        tdErr.className = "right";
+        tdErr.textContent = String(s.errors);
+
+        tr.appendChild(tdDate);
+        tr.appendChild(tdScore);
+        tr.appendChild(tdIpm);
+        tr.appendChild(tdErr);
+
+        body.appendChild(tr);
+      }
+    }
+
+    function updateStatsUI() {
+      el.statCorrect.textContent = String(state.correct);
+      el.statErrors.textContent = String(state.errors);
+
+      const effectiveDuration = state.durationSec;
+      const itemsPerMin = (state.correct + state.errors) > 0
+        ? ((state.correct + state.errors) / effectiveDuration) * 60
+        : 0;
+      el.statIPM.textContent = itemsPerMin.toFixed(1);
+
+      const med = median(state.rts);
+      el.statRT.textContent = med ? `${Math.round(med)} ms` : "–";
+
+      setBadge(el.badgeScore, `Score: ${state.correct}`);
+    }
+
+    function setProgressBar() {
+      if (!state.running || !state.tStart || !state.tEnd) {
+        el.timeBar.style.width = "0%";
+        return;
+      }
+      const t = now();
+      const frac = Math.max(0, Math.min(1, (t - state.tStart) / (state.tEnd - state.tStart)));
+      el.timeBar.style.width = (frac * 100).toFixed(1) + "%";
+    }
+
+    function updateTimeBadge() {
+      if (!state.running || !state.tEnd) {
+        setBadge(el.badgeTime, "Time: –");
+        return;
+      }
+      const remainMs = Math.max(0, state.tEnd - now());
+      const remainSec = Math.ceil(remainMs / 1000);
+      const m = Math.floor(remainSec / 60);
+      const s = remainSec % 60;
+      setBadge(el.badgeTime, `Time: ${m}:${String(s).padStart(2,"0")}`);
+    }
+
+    function pickKey() {
+      const sym = shuffle(CONFIG.symbolsPool).slice(0, CONFIG.keySize);
+      const digitToSym = {};
+      const symToDigit = {};
+      for (let d = 1; d <= 9; d++) {
+        digitToSym[d] = sym[d - 1];
+        symToDigit[sym[d - 1]] = d;
+      }
+      state.key = { digitToSym, symToDigit };
+      renderKey();
+    }
+
+    function renderKey() {
+      const g = el.keyGrid;
+      g.innerHTML = "";
+
+      // Row 1: digits
+      for (let d = 1; d <= 9; d++) {
+        const c = document.createElement("div");
+        c.className = "cell digit";
+        c.textContent = String(d);
+        g.appendChild(c);
+      }
+      // Row 2: symbols
+      for (let d = 1; d <= 9; d++) {
+        const c = document.createElement("div");
+        c.className = "cell sym";
+        c.textContent = state.key ? state.key.digitToSym[d] : "–";
+        g.appendChild(c);
+      }
+    }
+
+    function setSettingsFromUI() {
+      const dur = parseInt(el.durationSelect.value, 10);
+      const pr = parseInt(el.practiceCount.value, 10);
+
+      state.durationSec = [120,180,240,300].includes(dur) ? dur : 120;
+      state.practiceN = Math.max(0, Math.min(30, isFinite(pr) ? pr : 10));
+
+      el.durationLabel.textContent = String(state.durationSec);
+      el.practiceLabel.textContent = String(state.practiceN);
+    }
+
+    function resetSessionState() {
+      state.practiceDone = 0;
+      state.correct = 0;
+      state.errors = 0;
+      state.rts = [];
+      state.trials = [];
+
+      state.currentDigit = null;
+      state.currentSym = null;
+      state.itemShownAt = null;
+
+      updateStatsUI();
+      setProgressBar();
+      updateTimeBadge();
+    }
+
+    function nextItem() {
+      if (!state.key) return;
+
+      // Choose a digit 1–9 uniformly
+      const d = 1 + Math.floor(Math.random() * 9);
+      const sym = state.key.digitToSym[d];
+
+      state.currentDigit = d;
+      state.currentSym = sym;
+      state.itemShownAt = now();
+
+      el.currentSymbol.textContent = sym;
+
+      if (state.phase === "practice") {
+        el.itemLabel.textContent = `Practice item ${state.practiceDone + 1}/${state.practiceN}`;
+        el.itemHint.textContent = "Practice is not counted. Use it to learn the key.";
+      } else {
+        el.itemLabel.textContent = "Test item";
+        el.itemHint.textContent = "Answer as fast as you can, without guessing too much.";
+      }
+    }
+
+    function start() {
+      setSettingsFromUI();
+      if (!state.key) pickKey();
+
+      clearInterval(state.tickTimer);
+      resetSessionState();
+
+      state.running = true;
+
+      // Practice first (if any), then timed test
+      if (state.practiceN > 0) {
+        state.phase = "practice";
+        setBadge(el.badgePhase, "Practice");
+        el.subtitle.textContent = "Practice items first. Then the timed test starts automatically.";
+        lockResponses(false);
+        nextItem();
+      } else {
+        beginTimedTest();
+      }
+
+      el.btnStart.textContent = "Restart";
+    }
+
+    function beginTimedTest() {
+      state.phase = "test";
+      setBadge(el.badgePhase, "Test", "ok");
+      el.subtitle.textContent = "Timed test started. Keep your eyes on the key and respond quickly.";
+
+      state.tStart = now();
+      state.tEnd = state.tStart + (state.durationSec * 1000);
+
+      lockResponses(false);
+      nextItem();
+
+      state.tickTimer = setInterval(() => {
+        setProgressBar();
+        updateTimeBadge();
+
+        if (now() >= state.tEnd) {
+          finish();
+        }
+      }, 120);
+
+      // Immediate UI update
+      setProgressBar();
+      updateTimeBadge();
+    }
+
+    function finish() {
+      if (!state.running) return;
+
+      state.running = false;
+      clearInterval(state.tickTimer);
+      state.tickTimer = null;
+
+      lockResponses(true);
+      setBadge(el.badgePhase, "Done");
+      updateTimeBadge();
+      setProgressBar();
+
+      const med = median(state.rts);
+      const itemsAttempted = state.correct + state.errors;
+      const itemsPerMin = (itemsAttempted / state.durationSec) * 60;
+
+      el.subtitle.textContent = "Session saved. Repeat under similar conditions for tracking.";
+      el.itemLabel.textContent = "Result";
+      el.currentSymbol.textContent = String(state.correct);
+
+      const session = {
+        test: "DSST",
+        durationSec: state.durationSec,
+        practiceN: state.practiceN,
+        key: state.key, // you can remove this if you want more standardisation / privacy
+        correct: state.correct,
+        errors: state.errors,
+        itemsAttempted,
+        itemsPerMin,
+        medianRtMs: med ? Math.round(med) : null,
+        startedAt: new Date(state.tStart || now()).toISOString(),
+        completedAt: nowISO(),
+        trials: state.trials
+      };
+
+      addSession(session);
+      el.btnStart.textContent = "Start";
+    }
+
+    function handleAnswer(answerDigit) {
+      if (!state.running) return;
+      if (!state.currentDigit) return;
+
+      const rt = state.itemShownAt ? (now() - state.itemShownAt) : null;
+      const correct = (answerDigit === state.currentDigit);
+
+      const log = {
+        ts: nowISO(),
+        phase: state.phase,
+        symbol: state.currentSym,
+        correctDigit: state.currentDigit,
+        answerDigit,
+        correct,
+        rtMs: rt
+      };
+      state.trials.push(log);
+
+      if (state.phase === "practice") {
+        state.practiceDone += 1;
+
+        // brief feedback in the phase badge (no loud UI changes)
+        setBadge(el.badgePhase, correct ? "Practice ✓" : "Practice ✕", correct ? "ok" : "bad");
+
+        if (state.practiceDone >= state.practiceN) {
+          // short transition
+          lockResponses(true);
+          el.itemHint.textContent = "Practice complete. The timed test starts now.";
+          setTimeout(() => {
+            setBadge(el.badgePhase, "Test", "ok");
+            beginTimedTest();
+          }, 650);
+          return;
+        }
+
+        // next practice item
+        nextItem();
+        return;
+      }
+
+      // test phase scoring
+      if (correct) {
+        state.correct += 1;
+      } else {
+        state.errors += 1;
+      }
+      if (rt !== null) state.rts.push(rt);
+
+      updateStatsUI();
+      nextItem();
+    }
+
+    // ---------- Events ----------
+    el.btnStart.addEventListener("click", () => {
+      // Restart at any point
+      start();
+    });
+
+    el.btnNewKey.addEventListener("click", () => {
+      if (state.running) return; // keep stable during a run
+      pickKey();
+    });
+
+    el.btnReset.addEventListener("click", () => {
+      localStorage.removeItem(CONFIG.storageKey);
+      renderHistory();
+      renderLatest();
+    });
+
+    el.btnExport.addEventListener("click", () => {
+      const sessions = loadSessions();
+      const blob = new Blob([JSON.stringify(sessions, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "dsst-sessions.json";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    });
+
+    document.querySelectorAll("[data-digit]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const d = parseInt(btn.getAttribute("data-digit"), 10);
+        handleAnswer(d);
+      });
+    });
+
+    // Keyboard support (1–9)
+    window.addEventListener("keydown", (e) => {
+      if (!state.running) return;
+      if (e.key >= "1" && e.key <= "9") {
+        handleAnswer(parseInt(e.key, 10));
+      }
+    });
+
+    el.durationSelect.addEventListener("change", () => {
+      if (state.running) return;
+      setSettingsFromUI();
+    });
+    el.practiceCount.addEventListener("change", () => {
+      if (state.running) return;
+      setSettingsFromUI();
+    });
+
+    // ---------- Init ----------
+    (function init() {
+      setSettingsFromUI();
+      pickKey();
+      renderHistory();
+      renderLatest();
+
+      setBadge(el.badgePhase, "Idle");
+      setBadge(el.badgeTime, "Time: –");
+      setBadge(el.badgeScore, "Score: –");
+      lockResponses(true);
+      el.currentSymbol.textContent = "—";
+      updateStatsUI();
+    })();
+  </script>
+</body>
+</html>

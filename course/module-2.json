@@ -1,0 +1,45 @@
+{
+  "moduleId": "m2",
+  "label": "Module 2",
+  "title": "Physiology: metabolic adaptation and biomarkers",
+  "description": "Fuel switching, insulin dynamics, ketones, and what to monitor.",
+  "quizLink": "https://typeform.com/to/PLACEHOLDER-M2",
+  "lessons": [
+    {
+      "lessonId": "m2l1",
+      "order": 1,
+      "title": "Lesson 1 — Energy metabolism during fasting",
+      "videoUrl": "https://youtu.be/dQw4w9WgXcQ",
+      "textDownload": "downloads/module2_lesson1_text.pdf",
+      "extraDownload": "downloads/module2_lesson1_extra.pdf",
+      "notes": "Placeholder: glucose → fat oxidation → ketones, and why it matters."
+    },
+    {
+      "lessonId": "m2l2",
+      "order": 2,
+      "title": "Lesson 2 — Glucose, insulin, ketones (clinical reading)",
+      "videoUrl": "https://youtu.be/dQw4w9WgXcQ",
+      "textDownload": "downloads/module2_lesson2_text.pdf",
+      "extraDownload": "downloads/module2_lesson2_extra.pdf",
+      "notes": "Placeholder: typical patterns, interpretation, and red flags."
+    },
+    {
+      "lessonId": "m2l3",
+      "order": 3,
+      "title": "Lesson 3 — Inflammation and immune signals",
+      "videoUrl": "https://youtu.be/dQw4w9WgXcQ",
+      "textDownload": "downloads/module2_lesson3_text.pdf",
+      "extraDownload": "downloads/module2_lesson3_extra.pdf",
+      "notes": "Placeholder: what tends to change and what remains uncertain."
+    },
+    {
+      "lessonId": "m2l4",
+      "order": 4,
+      "title": "Lesson 4 — Body composition and muscle preservation",
+      "videoUrl": "https://youtu.be/dQw4w9WgXcQ",
+      "textDownload": "downloads/module2_lesson4_text.pdf",
+      "extraDownload": "downloads/module2_lesson4_extra.pdf",
+      "notes": "Placeholder: realistic expectations, activity, and refeeding priorities."
+    }
+  ]
+}

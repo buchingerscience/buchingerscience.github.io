@@ -11,11 +11,12 @@
   <link rel="stylesheet" href="../style.css" />
 
   <style>
-    :root { --maxw: 1100px; }
+    :root { --maxw: 980px; }
 
     .wrap { max-width: var(--maxw); margin: 0 auto; padding: 18px 16px 54px; }
+
     .topbar{
-      display:flex; align-items:flex-end; justify-content:space-between; gap:12px; flex-wrap:wrap;
+      display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap;
       margin-bottom: 12px;
       background: rgba(248,249,250,0.85); backdrop-filter: blur(10px);
       border: 1px solid var(--border, #e9ecef);
@@ -24,7 +25,7 @@
     }
     .brand{ font-weight:650; letter-spacing:.2px; }
     .muted{ opacity:.78; }
-    .small{ font-size: 12.5px; }
+    .small{ font-size: 12.5px; line-height: 1.35; }
 
     .actions{ display:flex; gap:8px; flex-wrap:wrap; align-items:center; justify-content:flex-end; }
     .pill{
@@ -52,14 +53,39 @@
       overflow: hidden;
     }
 
+    .intro{
+      margin: 0 0 10px;
+      padding: 10px 12px;
+      border: 1px solid var(--border, #e9ecef);
+      border-radius: 8px;
+      background: rgba(248,249,250,0.65);
+    }
+
     .runnerHead{
-      display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap;
+      display:flex; align-items:flex-end; justify-content:space-between; gap:10px; flex-wrap:wrap;
       margin-bottom: 8px;
     }
     .runnerTitle{ font-weight:650; }
-    .runnerNav{ display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+    .runnerMeta{ font-size: 12.5px; opacity: .78; margin-top: 2px; }
+
+    .step{
+      font-size: 12.5px;
+      opacity: .78;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border, #e9ecef);
+      background: rgba(255,255,255,0.85);
+      white-space: nowrap;
+    }
 
     .sep{ height: 1px; background: rgba(0,0,0,0.06); margin: 10px 0; }
+
+    .belowHelp{
+      margin-top: 10px;
+      font-size: 12.5px;
+      opacity: .78;
+      line-height: 1.35;
+    }
   </style>
 </head>
 
@@ -68,27 +94,38 @@
     <div class="topbar">
       <div>
         <div class="brand">Cognition Battery</div>
-        <div class="muted small" id="sessionLine">Session: –</div>
+        <div class="muted small">Complete the tests in order. Your results are saved automatically in this browser.</div>
       </div>
 
       <div class="actions">
         <button class="pill" id="btnPrev" type="button">Previous</button>
         <button class="pill primary" id="btnNext" type="button">Next</button>
-        <button class="pill" id="btnExport" type="button">Export JSON</button>
-        <button class="pill danger" id="btnClear" type="button" title="Clears the whole battery results">Clear</button>
+        <button class="pill" id="btnExport" type="button">Export results</button>
+        <button class="pill danger" id="btnClear" type="button" title="Clears saved results in this browser">Clear</button>
       </div>
     </div>
 
     <div class="card">
+      <div class="intro small">
+        <strong>How it works:</strong> each test will guide you step by step. When you finish a test, your score is saved.
+        You can leave and come back later on the same device.
+      </div>
+
       <div class="runnerHead">
         <div>
           <div class="runnerTitle" id="testTitle">–</div>
-          <div class="muted small" id="testMeta">–</div>
+          <div class="runnerMeta" id="testMeta">–</div>
         </div>
-        <div class="runnerNav muted small" id="testIndex">–</div>
+        <div class="step" id="testIndex">–</div>
       </div>
+
       <div class="sep"></div>
       <div id="mount"></div>
+
+      <div class="belowHelp">
+        Tip: try to use the same device and similar conditions each time (time of day, noise, caffeine).
+        When you are done, click <strong>Export results</strong> to download one JSON file with all tests.
+      </div>
     </div>
   </div>
 
@@ -97,22 +134,21 @@
      * Light cognition runner
      * - One test at a time (modules render their own UI + their own results)
      * - Combined results stored in localStorage
-     * - Only one combined export button
+     * - Export one combined JSON file
      ********************************************************************/
 
     const STORAGE_KEY = "cognition.battery.v1";
 
     const TESTS = [
-      { id: "pvt",  title: "PVT",  meta: "Sustained attention",             src: "./cog1_pvt.js" },
-      { id: "gng",  title: "Go / No-Go", meta: "Inhibitory control",        src: "./cog2_gng.js" },
-      { id: "dsst", title: "DSST", meta: "Processing speed",               src: "./cog3_dsst.js" },
-      { id: "tmtb", title: "TMT-B", meta: "Cognitive flexibility",         src: "./cog4_tmt.js" },
-      { id: "wm",   title: "Food-WM", meta: "Working memory / attention",  src: "./cog5_wb.js" },
-      { id: "dots", title: "Dots", meta: "Perceptual accuracy (numerosity)", src: "./cog6_dots.js" }
+      { id: "pvt",  title: "PVT",      meta: "Sustained attention.",                 src: "./cog1_pvt.js"  },
+      { id: "gng",  title: "Go / No-Go", meta: "Inhibitory control.",                src: "./cog2_gng.js"  },
+      { id: "dsst", title: "DSST",     meta: "Processing speed.",                    src: "./cog3_dsst.js" },
+      { id: "tmtb", title: "TMT-B",    meta: "Cognitive flexibility and switching.", src: "./cog4_tmt.js"  },
+      { id: "wm",   title: "Food-WM",  meta: "Working memory with food emojis.",     src: "./cog5_wb.js"   },
+      { id: "dots", title: "Dots",     meta: "Perceptual accuracy (numerosity).",   src: "./cog6_dots.js" }
     ];
 
     const el = {
-      sessionLine: document.getElementById("sessionLine"),
       btnPrev: document.getElementById("btnPrev"),
       btnNext: document.getElementById("btnNext"),
       btnExport: document.getElementById("btnExport"),
@@ -163,13 +199,10 @@
     }
 
     function updateHeader() {
-      const bat = getBattery();
-      el.sessionLine.textContent = `Session: ${bat.sessionId} · started ${new Date(bat.startedAt).toLocaleString()}`;
-
       const t = TESTS[currentIndex];
       el.testTitle.textContent = t.title;
       el.testMeta.textContent = t.meta;
-      el.testIndex.textContent = `Test ${currentIndex + 1} / ${TESTS.length}`;
+      el.testIndex.textContent = `Step ${currentIndex + 1} of ${TESTS.length}`;
 
       el.btnPrev.disabled = (currentIndex === 0);
       el.btnNext.disabled = (currentIndex === TESTS.length - 1);
@@ -183,47 +216,38 @@
 
       currentIndex = Math.max(0, Math.min(TESTS.length - 1, index));
       updateHeader();
-
       el.mount.innerHTML = "";
 
       const test = TESTS[currentIndex];
-      const mod = await import(test.src);
-      if (!mod || typeof mod.init !== "function") {
-        el.mount.innerHTML = `<p class="muted">Module not found or invalid: ${test.src}</p>`;
-        return;
-      }
 
-      const api = {
-        saveResult: (testId, metrics = {}, extra = {}) => {
-          const bat = getBattery();
-          bat.results[testId] = {
-            metrics: metrics ?? {},
-            extra: extra ?? {},
-            savedAt: nowISO()
-          };
-          saveBattery(bat);
-        },
-        next: () => {
-          if (currentIndex < TESTS.length - 1) mountTest(currentIndex + 1);
-        },
-        prev: () => {
-          if (currentIndex > 0) mountTest(currentIndex - 1);
-        },
-        getAllResults: () => getBattery().results,
-        clearAllResults: () => {
-          const fresh = newBattery();
-          saveBattery(fresh);
-          updateHeader();
-        },
-        getContext: () => {
-          const bat = getBattery();
-          return { sessionId: bat.sessionId, startedAt: bat.startedAt };
+      try {
+        const mod = await import(test.src);
+        if (!mod || typeof mod.init !== "function") {
+          el.mount.innerHTML = `<p class="muted">This test module is missing or invalid: ${test.src}</p>`;
+          return;
         }
-      };
 
-      // init(container, api) may return a cleanup function
-      const maybeCleanup = mod.init(el.mount, api);
-      if (typeof maybeCleanup === "function") currentCleanup = maybeCleanup;
+        const api = {
+          saveResult: (testId, metrics = {}, extra = {}) => {
+            const bat = getBattery();
+            bat.results[testId] = { metrics: metrics ?? {}, extra: extra ?? {}, savedAt: nowISO() };
+            saveBattery(bat);
+          },
+          next: () => { if (currentIndex < TESTS.length - 1) mountTest(currentIndex + 1); },
+          prev: () => { if (currentIndex > 0) mountTest(currentIndex - 1); },
+          getAllResults: () => getBattery().results,
+          getContext: () => {
+            const bat = getBattery();
+            return { sessionId: bat.sessionId, startedAt: bat.startedAt };
+          }
+        };
+
+        const maybeCleanup = mod.init(el.mount, api);
+        if (typeof maybeCleanup === "function") currentCleanup = maybeCleanup;
+
+      } catch (err) {
+        el.mount.innerHTML = `<p class="muted">Could not load ${test.src}.</p><pre class="small muted">${String(err)}</pre>`;
+      }
     }
 
     function exportJSON() {

@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Inhibitory Control – Go/No-Go</title>
+
+  <!-- style.css is at the root, this page is in /course/ -->
+  <link rel="stylesheet" href="../style.css" />
+
+  <style>
+    :root { --maxw: 1100px; }
+
+    html, body { height: 100%; }
+    body { overflow: hidden; }
+    @media (max-width: 900px) { body { overflow: auto; } }
+
+    .wrap { max-width: var(--maxw); margin: 0 auto; padding: 14px; height: 100%; box-sizing: border-box; }
+
+    .topbar{
+      display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap;
+      background: rgba(248,249,250,0.85); backdrop-filter: blur(10px);
+      border: 1px solid var(--border, #e9ecef);
+      border-radius: 8px;
+      padding: 8px 10px;
+      margin-bottom: 10px;
+    }
+    .brand{ font-weight:650; letter-spacing:.2px; }
+    .muted{ opacity:.78; }
+    .small{ font-size:12px; }
+
+    .pill-row{ display:flex; gap:8px; flex-wrap:wrap; align-items:center; justify-content:flex-end; }
+    .pill{
+      display:inline-flex; align-items:center; gap:8px;
+      padding: 7px 11px; border-radius: 16px;
+      border: 1px solid var(--border, #e9ecef);
+      background: rgba(255,255,255,0.9);
+      font-size: 13px; color: inherit; cursor: pointer;
+      transition: transform .15s ease, box-shadow .15s ease, background-color .15s ease;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.04);
+      white-space: nowrap;
+    }
+    .pill:hover{ transform: translateY(-1px); box-shadow: 0 4px 14px rgba(0,0,0,0.08); }
+    .pill.primary{ background: var(--accent, #5bc2e7); color:#fff; border-color: rgba(0,0,0,0.05); }
+    .pill.primary:hover{ background:#67c9ea; }
+    .pill.danger{ background:#fff; border-color: rgba(220,53,69,0.25); }
+    .pill.danger:hover{ background: rgba(220,53,69,0.06); }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1.65fr 1fr;
+      gap: 10px;
+      height: calc(100% - 56px);
+      min-height: 520px;
+    }
+    @media (max-width: 900px){
+      body { overflow: auto; }
+      .grid{ grid-template-columns: 1fr; height:auto; min-height:0; }
+    }
+
+    .card{
+      background: rgba(255,255,255,0.95);
+      border: 1px solid var(--border, #e9ecef);
+      border-radius: 8px;
+      box-shadow: 0 2px 14px rgba(0,0,0,0.05);
+      padding: 12px;
+      box-sizing: border-box;
+      overflow: hidden;
+    }
+
+    .row{ display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+    .row.spread{ justify-content: space-between; }
+
+    .status{ display:flex; gap:8px; flex-wrap:wrap; align-items:center; font-size:12px; }
+    .badge{
+      padding: 4px 8px; border-radius: 16px;
+      border: 1px solid var(--border, #e9ecef);
+      background: rgba(248,249,250,0.9);
+      white-space: nowrap;
+    }
+    .badge.ok{ border-color: rgba(25,135,84,0.25); background: rgba(25,135,84,0.08); }
+    .badge.bad{ border-color: rgba(220,53,69,0.25); background: rgba(220,53,69,0.08); }
+
+    .kv{ display:grid; grid-template-columns: 1fr auto; gap: 6px 10px; font-size: 12.5px; }
+    .kv div:nth-child(odd){ opacity:.78; }
+
+    .progress{
+      height: 9px; border-radius: 999px;
+      background: rgba(222,226,230,0.7);
+      overflow: hidden;
+      border: 1px solid var(--border, #e9ecef);
+      margin-top: 8px;
+    }
+    .bar{
+      height: 100%;
+      width: 0%;
+      background: var(--accent, #5bc2e7);
+      transition: width .12s linear;
+    }
+
+    .stage{
+      border: 1px solid var(--border, #e9ecef);
+      border-radius: 8px;
+      background: linear-gradient(180deg, rgba(248,249,250,0.95), rgba(255,255,255,0.95));
+      height: 360px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      user-select:none;
+      position: relative;
+      overflow:hidden;
+    }
+    @media (max-width: 900px){
+      .stage{ height: 340px; }
+    }
+
+    .stimulus{
+      font-size: 84px;
+      line-height: 1;
+      font-weight: 700;
+      transform: translateY(-4px);
+    }
+    .stimText{
+      font-size: 22px;
+      font-weight: 650;
+      letter-spacing: .2px;
+    }
+    .subhint{
+      position:absolute;
+      bottom: 10px;
+      left: 12px;
+      right: 12px;
+      text-align:center;
+      font-size: 12px;
+      opacity:.75;
+      line-height: 1.25;
+    }
+
+    .bigBtnRow{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .goBtn{
+      padding: 16px 14px;
+      border-radius: 8px;
+      border: 1px solid var(--border, #e9ecef);
+      background: rgba(255,255,255,0.95);
+      cursor:pointer;
+      font-size: 14px;
+      transition: transform .12s ease, box-shadow .12s ease, background-color .12s ease;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.04);
+    }
+    .goBtn:hover{ transform: translateY(-1px); box-shadow: 0 4px 14px rgba(0,0,0,0.08); }
+    .goBtn:disabled{ opacity:.55; cursor:not-allowed; transform:none; box-shadow:none; }
+
+    table{ width:100%; border-collapse: collapse; }
+    th, td{ text-align:left; padding: 7px 6px; border-bottom: 1px solid var(--border, #e9ecef); font-size: 12.5px; }
+    th{ background: rgba(248,249,250,0.9); font-weight: 650; }
+    .right{ text-align:right; }
+
+    .historyBox{
+      border:1px solid var(--border, #e9ecef);
+      border-radius: 8px;
+      overflow:hidden;
+      max-height: 210px;
+    }
+
+    .footnote{ margin-top: 8px; font-size: 11.5px; opacity: .72; line-height: 1.25; }
+
+    /* Small visual cue */
+    .ring{
+      position:absolute;
+      inset: 18px;
+      border-radius: 8px;
+      border: 1px dashed rgba(222,226,230,0.95);
+      pointer-events:none;
+      opacity:.6;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div>
+        <div class="brand">Inhibitory Control</div>
+        <div class="muted small">Go/No-Go task. Tap only on “GO” (🍏). Do nothing for “NO-GO” (🍩).</div>
+      </div>
+
+      <div class="pill-row">
+        <button id="btnStart" class="pill primary" type="button">Start</button>
+        <button id="btnExport" class="pill" type="button">Export</button>
+        <button id="btnReset" class="pill danger" type="button" title="Clears your saved history">Reset</button>
+      </div>
+    </div>
+
+    <div class="grid">
+      <!-- Main -->
+      <section class="card" aria-live="polite">
+        <div class="row spread">
+          <div class="status">
+            <span class="badge" id="badgePhase">Idle</span>
+            <span class="badge" id="badgeTime">Time: –</span>
+            <span class="badge" id="badgeScore">Acc: –</span>
+          </div>
+
+          <div class="kv" style="min-width:250px;">
+            <div>Duration</div><div><span id="durationLabel">120</span> s</div>
+            <div>Stimulus</div><div><span id="stimLabel">600</span> ms</div>
+            <div>No-Go rate</div><div><span id="nogLabel">25</span>%</div>
+          </div>
+        </div>
+
+        <div class="progress"><div class="bar" id="timeBar"></div></div>
+
+        <div style="height:10px;"></div>
+
+        <div class="stage" id="stage" aria-label="Stimulus area">
+          <div class="ring"></div>
+          <div id="stimWrap" style="text-align:center;">
+            <div class="stimulus" id="stimulus">—</div>
+            <div class="stimText muted" id="stimText">Press Start</div>
+          </div>
+          <div class="subhint" id="subhint">
+            Respond by clicking the button or pressing the spacebar. Try to be fast, but do not tap on 🍩.
+          </div>
+        </div>
+
+        <div class="bigBtnRow">
+          <button class="goBtn" id="btnGo" type="button">Tap (GO)</button>
+        </div>
+
+        <div class="footnote" id="hint">
+          Outcomes: commission errors (taps on NO-GO), omission errors (missed GO), and reaction time on GO trials.
+        </div>
+      </section>
+
+      <!-- Side -->
+      <aside class="card">
+        <div class="row spread" style="margin-bottom:8px;">
+          <div>
+            <div style="font-weight:650;">Session</div>
+            <div class="muted small">Saved in your browser (localStorage).</div>
+          </div>
+
+          <div class="row" style="gap:8px;">
+            <select id="durationSelect" aria-label="Duration">
+              <option value="60">1 min</option>
+              <option value="120" selected>2 min</option>
+              <option value="180">3 min</option>
+              <option value="240">4 min</option>
+              <option value="300">5 min</option>
+            </select>
+
+            <select id="stimSelect" aria-label="Stimulus time">
+              <option value="400">400 ms</option>
+              <option value="600" selected>600 ms</option>
+              <option value="800">800 ms</option>
+            </select>
+
+            <select id="nogSelect" aria-label="No-Go probability">
+              <option value="0.15">15%</option>
+              <option value="0.25" selected>25%</option>
+              <option value="0.33">33%</option>
+              <option value="0.40">40%</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="kv">
+          <div>Go correct</div><div id="statGoCorrect">0</div>
+          <div>No-Go correct</div><div id="statNoGoCorrect">0</div>
+          <div>Commission errors</div><div id="statCommission">0</div>
+          <div>Omission errors</div><div id="statOmission">0</div>
+          <div>Overall accuracy</div><div id="statAcc">0%</div>
+          <div>Median Go RT</div><div id="statRT">–</div>
+        </div>
+
+        <div style="height:10px;"></div>
+
+        <div class="kv">
+          <div>Latest accuracy</div><div id="latestAcc">–</div>
+          <div>Latest commission</div><div id="latestCom">–</div>
+          <div>Last session</div><div id="latestDate">–</div>
+        </div>
+
+        <div style="height:10px;"></div>
+
+        <div style="font-weight:650; font-size:12.5px; margin-bottom:6px;">History</div>
+        <div class="historyBox">
+          <table>
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th class="right">Acc</th>
+                <th class="right">Com</th>
+              </tr>
+            </thead>
+            <tbody id="historyBody">
+              <tr><td colspan="3" class="muted">No sessions yet.</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="footnote">
+          GO = 🍏 (tap). NO-GO = 🍩 (do nothing). Keyboard: <strong>Space</strong> to tap.
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <script>
+    /********************************************************************
+     * Go/No-Go task (emoji edition)
+     * - GO: 🍏 (respond)
+     * - NO-GO: 🍩 (withhold response)
+     * - Metrics: commission, omission, go RT
+     * - localStorage history + JSON export
+     ********************************************************************/
+
+    const CONFIG = {
+      storageKey: "inhibitoryControl.gonogo.v1",
+      itiMinMs: 500,    // inter-trial interval (blank)
+      itiMaxMs: 900,
+      responseWindowExtraMs: 250 // after stimulus disappears, still count late taps (optional)
+    };
+
+    const el = {
+      btnStart: document.getElementById("btnStart"),
+      btnExport: document.getElementById("btnExport"),
+      btnReset: document.getElementById("btnReset"),
+
+      badgePhase: document.getElementById("badgePhase"),
+      badgeTime: document.getElementById("badgeTime"),
+      badgeScore: document.getElementById("badgeScore"),
+      timeBar: document.getElementById("timeBar"),
+
+      durationLabel: document.getElementById("durationLabel"),
+      stimLabel: document.getElementById("stimLabel"),
+      nogLabel: document.getElementById("nogLabel"),
+
+      durationSelect: document.getElementById("durationSelect"),
+      stimSelect: document.getElementById("stimSelect"),
+      nogSelect: document.getElementById("nogSelect"),
+
+      stimulus: document.getElementById("stimulus"),
+      stimText: document.getElementById("stimText"),
+      subhint: document.getElementById("subhint"),
+      stage: document.getElementById("stage"),
+      btnGo: document.getElementById("btnGo"),
+
+      statGoCorrect: document.getElementById("statGoCorrect"),
+      statNoGoCorrect: document.getElementById("statNoGoCorrect"),
+      statCommission: document.getElementById("statCommission"),
+      statOmission: document.getElementById("statOmission"),
+      statAcc: document.getElementById("statAcc"),
+      statRT: document.getElementById("statRT"),
+
+      latestAcc: document.getElementById("latestAcc"),
+      latestCom: document.getElementById("latestCom"),
+      latestDate: document.getElementById("latestDate"),
+      historyBody: document.getElementById("historyBody")
+    };
+
+    const state = {
+      running: false,
+      phase: "idle",
+      durationSec: 120,
+      stimMs: 600,
+      pNoGo: 0.25,
+
+      tStart: null,
+      tEnd: null,
+      tickTimer: null,
+      timers: [],
+
+      // current trial
+      trialIndex: 0,
+      trialType: null,   // "GO" | "NOGO"
+      stimOnAt: null,
+      responseDeadline: null,
+      responded: false,
+      responseAt: null,
+
+      // stats
+      goCorrect: 0,
+      nogoCorrect: 0,
+      commission: 0, // responded on NO-GO
+      omission: 0,   // no response on GO
+      rts: [],
+      trials: []
+    };
+
+    function now() { return Date.now(); }
+    function nowISO() { return new Date().toISOString(); }
+
+    function fmtDate(iso) {
+      try {
+        const d = new Date(iso);
+        return d.toLocaleString(undefined, { month:"short", day:"2-digit", hour:"2-digit", minute:"2-digit" });
+      } catch { return iso; }
+    }
+
+    function median(arr) {
+      if (!arr.length) return null;
+      const a = arr.slice().sort((x,y) => x-y);
+      const mid = Math.floor(a.length / 2);
+      return (a.length % 2) ? a[mid] : (a[mid-1] + a[mid]) / 2;
+    }
+
+    function setBadge(elm, text, kind=null) {
+      elm.textContent = text;
+      elm.classList.remove("ok","bad");
+      if (kind) elm.classList.add(kind);
+    }
+
+    function clearTimers() {
+      state.timers.forEach(t => clearTimeout(t));
+      state.timers = [];
+    }
+
+    function randInt(a, b) {
+      return a + Math.floor(Math.random() * (b - a + 1));
+    }
+
+    function loadSessions() {
+      try {
+        const raw = localStorage.getItem(CONFIG.storageKey);
+        if (!raw) return [];
+        const data = JSON.parse(raw);
+        return Array.isArray(data) ? data : [];
+      } catch { return []; }
+    }
+    function saveSessions(sessions) {
+      localStorage.setItem(CONFIG.storageKey, JSON.stringify(sessions));
+    }
+    function addSession(session) {
+      const sessions = loadSessions();
+      sessions.unshift(session);
+      saveSessions(sessions.slice(0, 200));
+      renderHistory();
+      renderLatest();
+    }
+
+    function renderLatest() {
+      const sessions = loadSessions();
+      const s = sessions[0] || null;
+      el.latestAcc.textContent = s ? `${Math.round(s.accuracy*100)}%` : "–";
+      el.latestCom.textContent = s ? String(s.commission) : "–";
+      el.latestDate.textContent = s ? fmtDate(s.completedAt) : "–";
+    }
+
+    function renderHistory() {
+      const sessions = loadSessions();
+      const body = el.historyBody;
+      body.innerHTML = "";
+      if (!sessions.length) {
+        body.innerHTML = '<tr><td colspan="3" class="muted">No sessions yet.</td></tr>';
+        return;
+      }
+      for (const s of sessions.slice(0, 6)) {
+        const tr = document.createElement("tr");
+
+        const tdDate = document.createElement("td");
+        tdDate.textContent = fmtDate(s.completedAt);
+
+        const tdAcc = document.createElement("td");
+        tdAcc.className = "right";
+        tdAcc.textContent = `${Math.round(s.accuracy*100)}%`;
+
+        const tdCom = document.createElement("td");
+        tdCom.className = "right";
+        tdCom.textContent = String(s.commission);
+
+        tr.appendChild(tdDate);
+        tr.appendChild(tdAcc);
+        tr.appendChild(tdCom);
+        body.appendChild(tr);
+      }
+    }
+
+    function updateTimeBadge() {
+      if (!state.running || !state.tEnd) { setBadge(el.badgeTime, "Time: –"); return; }
+      const remainMs = Math.max(0, state.tEnd - now());
+      const remainSec = Math.ceil(remainMs / 1000);
+      const m = Math.floor(remainSec / 60);
+      const s = remainSec % 60;
+      setBadge(el.badgeTime, `Time: ${m}:${String(s).padStart(2,"0")}`);
+    }
+
+    function setProgressBar() {
+      if (!state.running || !state.tStart || !state.tEnd) { el.timeBar.style.width = "0%"; return; }
+      const frac = Math.max(0, Math.min(1, (now() - state.tStart) / (state.tEnd - state.tStart)));
+      el.timeBar.style.width = (frac * 100).toFixed(1) + "%";
+    }
+
+    function updateStatsUI() {
+      el.statGoCorrect.textContent = String(state.goCorrect);
+      el.statNoGoCorrect.textContent = String(state.nogoCorrect);
+      el.statCommission.textContent = String(state.commission);
+      el.statOmission.textContent = String(state.omission);
+
+      const total = state.goCorrect + state.nogoCorrect + state.commission + state.omission;
+      const correct = state.goCorrect + state.nogoCorrect;
+      const acc = total ? (correct / total) : 0;
+
+      el.statAcc.textContent = `${Math.round(acc * 100)}%`;
+      setBadge(el.badgeScore, `Acc: ${Math.round(acc * 100)}%`);
+
+      const med = median(state.rts);
+      el.statRT.textContent = med ? `${Math.round(med)} ms` : "–";
+    }
+
+    function lockResponse(locked) {
+      el.btnGo.disabled = locked;
+    }
+
+    function showBlank(message="") {
+      el.stimulus.textContent = "—";
+      el.stimText.textContent = message || " ";
+    }
+
+    function start() {
+      // settings
+      state.durationSec = parseInt(el.durationSelect.value, 10) || 120;
+      state.stimMs = parseInt(el.stimSelect.value, 10) || 600;
+      state.pNoGo = parseFloat(el.nogSelect.value) || 0.25;
+
+      el.durationLabel.textContent = String(state.durationSec);
+      el.stimLabel.textContent = String(state.stimMs);
+      el.nogLabel.textContent = String(Math.round(state.pNoGo * 100));
+
+      // reset state
+      clearTimers();
+      state.running = true;
+      state.phase = "running";
+      state.trialIndex = 0;
+
+      state.goCorrect = 0;
+      state.nogoCorrect = 0;
+      state.commission = 0;
+      state.omission = 0;
+      state.rts = [];
+      state.trials = [];
+
+      setBadge(el.badgePhase, "Running", "ok");
+      el.btnStart.textContent = "Restart";
+      el.subhint.textContent = "Tap only for 🍏 (GO). Do nothing for 🍩 (NO-GO). Spacebar also works.";
+
+      updateStatsUI();
+
+      state.tStart = now();
+      state.tEnd = state.tStart + state.durationSec * 1000;
+
+      lockResponse(true);
+      showBlank("Get ready…");
+
+      clearInterval(state.tickTimer);
+      state.tickTimer = setInterval(() => {
+        setProgressBar();
+        updateTimeBadge();
+        if (now() >= state.tEnd) finish();
+      }, 120);
+
+      setProgressBar();
+      updateTimeBadge();
+
+      state.timers.push(setTimeout(() => nextTrial(), 700));
+    }
+
+    function nextTrial() {
+      if (!state.running) return;
+      if (now() >= state.tEnd) { finish(); return; }
+
+      state.trialIndex += 1;
+
+      // blank ITI
+      lockResponse(true);
+      showBlank("");
+
+      const iti = randInt(CONFIG.itiMinMs, CONFIG.itiMaxMs);
+
+      state.timers.push(setTimeout(() => {
+        // decide trial type
+        const isNoGo = (Math.random() < state.pNoGo);
+        state.trialType = isNoGo ? "NOGO" : "GO";
+        state.responded = false;
+        state.responseAt = null;
+
+        // show stimulus
+        el.stimulus.textContent = isNoGo ? "🍩" : "🍏";
+        el.stimText.textContent = isNoGo ? "NO-GO (do not tap)" : "GO (tap)";
+
+        state.stimOnAt = now();
+        state.responseDeadline = state.stimOnAt + state.stimMs + CONFIG.responseWindowExtraMs;
+
+        // enable response for whole window (even for NO-GO; we need to detect commissions)
+        lockResponse(false);
+
+        // hide after stimMs (but keep response window open a bit)
+        state.timers.push(setTimeout(() => {
+          showBlank("");
+        }, state.stimMs));
+
+        // close response window
+        state.timers.push(setTimeout(() => {
+          lockResponse(true);
+          scoreTrial();
+          nextTrial();
+        }, state.stimMs + CONFIG.responseWindowExtraMs));
+      }, iti));
+    }
+
+    function registerResponse(source="button") {
+      if (!state.running) return;
+      if (state.responseDeadline === null) return;
+
+      const t = now();
+      if (t > state.responseDeadline) return; // too late
+      if (state.responded) return; // only first response counts
+
+      state.responded = true;
+      state.responseAt = t;
+
+      // minimal feedback via phase badge only (keeps it calm)
+      if (state.trialType === "GO") setBadge(el.badgePhase, "Tap ✓", "ok");
+      else setBadge(el.badgePhase, "Tap ✕", "bad");
+    }
+
+    function scoreTrial() {
+      // reset badge back to running
+      setBadge(el.badgePhase, "Running", "ok");
+
+      const responded = state.responded;
+      const isNoGo = (state.trialType === "NOGO");
+      const rt = responded && state.stimOnAt ? (state.responseAt - state.stimOnAt) : null;
+
+      let outcome = "";
+      let correct = null;
+
+      if (!isNoGo) {
+        // GO trial: must respond
+        if (responded) {
+          state.goCorrect += 1;
+          if (rt !== null) state.rts.push(rt);
+          outcome = "GO_correct";
+          correct = true;
+        } else {
+          state.omission += 1;
+          outcome = "GO_omission";
+          correct = false;
+        }
+      } else {
+        // NO-GO trial: must withhold
+        if (responded) {
+          state.commission += 1;
+          outcome = "NOGO_commission";
+          correct = false;
+        } else {
+          state.nogoCorrect += 1;
+          outcome = "NOGO_correct";
+          correct = true;
+        }
+      }
+
+      state.trials.push({
+        ts: nowISO(),
+        trialIndex: state.trialIndex,
+        trialType: state.trialType,
+        responded,
+        rtMs: rt,
+        outcome,
+        correct
+      });
+
+      updateStatsUI();
+    }
+
+    function finish() {
+      if (!state.running) return;
+
+      state.running = false;
+      clearTimers();
+      clearInterval(state.tickTimer);
+      state.tickTimer = null;
+
+      lockResponse(true);
+      showBlank("Session finished");
+
+      setBadge(el.badgePhase, "Done");
+
+      const total = state.goCorrect + state.nogoCorrect + state.commission + state.omission;
+      const correct = state.goCorrect + state.nogoCorrect;
+      const acc = total ? (correct / total) : 0;
+      const med = median(state.rts);
+
+      const session = {
+        test: "GoNoGo",
+        durationSec: state.durationSec,
+        stimMs: state.stimMs,
+        pNoGo: state.pNoGo,
+        goCorrect: state.goCorrect,
+        nogoCorrect: state.nogoCorrect,
+        commission: state.commission,
+        omission: state.omission,
+        accuracy: acc,
+        medianGoRtMs: med ? Math.round(med) : null,
+        completedAt: nowISO(),
+        trials: state.trials
+      };
+      addSession(session);
+
+      el.btnStart.textContent = "Start";
+      updateTimeBadge();
+      setProgressBar();
+    }
+
+    // UI events
+    el.btnStart.addEventListener("click", () => {
+      if (state.running) finish();
+      start();
+    });
+
+    el.btnReset.addEventListener("click", () => {
+      localStorage.removeItem(CONFIG.storageKey);
+      renderHistory();
+      renderLatest();
+    });
+
+    el.btnExport.addEventListener("click", () => {
+      const sessions = loadSessions();
+      const blob = new Blob([JSON.stringify(sessions, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "gonogo-sessions.json";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    });
+
+    el.btnGo.addEventListener("click", () => registerResponse("button"));
+
+    window.addEventListener("keydown", (e) => {
+      if (!state.running) return;
+      if (e.key === " " || e.code === "Space") {
+        e.preventDefault();
+        registerResponse("space");
+      }
+    });
+
+    // Init
+    (function init() {
+      setBadge(el.badgePhase, "Idle");
+      setBadge(el.badgeTime, "Time: –");
+      setBadge(el.badgeScore, "Acc: –");
+      showBlank("Press Start");
+      lockResponse(true);
+
+      renderHistory();
+      renderLatest();
+      updateStatsUI();
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Buchinger Science – Cognition Battery</title>
+
+  <!-- cognition/ is a folder; style.css is at the root -->
+  <link rel="stylesheet" href="../style.css" />
+
+  <style>
+    /* Page-local layout that matches your dash-like cards */
+    .cog-wrap { max-width: 1200px; margin: 0 auto; padding: 28px 18px 56px; }
+    .cog-head { display:flex; align-items:flex-end; justify-content:space-between; gap:14px; flex-wrap:wrap; }
+    .cog-head h1 { margin: 0; font-size: 20px; }
+    .cog-sub { font-size: 12px; opacity: .75; margin-top: 6px; }
+
+    .cog-grid { display:grid; grid-template-columns: 340px 1fr; gap: 14px; margin-top: 16px; }
+    @media (max-width: 900px){ .cog-grid { grid-template-columns: 1fr; } }
+
+    .cog-card {
+      background: var(--surface, #fff);
+      border: 1px solid var(--border, #dee2e6);
+      border-radius: var(--radius-soft, 8px);
+      box-shadow: 0 2px 10px rgba(0,0,0,.04);
+      overflow: hidden;
+    }
+    .cog-card .hd {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border-subtle, #e9ecef);
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+    }
+    .cog-card .bd { padding: 12px 14px; }
+
+    .pill {
+      display:inline-flex; align-items:center; gap:8px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border-subtle, #e9ecef);
+      background: rgba(255,255,255,.8);
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    .progress {
+      height: 10px;
+      border-radius: 999px;
+      background: #f1f3f5;
+      border: 1px solid var(--border-subtle, #e9ecef);
+      overflow: hidden;
+    }
+    .progress > div {
+      height: 100%;
+      width: 0%;
+      background: var(--accent, #5bc2e7);
+      transition: width .25s ease;
+    }
+
+    .test-list { display:flex; flex-direction:column; gap:10px; }
+    .test-item {
+      border: 1px solid var(--border-subtle, #e9ecef);
+      border-radius: 10px;
+      padding: 10px 10px;
+      display:flex; align-items:flex-start; justify-content:space-between; gap:10px;
+      background: rgba(248,249,250,.5);
+      cursor: pointer;
+    }
+    .test-item:hover { background: rgba(248,249,250,.9); }
+    .test-title { margin: 0; font-size: 13px; font-weight: 600; }
+    .test-meta { margin: 3px 0 0; font-size: 12px; opacity: .75; }
+    .tag {
+      font-size: 11px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid var(--border-subtle, #e9ecef);
+      background: #fff;
+      white-space: nowrap;
+    }
+    .tag.done { border-color: rgba(74,144,226,.35); background: rgba(74,144,226,.08); }
+    .tag.active { border-color: rgba(91,194,231,.55); background: rgba(91,194,231,.12); }
+    .tag.todo { opacity: .8; }
+
+    .controls { display:flex; gap:8px; flex-wrap:wrap; }
+    .btn {
+      display:inline-flex; align-items:center; justify-content:center;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--border-subtle, #e9ecef);
+      background: #fff;
+      cursor: pointer;
+      font-size: 13px;
+      text-decoration:none;
+      color: inherit;
+      transition: transform .15s ease, box-shadow .15s ease;
+      box-shadow: 0 2px 10px rgba(0,0,0,.04);
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn.primary {
+      background: var(--accent, #5bc2e7);
+      border-color: rgba(91,194,231,.55);
+      color: #fff;
+      box-shadow: 0 3px 10px rgba(74,144,226,.20);
+    }
+    .btn.ghost { background: rgba(255,255,255,.6); }
+
+    .frame-wrap { display:flex; flex-direction:column; gap: 10px; }
+    iframe {
+      width: 100%;
+      min-height: 560px;
+      border: 0;
+      background: #fff;
+    }
+
+    .results-grid { display:grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    @media (max-width: 900px){ .results-grid { grid-template-columns: 1fr; } }
+
+    .result-box {
+      border: 1px solid var(--border-subtle, #e9ecef);
+      border-radius: 10px;
+      padding: 10px 10px;
+      background: rgba(248,249,250,.55);
+    }
+    .result-box h3 { margin: 0 0 6px; font-size: 13px; }
+    .kv { font-size: 12px; opacity: .9; display:flex; gap:10px; flex-wrap:wrap; }
+    .kv span { display:inline-flex; gap:6px; align-items:baseline; }
+    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+    .small { font-size: 12px; opacity: .75; }
+
+    .hint {
+      border-left: 3px solid var(--accent, #5bc2e7);
+      padding: 10px 12px;
+      background: rgba(91,194,231,.08);
+      border-radius: 8px;
+      font-size: 12px;
+      opacity: .95;
+      line-height: 1.4;
+    }
+    code { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+  </style>
+</head>
+
+<body>
+  <nav>
+    <div class="logo">Buchinger Science</div>
+    <ul>
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="../library.html">Research Library</a></li>
+      <li><a href="../newsletter.html">Newsletters</a></li>
+      <li><a href="../videos.html">Amplius Videos</a></li>
+    </ul>
+  </nav>
+
+  <main class="cog-wrap">
+    <div class="cog-head">
+      <div>
+        <h1>Cognition battery</h1>
+        <div class="cog-sub">Run the 6 tests in sequence. Results and completion are stored in your browser.</div>
+      </div>
+      <div class="pill" id="batteryStatus">Not started</div>
+    </div>
+
+    <div class="cog-grid">
+      <!-- Left: battery + results -->
+      <section class="cog-card">
+        <div class="hd">
+          <div style="display:flex; flex-direction:column; gap:6px; width:100%;">
+            <div style="display:flex; align-items:center; justify-content:space-between; gap:10px;">
+              <div class="pill" id="progressLabel">Progress: 0 / 6</div>
+              <button class="btn ghost" id="resetBtn" type="button">Reset</button>
+            </div>
+            <div class="progress" aria-label="Progress">
+              <div id="progressBar"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bd">
+          <div class="test-list" id="testList"></div>
+
+          <div style="height:14px;"></div>
+
+          <div class="hint">
+            <strong>How results are collected.</strong><br />
+            This page reads each test’s results from <code>localStorage</code>. The simplest approach is that every test writes a JSON object
+            into a key called <code>cognition_result_[testId]</code> when the test ends (example below in the footer of this page).
+            <br /><br />
+            If your test pages already write results, this page will display them immediately.
+          </div>
+
+          <div style="height:12px;"></div>
+
+          <div class="results-grid" id="resultsGrid"></div>
+        </div>
+      </section>
+
+      <!-- Right: runner -->
+      <section class="cog-card">
+        <div class="hd">
+          <div style="display:flex; flex-direction:column; gap:4px;">
+            <div class="pill" id="runnerLabel">Runner</div>
+            <div class="small" id="runnerSub">Select a test to begin.</div>
+          </div>
+          <div class="controls">
+            <button class="btn" id="prevBtn" type="button">Previous</button>
+            <button class="btn primary" id="nextBtn" type="button">Start / Next</button>
+            <a class="btn" id="openTabBtn" href="#" target="_blank" rel="noopener">Open in new tab</a>
+          </div>
+        </div>
+
+        <div class="bd frame-wrap">
+          <iframe id="runnerFrame" title="Cognition test"></iframe>
+          <div class="small">
+            Tip: if a test opens internal dialogs or full-screen modes, using “Open in new tab” can be more comfortable.
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div style="height:14px;"></div>
+
+    <section class="cog-card">
+      <div class="hd">
+        <div class="pill">Developer note</div>
+        <div class="pill">localStorage keys</div>
+      </div>
+      <div class="bd">
+        <div class="small">
+          <div><span class="mono">cognition_battery_v1</span> — global state for this battery (index, timestamps, completion)</div>
+          <div><span class="mono">cognition_result_[testId]</span> — per-test results saved as JSON</div>
+          <div><span class="mono">cognition_done_[testId]</span> — completion timestamp (ISO string)</div>
+        </div>
+
+        <div style="height:10px;"></div>
+
+        <div class="hint">
+          <strong>Minimal snippet to add at the end of each test (example for PVT):</strong><br /><br />
+          <code class="mono">
+            const result = { testId: "pvt", finishedAt: new Date().toISOString(), metrics: { lapses: 2, medianRT: 280 } };<br/>
+            localStorage.setItem("cognition_result_pvt", JSON.stringify(result));<br/>
+            localStorage.setItem("cognition_done_pvt", result.finishedAt);<br/>
+            // Optional (only if embedded in cognition.html iframe):<br/>
+            window.parent?.postMessage({ type: "COG_RESULT", testId: "pvt", result }, "*");
+          </code>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    (function(){
+      const STORAGE_STATE = "cognition_battery_v1";
+      const VERSION = 1;
+
+      // In your /cognition folder, these files sit next to cognition.html
+      const TESTS = [
+        { id: "pvt",  name: "Psychomotor Vigilance Task", short: "PVT",   file: "cog1_pvt.html"  },
+        { id: "gng",  name: "Go / No-Go inhibitory control", short: "GNG", file: "cog2_gng.html" },
+        { id: "dsst", name: "Digit Symbol Substitution Test", short: "DSST", file: "cog3_dsst.html" },
+        { id: "tmtb", name: "Trail Making Test – Part B", short: "TMT-B", file: "cog4_tmt.html"  },
+        { id: "foodwm", name: "Food emoji working memory / attention", short: "Food-WM", file: "cog5_wb.html" },
+        { id: "dots", name: "Dot comparison / numerosity", short: "Dots", file: "cog6_dots.html" }
+      ];
+
+      const el = {
+        batteryStatus: document.getElementById("batteryStatus"),
+        progressLabel: document.getElementById("progressLabel"),
+        progressBar: document.getElementById("progressBar"),
+        testList: document.getElementById("testList"),
+        resultsGrid: document.getElementById("resultsGrid"),
+
+        runnerLabel: document.getElementById("runnerLabel"),
+        runnerSub: document.getElementById("runnerSub"),
+        frame: document.getElementById("runnerFrame"),
+
+        prevBtn: document.getElementById("prevBtn"),
+        nextBtn: document.getElementById("nextBtn"),
+        openTabBtn: document.getElementById("openTabBtn"),
+        resetBtn: document.getElementById("resetBtn")
+      };
+
+      function loadState(){
+        try{
+          const raw = localStorage.getItem(STORAGE_STATE);
+          if(!raw) return {
+            version: VERSION,
+            startedAt: null,
+            currentIndex: 0,
+            completed: {} // { [testId]: true }
+          };
+          const st = JSON.parse(raw);
+          // simple migration guard
+          if(!st || st.version !== VERSION) {
+            return { version: VERSION, startedAt: null, currentIndex: 0, completed: {} };
+          }
+          if(typeof st.currentIndex !== "number") st.currentIndex = 0;
+          if(!st.completed || typeof st.completed !== "object") st.completed = {};
+          return st;
+        }catch(e){
+          return { version: VERSION, startedAt: null, currentIndex: 0, completed: {} };
+        }
+      }
+
+      function saveState(st){
+        localStorage.setItem(STORAGE_STATE, JSON.stringify(st));
+      }
+
+      function keyResult(testId){ return `cognition_result_${testId}`; }
+      function keyDone(testId){ return `cognition_done_${testId}`; }
+
+      function readResult(testId){
+        try{
+          const raw = localStorage.getItem(keyResult(testId));
+          if(!raw) return null;
+          return JSON.parse(raw);
+        }catch(e){
+          return null;
+        }
+      }
+
+      function readDone(testId){
+        const v = localStorage.getItem(keyDone(testId));
+        return v || null;
+      }
+
+      function writeDone(testId, iso){
+        localStorage.setItem(keyDone(testId), iso);
+      }
+
+      function completedCount(st){
+        return Object.keys(st.completed || {}).filter(k => st.completed[k]).length;
+      }
+
+      function setRunner(index){
+        const st = state;
+        st.currentIndex = clamp(index, 0, TESTS.length - 1);
+        if(!st.startedAt) st.startedAt = new Date().toISOString();
+        saveState(st);
+        render();
+        loadFrame(TESTS[st.currentIndex]);
+      }
+
+      function loadFrame(test){
+        el.frame.src = test.file;
+        el.runnerLabel.textContent = `Runner · ${test.short}`;
+        el.runnerSub.textContent = test.name;
+        el.openTabBtn.href = test.file;
+      }
+
+      function clamp(n, a, b){ return Math.max(a, Math.min(b, n)); }
+
+      function markComplete(testId){
+        const st = state;
+        st.completed[testId] = true;
+        saveState(st);
+
+        // if there is no done timestamp yet, add one
+        if(!readDone(testId)) writeDone(testId, new Date().toISOString());
+
+        render();
+      }
+
+      function render(){
+        const st = state;
+        const doneN = completedCount(st);
+        const total = TESTS.length;
+
+        el.progressLabel.textContent = `Progress: ${doneN} / ${total}`;
+        el.progressBar.style.width = `${Math.round((doneN / total) * 100)}%`;
+
+        if(!st.startedAt){
+          el.batteryStatus.textContent = "Not started";
+        } else if(doneN === total){
+          el.batteryStatus.textContent = "Completed";
+        } else {
+          el.batteryStatus.textContent = "In progress";
+        }
+
+        // Test list
+        el.testList.innerHTML = "";
+        TESTS.forEach((t, idx) => {
+          const isActive = idx === st.currentIndex;
+          const isDone = !!st.completed[t.id];
+
+          const item = document.createElement("div");
+          item.className = "test-item";
+          item.role = "button";
+          item.tabIndex = 0;
+
+          const left = document.createElement("div");
+          left.style.display = "flex";
+          left.style.flexDirection = "column";
+          left.style.gap = "2px";
+
+          const title = document.createElement("p");
+          title.className = "test-title";
+          title.textContent = `${idx + 1}. ${t.name} (${t.short})`;
+
+          const meta = document.createElement("p");
+          meta.className = "test-meta";
+          const doneAt = readDone(t.id);
+          meta.textContent = doneAt ? `Completed: ${formatTime(doneAt)}` : `File: ${t.file}`;
+
+          left.appendChild(title);
+          left.appendChild(meta);
+
+          const tag = document.createElement("div");
+          tag.className = "tag " + (isDone ? "done" : isActive ? "active" : "todo");
+          tag.textContent = isDone ? "Done" : isActive ? "Now" : "Pending";
+
+          item.appendChild(left);
+          item.appendChild(tag);
+
+          item.addEventListener("click", () => setRunner(idx));
+          item.addEventListener("keydown", (e) => {
+            if(e.key === "Enter" || e.key === " ") setRunner(idx);
+          });
+
+          el.testList.appendChild(item);
+        });
+
+        // Buttons
+        el.prevBtn.disabled = st.currentIndex <= 0;
+        el.nextBtn.textContent = (st.startedAt ? "Next" : "Start") + (completedCount(st) === total ? " (restart?)" : "");
+
+        // Results grid
+        el.resultsGrid.innerHTML = "";
+        TESTS.forEach((t) => {
+          const box = document.createElement("div");
+          box.className = "result-box";
+
+          const h = document.createElement("h3");
+          h.textContent = `${t.short} results`;
+          box.appendChild(h);
+
+          const res = readResult(t.id);
+          const doneAt = readDone(t.id);
+
+          if(!res && !doneAt){
+            const p = document.createElement("div");
+            p.className = "small";
+            p.textContent = "No data stored yet.";
+            box.appendChild(p);
+          } else {
+            const kv = document.createElement("div");
+            kv.className = "kv";
+
+            if(doneAt){
+              const s1 = document.createElement("span");
+              s1.innerHTML = `<strong>Finished:</strong> <span class="mono">${escapeHtml(formatTime(doneAt))}</span>`;
+              kv.appendChild(s1);
+            }
+
+            if(res){
+              // Prefer showing a few common fields, then a compact JSON preview
+              const metrics = res.metrics || res.summary || null;
+
+              if(res.testId){
+                const s2 = document.createElement("span");
+                s2.innerHTML = `<strong>testId:</strong> <span class="mono">${escapeHtml(String(res.testId))}</span>`;
+                kv.appendChild(s2);
+              }
+
+              if(res.finishedAt){
+                const s3 = document.createElement("span");
+                s3.innerHTML = `<strong>finishedAt:</strong> <span class="mono">${escapeHtml(formatTime(res.finishedAt))}</span>`;
+                kv.appendChild(s3);
+              }
+
+              box.appendChild(kv);
+
+              const pre = document.createElement("pre");
+              pre.className = "small mono";
+              pre.style.marginTop = "8px";
+              pre.style.whiteSpace = "pre-wrap";
+              pre.style.wordBreak = "break-word";
+              pre.textContent = JSON.stringify(metrics ? metrics : res, null, 2);
+              box.appendChild(pre);
+            } else {
+              box.appendChild(kv);
+            }
+          }
+
+          el.resultsGrid.appendChild(box);
+        });
+      }
+
+      function formatTime(iso){
+        try{
+          const d = new Date(iso);
+          if(isNaN(d.getTime())) return iso;
+          return d.toLocaleString();
+        }catch(e){
+          return iso;
+        }
+      }
+
+      function escapeHtml(str){
+        return str
+          .replaceAll("&", "&amp;")
+          .replaceAll("<", "&lt;")
+          .replaceAll(">", "&gt;")
+          .replaceAll('"', "&quot;")
+          .replaceAll("'", "&#039;");
+      }
+
+      // Listen for results posted by test pages (optional, but very convenient when embedded)
+      window.addEventListener("message", (event) => {
+        const msg = event?.data;
+        if(!msg || typeof msg !== "object") return;
+        if(msg.type !== "COG_RESULT") return;
+
+        const testId = msg.testId;
+        const result = msg.result;
+        if(!testId) return;
+
+        try{
+          localStorage.setItem(keyResult(testId), JSON.stringify(result || {}));
+          writeDone(testId, (result && result.finishedAt) ? result.finishedAt : new Date().toISOString());
+          markComplete(testId);
+        }catch(e){
+          // ignore
+        }
+      });
+
+      // Controls
+      el.prevBtn.addEventListener("click", () => setRunner(state.currentIndex - 1));
+
+      el.nextBtn.addEventListener("click", () => {
+        // If not started, start and load first test
+        if(!state.startedAt){
+          state.startedAt = new Date().toISOString();
+          saveState(state);
+          loadFrame(TESTS[state.currentIndex]);
+          render();
+          return;
+        }
+
+        // If current test is already done, go next; otherwise still allow next (some tests may not store results)
+        const current = TESTS[state.currentIndex];
+        const done = !!state.completed[current.id];
+
+        // If there is a done timestamp but the state is not updated, sync it
+        if(!done && readDone(current.id)) {
+          state.completed[current.id] = true;
+          saveState(state);
+        }
+
+        const nextIndex = clamp(state.currentIndex + 1, 0, TESTS.length - 1);
+        setRunner(nextIndex);
+      });
+
+      el.resetBtn.addEventListener("click", () => {
+        if(!confirm("Reset battery state and stored results in this browser?")) return;
+
+        // Clear battery state
+        localStorage.removeItem(STORAGE_STATE);
+
+        // Clear results + done markers
+        TESTS.forEach(t => {
+          localStorage.removeItem(keyResult(t.id));
+          localStorage.removeItem(keyDone(t.id));
+        });
+
+        state = loadState();
+        el.frame.src = "";
+        render();
+      });
+
+      // Initial load
+      let state = loadState();
+      render();
+
+      // Auto-load current test if battery already started
+      if(state.startedAt){
+        loadFrame(TESTS[state.currentIndex]);
+      }
+
+      // If user comes back after completing some tests, sync completion from done markers
+      TESTS.forEach(t => {
+        if(readDone(t.id)) state.completed[t.id] = true;
+      });
+      saveState(state);
+      render();
+    })();
+  </script>
+
+  <footer style="padding: 22px 18px 28px; opacity: .75;">
+    <div style="max-width:1200px; margin:0 auto; font-size:12px;">
+      Buchinger Science · cognition battery
+    </div>
+  </footer>
+</body>
+</html>

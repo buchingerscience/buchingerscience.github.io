@@ -1,0 +1,256 @@
+<!-- /course/cognition.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cognition Battery</title>
+
+  <!-- style.css is at the root, this page is in /course/ -->
+  <link rel="stylesheet" href="../style.css" />
+
+  <style>
+    :root { --maxw: 1100px; }
+
+    .wrap { max-width: var(--maxw); margin: 0 auto; padding: 18px 16px 54px; }
+    .topbar{
+      display:flex; align-items:flex-end; justify-content:space-between; gap:12px; flex-wrap:wrap;
+      margin-bottom: 12px;
+      background: rgba(248,249,250,0.85); backdrop-filter: blur(10px);
+      border: 1px solid var(--border, #e9ecef);
+      border-radius: 8px;
+      padding: 10px 12px;
+    }
+    .brand{ font-weight:650; letter-spacing:.2px; }
+    .muted{ opacity:.78; }
+    .small{ font-size: 12.5px; }
+
+    .actions{ display:flex; gap:8px; flex-wrap:wrap; align-items:center; justify-content:flex-end; }
+    .pill{
+      display:inline-flex; align-items:center; gap:8px;
+      padding: 7px 11px; border-radius: 16px;
+      border: 1px solid var(--border, #e9ecef);
+      background: rgba(255,255,255,0.9);
+      font-size: 13px; color: inherit; cursor: pointer; text-decoration:none;
+      transition: transform .15s ease, box-shadow .15s ease, background-color .15s ease;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.04);
+      white-space: nowrap;
+    }
+    .pill:hover{ transform: translateY(-1px); box-shadow: 0 4px 14px rgba(0,0,0,0.08); }
+    .pill.primary{ background: var(--accent, #5bc2e7); color:#fff; border-color: rgba(0,0,0,0.05); }
+    .pill.primary:hover{ background:#67c9ea; }
+    .pill.danger{ background:#fff; border-color: rgba(220,53,69,0.25); }
+    .pill.danger:hover{ background: rgba(220,53,69,0.06); }
+
+    .card{
+      background: rgba(255,255,255,0.95);
+      border: 1px solid var(--border, #e9ecef);
+      border-radius: 8px;
+      box-shadow: 0 2px 14px rgba(0,0,0,0.05);
+      padding: 12px;
+      overflow: hidden;
+    }
+
+    .runnerHead{
+      display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap;
+      margin-bottom: 8px;
+    }
+    .runnerTitle{ font-weight:650; }
+    .runnerNav{ display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+
+    .sep{ height: 1px; background: rgba(0,0,0,0.06); margin: 10px 0; }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div>
+        <div class="brand">Cognition Battery</div>
+        <div class="muted small" id="sessionLine">Session: –</div>
+      </div>
+
+      <div class="actions">
+        <button class="pill" id="btnPrev" type="button">Previous</button>
+        <button class="pill primary" id="btnNext" type="button">Next</button>
+        <button class="pill" id="btnExport" type="button">Export JSON</button>
+        <button class="pill danger" id="btnClear" type="button" title="Clears the whole battery results">Clear</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="runnerHead">
+        <div>
+          <div class="runnerTitle" id="testTitle">–</div>
+          <div class="muted small" id="testMeta">–</div>
+        </div>
+        <div class="runnerNav muted small" id="testIndex">–</div>
+      </div>
+      <div class="sep"></div>
+      <div id="mount"></div>
+    </div>
+  </div>
+
+  <script type="module">
+    /********************************************************************
+     * Light cognition runner
+     * - One test at a time (modules render their own UI + their own results)
+     * - Combined results stored in localStorage
+     * - Only one combined export button
+     ********************************************************************/
+
+    const STORAGE_KEY = "cognition.battery.v1";
+
+    const TESTS = [
+      { id: "pvt",  title: "PVT",  meta: "Sustained attention",             src: "./cog1_pvt.js" },
+      { id: "gng",  title: "Go / No-Go", meta: "Inhibitory control",        src: "./cog2_gng.js" },
+      { id: "dsst", title: "DSST", meta: "Processing speed",               src: "./cog3_dsst.js" },
+      { id: "tmtb", title: "TMT-B", meta: "Cognitive flexibility",         src: "./cog4_tmt.js" },
+      { id: "wm",   title: "Food-WM", meta: "Working memory / attention",  src: "./cog5_wb.js" },
+      { id: "dots", title: "Dots", meta: "Perceptual accuracy (numerosity)", src: "./cog6_dots.js" }
+    ];
+
+    const el = {
+      sessionLine: document.getElementById("sessionLine"),
+      btnPrev: document.getElementById("btnPrev"),
+      btnNext: document.getElementById("btnNext"),
+      btnExport: document.getElementById("btnExport"),
+      btnClear: document.getElementById("btnClear"),
+      testTitle: document.getElementById("testTitle"),
+      testMeta: document.getElementById("testMeta"),
+      testIndex: document.getElementById("testIndex"),
+      mount: document.getElementById("mount")
+    };
+
+    let currentIndex = 0;
+    let currentCleanup = null;
+
+    function nowISO() { return new Date().toISOString(); }
+
+    function loadBattery() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return null;
+        return JSON.parse(raw);
+      } catch {
+        return null;
+      }
+    }
+
+    function newBattery() {
+      const id = "cog_" + Math.random().toString(36).slice(2, 9);
+      return {
+        schema: "cognition.battery.v1",
+        sessionId: id,
+        startedAt: nowISO(),
+        updatedAt: nowISO(),
+        results: {} // { [testId]: { metrics, extra, savedAt } }
+      };
+    }
+
+    function saveBattery(bat) {
+      bat.updatedAt = nowISO();
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(bat));
+    }
+
+    function getBattery() {
+      const existing = loadBattery();
+      if (existing && existing.sessionId && existing.results) return existing;
+      const fresh = newBattery();
+      saveBattery(fresh);
+      return fresh;
+    }
+
+    function updateHeader() {
+      const bat = getBattery();
+      el.sessionLine.textContent = `Session: ${bat.sessionId} · started ${new Date(bat.startedAt).toLocaleString()}`;
+
+      const t = TESTS[currentIndex];
+      el.testTitle.textContent = t.title;
+      el.testMeta.textContent = t.meta;
+      el.testIndex.textContent = `Test ${currentIndex + 1} / ${TESTS.length}`;
+
+      el.btnPrev.disabled = (currentIndex === 0);
+      el.btnNext.disabled = (currentIndex === TESTS.length - 1);
+    }
+
+    async function mountTest(index) {
+      if (currentCleanup) {
+        try { currentCleanup(); } catch {}
+        currentCleanup = null;
+      }
+
+      currentIndex = Math.max(0, Math.min(TESTS.length - 1, index));
+      updateHeader();
+
+      el.mount.innerHTML = "";
+
+      const test = TESTS[currentIndex];
+      const mod = await import(test.src);
+      if (!mod || typeof mod.init !== "function") {
+        el.mount.innerHTML = `<p class="muted">Module not found or invalid: ${test.src}</p>`;
+        return;
+      }
+
+      const api = {
+        saveResult: (testId, metrics = {}, extra = {}) => {
+          const bat = getBattery();
+          bat.results[testId] = {
+            metrics: metrics ?? {},
+            extra: extra ?? {},
+            savedAt: nowISO()
+          };
+          saveBattery(bat);
+        },
+        next: () => {
+          if (currentIndex < TESTS.length - 1) mountTest(currentIndex + 1);
+        },
+        prev: () => {
+          if (currentIndex > 0) mountTest(currentIndex - 1);
+        },
+        getAllResults: () => getBattery().results,
+        clearAllResults: () => {
+          const fresh = newBattery();
+          saveBattery(fresh);
+          updateHeader();
+        },
+        getContext: () => {
+          const bat = getBattery();
+          return { sessionId: bat.sessionId, startedAt: bat.startedAt };
+        }
+      };
+
+      // init(container, api) may return a cleanup function
+      const maybeCleanup = mod.init(el.mount, api);
+      if (typeof maybeCleanup === "function") currentCleanup = maybeCleanup;
+    }
+
+    function exportJSON() {
+      const bat = getBattery();
+      const blob = new Blob([JSON.stringify(bat, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `cognition_${bat.sessionId}.json`;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    }
+
+    // Buttons
+    el.btnPrev.addEventListener("click", () => mountTest(currentIndex - 1));
+    el.btnNext.addEventListener("click", () => mountTest(currentIndex + 1));
+    el.btnExport.addEventListener("click", exportJSON);
+    el.btnClear.addEventListener("click", () => {
+      localStorage.removeItem(STORAGE_KEY);
+      mountTest(0);
+    });
+
+    // Init
+    updateHeader();
+    mountTest(0);
+  </script>
+</body>
+</html>

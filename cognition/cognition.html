@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cognition Battery</title>
+
+  <!-- style.css is at the root, this page is in /course/ -->
+  <link rel="stylesheet" href="../style.css" />
+
+  <style>
+    :root { --maxw: 1100px; }
+
+    /* Scroll lock (only while a test is running) */
+    body.scroll-locked{
+      overflow: hidden;
+      height: 100%;
+      touch-action: none;
+    }
+
+    .wrap{ max-width: var(--maxw); margin: 0 auto; padding: 14px 14px 54px; }
+
+    .topbar{
+      display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap;
+      position: sticky; top: 0; z-index: 30;
+      background: rgba(248,249,250,0.85); backdrop-filter: blur(10px);
+      border: 1px solid var(--border, #e9ecef);
+      border-radius: 8px;
+      padding: 10px 12px;
+      margin-bottom: 10px;
+    }
+    .brand{ font-weight:650; letter-spacing:.2px; }
+    .muted{ opacity:.78; }
+    .small{ font-size:12px; }
+
+    .pill-row{ display:flex; gap:8px; flex-wrap:wrap; align-items:center; justify-content:flex-end; }
+
+    .pill{
+      display:inline-flex; align-items:center; gap:8px;
+      padding: 7px 11px; border-radius: 16px;
+      border: 1px solid var(--border, #e9ecef);
+      background: rgba(255,255,255,0.9);
+      font-size: 13px; color: inherit; cursor: pointer; text-decoration:none;
+      transition: transform .15s ease, box-shadow .15s ease, background-color .15s ease;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.04);
+      white-space: nowrap;
+    }
+    .pill:hover{ transform: translateY(-1px); box-shadow: 0 4px 14px rgba(0,0,0,0.08); }
+    .pill.primary{ background: var(--accent, #5bc2e7); color:#fff; border-color: rgba(0,0,0,0.05); }
+    .pill.primary:hover{ background:#67c9ea; }
+    .pill.danger{ background:#fff; border-color: rgba(220,53,69,0.25); }
+    .pill.danger:hover{ background: rgba(220,53,69,0.06); }
+
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+
+    .card{
+      background: rgba(255,255,255,0.95);
+      border: 1px solid var(--border, #e9ecef);
+      border-radius: 8px;
+      box-shadow: 0 2px 14px rgba(0,0,0,0.05);
+      padding: 14px;
+      box-sizing: border-box;
+      overflow: hidden;
+    }
+
+    .steps{
+      display:flex; flex-wrap:wrap; gap:8px; align-items:center;
+      margin: 6px 0 2px;
+    }
+    .step{
+      border: 1px solid var(--border, #e9ecef);
+      border-radius: 16px;
+      padding: 6px 10px;
+      background: rgba(255,255,255,0.9);
+      cursor:pointer;
+      font-size: 12.5px;
+      transition: transform .12s ease, box-shadow .12s ease;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.04);
+    }
+    .step:hover{ transform: translateY(-1px); box-shadow: 0 4px 14px rgba(0,0,0,0.08); }
+    .step.active{
+      border-color: rgba(91,194,231,0.9);
+      box-shadow: 0 0 0 4px rgba(91,194,231,0.18), 0 1px 10px rgba(0,0,0,0.06);
+    }
+    .step.done{
+      background: rgba(25,135,84,0.08);
+      border-color: rgba(25,135,84,0.22);
+    }
+
+    .testHost{
+      min-height: 520px;
+    }
+
+    .helper{
+      font-size: 12.5px;
+      opacity: .78;
+      line-height: 1.35;
+      margin-top: 8px;
+    }
+
+    /* Intro screen overlay */
+    .intro{
+      position: fixed;
+      inset: 0;
+      z-index: 60;
+      background: rgba(248,249,250,0.92);
+      backdrop-filter: blur(10px);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding: 18px;
+      transition: transform .42s ease, opacity .42s ease;
+    }
+    .intro.hidden{
+      opacity: 0;
+      transform: translateY(-14px);
+      pointer-events: none;
+    }
+    .introCard{
+      width: min(980px, 100%);
+      background: rgba(255,255,255,0.95);
+      border: 1px solid var(--border, #e9ecef);
+      border-radius: 10px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.10);
+      padding: 18px;
+    }
+    .introTitle{ font-weight: 750; font-size: 18px; margin-bottom: 6px; }
+    .introGrid{
+      display:grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 14px;
+      margin-top: 12px;
+    }
+    @media (max-width: 900px){ .introGrid{ grid-template-columns: 1fr; } }
+
+    .list{
+      border: 1px solid var(--border, #e9ecef);
+      border-radius: 8px;
+      overflow:hidden;
+      background: rgba(255,255,255,0.9);
+    }
+    .listRow{
+      display:flex; align-items:flex-start; justify-content:space-between;
+      gap: 12px;
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--border, #e9ecef);
+      font-size: 13px;
+      line-height: 1.25;
+    }
+    .listRow:last-child{ border-bottom: 0; }
+    .listRow .name{ font-weight: 650; }
+    .tag{
+      font-size: 12px;
+      opacity: .78;
+      white-space: nowrap;
+      padding-left: 10px;
+    }
+
+    .note{
+      border: 1px solid var(--border, #e9ecef);
+      border-radius: 8px;
+      background: linear-gradient(180deg, rgba(248,249,250,0.95), rgba(255,255,255,0.95));
+      padding: 12px;
+      font-size: 13px;
+      line-height: 1.35;
+      opacity: .92;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Intro overlay -->
+  <div class="intro" id="intro">
+    <div class="introCard">
+      <div class="introTitle">Cognition test battery</div>
+      <div class="muted small">
+        This is a lightweight prototype to track short-term changes in attention, processing speed, and executive control.
+        The goal is within-person comparison over time (same device, similar conditions).
+      </div>
+
+      <div class="introGrid">
+        <div class="list" id="introList"></div>
+
+        <div class="note">
+          <div style="font-weight:650; margin-bottom:6px;">How to use</div>
+          <ul style="margin:0; padding-left: 18px;">
+            <li>Work in a calm place, ideally seated.</li>
+            <li>Do the tests in order. Each test explains what to do.</li>
+            <li>Results are stored locally in your browser.</li>
+            <li>At the end, export one JSON file for analysis.</li>
+          </ul>
+          <div style="height:10px;"></div>
+          <button class="pill primary" id="btnEnter" type="button">Start the battery</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="topbar">
+      <div>
+        <div class="brand">Cognition Battery</div>
+        <div class="muted small" id="subline">A 6-test prototype. Results are saved locally.</div>
+        <div class="steps" id="steps"></div>
+      </div>
+
+      <div class="pill-row">
+        <button class="pill" id="btnPrev" type="button">Previous</button>
+        <button class="pill" id="btnNext" type="button">Next</button>
+        <button class="pill" id="btnExportJson" type="button">Export results (JSON)</button>
+        <button class="pill danger" id="btnClear" type="button" title="Clears ALL stored results for this battery">Clear</button>
+      </div>
+    </div>
+
+    <div class="grid">
+      <section class="card">
+        <div class="muted small" id="contextText">
+          Choose “Start” inside the test when you are ready. While a test is running, page scrolling is locked to avoid accidents.
+        </div>
+      </section>
+
+      <section class="card testHost" id="testHost" aria-live="polite"></section>
+
+      <div class="helper">
+        Note: this is not intended to replace validated clinical neuropsychological testing. It is a practical tool for repeated tracking.
+      </div>
+    </div>
+  </div>
+
+  <script type="module">
+    /********************************************************************
+     * Cognition battery host (light version)
+     * - Loads 6 JS modules (init(container, api))
+     * - Stores results in localStorage
+     * - No global “latest result” panel (each module can display what it wants)
+     * - One export button to download all results as a combined JSON
+     * - Scroll-lock available to modules via api.lockScroll(true/false)
+     ********************************************************************/
+
+    const STORAGE_KEY = "cognitionBattery.results.v2";
+    const INTRO_SEEN_KEY = "cognitionBattery.introSeen.v1";
+
+    const TESTS = [
+      {
+        id: "pvt",
+        label: "Psychomotor Vigilance",
+        short: "PVT",
+        evaluates: "Sustained attention and reaction time",
+        file: "./cog1_pvt.js"
+      },
+      {
+        id: "gonogo",
+        label: "Inhibitory Control",
+        short: "Go/No-Go",
+        evaluates: "Impulse control and errors under speed",
+        file: "./cog2_gng.js"
+      },
+      {
+        id: "dsst",
+        label: "Processing Speed",
+        short: "DSST",
+        evaluates: "Processing speed and working efficiency",
+        file: "./cog3_dsst.js"
+      },
+      {
+        id: "tmtb",
+        label: "Set-Shifting",
+        short: "TMT-B",
+        evaluates: "Executive control (switching, sequencing)",
+        file: "./cog4_tmtb.js"
+      },
+      {
+        id: "span",
+        label: "Working Memory",
+        short: "Span",
+        evaluates: "Short-term storage and manipulation",
+        file: "./cog5_wb.js"
+      },
+      {
+        id: "dots",
+        label: "Perceptual Accuracy",
+        short: "Dots",
+        evaluates: "Fast discrimination without counting",
+        file: "./cog6_dots.js"
+      }
+    ];
+
+    const el = {
+      intro: document.getElementById("intro"),
+      introList: document.getElementById("introList"),
+      btnEnter: document.getElementById("btnEnter"),
+
+      steps: document.getElementById("steps"),
+      testHost: document.getElementById("testHost"),
+      subline: document.getElementById("subline"),
+      contextText: document.getElementById("contextText"),
+
+      btnPrev: document.getElementById("btnPrev"),
+      btnNext: document.getElementById("btnNext"),
+      btnExportJson: document.getElementById("btnExportJson"),
+      btnClear: document.getElementById("btnClear")
+    };
+
+    let currentIndex = 0;
+
+    // ---------- scroll lock helper ----------
+    let __scrollY = 0;
+    function lockScroll(locked){
+      if (locked) {
+        __scrollY = window.scrollY || 0;
+        document.body.classList.add("scroll-locked");
+        document.body.style.position = "fixed";
+        document.body.style.top = `-${__scrollY}px`;
+        document.body.style.left = "0";
+        document.body.style.right = "0";
+      } else {
+        document.body.classList.remove("scroll-locked");
+        document.body.style.position = "";
+        document.body.style.top = "";
+        document.body.style.left = "";
+        document.body.style.right = "";
+        window.scrollTo(0, __scrollY);
+      }
+    }
+
+    // ---------- storage ----------
+    function safeParse(json, fallback){
+      try { return JSON.parse(json); } catch { return fallback; }
+    }
+
+    function loadAll(){
+      const raw = localStorage.getItem(STORAGE_KEY);
+      return raw ? safeParse(raw, {}) : {};
+    }
+
+    function saveAll(obj){
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(obj));
+      renderSteps(); // update done markers
+    }
+
+    function saveResult(testId, metrics = {}, extra = {}){
+      const all = loadAll();
+      all[testId] = {
+        testId,
+        metrics,
+        extra,
+        completedAt: new Date().toISOString()
+      };
+      saveAll(all);
+    }
+
+    function getResult(testId){
+      const all = loadAll();
+      return all[testId] || null;
+    }
+
+    function clearAll(){
+      localStorage.removeItem(STORAGE_KEY);
+      renderSteps();
+    }
+
+    // ---------- UI ----------
+    function renderIntro(){
+      el.introList.innerHTML = "";
+      for (const t of TESTS){
+        const row = document.createElement("div");
+        row.className = "listRow";
+        row.innerHTML = `
+          <div>
+            <div class="name">${t.label} <span class="muted small">(${t.short})</span></div>
+            <div class="muted small">${t.evaluates}</div>
+          </div>
+          <div class="tag">Test</div>
+        `;
+        el.introList.appendChild(row);
+      }
+    }
+
+    function renderSteps(){
+      const all = loadAll();
+      el.steps.innerHTML = "";
+
+      TESTS.forEach((t, idx) => {
+        const b = document.createElement("button");
+        b.type = "button";
+        b.className = "step";
+        if (idx === currentIndex) b.classList.add("active");
+        if (all[t.id]) b.classList.add("done");
+        b.textContent = `${idx + 1}. ${t.short}`;
+        b.addEventListener("click", () => {
+          currentIndex = idx;
+          loadTest();
+        });
+        el.steps.appendChild(b);
+      });
+
+      el.btnPrev.disabled = (currentIndex === 0);
+      el.btnNext.disabled = (currentIndex === TESTS.length - 1);
+    }
+
+    function setContextText(){
+      const t = TESTS[currentIndex];
+      el.subline.textContent = `Test ${currentIndex + 1} of ${TESTS.length}: ${t.label} (${t.short}).`;
+      el.contextText.textContent =
+        "Take a short moment to read the instructions inside the test. " +
+        "When you press Start, scrolling is locked to avoid accidental movements. " +
+        "At the end, your result is saved in your browser.";
+    }
+
+    async function loadTest(){
+      lockScroll(false); // safety net
+      renderSteps();
+      setContextText();
+
+      const t = TESTS[currentIndex];
+
+      el.testHost.innerHTML = `
+        <div class="muted small">Loading ${t.short}…</div>
+      `;
+
+      const api = {
+        saveResult: (testId, metrics = {}, extra = {}) => saveResult(testId, metrics, extra),
+        getResult: (testId) => getResult(testId),
+        getAllResults: () => loadAll(),
+        lockScroll: (locked) => lockScroll(!!locked),
+
+        next: () => {
+          lockScroll(false);
+          if (currentIndex < TESTS.length - 1) {
+            currentIndex += 1;
+            loadTest();
+            window.scrollTo(0, 0);
+          }
+        },
+        prev: () => {
+          lockScroll(false);
+          if (currentIndex > 0) {
+            currentIndex -= 1;
+            loadTest();
+            window.scrollTo(0, 0);
+          }
+        }
+      };
+
+      try{
+        const mod = await import(t.file);
+        if (!mod || typeof mod.init !== "function") {
+          el.testHost.innerHTML = `<div class="muted">This module does not export <code>init(container, api)</code>.</div>`;
+          return;
+        }
+        el.testHost.innerHTML = "";
+        mod.init(el.testHost, api);
+      } catch(err){
+        el.testHost.innerHTML = `
+          <div class="muted" style="line-height:1.35;">
+            Could not load <strong>${t.file}</strong>.<br/>
+            Check the filename and that it is in <code>/course/</code>.<br/>
+            <span class="small">${String(err)}</span>
+          </div>
+        `;
+      }
+    }
+
+    function exportJson(){
+      const all = loadAll();
+      const payload = {
+        battery: "cognitionBattery",
+        version: "2",
+        exportedAt: new Date().toISOString(),
+        results: all
+      };
+      const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "cognition-results.json";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    }
+
+    // ---------- events ----------
+    el.btnPrev.addEventListener("click", () => {
+      if (currentIndex > 0) { currentIndex -= 1; loadTest(); window.scrollTo(0,0); }
+    });
+
+    el.btnNext.addEventListener("click", () => {
+      if (currentIndex < TESTS.length - 1) { currentIndex += 1; loadTest(); window.scrollTo(0,0); }
+    });
+
+    el.btnExportJson.addEventListener("click", exportJson);
+
+    el.btnClear.addEventListener("click", () => {
+      lockScroll(false);
+      clearAll();
+    });
+
+    el.btnEnter.addEventListener("click", () => {
+      localStorage.setItem(INTRO_SEEN_KEY, "1");
+      el.intro.classList.add("hidden");
+      // small delay makes the transition feel cleaner
+      setTimeout(() => { loadTest(); }, 180);
+    });
+
+    // ---------- init ----------
+    (function init(){
+      renderIntro();
+      renderSteps();
+
+      const seen = localStorage.getItem(INTRO_SEEN_KEY) === "1";
+      if (seen) {
+        el.intro.classList.add("hidden");
+        loadTest();
+      } else {
+        // intro stays on top until user enters
+        el.intro.classList.remove("hidden");
+      }
+    })();
+  </script>
+</body>
+</html>

@@ -1,3 +1,4 @@
+<!-- /cognition/cognition.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,13 +11,12 @@
   <link rel="stylesheet" href="../style.css" />
 
   <style>
-    /* Page-local layout that matches your dash-like cards */
     .cog-wrap { max-width: 1200px; margin: 0 auto; padding: 28px 18px 56px; }
     .cog-head { display:flex; align-items:flex-end; justify-content:space-between; gap:14px; flex-wrap:wrap; }
     .cog-head h1 { margin: 0; font-size: 20px; }
     .cog-sub { font-size: 12px; opacity: .75; margin-top: 6px; }
 
-    .cog-grid { display:grid; grid-template-columns: 340px 1fr; gap: 14px; margin-top: 16px; }
+    .cog-grid { display:grid; grid-template-columns: 380px 1fr; gap: 14px; margin-top: 16px; }
     @media (max-width: 900px){ .cog-grid { grid-template-columns: 1fr; } }
 
     .cog-card {
@@ -30,6 +30,7 @@
       padding: 12px 14px;
       border-bottom: 1px solid var(--border-subtle, #e9ecef);
       display:flex; align-items:center; justify-content:space-between; gap:12px;
+      flex-wrap: wrap;
     }
     .cog-card .bd { padding: 12px 14px; }
 
@@ -49,6 +50,7 @@
       background: #f1f3f5;
       border: 1px solid var(--border-subtle, #e9ecef);
       overflow: hidden;
+      width: 100%;
     }
     .progress > div {
       height: 100%;
@@ -56,30 +58,6 @@
       background: var(--accent, #5bc2e7);
       transition: width .25s ease;
     }
-
-    .test-list { display:flex; flex-direction:column; gap:10px; }
-    .test-item {
-      border: 1px solid var(--border-subtle, #e9ecef);
-      border-radius: 10px;
-      padding: 10px 10px;
-      display:flex; align-items:flex-start; justify-content:space-between; gap:10px;
-      background: rgba(248,249,250,.5);
-      cursor: pointer;
-    }
-    .test-item:hover { background: rgba(248,249,250,.9); }
-    .test-title { margin: 0; font-size: 13px; font-weight: 600; }
-    .test-meta { margin: 3px 0 0; font-size: 12px; opacity: .75; }
-    .tag {
-      font-size: 11px;
-      padding: 4px 8px;
-      border-radius: 999px;
-      border: 1px solid var(--border-subtle, #e9ecef);
-      background: #fff;
-      white-space: nowrap;
-    }
-    .tag.done { border-color: rgba(74,144,226,.35); background: rgba(74,144,226,.08); }
-    .tag.active { border-color: rgba(91,194,231,.55); background: rgba(91,194,231,.12); }
-    .tag.todo { opacity: .8; }
 
     .controls { display:flex; gap:8px; flex-wrap:wrap; }
     .btn {
@@ -103,14 +81,32 @@
       box-shadow: 0 3px 10px rgba(74,144,226,.20);
     }
     .btn.ghost { background: rgba(255,255,255,.6); }
+    .btn[disabled] { opacity: .55; cursor: not-allowed; transform:none; }
 
-    .frame-wrap { display:flex; flex-direction:column; gap: 10px; }
-    iframe {
-      width: 100%;
-      min-height: 560px;
-      border: 0;
-      background: #fff;
+    .test-list { display:flex; flex-direction:column; gap:10px; }
+    .test-item {
+      border: 1px solid var(--border-subtle, #e9ecef);
+      border-radius: 10px;
+      padding: 10px 10px;
+      display:flex; align-items:flex-start; justify-content:space-between; gap:10px;
+      background: rgba(248,249,250,.5);
+      cursor: pointer;
     }
+    .test-item:hover { background: rgba(248,249,250,.9); }
+    .test-title { margin: 0; font-size: 13px; font-weight: 600; }
+    .test-meta { margin: 3px 0 0; font-size: 12px; opacity: .75; }
+
+    .tag {
+      font-size: 11px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      border: 1px solid var(--border-subtle, #e9ecef);
+      background: #fff;
+      white-space: nowrap;
+    }
+    .tag.done { border-color: rgba(74,144,226,.35); background: rgba(74,144,226,.08); }
+    .tag.active { border-color: rgba(91,194,231,.55); background: rgba(91,194,231,.12); }
+    .tag.todo { opacity: .8; }
 
     .results-grid { display:grid; grid-template-columns: 1fr 1fr; gap: 12px; }
     @media (max-width: 900px){ .results-grid { grid-template-columns: 1fr; } }
@@ -123,9 +119,21 @@
     }
     .result-box h3 { margin: 0 0 6px; font-size: 13px; }
     .kv { font-size: 12px; opacity: .9; display:flex; gap:10px; flex-wrap:wrap; }
-    .kv span { display:inline-flex; gap:6px; align-items:baseline; }
     .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
     .small { font-size: 12px; opacity: .75; }
+    pre { margin: 8px 0 0; white-space: pre-wrap; word-break: break-word; }
+
+    /* Runner block */
+    .runner {
+      border: 1px solid var(--border-subtle, #e9ecef);
+      border-radius: 10px;
+      padding: 14px;
+      background: rgba(248,249,250,.35);
+      min-height: 320px;
+    }
+    .runner h2 { margin: 0 0 6px; font-size: 16px; }
+    .runner .desc { margin: 0 0 10px; font-size: 12px; opacity: .8; line-height: 1.4; }
+    .runner .sep { height: 1px; background: var(--border-subtle, #e9ecef); margin: 12px 0; }
 
     .hint {
       border-left: 3px solid var(--accent, #5bc2e7);
@@ -136,7 +144,6 @@
       opacity: .95;
       line-height: 1.4;
     }
-    code { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
   </style>
 </head>
 
@@ -155,37 +162,37 @@
     <div class="cog-head">
       <div>
         <h1>Cognition battery</h1>
-        <div class="cog-sub">Run the 6 tests in sequence. Results and completion are stored in your browser.</div>
+        <div class="cog-sub">All tests run inside this page as blocks. Results are saved in your browser and shown live.</div>
       </div>
       <div class="pill" id="batteryStatus">Not started</div>
     </div>
 
     <div class="cog-grid">
-      <!-- Left: battery + results -->
+      <!-- LEFT: flow + list + results -->
       <section class="cog-card">
         <div class="hd">
           <div style="display:flex; flex-direction:column; gap:6px; width:100%;">
-            <div style="display:flex; align-items:center; justify-content:space-between; gap:10px;">
+            <div style="display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap;">
               <div class="pill" id="progressLabel">Progress: 0 / 6</div>
-              <button class="btn ghost" id="resetBtn" type="button">Reset</button>
+              <div class="controls">
+                <button class="btn" id="prevBtn" type="button">Previous</button>
+                <button class="btn primary" id="startBtn" type="button">Start / Continue</button>
+                <button class="btn" id="nextBtn" type="button">Next</button>
+                <button class="btn ghost" id="resetBtn" type="button">Reset</button>
+              </div>
             </div>
-            <div class="progress" aria-label="Progress">
-              <div id="progressBar"></div>
-            </div>
+            <div class="progress"><div id="progressBar"></div></div>
           </div>
         </div>
 
         <div class="bd">
           <div class="test-list" id="testList"></div>
 
-          <div style="height:14px;"></div>
+          <div style="height:12px;"></div>
 
           <div class="hint">
-            <strong>How results are collected.</strong><br />
-            This page reads each test’s results from <code>localStorage</code>. The simplest approach is that every test writes a JSON object
-            into a key called <code>cognition_result_[testId]</code> when the test ends (example below in the footer of this page).
-            <br /><br />
-            If your test pages already write results, this page will display them immediately.
+            Each test module calls <span class="mono">saveResult(testId, metrics, extra)</span> when finished.
+            This writes a clean result object to localStorage and updates the display instantly.
           </div>
 
           <div style="height:12px;"></div>
@@ -194,24 +201,16 @@
         </div>
       </section>
 
-      <!-- Right: runner -->
+      <!-- RIGHT: runner -->
       <section class="cog-card">
         <div class="hd">
-          <div style="display:flex; flex-direction:column; gap:4px;">
-            <div class="pill" id="runnerLabel">Runner</div>
-            <div class="small" id="runnerSub">Select a test to begin.</div>
-          </div>
-          <div class="controls">
-            <button class="btn" id="prevBtn" type="button">Previous</button>
-            <button class="btn primary" id="nextBtn" type="button">Start / Next</button>
-            <a class="btn" id="openTabBtn" href="#" target="_blank" rel="noopener">Open in new tab</a>
-          </div>
+          <div class="pill" id="runnerLabel">Runner</div>
+          <div class="pill" id="runnerMeta">—</div>
         </div>
-
-        <div class="bd frame-wrap">
-          <iframe id="runnerFrame" title="Cognition test"></iframe>
-          <div class="small">
-            Tip: if a test opens internal dialogs or full-screen modes, using “Open in new tab” can be more comfortable.
+        <div class="bd">
+          <div id="runner" class="runner">
+            <h2>Ready</h2>
+            <p class="desc">Click “Start / Continue” to begin the battery.</p>
           </div>
         </div>
       </section>
@@ -221,373 +220,335 @@
 
     <section class="cog-card">
       <div class="hd">
-        <div class="pill">Developer note</div>
-        <div class="pill">localStorage keys</div>
+        <div class="pill">Required interface for test modules</div>
+        <div class="pill">Copy-paste template</div>
       </div>
       <div class="bd">
-        <div class="small">
-          <div><span class="mono">cognition_battery_v1</span> — global state for this battery (index, timestamps, completion)</div>
-          <div><span class="mono">cognition_result_[testId]</span> — per-test results saved as JSON</div>
-          <div><span class="mono">cognition_done_[testId]</span> — completion timestamp (ISO string)</div>
+        <div class="hint">
+          Create each test as a JS module (example: <span class="mono">cog1_pvt.js</span>) that exports:
+          <br><br>
+          <span class="mono">export function init(container, api) { ... }</span>
+          <br><br>
+          The module renders UI inside <span class="mono">container</span> and calls:
+          <br>
+          <span class="mono">api.saveResult(testId, metrics, extra)</span> at the end.
         </div>
 
         <div style="height:10px;"></div>
 
-        <div class="hint">
-          <strong>Minimal snippet to add at the end of each test (example for PVT):</strong><br /><br />
-          <code class="mono">
-            const result = { testId: "pvt", finishedAt: new Date().toISOString(), metrics: { lapses: 2, medianRT: 280 } };<br/>
-            localStorage.setItem("cognition_result_pvt", JSON.stringify(result));<br/>
-            localStorage.setItem("cognition_done_pvt", result.finishedAt);<br/>
-            // Optional (only if embedded in cognition.html iframe):<br/>
-            window.parent?.postMessage({ type: "COG_RESULT", testId: "pvt", result }, "*");
-          </code>
-        </div>
+        <pre class="small mono" style="border:1px solid var(--border-subtle,#e9ecef); border-radius:10px; padding:10px; background:rgba(248,249,250,.55);">
+/* Minimal module template */
+export function init(container, api) {
+  container.innerHTML = `
+    &lt;h2&gt;PVT&lt;/h2&gt;
+    &lt;p class="desc"&gt;Instructions...&lt;/p&gt;
+    &lt;button id="start" class="btn primary"&gt;Start&lt;/button&gt;
+    &lt;div class="sep"&gt;&lt;/div&gt;
+    &lt;div id="ui"&gt;&lt;/div&gt;
+  `;
+
+  const startBtn = container.querySelector("#start");
+  startBtn.addEventListener("click", () =&gt; {
+    // ...run test...
+    // when finished:
+    api.saveResult("pvt", { medianRT_ms: 275, lapses_n: 2 }, { nTrials: 300, duration_s: 300, version: "1.0" });
+    api.next(); // optional: automatically move to next test
+  });
+}</pre>
       </div>
     </section>
   </main>
 
-  <script>
-    (function(){
-      const STORAGE_STATE = "cognition_battery_v1";
-      const VERSION = 1;
+  <script type="module">
+    const STORAGE_STATE = "cognition_battery_v1";
+    const VERSION = 1;
 
-      // In your /cognition folder, these files sit next to cognition.html
-      const TESTS = [
-        { id: "pvt",  name: "Psychomotor Vigilance Task", short: "PVT",   file: "cog1_pvt.html"  },
-        { id: "gng",  name: "Go / No-Go inhibitory control", short: "GNG", file: "cog2_gng.html" },
-        { id: "dsst", name: "Digit Symbol Substitution Test", short: "DSST", file: "cog3_dsst.html" },
-        { id: "tmtb", name: "Trail Making Test – Part B", short: "TMT-B", file: "cog4_tmt.html"  },
-        { id: "foodwm", name: "Food emoji working memory / attention", short: "Food-WM", file: "cog5_wb.html" },
-        { id: "dots", name: "Dot comparison / numerosity", short: "Dots", file: "cog6_dots.html" }
-      ];
+    // All files live in /cognition/ next to cognition.html
+    const TESTS = [
+      { id: "pvt",    short: "PVT",    name: "Psychomotor Vigilance Task",            module: "./cog1_pvt.js"  },
+      { id: "gng",    short: "GNG",    name: "Go / No-Go inhibitory control",         module: "./cog2_gng.js"  },
+      { id: "dsst",   short: "DSST",   name: "Digit Symbol Substitution Test",        module: "./cog3_dsst.js" },
+      { id: "tmtb",   short: "TMT-B",  name: "Trail Making Test – Part B",            module: "./cog4_tmt.js"  },
+      { id: "foodwm", short: "Food-WM",name: "Food emoji working memory / attention", module: "./cog5_wb.js"   },
+      { id: "dots",   short: "Dots",   name: "Dot comparison / numerosity",           module: "./cog6_dots.js" }
+    ];
 
-      const el = {
-        batteryStatus: document.getElementById("batteryStatus"),
-        progressLabel: document.getElementById("progressLabel"),
-        progressBar: document.getElementById("progressBar"),
-        testList: document.getElementById("testList"),
-        resultsGrid: document.getElementById("resultsGrid"),
+    const el = {
+      batteryStatus: document.getElementById("batteryStatus"),
+      progressLabel: document.getElementById("progressLabel"),
+      progressBar: document.getElementById("progressBar"),
+      testList: document.getElementById("testList"),
+      resultsGrid: document.getElementById("resultsGrid"),
+      runnerLabel: document.getElementById("runnerLabel"),
+      runnerMeta: document.getElementById("runnerMeta"),
+      runner: document.getElementById("runner"),
+      prevBtn: document.getElementById("prevBtn"),
+      startBtn: document.getElementById("startBtn"),
+      nextBtn: document.getElementById("nextBtn"),
+      resetBtn: document.getElementById("resetBtn")
+    };
 
-        runnerLabel: document.getElementById("runnerLabel"),
-        runnerSub: document.getElementById("runnerSub"),
-        frame: document.getElementById("runnerFrame"),
+    const clamp = (n, a, b) => Math.max(a, Math.min(b, n));
+    const keyResult = (id) => `cognition_result_${id}`;
+    const keyDone = (id) => `cognition_done_${id}`;
 
-        prevBtn: document.getElementById("prevBtn"),
-        nextBtn: document.getElementById("nextBtn"),
-        openTabBtn: document.getElementById("openTabBtn"),
-        resetBtn: document.getElementById("resetBtn")
+    function loadState(){
+      try{
+        const raw = localStorage.getItem(STORAGE_STATE);
+        if(!raw) return { version: VERSION, startedAt: null, currentIndex: 0, completed: {} };
+        const st = JSON.parse(raw);
+        if(!st || st.version !== VERSION) return { version: VERSION, startedAt: null, currentIndex: 0, completed: {} };
+        if(typeof st.currentIndex !== "number") st.currentIndex = 0;
+        if(!st.completed || typeof st.completed !== "object") st.completed = {};
+        return st;
+      }catch(e){
+        return { version: VERSION, startedAt: null, currentIndex: 0, completed: {} };
+      }
+    }
+
+    function saveState(){ localStorage.setItem(STORAGE_STATE, JSON.stringify(state)); }
+
+    function readDone(id){ return localStorage.getItem(keyDone(id)) || null; }
+
+    function readResult(id){
+      try{
+        const raw = localStorage.getItem(keyResult(id));
+        if(!raw) return null;
+        return JSON.parse(raw);
+      }catch(e){
+        return null;
+      }
+    }
+
+    function completedCount(){
+      return Object.keys(state.completed || {}).filter(k => state.completed[k]).length;
+    }
+
+    function syncCompletionFromStorage(){
+      TESTS.forEach(t => { if(readDone(t.id)) state.completed[t.id] = true; });
+      saveState();
+    }
+
+    function formatTime(iso){
+      try{
+        const d = new Date(iso);
+        if(isNaN(d.getTime())) return iso;
+        return d.toLocaleString();
+      }catch(e){ return iso; }
+    }
+
+    function saveResult(testId, metrics, extra = {}){
+      const finishedAt = new Date().toISOString();
+      const result = {
+        testId,
+        finishedAt,
+        metrics: metrics || {},
+        ...extra
       };
+      localStorage.setItem(keyResult(testId), JSON.stringify(result));
+      localStorage.setItem(keyDone(testId), finishedAt);
+      state.completed[testId] = true;
+      saveState();
+      render(); // instant update
+    }
 
-      function loadState(){
-        try{
-          const raw = localStorage.getItem(STORAGE_STATE);
-          if(!raw) return {
-            version: VERSION,
-            startedAt: null,
-            currentIndex: 0,
-            completed: {} // { [testId]: true }
-          };
-          const st = JSON.parse(raw);
-          // simple migration guard
-          if(!st || st.version !== VERSION) {
-            return { version: VERSION, startedAt: null, currentIndex: 0, completed: {} };
-          }
-          if(typeof st.currentIndex !== "number") st.currentIndex = 0;
-          if(!st.completed || typeof st.completed !== "object") st.completed = {};
-          return st;
-        }catch(e){
-          return { version: VERSION, startedAt: null, currentIndex: 0, completed: {} };
-        }
-      }
+    async function mountCurrentTest(){
+      const t = TESTS[state.currentIndex];
+      el.runnerLabel.textContent = `Runner · ${t.short}`;
+      el.runnerMeta.textContent = t.name;
 
-      function saveState(st){
-        localStorage.setItem(STORAGE_STATE, JSON.stringify(st));
-      }
+      // Clear and mount
+      el.runner.innerHTML = `
+        <h2>${t.name}</h2>
+        <p class="desc">Loading…</p>
+      `;
 
-      function keyResult(testId){ return `cognition_result_${testId}`; }
-      function keyDone(testId){ return `cognition_done_${testId}`; }
-
-      function readResult(testId){
-        try{
-          const raw = localStorage.getItem(keyResult(testId));
-          if(!raw) return null;
-          return JSON.parse(raw);
-        }catch(e){
-          return null;
-        }
-      }
-
-      function readDone(testId){
-        const v = localStorage.getItem(keyDone(testId));
-        return v || null;
-      }
-
-      function writeDone(testId, iso){
-        localStorage.setItem(keyDone(testId), iso);
-      }
-
-      function completedCount(st){
-        return Object.keys(st.completed || {}).filter(k => st.completed[k]).length;
-      }
-
-      function setRunner(index){
-        const st = state;
-        st.currentIndex = clamp(index, 0, TESTS.length - 1);
-        if(!st.startedAt) st.startedAt = new Date().toISOString();
-        saveState(st);
-        render();
-        loadFrame(TESTS[st.currentIndex]);
-      }
-
-      function loadFrame(test){
-        el.frame.src = test.file;
-        el.runnerLabel.textContent = `Runner · ${test.short}`;
-        el.runnerSub.textContent = test.name;
-        el.openTabBtn.href = test.file;
-      }
-
-      function clamp(n, a, b){ return Math.max(a, Math.min(b, n)); }
-
-      function markComplete(testId){
-        const st = state;
-        st.completed[testId] = true;
-        saveState(st);
-
-        // if there is no done timestamp yet, add one
-        if(!readDone(testId)) writeDone(testId, new Date().toISOString());
-
-        render();
-      }
-
-      function render(){
-        const st = state;
-        const doneN = completedCount(st);
-        const total = TESTS.length;
-
-        el.progressLabel.textContent = `Progress: ${doneN} / ${total}`;
-        el.progressBar.style.width = `${Math.round((doneN / total) * 100)}%`;
-
-        if(!st.startedAt){
-          el.batteryStatus.textContent = "Not started";
-        } else if(doneN === total){
-          el.batteryStatus.textContent = "Completed";
-        } else {
-          el.batteryStatus.textContent = "In progress";
-        }
-
-        // Test list
-        el.testList.innerHTML = "";
-        TESTS.forEach((t, idx) => {
-          const isActive = idx === st.currentIndex;
-          const isDone = !!st.completed[t.id];
-
-          const item = document.createElement("div");
-          item.className = "test-item";
-          item.role = "button";
-          item.tabIndex = 0;
-
-          const left = document.createElement("div");
-          left.style.display = "flex";
-          left.style.flexDirection = "column";
-          left.style.gap = "2px";
-
-          const title = document.createElement("p");
-          title.className = "test-title";
-          title.textContent = `${idx + 1}. ${t.name} (${t.short})`;
-
-          const meta = document.createElement("p");
-          meta.className = "test-meta";
-          const doneAt = readDone(t.id);
-          meta.textContent = doneAt ? `Completed: ${formatTime(doneAt)}` : `File: ${t.file}`;
-
-          left.appendChild(title);
-          left.appendChild(meta);
-
-          const tag = document.createElement("div");
-          tag.className = "tag " + (isDone ? "done" : isActive ? "active" : "todo");
-          tag.textContent = isDone ? "Done" : isActive ? "Now" : "Pending";
-
-          item.appendChild(left);
-          item.appendChild(tag);
-
-          item.addEventListener("click", () => setRunner(idx));
-          item.addEventListener("keydown", (e) => {
-            if(e.key === "Enter" || e.key === " ") setRunner(idx);
-          });
-
-          el.testList.appendChild(item);
-        });
-
-        // Buttons
-        el.prevBtn.disabled = st.currentIndex <= 0;
-        el.nextBtn.textContent = (st.startedAt ? "Next" : "Start") + (completedCount(st) === total ? " (restart?)" : "");
-
-        // Results grid
-        el.resultsGrid.innerHTML = "";
-        TESTS.forEach((t) => {
-          const box = document.createElement("div");
-          box.className = "result-box";
-
-          const h = document.createElement("h3");
-          h.textContent = `${t.short} results`;
-          box.appendChild(h);
-
-          const res = readResult(t.id);
-          const doneAt = readDone(t.id);
-
-          if(!res && !doneAt){
-            const p = document.createElement("div");
-            p.className = "small";
-            p.textContent = "No data stored yet.";
-            box.appendChild(p);
-          } else {
-            const kv = document.createElement("div");
-            kv.className = "kv";
-
-            if(doneAt){
-              const s1 = document.createElement("span");
-              s1.innerHTML = `<strong>Finished:</strong> <span class="mono">${escapeHtml(formatTime(doneAt))}</span>`;
-              kv.appendChild(s1);
-            }
-
-            if(res){
-              // Prefer showing a few common fields, then a compact JSON preview
-              const metrics = res.metrics || res.summary || null;
-
-              if(res.testId){
-                const s2 = document.createElement("span");
-                s2.innerHTML = `<strong>testId:</strong> <span class="mono">${escapeHtml(String(res.testId))}</span>`;
-                kv.appendChild(s2);
-              }
-
-              if(res.finishedAt){
-                const s3 = document.createElement("span");
-                s3.innerHTML = `<strong>finishedAt:</strong> <span class="mono">${escapeHtml(formatTime(res.finishedAt))}</span>`;
-                kv.appendChild(s3);
-              }
-
-              box.appendChild(kv);
-
-              const pre = document.createElement("pre");
-              pre.className = "small mono";
-              pre.style.marginTop = "8px";
-              pre.style.whiteSpace = "pre-wrap";
-              pre.style.wordBreak = "break-word";
-              pre.textContent = JSON.stringify(metrics ? metrics : res, null, 2);
-              box.appendChild(pre);
-            } else {
-              box.appendChild(kv);
-            }
-          }
-
-          el.resultsGrid.appendChild(box);
-        });
-      }
-
-      function formatTime(iso){
-        try{
-          const d = new Date(iso);
-          if(isNaN(d.getTime())) return iso;
-          return d.toLocaleString();
-        }catch(e){
-          return iso;
-        }
-      }
-
-      function escapeHtml(str){
-        return str
-          .replaceAll("&", "&amp;")
-          .replaceAll("<", "&lt;")
-          .replaceAll(">", "&gt;")
-          .replaceAll('"', "&quot;")
-          .replaceAll("'", "&#039;");
-      }
-
-      // Listen for results posted by test pages (optional, but very convenient when embedded)
-      window.addEventListener("message", (event) => {
-        const msg = event?.data;
-        if(!msg || typeof msg !== "object") return;
-        if(msg.type !== "COG_RESULT") return;
-
-        const testId = msg.testId;
-        const result = msg.result;
-        if(!testId) return;
-
-        try{
-          localStorage.setItem(keyResult(testId), JSON.stringify(result || {}));
-          writeDone(testId, (result && result.finishedAt) ? result.finishedAt : new Date().toISOString());
-          markComplete(testId);
-        }catch(e){
-          // ignore
-        }
-      });
-
-      // Controls
-      el.prevBtn.addEventListener("click", () => setRunner(state.currentIndex - 1));
-
-      el.nextBtn.addEventListener("click", () => {
-        // If not started, start and load first test
-        if(!state.startedAt){
-          state.startedAt = new Date().toISOString();
-          saveState(state);
-          loadFrame(TESTS[state.currentIndex]);
-          render();
+      try{
+        const mod = await import(t.module);
+        if(!mod || typeof mod.init !== "function"){
+          el.runner.innerHTML = `
+            <h2>${t.name}</h2>
+            <p class="desc">This module does not export <span class="mono">init(container, api)</span>.</p>
+          `;
           return;
         }
 
-        // If current test is already done, go next; otherwise still allow next (some tests may not store results)
-        const current = TESTS[state.currentIndex];
-        const done = !!state.completed[current.id];
+        // Provide a small API to every test
+        const api = {
+          testId: t.id,
+          testShort: t.short,
+          testName: t.name,
+          saveResult: (id, metrics, extra) => saveResult(id || t.id, metrics, extra),
+          getState: () => ({ ...state }),
+          next: () => goTo(state.currentIndex + 1, true),
+          prev: () => goTo(state.currentIndex - 1, true),
+          resetBattery: () => resetBattery()
+        };
 
-        // If there is a done timestamp but the state is not updated, sync it
-        if(!done && readDone(current.id)) {
-          state.completed[current.id] = true;
-          saveState(state);
-        }
+        // Give module full control of the runner content
+        el.runner.innerHTML = "";
+        await mod.init(el.runner, api);
 
-        const nextIndex = clamp(state.currentIndex + 1, 0, TESTS.length - 1);
-        setRunner(nextIndex);
-      });
+      }catch(err){
+        el.runner.innerHTML = `
+          <h2>${t.name}</h2>
+          <p class="desc">Could not load module <span class="mono">${t.module}</span>.</p>
+          <pre class="small mono">${String(err)}</pre>
+        `;
+      }
+    }
 
-      el.resetBtn.addEventListener("click", () => {
-        if(!confirm("Reset battery state and stored results in this browser?")) return;
-
-        // Clear battery state
-        localStorage.removeItem(STORAGE_STATE);
-
-        // Clear results + done markers
-        TESTS.forEach(t => {
-          localStorage.removeItem(keyResult(t.id));
-          localStorage.removeItem(keyDone(t.id));
-        });
-
-        state = loadState();
-        el.frame.src = "";
-        render();
-      });
-
-      // Initial load
-      let state = loadState();
+    function goTo(index, mount = false){
+      state.currentIndex = clamp(index, 0, TESTS.length - 1);
+      if(!state.startedAt) state.startedAt = new Date().toISOString();
+      saveState();
       render();
+      if(mount) mountCurrentTest();
+    }
 
-      // Auto-load current test if battery already started
-      if(state.startedAt){
-        loadFrame(TESTS[state.currentIndex]);
+    function resetBattery(){
+      if(!confirm("Reset battery state and stored results in this browser?")) return;
+
+      localStorage.removeItem(STORAGE_STATE);
+      TESTS.forEach(t => {
+        localStorage.removeItem(keyResult(t.id));
+        localStorage.removeItem(keyDone(t.id));
+      });
+
+      state = loadState();
+      render();
+      el.runner.innerHTML = `
+        <h2>Ready</h2>
+        <p class="desc">Click “Start / Continue” to begin the battery.</p>
+      `;
+      el.runnerLabel.textContent = "Runner";
+      el.runnerMeta.textContent = "—";
+    }
+
+    function render(){
+      syncCompletionFromStorage();
+
+      const doneN = completedCount();
+      const total = TESTS.length;
+
+      el.progressLabel.textContent = `Progress: ${doneN} / ${total}`;
+      el.progressBar.style.width = `${Math.round((doneN / total) * 100)}%`;
+
+      if(!state.startedAt){
+        el.batteryStatus.textContent = "Not started";
+      } else if(doneN === total){
+        el.batteryStatus.textContent = "Completed";
+      } else {
+        el.batteryStatus.textContent = "In progress";
       }
 
-      // If user comes back after completing some tests, sync completion from done markers
-      TESTS.forEach(t => {
-        if(readDone(t.id)) state.completed[t.id] = true;
+      el.prevBtn.disabled = state.currentIndex <= 0;
+      el.nextBtn.disabled = state.currentIndex >= total - 1;
+
+      // List
+      el.testList.innerHTML = "";
+      TESTS.forEach((t, idx) => {
+        const isActive = idx === state.currentIndex;
+        const isDone = !!state.completed[t.id];
+
+        const item = document.createElement("div");
+        item.className = "test-item";
+
+        const left = document.createElement("div");
+        left.style.display = "flex";
+        left.style.flexDirection = "column";
+        left.style.gap = "2px";
+
+        const title = document.createElement("p");
+        title.className = "test-title";
+        title.textContent = `${idx + 1}. ${t.name} (${t.short})`;
+
+        const meta = document.createElement("p");
+        meta.className = "test-meta";
+        const doneAt = readDone(t.id);
+        meta.textContent = doneAt ? `Completed: ${formatTime(doneAt)}` : `Module: ${t.module}`;
+
+        left.appendChild(title);
+        left.appendChild(meta);
+
+        const tag = document.createElement("div");
+        tag.className = "tag " + (isDone ? "done" : isActive ? "active" : "todo");
+        tag.textContent = isDone ? "Done" : isActive ? "Now" : "Pending";
+
+        item.appendChild(left);
+        item.appendChild(tag);
+
+        item.addEventListener("click", () => goTo(idx, true));
+        el.testList.appendChild(item);
       });
-      saveState(state);
+
+      // Results
+      el.resultsGrid.innerHTML = "";
+      TESTS.forEach((t) => {
+        const box = document.createElement("div");
+        box.className = "result-box";
+
+        const h = document.createElement("h3");
+        h.textContent = `${t.short} results`;
+        box.appendChild(h);
+
+        const res = readResult(t.id);
+        const doneAt = readDone(t.id);
+
+        if(!res && !doneAt){
+          const p = document.createElement("div");
+          p.className = "small";
+          p.textContent = "No data stored yet.";
+          box.appendChild(p);
+        } else {
+          const kv = document.createElement("div");
+          kv.className = "kv";
+          if(doneAt){
+            const s = document.createElement("span");
+            s.innerHTML = `<strong>Finished:</strong> <span class="mono">${formatTime(doneAt)}</span>`;
+            kv.appendChild(s);
+          }
+          box.appendChild(kv);
+
+          if(res){
+            const pre = document.createElement("pre");
+            pre.className = "small mono";
+            pre.textContent = JSON.stringify(res.metrics ? res.metrics : res, null, 2);
+            box.appendChild(pre);
+          }
+        }
+
+        el.resultsGrid.appendChild(box);
+      });
+    }
+
+    // Controls
+    el.prevBtn.addEventListener("click", () => goTo(state.currentIndex - 1, true));
+    el.nextBtn.addEventListener("click", () => goTo(state.currentIndex + 1, true));
+    el.startBtn.addEventListener("click", () => {
+      if(!state.startedAt) state.startedAt = new Date().toISOString();
+      saveState();
       render();
-    })();
+      mountCurrentTest();
+    });
+    el.resetBtn.addEventListener("click", resetBattery);
+
+    // Init
+    let state = loadState();
+    render();
+
+    // Auto-refresh display if a test writes results (useful if you later open a test in a new tab)
+    window.addEventListener("storage", (e) => {
+      if(!e || !e.key) return;
+      if(e.key.startsWith("cognition_result_") || e.key.startsWith("cognition_done_") || e.key === STORAGE_STATE){
+        render();
+      }
+    });
   </script>
 
   <footer style="padding: 22px 18px 28px; opacity: .75;">
     <div style="max-width:1200px; margin:0 auto; font-size:12px;">
-      Buchinger Science · cognition battery
+      Buchinger Science · cognition battery (module-based)
     </div>
   </footer>
 </body>

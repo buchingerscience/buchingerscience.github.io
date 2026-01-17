@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cognition Battery</title>
+
+  <!-- style.css is at the root, this page is in /course/ -->
+  <link rel="stylesheet" href="../style.css" />
+
+  <style>
+    :root { --maxw: 1100px; }
+
+    html, body { height: 100%; }
+    body { margin: 0; }
+
+    .wrap { max-width: var(--maxw); margin: 0 auto; padding: 14px 14px 40px; box-sizing: border-box; }
+
+    .topbar{
+      display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap;
+      background: rgba(248,249,250,0.85); backdrop-filter: blur(10px);
+      border: 1px solid var(--border, #e9ecef);
+      border-radius: 8px;
+      padding: 10px 12px;
+      margin-bottom: 10px;
+    }
+    .brand{ font-weight:650; letter-spacing:.2px; }
+    .muted{ opacity:.78; }
+    .small{ font-size:12.5px; line-height: 1.35; }
+
+    .pill-row{ display:flex; gap:8px; flex-wrap:wrap; align-items:center; justify-content:flex-end; }
+    .pill{
+      display:inline-flex; align-items:center; gap:8px;
+      padding: 7px 11px; border-radius: 16px;
+      border: 1px solid var(--border, #e9ecef);
+      background: rgba(255,255,255,0.9);
+      font-size: 13px; color: inherit; cursor: pointer; text-decoration:none;
+      transition: transform .15s ease, box-shadow .15s ease, background-color .15s ease;
+      box-shadow: 0 1px 6px rgba(0,0,0,0.04);
+      white-space: nowrap;
+    }
+    .pill:hover{ transform: translateY(-1px); box-shadow: 0 4px 14px rgba(0,0,0,0.08); }
+    .pill.primary{ background: var(--accent, #5bc2e7); color:#fff; border-color: rgba(0,0,0,0.05); }
+    .pill.primary:hover{ background:#67c9ea; }
+    .pill.danger{ background:#fff; border-color: rgba(220,53,69,0.25); }
+    .pill.danger:hover{ background: rgba(220,53,69,0.06); }
+
+    .grid{ display:grid; grid-template-columns: 1fr; gap: 10px; }
+
+    .card{
+      background: rgba(255,255,255,0.95);
+      border: 1px solid var(--border, #e9ecef);
+      border-radius: 8px;
+      box-shadow: 0 2px 14px rgba(0,0,0,0.05);
+      padding: 12px;
+      box-sizing: border-box;
+      overflow: hidden;
+    }
+
+    /* Intro overlay (slides up) */
+    .introOverlay{
+      position: fixed; inset: 0;
+      background: rgba(248,249,250,0.92);
+      backdrop-filter: blur(10px);
+      z-index: 50;
+      display:flex; align-items: center; justify-content: center;
+      transform: translateY(0);
+      transition: transform 520ms ease, opacity 520ms ease;
+      opacity: 1;
+      padding: 18px;
+      box-sizing: border-box;
+    }
+    .introOverlay.hide{
+      transform: translateY(-110%);
+      opacity: 0;
+      pointer-events: none;
+    }
+    .introCard{
+      width: 100%;
+      max-width: 920px;
+      background: rgba(255,255,255,0.96);
+      border: 1px solid var(--border, #e9ecef);
+      border-radius: 10px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.10);
+      padding: 16px 16px 14px;
+    }
+    .introTitle{ font-weight: 750; font-size: 18px; margin: 0 0 6px; }
+    .introLead{ margin: 0 0 10px; opacity: .82; line-height: 1.45; }
+
+    .introCols{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 10px;
+    }
+    @media (max-width: 860px){
+      .introCols{ grid-template-columns: 1fr; }
+    }
+    .introList{
+      margin: 0;
+      padding-left: 18px;
+      line-height: 1.45;
+      font-size: 13px;
+      opacity: .9;
+    }
+    .introList li { margin: 6px 0; }
+
+    .introTip{
+      border: 1px solid var(--border, #e9ecef);
+      border-radius: 10px;
+      background: rgba(248,249,250,0.85);
+      padding: 10px 10px;
+      font-size: 13px;
+      line-height: 1.45;
+      opacity: .92;
+    }
+
+    .introActions{
+      display:flex;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+      margin-top: 12px;
+      padding-top: 10px;
+      border-top: 1px solid var(--border, #e9ecef);
+    }
+
+    /* Battery header */
+    .testHead{
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: baseline;
+      justify-content: space-between;
+    }
+    .testTitle{ font-weight: 700; margin: 0; }
+    .testMeta{ font-size: 12.5px; opacity: .78; }
+
+    .notice{
+      border: 1px solid var(--border, #e9ecef);
+      border-radius: 10px;
+      background: rgba(248,249,250,0.85);
+      padding: 10px 10px;
+      font-size: 13px;
+      line-height: 1.45;
+      opacity: .92;
+      margin-top: 10px;
+    }
+
+    .testShell{
+      margin-top: 10px;
+      border: 1px solid var(--border, #e9ecef);
+      border-radius: 10px;
+      background: rgba(255,255,255,0.98);
+      padding: 10px;
+      overflow: hidden;
+    }
+
+    .sep{ height: 10px; }
+
+    .footerRow{
+      display:flex;
+      justify-content: space-between;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    /* Simple modal for "export table" preview */
+    .modal{
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.28);
+      display:none;
+      align-items: center;
+      justify-content: center;
+      z-index: 60;
+      padding: 18px;
+      box-sizing: border-box;
+    }
+    .modal.show{ display:flex; }
+    .modalCard{
+      width: 100%;
+      max-width: 980px;
+      background: rgba(255,255,255,0.98);
+      border: 1px solid var(--border, #e9ecef);
+      border-radius: 10px;
+      box-shadow: 0 18px 60px rgba(0,0,0,0.18);
+      overflow: hidden;
+    }
+    .modalTop{
+      display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap;
+      padding: 10px 12px;
+      background: rgba(248,249,250,0.85);
+      border-bottom: 1px solid var(--border, #e9ecef);
+    }
+    .modalBody{
+      padding: 12px;
+      max-height: 70vh;
+      overflow: auto;
+    }
+    .tableWrap{
+      border:1px solid var(--border, #e9ecef);
+      border-radius: 10px;
+      overflow:hidden;
+      background: rgba(255,255,255,0.98);
+    }
+    table{ width:100%; border-collapse: collapse; }
+    th, td{ text-align:left; padding: 10px 8px; border-bottom: 1px solid var(--border, #e9ecef); font-size: 13px; vertical-align: top; }
+    th{ background: rgba(248,249,250,0.9); font-weight: 650; }
+    .right{ text-align:right; }
+    .mono{ font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; font-size: 12px; }
+  </style>
+</head>
+
+<body>
+  <!-- Intro overlay (slides up on start) -->
+  <div class="introOverlay" id="introOverlay" aria-modal="true" role="dialog">
+    <div class="introCard">
+      <div class="introTitle">Cognition Battery (Prototype)</div>
+      <p class="introLead">
+        This battery contains six short tasks. It is designed for repeated tracking during fasting.
+        Please do the tests in one sitting, in the proposed order.
+      </p>
+
+      <div class="introCols">
+        <div>
+          <div class="muted small" style="margin-bottom:6px;">What you will do</div>
+          <ul class="introList">
+            <li><strong>PVT</strong> — sustained attention and reaction-time stability.</li>
+            <li><strong>Go/No-Go</strong> — inhibitory control (impulsive errors).</li>
+            <li><strong>DSST</strong> — processing speed and efficiency.</li>
+            <li><strong>TMT-B</strong> — mental flexibility and set shifting.</li>
+            <li><strong>Working memory</strong> — short attention span and memory span.</li>
+            <li><strong>Dot comparison</strong> — perceptual accuracy (numerosity).</li>
+          </ul>
+        </div>
+
+        <div class="introTip">
+          <strong>Practical tips</strong><br/>
+          • Use the same device and screen size each time.<br/>
+          • Try to keep similar conditions (time of day, caffeine, sleep).<br/>
+          • Do not overthink. Most tasks are designed to be fast and intuitive.<br/>
+          • Your results are saved only in your browser (localStorage).<br/>
+        </div>
+      </div>
+
+      <div class="introActions">
+        <button class="pill danger" id="introClear" type="button" title="Clear saved results in this browser">
+          Clear saved results
+        </button>
+
+        <div class="muted small">When you are ready, start the battery.</div>
+
+        <button class="pill primary" id="introStart" type="button">
+          Start battery
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Export table modal (populated by export_table.js) -->
+  <div class="modal" id="tableModal" role="dialog" aria-modal="true" aria-label="Export table">
+    <div class="modalCard">
+      <div class="modalTop">
+        <div>
+          <div class="brand">Results table</div>
+          <div class="muted small">A simple summary for colleagues.</div>
+        </div>
+        <div class="pill-row">
+          <button class="pill" id="btnDownloadCSV" type="button">Download CSV</button>
+          <button class="pill" id="btnCopyTSV" type="button">Copy (TSV)</button>
+          <button class="pill danger" id="btnCloseModal" type="button">Close</button>
+        </div>
+      </div>
+      <div class="modalBody">
+        <div class="notice" id="tableNote" style="margin-top:0;">
+          This is a prototype summary. Interpret within-person changes rather than single absolute values.
+        </div>
+        <div style="height:10px;"></div>
+        <div class="tableWrap" id="tableWrap">
+          <!-- injected table -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="topbar">
+      <div>
+        <div class="brand">Cognition</div>
+        <div class="muted small" id="subline">
+          Six short tests. Results are stored locally and can be exported at the end.
+        </div>
+      </div>
+
+      <div class="pill-row">
+        <button id="btnExportAll" class="pill" type="button" title="Export all results as one JSON file">
+          Export JSON
+        </button>
+        <button id="btnExportTable" class="pill" type="button" title="Show a simple table and export CSV">
+          Export table
+        </button>
+        <button id="btnResetAll" class="pill danger" type="button" title="Clears all battery results in this browser">
+          Reset
+        </button>
+      </div>
+    </div>
+
+    <div class="grid">
+      <section class="card">
+        <div class="testHead">
+          <h2 class="testTitle" id="currentTestTitle">Ready</h2>
+          <div class="testMeta" id="currentTestMeta">Start the battery to begin.</div>
+        </div>
+
+        <div class="notice" id="notice">
+          You will do the tests one after another. At the end of each test, a result is saved automatically.
+          Then you can continue to the next one.
+        </div>
+
+        <div class="testShell" id="testShell">
+          <div class="muted small">Waiting…</div>
+        </div>
+
+        <div class="sep"></div>
+
+        <div class="footerRow">
+          <div class="muted small" id="stepHint">Tip: keep a calm rhythm. Speed comes naturally.</div>
+
+          <div class="pill-row">
+            <button id="btnPrev" class="pill" type="button">Previous</button>
+            <button id="btnNext" class="pill primary" type="button">Next</button>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <script type="module">
+    /********************************************************************
+     * cognition.html (lightweight battery runner)
+     * - Intro overlay slides up on Start
+     * - Loads each test as a JS module: init(container, api)
+     * - Stores clean results object in localStorage
+     * - Exports one combined JSON
+     * - Export table uses export_table.js (separate file)
+     ********************************************************************/
+
+    const STORAGE_KEY = "cognitionBattery.results.v1";
+
+    const TESTS = [
+      { id: "pvt",   title: "PVT",             file: "./cog1_pvt.js",  note: "Sustained attention and reaction-time stability." },
+      { id: "gng",   title: "Go/No-Go",        file: "./cog2_gng.js",  note: "Inhibitory control and impulsive errors." },
+      { id: "dsst",  title: "DSST",            file: "./cog3_dsst.js", note: "Processing speed and cognitive efficiency." },
+      { id: "tmtb",  title: "TMT-B",           file: "./cog4_tmt.js",  note: "Mental flexibility and task switching." },
+      { id: "wm",    title: "Working memory",  file: "./cog5_wb.js",   note: "Short attention and memory span." },
+      { id: "dots",  title: "Dot comparison",  file: "./cog6_dots.js", note: "Perceptual accuracy (numerosity), minimal executive load." }
+    ];
+
+    const el = {
+      introOverlay: document.getElementById("introOverlay"),
+      introStart: document.getElementById("introStart"),
+      introClear: document.getElementById("introClear"),
+
+      btnExportAll: document.getElementById("btnExportAll"),
+      btnExportTable: document.getElementById("btnExportTable"),
+      btnResetAll: document.getElementById("btnResetAll"),
+      btnPrev: document.getElementById("btnPrev"),
+      btnNext: document.getElementById("btnNext"),
+
+      currentTestTitle: document.getElementById("currentTestTitle"),
+      currentTestMeta: document.getElementById("currentTestMeta"),
+      notice: document.getElementById("notice"),
+      testShell: document.getElementById("testShell"),
+      stepHint: document.getElementById("stepHint"),
+      subline: document.getElementById("subline"),
+
+      // modal
+      tableModal: document.getElementById("tableModal"),
+      tableWrap: document.getElementById("tableWrap"),
+      btnCloseModal: document.getElementById("btnCloseModal"),
+      btnDownloadCSV: document.getElementById("btnDownloadCSV"),
+      btnCopyTSV: document.getElementById("btnCopyTSV"),
+      tableNote: document.getElementById("tableNote")
+    };
+
+    const state = { index: 0 };
+
+    function nowISO() { return new Date().toISOString(); }
+
+    function loadAll() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return { version: 1, createdAt: nowISO(), updatedAt: nowISO(), results: {} };
+        const data = JSON.parse(raw);
+        if (!data || typeof data !== "object") throw new Error("bad data");
+        if (!data.results) data.results = {};
+        return data;
+      } catch {
+        return { version: 1, createdAt: nowISO(), updatedAt: nowISO(), results: {} };
+      }
+    }
+    function saveAll(obj) {
+      obj.updatedAt = nowISO();
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(obj));
+    }
+    function clearAll() { localStorage.removeItem(STORAGE_KEY); }
+
+    function setNavState() {
+      el.btnPrev.disabled = (state.index <= 0);
+      el.btnNext.disabled = (state.index >= TESTS.length - 1);
+    }
+
+    function setHeader() {
+      const t = TESTS[state.index];
+      el.currentTestTitle.textContent = `${state.index + 1}/${TESTS.length} — ${t.title}`;
+      el.currentTestMeta.textContent = t.note;
+
+      const all = loadAll();
+      const done = Object.keys(all.results || {}).length;
+      el.subline.textContent = `${done}/${TESTS.length} tests saved on this device.`;
+
+      el.notice.innerHTML =
+        `You are about to do <strong>${t.title}</strong>. ${t.note}
+         <br/>When the test is finished, the result is saved automatically.`;
+    }
+
+    async function loadTest(index) {
+      const t = TESTS[index];
+      setHeader();
+      setNavState();
+
+      el.testShell.innerHTML = `<div class="muted small">Loading ${t.title}…</div>`;
+      el.stepHint.textContent = "If something feels unclear, refresh the page and start again.";
+
+      try {
+        const mod = await import(t.file + `?v=${encodeURIComponent(String(Date.now()).slice(-6))}`);
+        if (!mod || typeof mod.init !== "function") {
+          throw new Error(`Module ${t.file} has no exported init(container, api).`);
+        }
+
+        const api = {
+          saveResult: (testId, metrics = {}, extra = {}) => {
+            const all = loadAll();
+            all.results[testId] = {
+              testId,
+              title: TESTS.find(x => x.id === testId)?.title || testId,
+              savedAt: nowISO(),
+              metrics: metrics || {},
+              extra: extra || {}
+            };
+            saveAll(all);
+
+            el.stepHint.textContent = "Result saved locally. You can continue to the next test.";
+            const done = Object.keys(all.results || {}).length;
+            el.subline.textContent = `${done}/${TESTS.length} tests saved on this device.`;
+          },
+          next: () => {
+            if (state.index < TESTS.length - 1) {
+              state.index += 1;
+              loadTest(state.index);
+            } else {
+              el.stepHint.textContent = "Battery complete. You can export your results now.";
+            }
+          },
+          prev: () => {
+            if (state.index > 0) {
+              state.index -= 1;
+              loadTest(state.index);
+            }
+          },
+          getAllResults: () => loadAll(),
+          clearAllResults: () => clearAll()
+        };
+
+        el.testShell.innerHTML = "";
+        mod.init(el.testShell, api);
+
+      } catch (err) {
+        el.testShell.innerHTML = `
+          <div class="muted small" style="line-height:1.45;">
+            <strong>Could not load ${t.title}.</strong><br/>
+            ${String(err).replaceAll("<","&lt;").replaceAll(">","&gt;")}
+            <div style="margin-top:10px;">
+              Check that <code>${t.file}</code> exists and exports <code>init(container, api)</code>.
+            </div>
+          </div>
+        `;
+      }
+    }
+
+    function exportAllJSON() {
+      const all = loadAll();
+      const blob = new Blob([JSON.stringify(all, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "cognition-battery-results.json";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    }
+
+    function hideIntroAndStart() {
+      el.introOverlay.classList.add("hide");
+      setTimeout(() => { el.introOverlay.style.display = "none"; }, 560);
+      state.index = 0;
+      loadTest(state.index);
+    }
+
+    // ---- Export table modal (delegated to export_table.js) ----
+    async function openExportTable() {
+      const all = loadAll();
+
+      // Lazy-load helper module
+      const helper = await import("./export_table.js");
+      if (!helper || typeof helper.buildResultsTable !== "function") {
+        alert("Missing export_table.js or buildResultsTable() export.");
+        return;
+      }
+
+      const { tableEl, csv, tsv, noteHtml } = helper.buildResultsTable({
+        battery: all,
+        tests: TESTS
+      });
+
+      el.tableWrap.innerHTML = "";
+      el.tableWrap.appendChild(tableEl);
+      el.tableNote.innerHTML = noteHtml || el.tableNote.innerHTML;
+
+      el.tableModal.classList.add("show");
+
+      el.btnDownloadCSV.onclick = () => {
+        const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "cognition-battery-results.csv";
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        URL.revokeObjectURL(url);
+      };
+
+      el.btnCopyTSV.onclick = async () => {
+        try {
+          await navigator.clipboard.writeText(tsv);
+          el.btnCopyTSV.textContent = "Copied";
+          setTimeout(() => (el.btnCopyTSV.textContent = "Copy (TSV)"), 900);
+        } catch {
+          // fallback
+          const ta = document.createElement("textarea");
+          ta.value = tsv;
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand("copy");
+          ta.remove();
+          el.btnCopyTSV.textContent = "Copied";
+          setTimeout(() => (el.btnCopyTSV.textContent = "Copy (TSV)"), 900);
+        }
+      };
+    }
+
+    function closeModal() {
+      el.tableModal.classList.remove("show");
+    }
+
+    // Events
+    el.introStart.addEventListener("click", hideIntroAndStart);
+
+    el.introClear.addEventListener("click", () => {
+      clearAll();
+      el.subline.textContent = `0/${TESTS.length} tests saved on this device.`;
+    });
+
+    el.btnPrev.addEventListener("click", () => {
+      if (state.index > 0) {
+        state.index -= 1;
+        loadTest(state.index);
+      }
+    });
+
+    el.btnNext.addEventListener("click", () => {
+      if (state.index < TESTS.length - 1) {
+        state.index += 1;
+        loadTest(state.index);
+      } else {
+        el.stepHint.textContent = "Battery complete. You can export your results now.";
+      }
+    });
+
+    el.btnExportAll.addEventListener("click", exportAllJSON);
+    el.btnExportTable.addEventListener("click", openExportTable);
+
+    el.btnResetAll.addEventListener("click", () => {
+      clearAll();
+      el.stepHint.textContent = "All saved results were cleared for this browser.";
+      el.subline.textContent = `0/${TESTS.length} tests saved on this device.`;
+    });
+
+    el.btnCloseModal.addEventListener("click", closeModal);
+    el.tableModal.addEventListener("click", (e) => {
+      if (e.target === el.tableModal) closeModal();
+    });
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && el.tableModal.classList.contains("show")) closeModal();
+    });
+
+    // Init
+    (function init() {
+      setNavState();
+      el.currentTestTitle.textContent = "Ready";
+      el.currentTestMeta.textContent = "Start the battery to begin.";
+      el.testShell.innerHTML = `<div class="muted small">Waiting…</div>`;
+
+      const all = loadAll();
+      const done = Object.keys(all.results || {}).length;
+      el.subline.textContent = `${done}/${TESTS.length} tests saved on this device.`;
+    })();
+  </script>
+</body>
+</html>

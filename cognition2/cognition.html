@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Cognition Check</title>
+
+<style>
+:root{
+  --accent:#5bc2e7;
+  --border:#e9ecef;
+  --bg:#f8f9fa;
+}
+
+body{
+  margin:0;
+  font-family:system-ui, -apple-system, sans-serif;
+  background:var(--bg);
+  color:#222;
+}
+
+.wrap{
+  max-width:900px;
+  margin:0 auto;
+  padding:20px;
+}
+
+.card{
+  background:#fff;
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:24px;
+  box-shadow:0 8px 24px rgba(0,0,0,0.05);
+}
+
+.center{
+  text-align:center;
+}
+
+button{
+  padding:14px 22px;
+  border-radius:999px;
+  border:none;
+  background:var(--accent);
+  color:#fff;
+  font-size:16px;
+  cursor:pointer;
+}
+
+button.secondary{
+  background:#fff;
+  color:#333;
+  border:1px solid var(--border);
+}
+
+.topbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:16px;
+}
+
+.progress{
+  height:8px;
+  background:#ddd;
+  border-radius:999px;
+  overflow:hidden;
+}
+
+.progress div{
+  height:100%;
+  background:var(--accent);
+  width:0%;
+  transition:width .3s ease;
+}
+
+iframe{
+  width:100%;
+  height:520px;
+  border:none;
+  border-radius:12px;
+  background:#fff;
+}
+
+.small{
+  font-size:13px;
+  opacity:.7;
+}
+
+.hidden{ display:none; }
+
+.result-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+  margin-top:20px;
+}
+
+.result-card{
+  padding:16px;
+  border:1px solid var(--border);
+  border-radius:10px;
+  background:#fafafa;
+  text-align:center;
+}
+</style>
+</head>
+
+<body>
+<div class="wrap">
+
+<!-- HOME SCREEN -->
+<div id="home" class="card center">
+  <h1>Cognition Check</h1>
+  <p class="small">6 short mini-games · 10 minutes</p>
+  <br/>
+  <button onclick="startBattery()">Start</button>
+  <br/><br/>
+  <button class="secondary" onclick="showResults()">View Last Results</button>
+</div>
+
+<!-- TASK SHELL -->
+<div id="taskScreen" class="hidden">
+  <div class="topbar">
+    <div>
+      <strong id="stepTitle"></strong><br/>
+      <span class="small" id="instruction"></span>
+    </div>
+    <button class="secondary" onclick="skipTask()">Skip</button>
+  </div>
+
+  <div class="progress">
+    <div id="progressBar"></div>
+  </div>
+
+  <br/>
+
+  <iframe id="taskFrame"></iframe>
+
+  <br/>
+  <div class="center">
+    <button onclick="nextTask()">Next</button>
+  </div>
+</div>
+
+<!-- RESULTS -->
+<div id="resultsScreen" class="card hidden center">
+  <h2>Today's Summary</h2>
+  <div class="result-grid">
+    <div class="result-card">⚡ Attention</div>
+    <div class="result-card">🛑 Control</div>
+    <div class="result-card">🚀 Speed</div>
+    <div class="result-card">🔀 Flexibility</div>
+    <div class="result-card">🧠 Memory</div>
+    <div class="result-card">👁 Accuracy</div>
+  </div>
+  <br/>
+  <button onclick="restart()">Done</button>
+</div>
+
+</div>
+
+<script>
+const tasks = [
+  { file: "cog1_pvt.html", title:"Step 1 / 6", instruction:"Tap fast when numbers appear." },
+  { file: "cog2_gng.html", title:"Step 2 / 6", instruction:"Tap 🍏 only. Ignore 🍩." },
+  { file: "cog3_dsst.html", title:"Step 3 / 6", instruction:"Match emoji to number." },
+  { file: "cog4_tmt.html", title:"Step 4 / 6", instruction:"Connect 1-A-2-B…" },
+  { file: "cog5_wb.html", title:"Step 5 / 6", instruction:"Watch. Then repeat." },
+  { file: "cog6_dots.html", title:"Step 6 / 6", instruction:"Which side had more dots?" }
+];
+
+let current = 0;
+
+function startBattery(){
+  document.getElementById("home").classList.add("hidden");
+  document.getElementById("taskScreen").classList.remove("hidden");
+  loadTask();
+}
+
+function loadTask(){
+  const t = tasks[current];
+  document.getElementById("taskFrame").src = t.file;
+  document.getElementById("stepTitle").textContent = t.title;
+  document.getElementById("instruction").textContent = t.instruction;
+  document.getElementById("progressBar").style.width =
+    ((current)/tasks.length)*100 + "%";
+}
+
+function nextTask(){
+  current++;
+  if(current >= tasks.length){
+    finishBattery();
+  } else {
+    loadTask();
+  }
+}
+
+function skipTask(){
+  nextTask();
+}
+
+function finishBattery(){
+  document.getElementById("taskScreen").classList.add("hidden");
+  document.getElementById("resultsScreen").classList.remove("hidden");
+}
+
+function restart(){
+  current = 0;
+  document.getElementById("resultsScreen").classList.add("hidden");
+  document.getElementById("home").classList.remove("hidden");
+}
+
+function showResults(){
+  document.getElementById("home").classList.add("hidden");
+  document.getElementById("resultsScreen").classList.remove("hidden");
+}
+</script>
+
+</body>
+</html>

@@ -36,13 +36,12 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* Make the main app use the full viewport height */
     body { min-height: 100vh; }
 
     .wrap {
       max-width: var(--maxw);
       margin: 0 auto;
-      padding: 14px 16px 14px;
+      padding: 12px 16px 12px;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
@@ -223,7 +222,13 @@
 
     .test-info { display: flex; align-items: center; gap: 12px; }
     .test-icon { font-size: 30px; }
-    .test-label { font-size: 12px; color: var(--muted); font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; }
+    .test-label {
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
     .test-name { font-size: 18px; font-weight: 700; letter-spacing: -0.3px; }
 
     .test-nav { display: flex; gap: 8px; }
@@ -262,7 +267,6 @@
       border-radius: var(--radius);
       overflow: hidden;
 
-      /* Key: expand to take remaining space */
       flex: 1;
       min-height: 280px;
 
@@ -290,7 +294,7 @@
     .test-shell-placeholder .ph-icon { font-size: 40px; opacity: 0.6; }
     .test-shell-placeholder .ph-text { color: var(--muted); font-size: 14px; }
 
-    /* ─── Bottom Bar (moved actions here) ─── */
+    /* ─── Bottom Bar ─── */
     .bottom-bar {
       display: flex;
       align-items: center;
@@ -484,8 +488,6 @@
 
   <!-- ═══════ Main App ═══════ -->
   <div class="wrap">
-    <!-- Removed “Brain Check” top header entirely to maximize vertical space -->
-
     <div class="step-bar" id="stepBar"></div>
 
     <div class="test-header">
@@ -515,7 +517,6 @@
       </div>
     </div>
 
-    <!-- Actions moved to the bottom -->
     <div class="bottom-bar">
       <div class="step-hint" id="stepHint">Each test saves automatically when complete.</div>
       <div class="bottom-actions">
@@ -530,12 +531,12 @@
     const STORAGE_KEY = "cognitionBattery.results.v1";
 
     const TESTS = [
-      { id: "pvt",   title: "Reaction Time",      file: "./cog1_pvt.js",  note: "How fast can you respond?",        icon: "⚡", time: "5 min" },
-      { id: "gng",   title: "Impulse Control",     file: "./cog2_gng.js",  note: "Can you resist the urge to tap?",  icon: "🛑", time: "2 min" },
-      { id: "dsst",  title: "Processing Speed",    file: "./cog3_dsst.js", note: "Match symbols as fast as you can", icon: "🔢", time: "2 min" },
-      { id: "tmtb",  title: "Mental Flexibility",  file: "./cog4_tmt.js",  note: "Connect the dots in order",        icon: "🔀", time: "2 min" },
-      { id: "wm",    title: "Memory Span",         file: "./cog5_wb.js",   note: "Remember and repeat sequences",    icon: "🧩", time: "3 min" },
-      { id: "dots",  title: "Perception",          file: "./cog6_dots.js", note: "Which side has more dots?",        icon: "👁️", time: "2 min" }
+      { id: "pvt",   title: "Reaction Time",      file: "./cog1_pvt.js",  note: "How fast can you respond?",         icon: "⚡", time: "5 min" },
+      { id: "gng",   title: "Impulse Control",     file: "./cog2_gng.js",  note: "Can you resist the urge to tap?",   icon: "🛑", time: "2 min" },
+      { id: "dsst",  title: "Processing Speed",    file: "./cog3_dsst.js", note: "Match symbols as fast as you can",  icon: "🔢", time: "2 min" },
+      { id: "tmtb",  title: "Mental Flexibility",  file: "./cog4_tmt.js",  note: "Connect the dots in order",         icon: "🔀", time: "2 min" },
+      { id: "wm",    title: "Memory Span",         file: "./cog5_wb.js",   note: "Remember and repeat sequences",     icon: "🧩", time: "3 min" },
+      { id: "dots",  title: "Perception",          file: "./cog6_dots.js", note: "Which side has more dots?",         icon: "👁️", time: "2 min" }
     ];
 
     const el = {
@@ -638,7 +639,7 @@
       try {
         const mod = await import(t.file + `?v=${encodeURIComponent(String(Date.now()).slice(-6))}`);
         if (!mod || typeof mod.init !== "function") {
-          throw new Error(\`Module \${t.file} has no exported init(container, api).\`);
+          throw new Error(`Module ${t.file} has no exported init(container, api).`);
         }
 
         const api = {
@@ -754,7 +755,9 @@
     el.introClear.addEventListener("click", () => {
       if (confirm("Clear all saved results?")) { clearAll(); buildStepBar(); }
     });
-    el.btnPrev.addEventListener("click", () => { if (state.index > 0) { state.index -= 1; loadTest(state.index); } });
+    el.btnPrev.addEventListener("click", () => {
+      if (state.index > 0) { state.index -= 1; loadTest(state.index); }
+    });
     el.btnNext.addEventListener("click", () => {
       if (state.index < TESTS.length - 1) { state.index += 1; loadTest(state.index); }
       else { el.stepHint.textContent = "🎉 All done! Export your results below."; }
@@ -762,11 +765,17 @@
     el.btnExportAll.addEventListener("click", exportAllJSON);
     el.btnExportTable.addEventListener("click", openExportTable);
     el.btnResetAll.addEventListener("click", () => {
-      if (confirm("Clear ALL saved results?")) { clearAll(); el.stepHint.textContent = "Results cleared."; buildStepBar(); }
+      if (confirm("Clear ALL saved results?")) {
+        clearAll();
+        el.stepHint.textContent = "Results cleared.";
+        buildStepBar();
+      }
     });
     el.btnCloseModal.addEventListener("click", closeModal);
     el.tableModal.addEventListener("click", (e) => { if (e.target === el.tableModal) closeModal(); });
-    window.addEventListener("keydown", (e) => { if (e.key === "Escape" && el.tableModal.classList.contains("show")) closeModal(); });
+    window.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && el.tableModal.classList.contains("show")) closeModal();
+    });
 
     // Init
     (function init() {

@@ -259,38 +259,38 @@
 
     /* ─── Test Shell ─── */
     .test-shell-wrap{
-  height: calc(100dvh - 170px); /* adjust the 170px as needed */
-  height: calc(100vh - 170px);  /* fallback */
-  overflow: hidden;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+
+  height: calc(100vh - 170px);   /* make it taller by lowering the number */
+  height: calc(100dvh - 170px);  /* better on mobile (keeps the 100vh fallback) */
+
+  overflow: auto;                /* important: allow scroll if a test is taller */
+  -webkit-overflow-scrolling: touch;
 }
 
-/* The host container must fill the frame */
 .test-shell{
-  height: 100%;
+  padding: 0;
+  height: 100%;                  /* make inner area fill the frame */
 }
 
-/* #testShell is the actual element you inject into */
 #testShell{
+  height: 100%;                  /* this is the injected container */
+}
+
+/* placeholder should also fill */
+.test-shell-placeholder{
   height: 100%;
   display: flex;
   flex-direction: column;
-  min-height: 0; /* important for nested scrolling/flex */
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 60px 20px;
+  text-align: center;
 }
-
-/* Make the injected test root expand (works for most tests) */
-#testShell > *{
-  flex: 1 1 auto;
-  min-height: 0;
-
-    .test-shell-placeholder {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      padding: 60px 20px;
-      text-align: center;
-    }
+    
     .test-shell-placeholder .ph-icon { font-size: 40px; opacity: 0.6; }
     .test-shell-placeholder .ph-text { color: var(--muted); font-size: 14px; }
 

@@ -3,13 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Trail Making Test B</title>
+  <title>Trail Making Test</title>
   <link rel="stylesheet" href="../style.css" />
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body { height: 100%; }
-    body { background: #FAF8F5; color: #2D2A26; }
-    .page-wrap { max-width: 780px; margin: 0 auto; padding: 20px 16px; }
+    .page-wrap{
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 20px 16px;
+    }
   </style>
 </head>
 <body>
@@ -18,14 +19,14 @@
   </div>
 
   <script type="module">
-    import { init } from "./cog4_tmtb.js";
+    import { init } from "./cog4_tmt.js";
 
     const api = {
-      saveResult: (id, metrics, extra) => console.log("Result saved:", id, metrics, extra),
-      next: () => alert("Test complete!"),
-      prev: () => {},
-      getAllResults: () => ({}),
-      clearAllResults: () => {}
+      saveResult: function(id, metrics, extra) { console.log("Result saved:", id, metrics, extra); },
+      next: function() { alert("Test complete!"); },
+      prev: function() {},
+      getAllResults: function() { return {}; },
+      clearAllResults: function() {}
     };
 
     init(document.getElementById("testContainer"), api);

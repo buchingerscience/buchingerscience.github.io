@@ -36,10 +36,17 @@
       -webkit-font-smoothing: antialiased;
     }
 
+    /* Make the main app use the full viewport height */
+    body { min-height: 100vh; }
+
     .wrap {
       max-width: var(--maxw);
       margin: 0 auto;
-      padding: 20px 16px 60px;
+      padding: 14px 16px 14px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
     }
 
     /* ─── Welcome Screen ─── */
@@ -171,28 +178,10 @@
     }
     .btn-danger:hover { background: rgba(199,80,80,0.06); }
 
-    /* ─── Top Navigation ─── */
-    .top-nav {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      margin-bottom: 20px;
-      flex-wrap: wrap;
-    }
-
-    .top-left { display: flex; align-items: center; gap: 10px; }
-    .top-left .logo { font-size: 24px; }
-    .top-title { font-weight: 700; font-size: 18px; }
-    .top-sub { font-size: 13px; color: var(--muted); }
-
-    .top-actions { display: flex; gap: 8px; flex-wrap: wrap; }
-
     /* ─── Step Progress Bar ─── */
     .step-bar {
       display: flex;
       gap: 6px;
-      margin-bottom: 20px;
     }
 
     .step-dot {
@@ -229,14 +218,13 @@
       align-items: center;
       justify-content: space-between;
       gap: 12px;
-      margin-bottom: 16px;
       flex-wrap: wrap;
     }
 
     .test-info { display: flex; align-items: center; gap: 12px; }
-    .test-icon { font-size: 32px; }
+    .test-icon { font-size: 30px; }
     .test-label { font-size: 12px; color: var(--muted); font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; }
-    .test-name { font-size: 20px; font-weight: 700; letter-spacing: -0.3px; }
+    .test-name { font-size: 18px; font-weight: 700; letter-spacing: -0.3px; }
 
     .test-nav { display: flex; gap: 8px; }
 
@@ -257,54 +245,73 @@
     .nav-btn:hover { background: var(--bg); box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
     .nav-btn:disabled { opacity: 0.3; cursor: not-allowed; }
 
+    /* ─── Notice ─── */
+    .notice-bar {
+      background: var(--accent-light);
+      border-radius: var(--radius-sm);
+      padding: 10px 14px;
+      font-size: 13px;
+      color: #2D5A8A;
+      line-height: 1.45;
+    }
+
     /* ─── Test Shell ─── */
     .test-shell-wrap {
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: var(--radius);
       overflow: hidden;
-      min-height: 200px;
+
+      /* Key: expand to take remaining space */
+      flex: 1;
+      min-height: 280px;
+
+      display: flex;
+      flex-direction: column;
     }
 
-    .test-shell { padding: 0; }
+    .test-shell {
+      padding: 0;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
 
     .test-shell-placeholder {
+      flex: 1;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       gap: 12px;
-      padding: 60px 20px;
+      padding: 40px 20px;
       text-align: center;
     }
     .test-shell-placeholder .ph-icon { font-size: 40px; opacity: 0.6; }
     .test-shell-placeholder .ph-text { color: var(--muted); font-size: 14px; }
 
-    /* ─── Notice ─── */
-    .notice-bar {
-      background: var(--accent-light);
-      border-radius: var(--radius-sm);
-      padding: 12px 16px;
-      font-size: 13px;
-      color: #2D5A8A;
-      line-height: 1.5;
-      margin-bottom: 16px;
-    }
-
-    /* ─── Footer ─── */
-    .footer-row {
+    /* ─── Bottom Bar (moved actions here) ─── */
+    .bottom-bar {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 12px;
-      margin-top: 16px;
       flex-wrap: wrap;
+      margin-top: 2px;
+      padding-top: 2px;
     }
 
     .step-hint {
       font-size: 13px;
       color: var(--muted);
       line-height: 1.4;
+    }
+
+    .bottom-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
     }
 
     /* ─── Export Modal ─── */
@@ -390,7 +397,8 @@
 
     @media (max-width: 600px) {
       .welcome-title { font-size: 24px; }
-      .wrap { padding: 14px 12px 40px; }
+      .wrap { padding: 12px 12px 12px; }
+      .bottom-actions { width: 100%; justify-content: flex-start; }
     }
   </style>
 </head>
@@ -476,20 +484,7 @@
 
   <!-- ═══════ Main App ═══════ -->
   <div class="wrap">
-    <div class="top-nav">
-      <div class="top-left">
-        <span class="logo">🧠</span>
-        <div>
-          <div class="top-title">Brain Check</div>
-          <div class="top-sub" id="subline">6 quick games — results saved locally</div>
-        </div>
-      </div>
-      <div class="top-actions">
-        <button class="btn-ghost" id="btnExportTable" type="button">📋 Summary</button>
-        <button class="btn-ghost" id="btnExportAll" type="button">💾 Export</button>
-        <button class="btn-danger" id="btnResetAll" type="button">Reset</button>
-      </div>
-    </div>
+    <!-- Removed “Brain Check” top header entirely to maximize vertical space -->
 
     <div class="step-bar" id="stepBar"></div>
 
@@ -520,8 +515,14 @@
       </div>
     </div>
 
-    <div class="footer-row">
+    <!-- Actions moved to the bottom -->
+    <div class="bottom-bar">
       <div class="step-hint" id="stepHint">Each test saves automatically when complete.</div>
+      <div class="bottom-actions">
+        <button class="btn-ghost" id="btnExportTable" type="button">📋 Summary</button>
+        <button class="btn-ghost" id="btnExportAll" type="button">💾 Export</button>
+        <button class="btn-danger" id="btnResetAll" type="button">Reset</button>
+      </div>
     </div>
   </div>
 
@@ -529,12 +530,12 @@
     const STORAGE_KEY = "cognitionBattery.results.v1";
 
     const TESTS = [
-      { id: "pvt",   title: "Reaction Time",      file: "./cog1_pvt.js",  note: "How fast can you respond?",       icon: "⚡", time: "5 min" },
-      { id: "gng",   title: "Impulse Control",     file: "./cog2_gng.js",  note: "Can you resist the urge to tap?", icon: "🛑", time: "2 min" },
+      { id: "pvt",   title: "Reaction Time",      file: "./cog1_pvt.js",  note: "How fast can you respond?",        icon: "⚡", time: "5 min" },
+      { id: "gng",   title: "Impulse Control",     file: "./cog2_gng.js",  note: "Can you resist the urge to tap?",  icon: "🛑", time: "2 min" },
       { id: "dsst",  title: "Processing Speed",    file: "./cog3_dsst.js", note: "Match symbols as fast as you can", icon: "🔢", time: "2 min" },
-      { id: "tmtb",  title: "Mental Flexibility",  file: "./cog4_tmt.js",  note: "Connect the dots in order",       icon: "🔀", time: "2 min" },
-      { id: "wm",    title: "Memory Span",         file: "./cog5_wb.js",   note: "Remember and repeat sequences",   icon: "🧩", time: "3 min" },
-      { id: "dots",  title: "Perception",          file: "./cog6_dots.js", note: "Which side has more dots?",       icon: "👁️", time: "2 min" }
+      { id: "tmtb",  title: "Mental Flexibility",  file: "./cog4_tmt.js",  note: "Connect the dots in order",        icon: "🔀", time: "2 min" },
+      { id: "wm",    title: "Memory Span",         file: "./cog5_wb.js",   note: "Remember and repeat sequences",    icon: "🧩", time: "3 min" },
+      { id: "dots",  title: "Perception",          file: "./cog6_dots.js", note: "Which side has more dots?",        icon: "👁️", time: "2 min" }
     ];
 
     const el = {
@@ -554,7 +555,6 @@
       notice: document.getElementById("notice"),
       testShell: document.getElementById("testShell"),
       stepHint: document.getElementById("stepHint"),
-      subline: document.getElementById("subline"),
       stepBar: document.getElementById("stepBar"),
 
       tableModal: document.getElementById("tableModal"),
@@ -609,14 +609,6 @@
       });
     }
 
-    function updateSubline() {
-      const all = loadAll();
-      const done = Object.keys(all.results || {}).length;
-      el.subline.textContent = done === 0
-        ? "6 quick games — results saved locally"
-        : `${done} of ${TESTS.length} completed`;
-    }
-
     function setNavState() {
       el.btnPrev.disabled = (state.index <= 0);
       el.btnNext.disabled = (state.index >= TESTS.length - 1);
@@ -628,7 +620,6 @@
       el.currentTestMeta.textContent = `Test ${state.index + 1} of ${TESTS.length} · ${t.time}`;
       el.testIcon.textContent = t.icon;
       el.notice.textContent = t.note;
-      updateSubline();
     }
 
     async function loadTest(index) {
@@ -647,7 +638,7 @@
       try {
         const mod = await import(t.file + `?v=${encodeURIComponent(String(Date.now()).slice(-6))}`);
         if (!mod || typeof mod.init !== "function") {
-          throw new Error(`Module ${t.file} has no exported init(container, api).`);
+          throw new Error(\`Module \${t.file} has no exported init(container, api).\`);
         }
 
         const api = {
@@ -662,7 +653,6 @@
             };
             saveAll(all);
             el.stepHint.textContent = "✅ Result saved! Continue to the next test when ready.";
-            updateSubline();
             buildStepBar();
           },
           next: () => {
@@ -670,7 +660,7 @@
               state.index += 1;
               loadTest(state.index);
             } else {
-              el.stepHint.textContent = "🎉 All done! You can view your summary above.";
+              el.stepHint.textContent = "🎉 All done! You can view your summary below.";
             }
           },
           prev: () => {
@@ -762,17 +752,17 @@
     // Events
     el.introStart.addEventListener("click", hideIntroAndStart);
     el.introClear.addEventListener("click", () => {
-      if (confirm("Clear all saved results?")) { clearAll(); updateSubline(); buildStepBar(); }
+      if (confirm("Clear all saved results?")) { clearAll(); buildStepBar(); }
     });
     el.btnPrev.addEventListener("click", () => { if (state.index > 0) { state.index -= 1; loadTest(state.index); } });
     el.btnNext.addEventListener("click", () => {
       if (state.index < TESTS.length - 1) { state.index += 1; loadTest(state.index); }
-      else { el.stepHint.textContent = "🎉 All done! Export your results above."; }
+      else { el.stepHint.textContent = "🎉 All done! Export your results below."; }
     });
     el.btnExportAll.addEventListener("click", exportAllJSON);
     el.btnExportTable.addEventListener("click", openExportTable);
     el.btnResetAll.addEventListener("click", () => {
-      if (confirm("Clear ALL saved results?")) { clearAll(); el.stepHint.textContent = "Results cleared."; updateSubline(); buildStepBar(); }
+      if (confirm("Clear ALL saved results?")) { clearAll(); el.stepHint.textContent = "Results cleared."; buildStepBar(); }
     });
     el.btnCloseModal.addEventListener("click", closeModal);
     el.tableModal.addEventListener("click", (e) => { if (e.target === el.tableModal) closeModal(); });
@@ -781,7 +771,6 @@
     // Init
     (function init() {
       setNavState();
-      updateSubline();
       buildStepBar();
     })();
   </script>

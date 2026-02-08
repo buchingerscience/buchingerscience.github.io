@@ -475,21 +475,6 @@
   </div>
 
   <!-- ═══════ Main App ═══════ -->
-  <div class="wrap">
-    <div class="top-nav">
-      <div class="top-left">
-        <span class="logo">🧠</span>
-        <div>
-          <div class="top-title">Brain Check</div>
-          <div class="top-sub" id="subline">6 quick games — results saved locally</div>
-        </div>
-      </div>
-      <div class="top-actions">
-        <button class="btn-ghost" id="btnExportTable" type="button">📋 Summary</button>
-        <button class="btn-ghost" id="btnExportAll" type="button">💾 Export</button>
-        <button class="btn-danger" id="btnResetAll" type="button">Reset</button>
-      </div>
-    </div>
 
     <div class="step-bar" id="stepBar"></div>
 
@@ -518,12 +503,16 @@
           <div class="ph-text">Press <strong>Begin</strong> to start</div>
         </div>
       </div>
+
+        <div class="wrap">
+      <div class="top-actions">
+        <button class="btn-ghost" id="btnExportTable" type="button">📋 Summary</button>
+        <button class="btn-ghost" id="btnExportAll" type="button">💾 Export</button>
+        <button class="btn-danger" id="btnResetAll" type="button">Reset</button>
+      </div>
+    </div>
     </div>
 
-    <div class="footer-row">
-      <div class="step-hint" id="stepHint">Each test saves automatically when complete.</div>
-    </div>
-  </div>
 
   <script type="module">
     const STORAGE_KEY = "cognitionBattery.results.v1";

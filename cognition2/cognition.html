@@ -39,7 +39,7 @@
     .wrap {
       max-width: var(--maxw);
       margin: 0 auto;
-      padding: 20px 16px 24px; /* less bottom padding since buttons moved down */
+      padding: 20px 16px 60px;
     }
 
     /* ─── Welcome Screen ─── */
@@ -171,11 +171,28 @@
     }
     .btn-danger:hover { background: rgba(199,80,80,0.06); }
 
+    /* ─── Top Navigation ─── */
+    .top-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .top-left { display: flex; align-items: center; gap: 10px; }
+    .top-left .logo { font-size: 24px; }
+    .top-title { font-weight: 700; font-size: 18px; }
+    .top-sub { font-size: 13px; color: var(--muted); }
+
+    .top-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
     /* ─── Step Progress Bar ─── */
     .step-bar {
       display: flex;
       gap: 6px;
-      margin-bottom: 12px; /* slightly tighter */
+      margin-bottom: 20px;
     }
 
     .step-dot {
@@ -212,7 +229,7 @@
       align-items: center;
       justify-content: space-between;
       gap: 12px;
-      margin-bottom: 12px; /* slightly tighter */
+      margin-bottom: 16px;
       flex-wrap: wrap;
     }
 
@@ -240,17 +257,6 @@
     .nav-btn:hover { background: var(--bg); box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
     .nav-btn:disabled { opacity: 0.3; cursor: not-allowed; }
 
-    /* ─── Notice ─── */
-    .notice-bar {
-      background: var(--accent-light);
-      border-radius: var(--radius-sm);
-      padding: 12px 16px;
-      font-size: 13px;
-      color: #2D5A8A;
-      line-height: 1.5;
-      margin-bottom: 12px; /* slightly tighter */
-    }
-
     /* ─── Test Shell ─── */
     .test-shell-wrap {
       background: var(--card);
@@ -258,20 +264,9 @@
       border-radius: var(--radius);
       overflow: hidden;
       min-height: 200px;
-      /* Increase visible game window height by ~10% */
-      height: calc(72vh * 1.10);
-    }
-    @media (max-height: 700px) {
-      .test-shell-wrap { height: calc(70vh * 1.10); }
-    }
-    @media (max-width: 600px) {
-      .test-shell-wrap { height: calc(68vh * 1.10); }
     }
 
-    .test-shell {
-      padding: 0;
-      height: 100%;
-    }
+    .test-shell { padding: 0; }
 
     .test-shell-placeholder {
       display: flex;
@@ -281,30 +276,35 @@
       gap: 12px;
       padding: 60px 20px;
       text-align: center;
-      height: 100%;
     }
     .test-shell-placeholder .ph-icon { font-size: 40px; opacity: 0.6; }
     .test-shell-placeholder .ph-text { color: var(--muted); font-size: 14px; }
 
-    /* ─── Bottom Actions (moved from header) ─── */
-    .bottom-actions {
+    /* ─── Notice ─── */
+    .notice-bar {
+      background: var(--accent-light);
+      border-radius: var(--radius-sm);
+      padding: 12px 16px;
+      font-size: 13px;
+      color: #2D5A8A;
+      line-height: 1.5;
+      margin-bottom: 16px;
+    }
+
+    /* ─── Footer ─── */
+    .footer-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 12px;
-      margin-top: 12px;
+      margin-top: 16px;
       flex-wrap: wrap;
     }
-    .bottom-left {
+
+    .step-hint {
       font-size: 13px;
       color: var(--muted);
       line-height: 1.4;
-    }
-    .bottom-right {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      justify-content: flex-end;
     }
 
     /* ─── Export Modal ─── */
@@ -390,7 +390,7 @@
 
     @media (max-width: 600px) {
       .welcome-title { font-size: 24px; }
-      .wrap { padding: 14px 12px 18px; }
+      .wrap { padding: 14px 12px 40px; }
     }
   </style>
 </head>
@@ -476,7 +476,20 @@
 
   <!-- ═══════ Main App ═══════ -->
   <div class="wrap">
-    <!-- Header removed -->
+    <div class="top-nav">
+      <div class="top-left">
+        <span class="logo">🧠</span>
+        <div>
+          <div class="top-title">Brain Check</div>
+          <div class="top-sub" id="subline">6 quick games — results saved locally</div>
+        </div>
+      </div>
+      <div class="top-actions">
+        <button class="btn-ghost" id="btnExportTable" type="button">📋 Summary</button>
+        <button class="btn-ghost" id="btnExportAll" type="button">💾 Export</button>
+        <button class="btn-danger" id="btnResetAll" type="button">Reset</button>
+      </div>
+    </div>
 
     <div class="step-bar" id="stepBar"></div>
 
@@ -507,17 +520,8 @@
       </div>
     </div>
 
-    <div class="bottom-actions">
-      <div class="bottom-left">
-        <span id="subline">6 quick games — results saved locally</span><br>
-        <span id="stepHint">Each test saves automatically when complete.</span>
-      </div>
-
-      <div class="bottom-right">
-        <button class="btn-ghost" id="btnExportTable" type="button">📋 Summary</button>
-        <button class="btn-ghost" id="btnExportAll" type="button">💾 Export</button>
-        <button class="btn-danger" id="btnResetAll" type="button">Reset</button>
-      </div>
+    <div class="footer-row">
+      <div class="step-hint" id="stepHint">Each test saves automatically when complete.</div>
     </div>
   </div>
 
@@ -525,12 +529,12 @@
     const STORAGE_KEY = "cognitionBattery.results.v1";
 
     const TESTS = [
-      { id: "pvt",   title: "Reaction Time",      file: "./cog1_pvt.js",  note: "How fast can you respond?",        icon: "⚡", time: "5 min" },
-      { id: "gng",   title: "Impulse Control",     file: "./cog2_gng.js",  note: "Can you resist the urge to tap?",  icon: "🛑", time: "2 min" },
+      { id: "pvt",   title: "Reaction Time",      file: "./cog1_pvt.js",  note: "How fast can you respond?",       icon: "⚡", time: "5 min" },
+      { id: "gng",   title: "Impulse Control",     file: "./cog2_gng.js",  note: "Can you resist the urge to tap?", icon: "🛑", time: "2 min" },
       { id: "dsst",  title: "Processing Speed",    file: "./cog3_dsst.js", note: "Match symbols as fast as you can", icon: "🔢", time: "2 min" },
-      { id: "tmtb",  title: "Mental Flexibility",  file: "./cog4_tmt.js",  note: "Connect the dots in order",        icon: "🔀", time: "2 min" },
-      { id: "wm",    title: "Memory Span",         file: "./cog5_wb.js",   note: "Remember and repeat sequences",    icon: "🧩", time: "3 min" },
-      { id: "dots",  title: "Perception",          file: "./cog6_dots.js", note: "Which side has more dots?",         icon: "👁️", time: "2 min" }
+      { id: "tmtb",  title: "Mental Flexibility",  file: "./cog4_tmt.js",  note: "Connect the dots in order",       icon: "🔀", time: "2 min" },
+      { id: "wm",    title: "Memory Span",         file: "./cog5_wb.js",   note: "Remember and repeat sequences",   icon: "🧩", time: "3 min" },
+      { id: "dots",  title: "Perception",          file: "./cog6_dots.js", note: "Which side has more dots?",       icon: "👁️", time: "2 min" }
     ];
 
     const el = {
@@ -643,7 +647,7 @@
       try {
         const mod = await import(t.file + `?v=${encodeURIComponent(String(Date.now()).slice(-6))}`);
         if (!mod || typeof mod.init !== "function") {
-          throw new Error(\`Module \${t.file} has no exported init(container, api).\`);
+          throw new Error(`Module ${t.file} has no exported init(container, api).`);
         }
 
         const api = {
@@ -666,7 +670,7 @@
               state.index += 1;
               loadTest(state.index);
             } else {
-              el.stepHint.textContent = "🎉 All done! You can view your summary below.";
+              el.stepHint.textContent = "🎉 All done! You can view your summary above.";
             }
           },
           prev: () => {
@@ -763,7 +767,7 @@
     el.btnPrev.addEventListener("click", () => { if (state.index > 0) { state.index -= 1; loadTest(state.index); } });
     el.btnNext.addEventListener("click", () => {
       if (state.index < TESTS.length - 1) { state.index += 1; loadTest(state.index); }
-      else { el.stepHint.textContent = "🎉 All done! Export your results below."; }
+      else { el.stepHint.textContent = "🎉 All done! Export your results above."; }
     });
     el.btnExportAll.addEventListener("click", exportAllJSON);
     el.btnExportTable.addEventListener("click", openExportTable);

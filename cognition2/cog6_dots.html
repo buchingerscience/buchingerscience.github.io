@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Perceptual Accuracy – Dot Comparison</title>
+  <link rel="stylesheet" href="../style.css" />
+  <style>
+    .page-wrap{
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 20px 16px;
+    }
+  </style>
+</head>
+<body>
+  <div class="page-wrap">
+    <div id="testContainer"></div>
+  </div>
+
+  <script type="module">
+    import { init } from "./cog6_dots.js";
+
+    const api = {
+      saveResult: (testId, metrics, extra) => {
+        console.log("saveResult:", testId, metrics, extra);
+      },
+      next: () => { console.log("next()"); },
+      prev: () => { console.log("prev()"); },
+      getAllResults: () => ({}),
+      clearAllResults: () => {}
+    };
+
+    init(document.getElementById("testContainer"), api);
+  </script>
+</body>
+</html>

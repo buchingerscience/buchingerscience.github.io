@@ -1,5 +1,6 @@
 // cog2_gng.js - Inhibitory Control (Go / No-Go)
 // Minimal, lay-friendly version.
+// Now: (1) localStorage session saving, (2) working timer + progress bar updates, (3) still sends api.saveResult
 // Exports: init(container, api)
 
 export function init(container, api) {
@@ -90,13 +91,17 @@ export function init(container, api) {
     '</div>'
   ].join('\n');
 
-  // ---------- Config (fixed) ----------
+  // ---------- Config ----------
   var DURATION_MS = 120000; // 2 minutes
   var STIM_MS = 600;
   var P_NOGO = 0.25;
   var ITI_MIN = 500;
   var ITI_MAX = 900;
   var RESPONSE_EXTRA = 250;
+
+  // localStorage session history
+  var STORAGE_KEY = "gng.v1.sessions";
+  var STORAGE_MAX = 200;
 
   // ---------- Elements ----------
   var stage        = container.querySelector("#gngStage");
@@ -130,7 +135,6 @@ export function init(container, api) {
   var responseDeadline = null;
   var responded = false;
   var responseAt = null;
-
   var lastResponseSource = null;
 
   var goCorrect = 0;
@@ -152,6 +156,30 @@ export function init(container, api) {
     return (a.length % 2) ? a[mid] : (a[mid-1] + a[mid]) / 2;
   }
 
+  function loadSessions() {
+    try {
+      var raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return [];
+      var data = JSON.parse(raw);
+      return Array.isArray(data) ? data : [];
+    } catch (e) { return []; }
+  }
+
+  function saveSessions(sessions) {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(sessions));
+    } catch (e) {
+      // ignore quota / privacy errors
+    }
+  }
+
+  function addSession(session) {
+    var sessions = loadSessions();
+    sessions.unshift(session);
+    if (sessions.length > STORAGE_MAX) sessions = sessions.slice(0, STORAGE_MAX);
+    saveSessions(sessions);
+  }
+
   function clearAllTimers() {
     if (tickTimer) clearInterval(tickTimer);
     tickTimer = null;
@@ -166,7 +194,7 @@ export function init(container, api) {
   }
 
   function updateProgress() {
-    if (!running) { progressBar.style.width = "0%"; return; }
+    if (!running || !tStart || !tEnd) { progressBar.style.width = "0%"; return; }
     var frac = Math.max(0, Math.min(1, (now() - tStart) / (tEnd - tStart)));
     progressBar.style.width = (frac * 100).toFixed(1) + "%";
   }
@@ -212,11 +240,15 @@ export function init(container, api) {
 
     startOverlay.classList.add("hidden");
     resultsCard.classList.remove("show");
-    keyHint.style.display = "";
-    stage.style.display = "";
 
+    stage.style.display = "";
+    keyHint.style.display = "";
+
+    // show timer + progress
     timePill.style.display = "";
     progressWrap.style.display = "";
+    progressBar.style.width = "0%";
+
     showStimulusBlank("Get ready…");
 
     updateProgress();
@@ -225,7 +257,7 @@ export function init(container, api) {
     tickTimer = setInterval(function(){
       updateProgress();
       updateTime();
-      if (now() >= tEnd) finishAndSave();
+      if (now() >= tEnd) finishAndSave("timeout");
     }, 120);
 
     timers.push(setTimeout(function(){ nextTrial(); }, 650));
@@ -233,7 +265,7 @@ export function init(container, api) {
 
   function nextTrial() {
     if (!running) return;
-    if (now() >= tEnd) { finishAndSave(); return; }
+    if (now() >= tEnd) { finishAndSave("timeout"); return; }
 
     trialIndex += 1;
 
@@ -259,11 +291,13 @@ export function init(container, api) {
       stimOnAt = now();
       responseDeadline = stimOnAt + STIM_MS + RESPONSE_EXTRA;
 
+      // hide stimulus after STIM_MS
       timers.push(setTimeout(function(){
         if (!running) return;
         showStimulusBlank("");
       }, STIM_MS));
 
+      // score after response window closes
       timers.push(setTimeout(function(){
         if (!running) return;
         scoreTrial();
@@ -331,18 +365,14 @@ export function init(container, api) {
     });
   }
 
-  function finishAndSave() {
+  function finishAndSave(reason) {
     if (!running) return;
 
     running = false;
     phase = "done";
     clearAllTimers();
 
-    progressWrap.style.display = "none";
-    timePill.style.display = "none";
-    keyHint.style.display = "none";
-    stage.style.display = "none";
-
+    // score
     var total = goCorrect + nogoCorrect + commission + omission;
     var correctN = goCorrect + nogoCorrect;
     var acc = total ? (correctN / total) : 0;
@@ -361,22 +391,36 @@ export function init(container, api) {
       medianGoRtMs: (med != null) ? Math.round(med) : null,
       nTrials: total,
       completedAt: nowISO(),
+      reason: reason || "completed",
       trials: trials
     };
 
-    api.saveResult("gng", {
-      accuracy_pct: Math.round(acc * 100),
-      commissionErrors_n: commission,
-      omissionErrors_n: omission,
-      medianGoRT_ms: (med != null) ? Math.round(med) : null
-    }, {
-      duration_s: Math.round(DURATION_MS / 1000),
-      stimulus_ms: STIM_MS,
-      noGoRate_pct: Math.round(P_NOGO * 100),
-      nTrials: total,
-      version: "2.1",
-      raw: session
-    });
+    // ---- localStorage save (the missing part) ----
+    addSession(session);
+
+    // hide stage chrome
+    progressWrap.style.display = "none";
+    timePill.style.display = "none";
+    keyHint.style.display = "none";
+    stage.style.display = "none";
+
+    // ---- battery save (guarded) ----
+    if (api && typeof api.saveResult === "function") {
+      api.saveResult("gng", {
+        accuracy: total ? Number(acc.toFixed(3)) : null,
+        commissionErrors_n: commission,
+        omissionErrors_n: omission,
+        medianGoRT_ms: (med != null) ? Math.round(med) : null,
+        trials_n: total
+      }, {
+        duration_s: Math.round(DURATION_MS / 1000),
+        stimulus_ms: STIM_MS,
+        noGoRate_pct: Math.round(P_NOGO * 100),
+        version: "1.0",
+        reason: session.reason,
+        raw: session
+      });
+    }
 
     showResultsUI(acc, med, total);
   }
@@ -426,15 +470,24 @@ export function init(container, api) {
     keyHint.style.display = "";
     phase = "idle";
     showStimulusBlank("Press Start");
+    // reset timer/progress visuals for idle
+    timePill.style.display = "none";
+    progressWrap.style.display = "none";
+    progressBar.style.width = "0%";
+    timePill.textContent = "2:00";
   });
 
-  btnNext.addEventListener("click", function(){ api.next(); });
+  btnNext.addEventListener("click", function(){
+    if (api && typeof api.next === "function") api.next();
+  });
 
   window.addEventListener("keydown", onKeyDown);
 
   // Init
   phase = "idle";
   showStimulusBlank("Press Start");
+  timePill.textContent = "2:00";
+  progressBar.style.width = "0%";
 
   // Cleanup
   return function(){

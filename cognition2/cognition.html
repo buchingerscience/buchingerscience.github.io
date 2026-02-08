@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cognitive Battery</title>
+  <title>Brain Check</title>
 
   <link rel="stylesheet" href="../style.css" />
 
@@ -19,6 +19,7 @@
       --accent: #4A90D9;
       --accent-light: #E8F0FB;
       --success: #3B9B6D;
+      --success-light: #E6F5ED;
       --danger: #C75050;
       --radius: 16px;
       --radius-sm: 10px;
@@ -38,13 +39,12 @@
     .wrap {
       max-width: var(--maxw);
       margin: 0 auto;
-      padding: 16px 16px 30px;
+      padding: 20px 16px 60px;
     }
 
-    /* ─── Welcome ─── */
+    /* ─── Welcome Screen ─── */
     .welcome-overlay {
-      position: fixed;
-      inset: 0;
+      position: fixed; inset: 0;
       background: var(--bg);
       z-index: 100;
       display: flex;
@@ -55,7 +55,7 @@
     }
     .welcome-overlay.hide {
       opacity: 0;
-      transform: translateY(-20px);
+      transform: translateY(-30px);
       pointer-events: none;
     }
 
@@ -63,76 +63,136 @@
       width: 100%;
       max-width: 520px;
       text-align: center;
+      animation: fadeUp 600ms ease;
     }
 
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .welcome-emoji { font-size: 56px; margin-bottom: 12px; }
     .welcome-title {
-      font-size: 26px;
+      font-size: 28px;
       font-weight: 700;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
+      letter-spacing: -0.5px;
     }
-
     .welcome-sub {
       color: var(--muted);
       font-size: 15px;
-      margin-bottom: 26px;
       line-height: 1.5;
+      margin-bottom: 28px;
     }
 
     .welcome-tests {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 10px;
-      margin-bottom: 26px;
+      margin-bottom: 28px;
+    }
+    @media (max-width: 500px) {
+      .welcome-tests { grid-template-columns: repeat(2, 1fr); }
     }
 
     .welcome-test-chip {
-      padding: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 12px;
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: var(--radius-sm);
       font-size: 13px;
       font-weight: 500;
     }
+    .welcome-test-chip .chip-icon { font-size: 20px; flex-shrink: 0; }
+    .welcome-test-chip .chip-time {
+      margin-left: auto;
+      font-size: 11px;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    .welcome-tip {
+      background: var(--accent-light);
+      border-radius: var(--radius-sm);
+      padding: 12px 16px;
+      font-size: 13px;
+      color: #2D5A8A;
+      line-height: 1.5;
+      text-align: left;
+      margin-bottom: 24px;
+    }
+    .welcome-tip strong { font-weight: 600; }
 
     .btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
+      gap: 8px;
       padding: 12px 28px;
       border-radius: 999px;
       border: 1px solid var(--border);
       background: var(--card);
+      font-family: inherit;
       font-size: 14px;
       font-weight: 600;
       cursor: pointer;
-      transition: 0.2s ease;
+      transition: all 0.2s ease;
+      color: var(--text);
     }
+    .btn:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
+    .btn:active { transform: translateY(0); }
+    .btn:disabled { opacity: 0.45; cursor: not-allowed; transform: none; box-shadow: none; }
 
     .btn-primary {
       background: var(--accent);
       color: white;
       border-color: var(--accent);
     }
+    .btn-primary:hover { background: #3D7FCC; border-color: #3D7FCC; }
 
     .btn-ghost {
       background: transparent;
       border-color: transparent;
       color: var(--muted);
       font-size: 13px;
+      padding: 8px 16px;
     }
+    .btn-ghost:hover { color: var(--text); background: rgba(0,0,0,0.03); }
 
     .btn-danger {
       background: transparent;
       border-color: transparent;
       color: var(--danger);
       font-size: 13px;
+      padding: 8px 16px;
+    }
+    .btn-danger:hover { background: rgba(199,80,80,0.06); }
+
+    /* ─── Top Navigation ─── */
+    .top-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
     }
 
-    /* ─── Step Bar ─── */
+    .top-left { display: flex; align-items: center; gap: 10px; }
+    .top-left .logo { font-size: 24px; }
+    .top-title { font-weight: 700; font-size: 18px; }
+    .top-sub { font-size: 13px; color: var(--muted); }
+
+    .top-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+    /* ─── Step Progress Bar ─── */
     .step-bar {
       display: flex;
       gap: 6px;
-      margin-bottom: 18px;
+      margin-bottom: 20px;
     }
 
     .step-dot {
@@ -140,186 +200,590 @@
       height: 6px;
       border-radius: 999px;
       background: var(--border);
+      transition: background 0.3s ease;
       cursor: pointer;
+      position: relative;
     }
-
     .step-dot.done { background: var(--success); }
     .step-dot.active { background: var(--accent); }
 
-    /* ─── Header ─── */
+    .step-dot .step-tooltip {
+      display: none;
+      position: absolute;
+      bottom: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--text);
+      color: white;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 11px;
+      white-space: nowrap;
+      z-index: 10;
+    }
+    .step-dot:hover .step-tooltip { display: block; }
+
+    /* ─── Current Test Header ─── */
     .test-header {
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      margin-bottom: 14px;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
     }
 
-    .test-label {
-      font-size: 12px;
-      color: var(--muted);
-      text-transform: uppercase;
-    }
+    .test-info { display: flex; align-items: center; gap: 12px; }
+    .test-icon { font-size: 32px; }
+    .test-label { font-size: 12px; color: var(--muted); font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; }
+    .test-name { font-size: 20px; font-weight: 700; letter-spacing: -0.3px; }
 
-    .test-name {
-      font-size: 20px;
-      font-weight: 700;
-    }
+    .test-nav { display: flex; gap: 8px; }
 
     .nav-btn {
-      width: 40px;
-      height: 40px;
+      width: 40px; height: 40px;
       border-radius: 999px;
       border: 1px solid var(--border);
       background: var(--card);
+      display: flex;
+      align-items: center;
+      justify-content: center;
       cursor: pointer;
+      transition: all 0.2s ease;
+      font-size: 16px;
+      color: var(--text);
+      font-family: inherit;
+    }
+    .nav-btn:hover { background: var(--bg); box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+    .nav-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+
+    /* ─── Test Shell ─── */
+    .test-shell-wrap {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      min-height: 200px;
     }
 
+    .test-shell { padding: 0; }
+
+    .test-shell-placeholder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      padding: 60px 20px;
+      text-align: center;
+    }
+    .test-shell-placeholder .ph-icon { font-size: 40px; opacity: 0.6; }
+    .test-shell-placeholder .ph-text { color: var(--muted); font-size: 14px; }
+
+    /* ─── Notice ─── */
     .notice-bar {
       background: var(--accent-light);
       border-radius: var(--radius-sm);
       padding: 12px 16px;
       font-size: 13px;
+      color: #2D5A8A;
+      line-height: 1.5;
       margin-bottom: 16px;
-    }
-
-    /* ─── Test Area ─── */
-    .test-shell-wrap {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      min-height: calc(100vh - 260px);
-    }
-
-    .test-shell-placeholder {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 200px;
-      font-size: 14px;
-      color: var(--muted);
     }
 
     /* ─── Footer ─── */
     .footer-row {
       display: flex;
-      justify-content: flex-end;
+      align-items: center;
+      justify-content: space-between;
       gap: 12px;
-      margin-top: 20px;
+      margin-top: 16px;
+      flex-wrap: wrap;
+    }
+
+    .step-hint {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
+    /* ─── Export Modal ─── */
+    .modal-bg {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.3);
+      backdrop-filter: blur(4px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 200;
+      padding: 20px;
+    }
+    .modal-bg.show { display: flex; }
+
+    .modal-card {
+      width: 100%;
+      max-width: 860px;
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+      overflow: hidden;
+      animation: fadeUp 300ms ease;
+    }
+
+    .modal-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border);
+      flex-wrap: wrap;
+    }
+    .modal-title { font-weight: 700; font-size: 16px; }
+    .modal-actions { display: flex; gap: 8px; }
+
+    .modal-body {
+      padding: 20px;
+      max-height: 65vh;
+      overflow: auto;
+    }
+
+    .modal-note {
+      background: var(--accent-light);
+      border-radius: var(--radius-sm);
+      padding: 12px 16px;
+      font-size: 13px;
+      color: #2D5A8A;
+      line-height: 1.5;
+      margin-bottom: 16px;
+    }
+
+    .results-table-wrap {
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+    }
+
+    table { width: 100%; border-collapse: collapse; }
+    th, td {
+      text-align: left;
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border);
+      font-size: 13px;
+      vertical-align: top;
+    }
+    th {
+      background: var(--bg);
+      font-weight: 600;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--muted);
+    }
+    tr:last-child td { border-bottom: none; }
+    .right { text-align: right; }
+    .mono {
+      font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+      font-size: 12px;
+    }
+
+    @media (max-width: 600px) {
+      .welcome-title { font-size: 24px; }
+      .wrap { padding: 14px 12px 40px; }
     }
   </style>
 </head>
 
 <body>
-
-  <!-- Welcome -->
+  <!-- ═══════ Welcome Screen ═══════ -->
   <div class="welcome-overlay" id="introOverlay">
     <div class="welcome-card">
-      <div class="welcome-title">Cognitive Battery</div>
+      <div class="welcome-emoji">🧠</div>
+      <div class="welcome-title">Brain Check</div>
       <p class="welcome-sub">
-        6 short tests to track mental performance.
+        6 quick games to track your mental sharpness.<br>
+        About 15 minutes. Do them in order, in one sitting.
       </p>
 
       <div class="welcome-tests">
-        <div class="welcome-test-chip">Reaction</div>
-        <div class="welcome-test-chip">Impulse</div>
-        <div class="welcome-test-chip">Speed</div>
-        <div class="welcome-test-chip">Flexibility</div>
-        <div class="welcome-test-chip">Memory</div>
-        <div class="welcome-test-chip">Perception</div>
+        <div class="welcome-test-chip">
+          <span class="chip-icon">⚡</span>
+          <span>Reaction</span>
+          <span class="chip-time">5 min</span>
+        </div>
+        <div class="welcome-test-chip">
+          <span class="chip-icon">🛑</span>
+          <span>Impulse</span>
+          <span class="chip-time">2 min</span>
+        </div>
+        <div class="welcome-test-chip">
+          <span class="chip-icon">🔢</span>
+          <span>Speed</span>
+          <span class="chip-time">2 min</span>
+        </div>
+        <div class="welcome-test-chip">
+          <span class="chip-icon">🔀</span>
+          <span>Flexibility</span>
+          <span class="chip-time">2 min</span>
+        </div>
+        <div class="welcome-test-chip">
+          <span class="chip-icon">🧩</span>
+          <span>Memory</span>
+          <span class="chip-time">3 min</span>
+        </div>
+        <div class="welcome-test-chip">
+          <span class="chip-icon">👁️</span>
+          <span>Perception</span>
+          <span class="chip-time">2 min</span>
+        </div>
       </div>
 
-      <div style="display:flex; flex-direction:column; gap:12px; align-items:center;">
-        <button class="btn btn-primary" id="introStart">Begin</button>
-        <button class="btn-ghost" id="introClear">Clear previous results</button>
+      <div class="welcome-tip">
+        <strong>💡 Tip:</strong> Use the same device and conditions each time for the best tracking. Your data stays in this browser only.
+      </div>
+
+      <div style="display:flex; flex-direction:column; align-items:center; gap: 10px;">
+        <button class="btn btn-primary" id="introStart" type="button" style="min-width: 200px; padding: 14px 32px; font-size: 16px;">
+          Begin →
+        </button>
+        <button class="btn-ghost" id="introClear" type="button">
+          Clear previous results
+        </button>
       </div>
     </div>
   </div>
 
-  <!-- Main -->
+  <!-- ═══════ Export Modal ═══════ -->
+  <div class="modal-bg" id="tableModal">
+    <div class="modal-card">
+      <div class="modal-top">
+        <div class="modal-title">📋 Results Summary</div>
+        <div class="modal-actions">
+          <button class="btn" id="btnDownloadCSV" type="button" style="font-size:13px; padding: 8px 16px;">Download CSV</button>
+          <button class="btn" id="btnCopyTSV" type="button" style="font-size:13px; padding: 8px 16px;">Copy TSV</button>
+          <button class="btn-ghost" id="btnCloseModal" type="button">✕ Close</button>
+        </div>
+      </div>
+      <div class="modal-body">
+        <div class="modal-note" id="tableNote">
+          This summary is for tracking changes over time. Compare your scores across sessions rather than focusing on single values.
+        </div>
+        <div class="results-table-wrap" id="tableWrap"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════ Main App ═══════ -->
   <div class="wrap">
+    <div class="top-nav">
+      <div class="top-left">
+        <span class="logo">🧠</span>
+        <div>
+          <div class="top-title">Brain Check</div>
+          <div class="top-sub" id="subline">6 quick games — results saved locally</div>
+        </div>
+      </div>
+      <div class="top-actions">
+        <button class="btn-ghost" id="btnExportTable" type="button">📋 Summary</button>
+        <button class="btn-ghost" id="btnExportAll" type="button">💾 Export</button>
+        <button class="btn-danger" id="btnResetAll" type="button">Reset</button>
+      </div>
+    </div>
 
     <div class="step-bar" id="stepBar"></div>
 
     <div class="test-header">
-      <div>
-        <div class="test-label" id="currentTestMeta">Ready</div>
-        <div class="test-name" id="currentTestTitle">Start</div>
+      <div class="test-info">
+        <span class="test-icon" id="testIcon">🎯</span>
+        <div>
+          <div class="test-label" id="currentTestMeta">Start the battery to begin</div>
+          <div class="test-name" id="currentTestTitle">Ready</div>
+        </div>
       </div>
-      <div>
-        <button class="nav-btn" id="btnPrev">←</button>
-        <button class="nav-btn" id="btnNext">→</button>
+      <div class="test-nav">
+        <button class="nav-btn" id="btnPrev" type="button" title="Previous test">←</button>
+        <button class="nav-btn" id="btnNext" type="button" title="Next test">→</button>
       </div>
     </div>
 
     <div class="notice-bar" id="notice">
-      Begin to start your first test.
+      Start the battery to begin your first test. Results save automatically.
     </div>
 
     <div class="test-shell-wrap">
-      <div id="testShell" class="test-shell-placeholder">
-        Press Begin to start
+      <div class="test-shell" id="testShell">
+        <div class="test-shell-placeholder">
+          <div class="ph-icon">🎯</div>
+          <div class="ph-text">Press <strong>Begin</strong> to start</div>
+        </div>
       </div>
     </div>
 
     <div class="footer-row">
-      <button class="btn-ghost" id="btnExportTable">Summary</button>
-      <button class="btn-ghost" id="btnExportAll">Export</button>
-      <button class="btn-danger" id="btnResetAll">Reset</button>
+      <div class="step-hint" id="stepHint">Each test saves automatically when complete.</div>
     </div>
-
   </div>
 
   <script type="module">
     const STORAGE_KEY = "cognitionBattery.results.v1";
 
     const TESTS = [
-      { id: "pvt",   title: "Reaction Time", file: "./cog1_pvt.js" },
-      { id: "gng",   title: "Impulse Control", file: "./cog2_gng.js" },
-      { id: "dsst",  title: "Processing Speed", file: "./cog3_dsst.js" },
-      { id: "tmtb",  title: "Mental Flexibility", file: "./cog4_tmt.js" },
-      { id: "wm",    title: "Memory Span", file: "./cog5_wb.js" },
-      { id: "dots",  title: "Perception", file: "./cog6_dots.js" }
+      { id: "pvt",   title: "Reaction Time",      file: "./cog1_pvt.js",  note: "How fast can you respond?",       icon: "⚡", time: "5 min" },
+      { id: "gng",   title: "Impulse Control",     file: "./cog2_gng.js",  note: "Can you resist the urge to tap?", icon: "🛑", time: "2 min" },
+      { id: "dsst",  title: "Processing Speed",    file: "./cog3_dsst.js", note: "Match symbols as fast as you can", icon: "🔢", time: "2 min" },
+      { id: "tmtb",  title: "Mental Flexibility",  file: "./cog4_tmt.js",  note: "Connect the dots in order",       icon: "🔀", time: "2 min" },
+      { id: "wm",    title: "Memory Span",         file: "./cog5_wb.js",   note: "Remember and repeat sequences",   icon: "🧩", time: "3 min" },
+      { id: "dots",  title: "Perception",          file: "./cog6_dots.js", note: "Which side has more dots?",       icon: "👁️", time: "2 min" }
     ];
 
     const el = {
       introOverlay: document.getElementById("introOverlay"),
       introStart: document.getElementById("introStart"),
       introClear: document.getElementById("introClear"),
+
       btnExportAll: document.getElementById("btnExportAll"),
       btnExportTable: document.getElementById("btnExportTable"),
       btnResetAll: document.getElementById("btnResetAll"),
       btnPrev: document.getElementById("btnPrev"),
       btnNext: document.getElementById("btnNext"),
+
       currentTestTitle: document.getElementById("currentTestTitle"),
       currentTestMeta: document.getElementById("currentTestMeta"),
+      testIcon: document.getElementById("testIcon"),
       notice: document.getElementById("notice"),
       testShell: document.getElementById("testShell"),
-      stepBar: document.getElementById("stepBar")
+      stepHint: document.getElementById("stepHint"),
+      subline: document.getElementById("subline"),
+      stepBar: document.getElementById("stepBar"),
+
+      tableModal: document.getElementById("tableModal"),
+      tableWrap: document.getElementById("tableWrap"),
+      btnCloseModal: document.getElementById("btnCloseModal"),
+      btnDownloadCSV: document.getElementById("btnDownloadCSV"),
+      btnCopyTSV: document.getElementById("btnCopyTSV"),
+      tableNote: document.getElementById("tableNote")
     };
 
-    let state = { index: 0 };
+    const state = { index: 0 };
 
-    function loadTest(i) {
-      const t = TESTS[i];
-      el.currentTestTitle.textContent = t.title;
-      el.currentTestMeta.textContent = `Test ${i+1} of ${TESTS.length}`;
-      el.notice.textContent = "";
-      import(t.file).then(mod => {
-        el.testShell.innerHTML = "";
-        mod.init(el.testShell, {
-          saveResult: () => {},
-          next: () => {},
-          prev: () => {}
+    function nowISO() { return new Date().toISOString(); }
+
+    function loadAll() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return { version: 1, createdAt: nowISO(), updatedAt: nowISO(), results: {} };
+        const data = JSON.parse(raw);
+        if (!data || typeof data !== "object") throw new Error("bad data");
+        if (!data.results) data.results = {};
+        return data;
+      } catch {
+        return { version: 1, createdAt: nowISO(), updatedAt: nowISO(), results: {} };
+      }
+    }
+    function saveAll(obj) {
+      obj.updatedAt = nowISO();
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(obj));
+    }
+    function clearAll() { localStorage.removeItem(STORAGE_KEY); }
+
+    function buildStepBar() {
+      el.stepBar.innerHTML = "";
+      const all = loadAll();
+      TESTS.forEach((t, i) => {
+        const dot = document.createElement("div");
+        dot.className = "step-dot";
+        if (all.results[t.id]) dot.classList.add("done");
+        if (i === state.index) dot.classList.add("active");
+
+        const tooltip = document.createElement("span");
+        tooltip.className = "step-tooltip";
+        tooltip.textContent = `${i + 1}. ${t.title}`;
+        dot.appendChild(tooltip);
+
+        dot.addEventListener("click", () => {
+          state.index = i;
+          loadTest(i);
         });
+        el.stepBar.appendChild(dot);
       });
     }
 
-    el.introStart.onclick = () => {
-      el.introOverlay.classList.add("hide");
-      setTimeout(()=> el.introOverlay.style.display="none", 400);
-      loadTest(0);
-    };
+    function updateSubline() {
+      const all = loadAll();
+      const done = Object.keys(all.results || {}).length;
+      el.subline.textContent = done === 0
+        ? "6 quick games — results saved locally"
+        : `${done} of ${TESTS.length} completed`;
+    }
 
+    function setNavState() {
+      el.btnPrev.disabled = (state.index <= 0);
+      el.btnNext.disabled = (state.index >= TESTS.length - 1);
+    }
+
+    function setHeader() {
+      const t = TESTS[state.index];
+      el.currentTestTitle.textContent = t.title;
+      el.currentTestMeta.textContent = `Test ${state.index + 1} of ${TESTS.length} · ${t.time}`;
+      el.testIcon.textContent = t.icon;
+      el.notice.textContent = t.note;
+      updateSubline();
+    }
+
+    async function loadTest(index) {
+      const t = TESTS[index];
+      setHeader();
+      setNavState();
+      buildStepBar();
+
+      el.testShell.innerHTML = `
+        <div class="test-shell-placeholder">
+          <div class="ph-icon">⏳</div>
+          <div class="ph-text">Loading ${t.title}…</div>
+        </div>`;
+      el.stepHint.textContent = "Each test saves automatically when complete.";
+
+      try {
+        const mod = await import(t.file + `?v=${encodeURIComponent(String(Date.now()).slice(-6))}`);
+        if (!mod || typeof mod.init !== "function") {
+          throw new Error(`Module ${t.file} has no exported init(container, api).`);
+        }
+
+        const api = {
+          saveResult: (testId, metrics = {}, extra = {}) => {
+            const all = loadAll();
+            all.results[testId] = {
+              testId,
+              title: TESTS.find(x => x.id === testId)?.title || testId,
+              savedAt: nowISO(),
+              metrics: metrics || {},
+              extra: extra || {}
+            };
+            saveAll(all);
+            el.stepHint.textContent = "✅ Result saved! Continue to the next test when ready.";
+            updateSubline();
+            buildStepBar();
+          },
+          next: () => {
+            if (state.index < TESTS.length - 1) {
+              state.index += 1;
+              loadTest(state.index);
+            } else {
+              el.stepHint.textContent = "🎉 All done! You can view your summary above.";
+            }
+          },
+          prev: () => {
+            if (state.index > 0) {
+              state.index -= 1;
+              loadTest(state.index);
+            }
+          },
+          getAllResults: () => loadAll(),
+          clearAllResults: () => clearAll()
+        };
+
+        el.testShell.innerHTML = "";
+        mod.init(el.testShell, api);
+
+      } catch (err) {
+        el.testShell.innerHTML = `
+          <div class="test-shell-placeholder">
+            <div class="ph-icon">⚠️</div>
+            <div class="ph-text">
+              Could not load <strong>${t.title}</strong>.<br>
+              <span style="font-size:12px;color:var(--muted);">${String(err).replace(/</g,"&lt;").replace(/>/g,"&gt;")}</span>
+            </div>
+          </div>`;
+      }
+    }
+
+    function exportAllJSON() {
+      const all = loadAll();
+      const blob = new Blob([JSON.stringify(all, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "brain-check-results.json";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    }
+
+    function hideIntroAndStart() {
+      el.introOverlay.classList.add("hide");
+      setTimeout(() => { el.introOverlay.style.display = "none"; }, 520);
+      state.index = 0;
+      loadTest(state.index);
+    }
+
+    async function openExportTable() {
+      const all = loadAll();
+      const helper = await import("./export_table.js");
+      if (!helper || typeof helper.buildResultsTable !== "function") {
+        alert("Missing export_table.js or buildResultsTable() export.");
+        return;
+      }
+
+      const { tableEl, csv, tsv, noteHtml } = helper.buildResultsTable({ battery: all, tests: TESTS });
+
+      el.tableWrap.innerHTML = "";
+      el.tableWrap.appendChild(tableEl);
+      if (noteHtml) el.tableNote.innerHTML = noteHtml;
+      el.tableModal.classList.add("show");
+
+      el.btnDownloadCSV.onclick = () => {
+        const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url; a.download = "brain-check-results.csv";
+        document.body.appendChild(a); a.click(); a.remove();
+        URL.revokeObjectURL(url);
+      };
+
+      el.btnCopyTSV.onclick = async () => {
+        try {
+          await navigator.clipboard.writeText(tsv);
+          el.btnCopyTSV.textContent = "✓ Copied!";
+          setTimeout(() => (el.btnCopyTSV.textContent = "Copy TSV"), 1200);
+        } catch {
+          const ta = document.createElement("textarea");
+          ta.value = tsv; document.body.appendChild(ta); ta.select();
+          document.execCommand("copy"); ta.remove();
+          el.btnCopyTSV.textContent = "✓ Copied!";
+          setTimeout(() => (el.btnCopyTSV.textContent = "Copy TSV"), 1200);
+        }
+      };
+    }
+
+    function closeModal() { el.tableModal.classList.remove("show"); }
+
+    // Events
+    el.introStart.addEventListener("click", hideIntroAndStart);
+    el.introClear.addEventListener("click", () => {
+      if (confirm("Clear all saved results?")) { clearAll(); updateSubline(); buildStepBar(); }
+    });
+    el.btnPrev.addEventListener("click", () => { if (state.index > 0) { state.index -= 1; loadTest(state.index); } });
+    el.btnNext.addEventListener("click", () => {
+      if (state.index < TESTS.length - 1) { state.index += 1; loadTest(state.index); }
+      else { el.stepHint.textContent = "🎉 All done! Export your results above."; }
+    });
+    el.btnExportAll.addEventListener("click", exportAllJSON);
+    el.btnExportTable.addEventListener("click", openExportTable);
+    el.btnResetAll.addEventListener("click", () => {
+      if (confirm("Clear ALL saved results?")) { clearAll(); el.stepHint.textContent = "Results cleared."; updateSubline(); buildStepBar(); }
+    });
+    el.btnCloseModal.addEventListener("click", closeModal);
+    el.tableModal.addEventListener("click", (e) => { if (e.target === el.tableModal) closeModal(); });
+    window.addEventListener("keydown", (e) => { if (e.key === "Escape" && el.tableModal.classList.contains("show")) closeModal(); });
+
+    // Init
+    (function init() {
+      setNavState();
+      updateSubline();
+      buildStepBar();
+    })();
   </script>
 </body>
 </html>

@@ -59,7 +59,7 @@ export function init(container, api) {
     '</div>'
   ].join('\n');
 
-  var DURATION_MS = 300000;
+  var DURATION_MS = 120000;
   var COUNTER_TICK = 10;
   var ISI_MIN = 2000;
   var ISI_MAX = 10000;

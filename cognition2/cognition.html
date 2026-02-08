@@ -258,16 +258,29 @@
     .nav-btn:disabled { opacity: 0.3; cursor: not-allowed; }
 
     /* ─── Test Shell ─── */
-    .test-shell-wrap {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      overflow: hidden;
-      height: calc(100vh - 220px);
-    }
+    .test-shell-wrap{
+  height: calc(100dvh - 170px); /* adjust the 170px as needed */
+  height: calc(100vh - 170px);  /* fallback */
+  overflow: hidden;
+}
 
-    .test-shell { padding: 0; 
-                }
+/* The host container must fill the frame */
+.test-shell{
+  height: 100%;
+}
+
+/* #testShell is the actual element you inject into */
+#testShell{
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 0; /* important for nested scrolling/flex */
+}
+
+/* Make the injected test root expand (works for most tests) */
+#testShell > *{
+  flex: 1 1 auto;
+  min-height: 0;
 
     .test-shell-placeholder {
       display: flex;

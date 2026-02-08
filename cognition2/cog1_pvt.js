@@ -50,7 +50,7 @@ export function init(container, api) {
     '<div class="pvt-counter" id="pvtCounter">\u2014</div>',
     '<div class="pvt-message" id="pvtMessage"></div>',
 
-    '<div class="pvt-time-pill" id="pvtTimePill" style="display:none">5:00</div>',
+    '<div class="pvt-time-pill" id="pvtTimePill" style="display:none">2:00</div>',
     '<div class="pvt-progress" id="pvtProgressWrap" style="display:none">',
     '<div class="pvt-progress-fill" id="pvtProgressBar"></div>',
     '</div>',

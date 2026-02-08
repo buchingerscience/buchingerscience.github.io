@@ -1,5 +1,6 @@
 // cog3_dsst.js - DSST (Digit Symbol Substitution Test)
 // Minimal, lay-friendly version.
+// Change: 5 symbols only (digits 1–5) + no practice.
 // Exports: init(container, api)
 
 export function init(container, api) {
@@ -25,7 +26,8 @@ export function init(container, api) {
     '.dsst-progress { height:5px; background:rgba(0,0,0,0.06); border-radius:999px; overflow:hidden; margin:10px 0 14px; display:none; }',
     '.dsst-progress-fill { height:100%; width:0%; background:#4A90D9; transition:width 0.12s linear; }',
 
-    '.dsst-key { display:grid; grid-template-columns:repeat(9, 1fr); gap:8px; margin-top:6px; }',
+    // Key now uses 5 columns (not 9)
+    '.dsst-key { display:grid; grid-template-columns:repeat(5, 1fr); gap:8px; margin-top:6px; }',
     '.dsst-key-card { background:rgba(255,255,255,0.7); border:1px solid #E8E4DF; border-radius:12px; padding:10px 8px; text-align:center; }',
     '.dsst-key-emoji { font-size:24px; line-height:1; }',
     '.dsst-key-digit { margin-top:6px; font-size:14px; font-weight:800; color:#2D2A26; }',
@@ -40,6 +42,7 @@ export function init(container, api) {
     '.dsst-hint { font-size:14px; font-weight:700; color:#2D2A26; }',
     '.dsst-subhint { font-size:12px; color:#8A857E; max-width:320px; text-align:center; line-height:1.4; }',
 
+    // Keyboard now 1–5 (nice 3+2 layout)
     '.dsst-kbd { display:grid; grid-template-columns:repeat(3, 1fr); gap:10px; }',
     '.dsst-kbd button { padding:14px 0; border-radius:14px; border:1px solid #E8E4DF; background:white; cursor:pointer; font-size:18px; font-weight:800; color:#2D2A26; transition:all 0.18s ease; }',
     '.dsst-kbd button:hover { background:#F5F3F0; transform:translateY(-1px); }',
@@ -71,27 +74,27 @@ export function init(container, api) {
 
         '<div id="dsstStart" class="dsst-start">',
           '<div class="dsst-title">Symbol Matching</div>',
-          '<div class="dsst-sub">Match the emoji to the correct number using the key. First a short practice, then a 2-minute test.</div>',
+          '<div class="dsst-sub">Match the emoji to the correct number using the key. This test runs for 2 minutes.</div>',
           '<button id="dsstBtnStart" class="dsst-start-btn" type="button">Start</button>',
         '</div>',
 
         '<div id="dsstMain" class="dsst-main">',
 
           '<div class="dsst-toprow">',
-            '<div class="dsst-pill strong" id="dsstPhasePill">Practice</div>',
+            '<div class="dsst-pill strong" id="dsstPhasePill">Test</div>',
             '<div class="dsst-pill" id="dsstTimePill">2:00</div>',
           '</div>',
 
           '<div class="dsst-progress" id="dsstProgressWrap"><div class="dsst-progress-fill" id="dsstProgressBar"></div></div>',
 
-          '<div class="dsst-sub" style="margin-top:2px; margin-bottom:10px;">Use the key below. Tap a number (or press 1–9).</div>',
+          '<div class="dsst-sub" style="margin-top:2px; margin-bottom:10px;">Use the key below. Tap a number (or press 1–5).</div>',
           '<div class="dsst-key" id="dsstKey"></div>',
 
           '<div class="dsst-itemRow">',
             '<div class="dsst-symbolBox">',
               '<div class="dsst-symbol" id="dsstSymbol">—</div>',
-              '<div class="dsst-hint" id="dsstHint">Practice</div>',
-              '<div class="dsst-subhint" id="dsstSubHint">Try to be accurate first.</div>',
+              '<div class="dsst-hint" id="dsstHint">Test</div>',
+              '<div class="dsst-subhint" id="dsstSubHint">Go as fast as you can, without guessing too much.</div>',
             '</div>',
 
             '<div>',
@@ -101,10 +104,6 @@ export function init(container, api) {
                 '<button type="button" data-digit="3">3</button>',
                 '<button type="button" data-digit="4">4</button>',
                 '<button type="button" data-digit="5">5</button>',
-                '<button type="button" data-digit="6">6</button>',
-                '<button type="button" data-digit="7">7</button>',
-                '<button type="button" data-digit="8">8</button>',
-                '<button type="button" data-digit="9">9</button>',
               '</div>',
             '</div>',
           '</div>',
@@ -121,16 +120,17 @@ export function init(container, api) {
           '</div>',
         '</div>',
 
-        '<div class="dsst-keyhint" id="dsstKeyHint">Keyboard: press <kbd>1</kbd> to <kbd>9</kbd></div>',
+        '<div class="dsst-keyhint" id="dsstKeyHint">Keyboard: press <kbd>1</kbd> to <kbd>5</kbd></div>',
 
       '</div>',
     '</div>'
   ].join('\n');
 
   // ---------- Fixed defaults ----------
-  var PRACTICE_N = 10;
   var DURATION_MS = 120000; // 2 min
-  var KEY_SIZE = 9;
+  var KEY_SIZE = 5;
+
+  // Use a smaller pool (optional), but your pool is fine. Keeping yours.
   var EMOJI_POOL = [
     "🍎","🍐","🍊","🍋","🍌","🍉","🍇","🍓","🫐","🍒","🍑","🍍","🥝","🥭","🍏",
     "🥕","🌽","🥦","🥒","🫑","🍆","🥬","🧄","🧅","🥔","🍠","🫘"
@@ -151,7 +151,6 @@ export function init(container, api) {
   var hintEl = container.querySelector("#dsstHint");
   var subHintEl = container.querySelector("#dsstSubHint");
 
-  var kbd = container.querySelector("#dsstKbd");
   var digitButtons = Array.from(container.querySelectorAll("[data-digit]"));
 
   var results = container.querySelector("#dsstResults");
@@ -162,10 +161,9 @@ export function init(container, api) {
 
   // ---------- State ----------
   var running = false;
-  var phase = "idle"; // idle | practice | test | done
+  var phase = "idle"; // idle | test | done
 
-  var key = null; // { digitToEmoji: {1..9}, emojiToDigit: {emoji: digit} }
-  var practiceDone = 0;
+  var key = null; // { digitToEmoji: {1..5}, emojiToDigit: {emoji: digit} }
 
   var tStart = null;
   var tEnd = null;
@@ -208,7 +206,7 @@ export function init(container, api) {
     var em = shuffle(EMOJI_POOL).slice(0, KEY_SIZE);
     var digitToEmoji = {};
     var emojiToDigit = {};
-    for (var d = 1; d <= 9; d++) {
+    for (var d = 1; d <= KEY_SIZE; d++) {
       digitToEmoji[d] = em[d - 1];
       emojiToDigit[em[d - 1]] = d;
     }
@@ -218,7 +216,7 @@ export function init(container, api) {
 
   function renderKey() {
     keyEl.innerHTML = "";
-    for (var d = 1; d <= 9; d++) {
+    for (var d = 1; d <= KEY_SIZE; d++) {
       var card = document.createElement("div");
       card.className = "dsst-key-card";
       var e = document.createElement("div");
@@ -249,27 +247,21 @@ export function init(container, api) {
   }
 
   function nextItem() {
-    var d = 1 + Math.floor(Math.random() * 9);
+    var d = 1 + Math.floor(Math.random() * KEY_SIZE);
     currentDigit = d;
     currentEmoji = key.digitToEmoji[d];
     itemShownAt = now();
 
     symbolEl.textContent = currentEmoji;
 
-    if (phase === "practice") {
-      phasePill.textContent = "Practice";
-      hintEl.textContent = "Practice";
-      subHintEl.textContent = "Accuracy first. This part is not counted.";
-    } else {
-      phasePill.textContent = "Test";
-      hintEl.textContent = "Test";
-      subHintEl.textContent = "Go as fast as you can, without guessing too much.";
-    }
+    phasePill.textContent = "Test";
+    hintEl.textContent = "Test";
+    subHintEl.textContent = "Go as fast as you can, without guessing too much.";
   }
 
-  function beginPractice() {
-    phase = "practice";
-    practiceDone = 0;
+  function beginTest() {
+    phase = "test";
+
     correct = 0;
     errors = 0;
     rts = [];
@@ -282,17 +274,10 @@ export function init(container, api) {
     keyHint.style.display = "";
 
     main.style.display = "block";
-    progressWrap.style.display = "none";
+    progressWrap.style.display = "block";
     timePill.textContent = "2:00";
 
     lockResponses(false);
-    nextItem();
-  }
-
-  function beginTest() {
-    phase = "test";
-    phasePill.textContent = "Test";
-    progressWrap.style.display = "block";
 
     tStart = now();
     tEnd = tStart + DURATION_MS;
@@ -312,7 +297,7 @@ export function init(container, api) {
 
   function start() {
     if (!key) pickKey();
-    beginPractice();
+    beginTest(); // no practice
   }
 
   function handleAnswer(answerDigit, source) {
@@ -333,22 +318,6 @@ export function init(container, api) {
       source: source || "button"
     });
 
-    if (phase === "practice") {
-      practiceDone += 1;
-      if (practiceDone >= PRACTICE_N) {
-        lockResponses(true);
-        subHintEl.textContent = "Practice complete. Starting the timed test…";
-        setTimeout(function(){
-          lockResponses(false);
-          beginTest();
-        }, 450);
-        return;
-      }
-      nextItem();
-      return;
-    }
-
-    // Timed test scoring
     if (isCorrect) correct += 1;
     else errors += 1;
     if (rt != null) rts.push(rt);
@@ -376,7 +345,7 @@ export function init(container, api) {
     var raw = {
       test: "DSST",
       durationMs: DURATION_MS,
-      practiceN: PRACTICE_N,
+      keySize: KEY_SIZE,
       correct: correct,
       errors: errors,
       attempted: attempted,
@@ -394,8 +363,8 @@ export function init(container, api) {
       medianRT_ms: (med != null) ? Math.round(med) : null
     }, {
       duration_s: Math.round(DURATION_MS / 1000),
-      practice_n: PRACTICE_N,
-      version: "2.0",
+      keySize: KEY_SIZE,
+      version: "2.1",
       raw: raw
     });
 
@@ -409,7 +378,7 @@ export function init(container, api) {
       { val: ipm.toFixed(1), unit: "", label: "Items / min" },
       { val: (med != null ? Math.round(med) : "–"), unit: "ms", label: "Median speed" },
       { val: 2, unit: "min", label: "Duration" },
-      { val: PRACTICE_N, unit: "", label: "Practice items" }
+      { val: KEY_SIZE, unit: "", label: "Symbols" }
     ];
 
     var html = "";
@@ -427,7 +396,7 @@ export function init(container, api) {
   // ---------- Events ----------
   function onKeyDown(e) {
     if (!running) return;
-    if (e.key >= "1" && e.key <= "9") {
+    if (e.key >= "1" && e.key <= "5") {
       handleAnswer(parseInt(e.key, 10), "key");
     }
   }

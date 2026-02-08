@@ -13,16 +13,37 @@ export function init(container, api) {
 
   container.innerHTML = `
     <style>
-      .wb-wrap{ max-width:720px; margin:0 auto; padding:16px; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif; -webkit-font-smoothing:antialiased; }
+     .wb-wrap{
+  max-width:720px;
+  margin:0 auto;
+  padding:16px;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
+  -webkit-font-smoothing:antialiased;
 
-      .wb-stage{
-        position:relative; width:100%; height:420px;
-        border-radius:20px; background:#F5F3F0; border:1px solid #E8E4DF;
-        overflow:hidden;
-        display:flex; flex-direction:column;
-      }
-      @media(max-width:600px){ .wb-stage{ height:360px; border-radius:16px; } }
+  height:100%;
+} 
 
+.wb-stage{
+  position:relative;
+  width:100%;
+  height:100%;
+  min-height:420px;
+
+  border-radius:20px;
+  background:#F5F3F0;
+  border:1px solid #E8E4DF;
+  overflow:hidden;
+
+  display:flex;
+  flex-direction:column;
+}
+
+@media(max-width:600px){
+  .wb-stage{
+    min-height:360px;
+    border-radius:16px;
+  }
+}
       /* Top pills (minimal) */
       .wb-topbar{
         display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap;
@@ -50,25 +71,34 @@ export function init(container, api) {
       }
 
       /* Center area */
-      .wb-center{
-        flex:1;
-        display:flex; flex-direction:column;
-        align-items:center; justify-content:center;
-        text-align:center;
-        padding:14px;
-        user-select:none;
-      }
+.wb-center{
+  flex:1 1 auto;
+  min-height:0;                 /* important */
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:14px;
+  user-select:none;
+}
 
-      .wb-display{
-        width:100%;
-        max-width:560px;
-        min-height:150px;
-        border-radius:18px;
-        background:linear-gradient(180deg, rgba(255,255,255,0.9), rgba(248,247,245,0.9));
-        border:1px solid #E8E4DF;
-        display:flex; align-items:center; justify-content:center;
-        overflow:hidden;
-      }
+.wb-display{
+  width:100%;
+  max-width:560px;
+
+  flex: 1 1 auto;      /* lets it grow */
+  min-height:150px;
+  max-height: 420px;   /* keeps it reasonable on tall screens */
+
+  border-radius:18px;
+  background:linear-gradient(180deg, rgba(255,255,255,0.9), rgba(248,247,245,0.9));
+  border:1px solid #E8E4DF;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+}
 
       .wb-big{
         font-size:72px; font-weight:900; line-height:1;

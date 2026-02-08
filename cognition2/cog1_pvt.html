@@ -2,27 +2,22 @@
 
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Reaction Time</title>
-  <link rel="stylesheet" href="../style.css" />
+  <link rel="stylesheet" href="../style.css">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html, body {
       height: 100%;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
       background: #FAF8F5;
       color: #2D2A26;
-      -webkit-font-smoothing: antialiased;
     }
     .page-wrap {
       max-width: 780px;
       margin: 0 auto;
       padding: 20px 16px;
-    }
-    #testContainer {
-      /* module renders here */
     }
   </style>
 </head>
@@ -30,25 +25,16 @@
   <div class="page-wrap">
     <div id="testContainer"></div>
   </div>
-
   <script type="module">
-    import { init } from './cog1_pvt.js';
-
-    // Minimal API shim for standalone use
-    const api = {
-      saveResult: (testId, metrics, extra) => {
-        console.log('Result saved:', testId, metrics);
-      },
-      next: () => {
-        alert('Test complete! In the full battery, this would go to the next test.');
-      },
-      prev: () => {},
-      getAllResults: () => ({}),
-      clearAllResults: () => {}
+    import { init } from "./cog1_pvt.js";
+    var api = {
+      saveResult: function(id, m, e) { console.log("Result saved:", id, m); },
+      next: function() { alert("Test complete!"); },
+      prev: function() {},
+      getAllResults: function() { return {}; },
+      clearAllResults: function() {}
     };
-
-    init(document.getElementById('testContainer'), api);
+    init(document.getElementById("testContainer"), api);
   </script>
-
 </body>
 </html>

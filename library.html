@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Buchinger Science — Research Library</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .library-wrap { max-width:1100px; margin:0 auto; padding:2.5rem 1.5rem 4rem; }
+    .library-head { display:flex; align-items:flex-end; justify-content:space-between; gap:12px; flex-wrap:wrap; }
+    .library-head h2 { margin:0; font-size:1.4rem; }
+    .library-meta { font-size:.82rem; color:var(--muted); }
+    .lib-panel { margin-top:16px; border-radius:var(--radius-lg); padding:20px; border:1px solid var(--border-soft); background:var(--surface); box-shadow:var(--shadow-soft); }
+    .lib-controls { display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+    .lib-search { flex:1 1 280px; display:flex; align-items:center; gap:10px; border:1px solid var(--border); border-radius:var(--radius); padding:10px 14px; background:var(--panel); transition:border-color .2s ease; }
+    .lib-search:focus-within { border-color:var(--accent); box-shadow:0 0 0 3px var(--accent-glow); }
+    .lib-search label { font-size:.82rem; color:var(--muted); white-space:nowrap; }
+    .lib-search input { width:100%; border:0; outline:0; background:transparent; color:var(--text); font-size:.9rem; font-family:var(--font-body); }
+    .lib-select, .lib-btn { border:1px solid var(--border); border-radius:var(--radius); padding:10px 14px; background:var(--panel); color:var(--text); font-size:.88rem; font-family:var(--font-body); transition:all .2s ease; cursor:pointer; }
+    .lib-btn:hover, .lib-select:hover { border-color:var(--accent); }
+    .lib-select:focus, .lib-btn:focus { outline:none; border-color:var(--accent); box-shadow:0 0 0 3px var(--accent-glow); }
+    .topic-pills { display:flex; gap:8px; flex-wrap:wrap; margin-top:14px; }
+    .pill { border:1px solid var(--border); background:var(--panel); padding:7px 12px; border-radius:var(--radius-pill); font-size:.8rem; color:var(--muted); cursor:pointer; user-select:none; transition:all .2s ease; }
+    .pill:hover { border-color:var(--accent); color:var(--text); }
+    .pill.on { border-color:var(--accent); background:var(--accent-glow); color:var(--heading); }
+    .results-grid { margin-top:16px; display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
+    @media(max-width:980px){.results-grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:620px){.results-grid{grid-template-columns:1fr}}
+    .study-card { border:1px solid var(--border-soft); background:var(--surface); border-radius:var(--radius-lg); padding:16px; transition:transform .2s ease, background .2s ease, border-color .2s ease, box-shadow .2s ease; }
+    .study-card:hover { transform:translateY(-3px); background:var(--panel); border-color:rgba(91,194,231,.3); box-shadow:var(--shadow); }
+    .study-top { display:flex; align-items:flex-start; justify-content:space-between; gap:10px; }
+    .badge-row { display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+    .status-btn { display:inline-flex; align-items:center; gap:6px; border:1px solid var(--border); border-radius:var(--radius-pill); padding:5px 10px; background:var(--panel); color:var(--text); font-size:.72rem; font-family:var(--font-body); text-decoration:none; line-height:1; cursor:pointer; user-select:none; transition:all .2s ease; }
+    .status-btn:hover { border-color:var(--accent); }
+    .status-btn.pub { border-color:rgba(72,187,120,.4); background:rgba(72,187,120,.06); }
+    .status-btn.pre { border-color:rgba(236,201,75,.5); background:rgba(236,201,75,.06); }
+    .status-btn.disabled { opacity:.5; cursor:not-allowed; pointer-events:none; }
+    .badge { font-size:.72rem; padding:5px 9px; border-radius:var(--radius-pill); border:1px solid var(--border); color:var(--muted); white-space:nowrap; }
+    .btn-mini { display:inline-flex; align-items:center; gap:6px; border:1px solid var(--border); border-radius:var(--radius-pill); padding:5px 10px; background:var(--panel); color:var(--text); font-size:.72rem; cursor:pointer; text-decoration:none; line-height:1; transition:all .2s ease; }
+    .btn-mini:hover { border-color:var(--accent); text-decoration:none; }
+    .yt-dot { width:8px; height:8px; border-radius:50%; background:rgba(255,80,80,.9); display:inline-block; }
+    .study-title { margin:12px 0 0; font-size:.92rem; line-height:1.35; font-weight:500; color:var(--heading); }
+    details.findings { margin-top:12px; }
+    details.findings summary { cursor:pointer; font-size:.82rem; color:var(--muted); transition:color .2s ease; }
+    details.findings summary:hover { color:var(--accent-dark); }
+    details.findings ul { margin:10px 0 0; padding-left:18px; font-size:.84rem; color:var(--text); line-height:1.65; }
+    details.findings li { margin:6px 0; }
+    .links-row { margin-top:10px; display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+    .study-link { font-size:.84rem; text-decoration:none; color:var(--accent-dark); }
+    .study-link:hover { text-decoration:underline; }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="logo">Buchinger Science</div>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+      <span></span><span></span><span></span>
+    </button>
+    <ul id="navMenu">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="https://dash.buchinger-science.com">Metabolic Explorer</a></li>
+      <li><a href="https://staging.buchinger-wilhelmi.com">Weight Loss Estimator</a></li>
+      <li><a href="library.html">Research Library</a></li>
+      <li><a href="newsletter.html">Newsletters</a></li>
+      <li><a href="videos.html">Amplius Videos</a></li>
+      <li><a href="fastingcoach.html">Fasting Coach</a></li>
+      <li><a href="contact.html">About Us</a></li>
+    </ul>
+  </nav>
+
+  <section class="hero" style="background-image: url('IMG_1198.jpeg');">
+    <div class="content">
+      <h1>Research Library</h1>
+      <p>Peer-reviewed publications, clinical studies and scientific reviews produced by the Buchinger Wilhelmi research teams.</p>
+    </div>
+  </section>
+
+  <section class="library-wrap reveal" id="research-library">
+    <div class="library-head">
+      <h2>Explore</h2>
+      <div class="library-meta" id="resultCount">&mdash;</div>
+    </div>
+
+    <div class="lib-panel">
+      <div class="lib-controls">
+        <div class="lib-search" title="Search across titles, keywords and key findings">
+          <label for="q">Search</label>
+          <input id="q" type="text" placeholder="microbiome, LDL, inflammation, stress, autophagy…" />
+        </div>
+        <select class="lib-select" id="sort" aria-label="Sort">
+          <option value="new">Newest first</option>
+          <option value="old">Oldest first</option>
+          <option value="az">Title A &rarr; Z</option>
+          <option value="bul">Most findings</option>
+        </select>
+        <button class="lib-btn" id="btnClear" type="button">Clear</button>
+      </div>
+      <div class="topic-pills" id="topicPills"></div>
+      <div class="results-grid" id="grid"></div>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2026 Buchinger Science. All rights reserved.</p>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    const $ = (sel) => document.querySelector(sel);
+
+    function esc(s) {
+      return (s ?? "").toString()
+        .replaceAll("&","&amp;").replaceAll("<","&lt;")
+        .replaceAll(">","&gt;").replaceAll('"',"&quot;");
+    }
+
+    function sortStudies(list, mode) {
+      const a = [...list];
+      if (mode === "new") a.sort((x,y) => (y.year||0) - (x.year||0));
+      if (mode === "old") a.sort((x,y) => (x.year||0) - (y.year||0));
+      if (mode === "az")  a.sort((x,y) => (x.title||"").localeCompare(y.title||""));
+      if (mode === "bul") a.sort((x,y) => (y.bullets?.length||0) - (x.bullets?.length||0));
+      return a;
+    }
+
+    fetch("library.json")
+      .then(r => r.json())
+      .then(DB => {
+        const selectedTopics = new Set();
+        const pillsHost = $("#topicPills");
+
+        DB.topics.forEach(t => {
+          const el = document.createElement("div");
+          el.className = "pill";
+          el.textContent = t.label;
+          el.addEventListener("click", () => {
+            if (selectedTopics.has(t.key)) { selectedTopics.delete(t.key); el.classList.remove("on"); }
+            else { selectedTopics.add(t.key); el.classList.add("on"); }
+            render();
+          });
+          pillsHost.appendChild(el);
+        });
+
+        function matches(study, query) {
+          if (!query) return true;
+          const q = query.toLowerCase();
+          const hay = (study.title + " " + (study.bullets||[]).join(" ") + " " + (study.topics||[]).join(" ")).toLowerCase();
+          return hay.includes(q);
+        }
+
+        function topicOk(study) {
+          if (selectedTopics.size === 0) return true;
+          const set = new Set(study.topics || []);
+          for (const t of selectedTopics) { if (!set.has(t)) return false; }
+          return true;
+        }
+
+        function render() {
+          const query = $("#q").value.trim();
+          const mode  = $("#sort").value;
+          const filtered = DB.studies.filter(s => matches(s, query) && topicOk(s));
+          const sorted   = sortStudies(filtered, mode);
+          $("#resultCount").textContent = sorted.length + " / " + DB.studies.length + " studies";
+
+          const grid = $("#grid");
+          grid.innerHTML = "";
+
+          sorted.forEach((s, i) => {
+            const card = document.createElement("div");
+            card.className = "study-card";
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(14px)';
+            card.style.transition = 'opacity .35s ease ' + (i * 0.025) + 's, transform .35s ease ' + (i * 0.025) + 's';
+
+            const statusClass = s.published ? "status-btn pub" : "status-btn pre";
+            const statusText  = s.published ? "Published" : "Preprint";
+            const statusBtn = s.link
+              ? '<a class="' + statusClass + '" href="' + esc(s.link) + '" target="_blank" rel="noopener">' + statusText + ' &#8599;</a>'
+              : '<span class="' + statusClass + ' disabled" aria-disabled="true">' + statusText + '</span>';
+
+            const bullets = (s.bullets || []).map(b => '<li>' + esc(b) + '</li>').join("");
+            const pubLink = s.link
+              ? '<a class="study-link" href="' + esc(s.link) + '" target="_blank" rel="noopener">View study &#8599;</a>'
+              : "";
+            const ytBtn = s.youtube
+              ? '<a class="btn-mini" href="' + esc(s.youtube) + '" target="_blank" rel="noopener" title="Watch the short video"><span class="yt-dot"></span>YouTube</a>'
+              : "";
+
+            card.innerHTML =
+              '<div class="study-top">' +
+                '<div class="badge-row">' + statusBtn + '<span class="badge">' + (s.year || "&mdash;") + '</span></div>' +
+                ytBtn +
+              '</div>' +
+              '<h3 class="study-title">' + esc(s.title) + '</h3>' +
+              '<details class="findings">' +
+                '<summary>Key findings (' + (s.bullets||[]).length + ')</summary>' +
+                '<ul>' + bullets + '</ul>' +
+                '<div class="links-row">' + pubLink + '</div>' +
+              '</details>';
+
+            grid.appendChild(card);
+            requestAnimationFrame(() => {
+              requestAnimationFrame(() => {
+                card.style.opacity = '1';
+                card.style.transform = 'translateY(0)';
+              });
+            });
+          });
+        }
+
+        $("#q").addEventListener("input", render);
+        $("#sort").addEventListener("change", render);
+        $("#btnClear").addEventListener("click", () => {
+          $("#q").value = "";
+          selectedTopics.clear();
+          document.querySelectorAll(".pill").forEach(p => p.classList.remove("on"));
+          $("#sort").value = "new";
+          render();
+        });
+        render();
+      })
+      .catch(error => { console.error("Error loading research library:", error); });
+  </script>
+</body>
+</html>

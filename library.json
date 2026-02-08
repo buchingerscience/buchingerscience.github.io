@@ -1,0 +1,704 @@
+{
+  "topics": [
+  ],
+"studies": [
+    {
+      "id": -2,
+      "title": "Weight Loss Drugs Are Not Enough: Patients Need Rehabilitation",
+      "year": 2025,
+      "topics": [
+        "weight loss",
+        "GLP-1"
+      ],
+      "bullets": [
+        "Metabolic syndrome leading to type 2 diabetes has become one of the defining health challenges of our time.", 
+"Glucagon-like peptide-1 (GLP-1) receptor agonists represent a major pharmacological advance, inducing marked weight loss and improved glycemic control. However, their long-term effectiveness remains limited by poor adherence, high cost, and relapse after discontinuation. Pharmacotherapy alone addresses symptoms, not causes.", 
+"Sustainable recovery from metabolic disorders therefore requires a rehabilitative approach. This includes structured behavioral change, nutritional adaptation, and metabolic re-education.", 
+"Therapeutic fasting provides a model for such rehabilitation, promoting rapid metabolic improvements through energy deficit, hepatic lipid mobilization, and enhanced insulin sensitivity.", 
+"Emerging evidences suggest that repeated fasting interventions can induce durable remission of type 2 diabetes.", 
+"Beyond individual biology, true sustainability demands that medicine itself reduce its ecological footprint, as pharmaceuticals and other xenobiotics increasingly contribute to global pollution and greenhouse gas emissions.", 
+"Integrating pharmacological and non-pharmacological strategies offers a pathway toward a medicine of recovery rather than dependency."
+      ],
+      "link": "https://www.sciltp.com/journals/ijet/articles/2601002763",
+      "youtube": null,
+      "published": true
+    },
+        {
+      "id": -1,
+      "title": "Remodelling of the gut virome after long-term fasting",
+      "year": 2025,
+      "topics": [
+        "gut microbiome",
+        "virome"
+      ],
+      "bullets": [
+        "We analysed stool samples from 89 participants undergoing a ~10-day medically supervised fast at Buchinger Wilhelmi.",
+        "Gut samples were collected before fasting, at the end of the fast, and again one and three months later.",
+        "Using advanced genetic methods, we analysed not only gut bacteria, but also the gut virome.",
+        "We found that fasting strongly reshapes the gut virome. Viral alpha diversity decreases transiently at the end of fasting and largely recovers during follow-up.",
+        "The virome shifts toward a more virulent (lytic) lifestyle signature, driven mainly by a reduction in temperate phage richness, consistent with prophage induction under nutritional stress.",
+        "Fasting alters virome composition without global collapse, indicating adaptive rather than pathological remodelling.",
+        "121 viral species change significantly at the end of fasting; 49 phages show reproducible, consensus responses across three independent fasting cohorts.",
+        "Many fasting-responsive phages show concordant changes with their predicted bacterial hosts, supporting tight phage–host coupling.",
+        "Phages linked to Faecalibacterium and Roseburia (key butyrate and health-associated taxa) are prominently involved.",
+        "Cross-domain virus–bacteria networks become denser and more cohesive at the end of fasting and remain reorganised for up to three months.",
+        "Network hubs during and after fasting include SCFA- and IPA-producing bacteria and their phages, suggesting stabilising ecological roles.",
+        "Fasting-associated virome patterns are distinct from those seen in inflammatory or metabolic disease states.",
+        "Part of this reorganisation persisted for up to three months after fasting.",
+        "Clinical implications remain uncertain, as these observations sit at the frontier of current microbiome and virome research. What is clear, however, is that long-term fasting triggers a coordinated, structured, and largely reversible reorganisation of both bacterial and viral communities. By inducing a strong yet controlled ecological perturbation, fasting emerges as a powerful human model to study microbial resilience, phage–host coupling, and cross-domain interactions, offering rare insight into the ecological rules governing the gut microbiome in vivo."
+      ],
+      "link": "https://www.medrxiv.org/content/10.1101/2025.12.19.25342476v1",
+      "youtube": null,
+      "published": false
+    },
+{
+      "id": 0,
+      "title": "Revisiting the (anti)inflammatory effects of prolonged fasting: the importance of baseline-dependent responses",
+      "year": 2025,
+      "topics": [
+        "inflammation"
+      ],
+      "bullets": [
+        "Inflammation has been one of the most debated topics in fasting research, with some studies reporting rises in acute-phase markers such as CRP, while others find reductions in chronic low-grade inflammation.",
+        "We analysed a large cohort of 1,422 individuals undergoing Buchinger Wilhelmi fasting to resolve these contradictions.",
+        "Participants with elevated baseline CRP showed reductions, indicating an anti-inflammatory effect. In contrast, those with low baseline CRP often experienced a transient increase.",
+        "Our analysis suggests fasting elicits a biphasic immune response: an initial adaptive stress reaction, followed by longer-term recalibration of the immune system."
+      ],
+      "link": "https://www.frontiersin.org/articles/10.3389/fcdhc.2025.1572245/full",
+      "youtube": null,
+      "published": true
+    },
+    {
+      "id": 1,
+      "title": "Case Report: Sustained weight loss and glycemic control from repeated long-term fasting in type 2 diabetes",
+      "year": 2025,
+      "topics": [
+        "type 2 diabetes",
+        "case report"
+      ],
+      "bullets": [
+        "A 57-year-old man with type 2 diabetes mellitus (T2DM) presented with a history of suboptimal glycemic control despite conventional treatment regimens.",
+        "Through repeated long-term fasting, the patient achieved sustained weight loss and improved blood sugar control.",
+        "Significant reductions in his fasting blood glucose levels were observed, necessitating adjustments to his antidiabetic medication dosages.",
+        "He experienced enhanced insulin sensitivity, as evidenced by decreased HbA1c levels and a reduced reliance on hypoglycemic agents.",
+        "Additionally, post-fasting evaluations showed improvements in inflammation markers and a reduction in fatty liver disease (steatosis hepatis)."
+      ],
+      "link": "https://www.frontiersin.org/journals/clinical-diabetes-and-healthcare/articles/10.3389/fcdhc.2025.1572245/full",
+      "youtube": "https://youtu.be/DJ_-p2a0kxk?si=ueFP8OpHjIqDoTqe",
+      "published": true
+    },
+    {
+      "id": 2,
+      "title": "Long-term fasting-induced parasympathetic and sympathetic autonomic nervous system modulation in a subgroup of the GENESIS study",
+      "year": 2025,
+      "topics": [
+        "cardiovascular health",
+        "mental health",
+        "stress"
+      ],
+      "bullets": [
+        "Parasympathetic and sympathetic nervous systems are known to be modulated during long-term fasting, but temporal dynamics and persistence post-fasting are unclear.",
+        "We analyzed daily heart rate variability (HRV) as a reflect of autonomic nervous system balance in 16 participants from the GENESIS trial, following Buchinger fasting guidelines (12 days of ~75–250 kcal/day).",
+        "HRV was assessed via Polar H10 sensors daily 7 days before, during and 7 days post-fasting.",
+        "Fasting led to an increase in parasympathetic activity (p<0.001), as indicated by higher RMSSD values (p<0.001), alongside a reduction in sympathetic activity (p<0.001).",
+        "Day-by-day analysis showed an initial rise in sympathetic activation during the early fasting phase (p<0.05). Mental well-being improved significantly (p<0.05), while sleep quality remained unchanged.",
+        "This shift in the nervous system towards parasympathetic activity is known to enhance interoception - the awareness of internal bodily signals - which is linked to improved emotional regulation and greater mindfulness",
+        "These findings highlight fasting's potential for autonomic regulation and stress resilience, with implications for clinical applications in stress-related disorders."
+      ],
+      "link": "https://doi.org/10.1038/s41366-025-01843-0",
+      "youtube": null,
+      "published": true
+    },
+    {
+      "id": 3,
+      "title": "Impact of prolonged fasting on skeletal muscle: delving into the relationship between structure, energy metabolism, and function using 31P/1H MRS and MRI",
+      "year": 2025,
+      "topics": [
+        "muscle"
+      ],
+      "bullets": [
+        "Fasting is a promising tool for public health, but concerns about muscle loss prevent its acceptability in mainstream medical practice, especially in older persons.",
+        "This study explored the impact of long-term fasting (12 days, 250kcal/day) on muscle structure, metabolism, and performance.",
+        "Average loss of weight and skeletal muscle volumes was 5.9kg (7.4%) and 542ml (5.4%), respectively. This closely aligns with glycogen depletion (1-2%) and bound water loss (3-4%), suggesting that the actual protein loss in skeletal muscle related to neoglucogenesis is likely minimal.",
+        "Fasting did not induce structural or inflammatory changes.",
+        "The role of sex and age was evaluated. Skeletal muscle metabolism was maintained without any deleterious effects even in older subjects.",
+        "Muscle strength evaluated by maximum voluntary contraction (MVC) measures was stable over time, and even tended to increase after 12 days of fasting compared to baseline, with increases of +4.6% (aged subjects), +2.4% (young subjects), +4.2% (males) and + 1.6% (females) albeit this was non-statistically significant.",
+        "Maximal oxygen uptake (VO2max) was remarkably stable over time without any decrease at D+12 compared to baseline.",
+        "We also documented a 10% increase of the first ventilatory threshold (VT1). This translates to a better ability to achieve daily tasks, including walking, that are for their majority performed below submaximal exercise level, and thus limit the impact on fatigue.",
+        "MRI/MRS revealed fat redistribution among tissues, with subcutaneous fat decrease and total fat fraction increase in muscle.",
+        "We observed an increase in intramyocellular lipids during fasting, likely to be an adaptive phenomenon for a better availability of fatty acids as major energetic substrate in the mitochondrial respiratory chain.",
+        "In both subcutaneous adipose tissue and bone marrow adipose tissue at the upper leg level, the proportions of polyunsaturated fat (PUFA) and monounsaturated fat (MUFA) decreased as they were mobilized to produce energy during fasting.",
+        "Prolonged fasting led to conserving muscle taurine and choline content, which are important metabolites to preserve muscle cell homeostasis.",
+        "Significant differences in pH, a decrease, explained by the presence of ketone bodies, not induced by the muscular exercice. The exercice is not creating an acidosis itself.",
+        "Females improved their mitochondrial function at D+12, surpassing males, expressing better fat oxidation capabilities.",
+        "Recovery parameter showing oxygen consumption by mitochondria (thoPCR) stable and shows a good recovery at the different timepoints.",
+        "Overall, mitochondrial oxidative capacity remained stable over time, but with sex differences related to with a faster recovery in females, especially at end-fasting.",
+        "Long-term fasting did not alter muscle metabolism or performance, nor induced structural or inflammatory changes. This suggested that human muscles, like those of wild animals, were evolutionary adapted by seasonal food shortages to sustain long-term fasting."
+      ],
+      "link": "https://doi.org/10.1002/jcsm.13773",
+      "youtube": "https://www.youtube.com/watch?v=30YWcUGemSU",
+      "published": true
+    },
+    {
+      "id": 4,
+      "title": "Long-term fasting induces a remodelling of fatty acid composition in erythrocyte membranes",
+      "year": 2025,
+      "topics": [
+        "fat",
+        "omega 3",
+        "structural fat",
+        "cardiovascular health"
+      ],
+      "bullets": [
+        "Traditionally considered mainly in its role as fuel source during fasting, we focused in thisnew study on the structural role of fats particularly in the cell membrane.",
+        "We analysed the fatty acid composition in the membranes of red blood cells (erythrocyte) during 12.6 ± 3.5 days of a minimally modified long-term fasting programme (Buchinger Wilhelmi).",
+        "Changes in fatty acid composition in erythrocyte membranes were observed during this fasting period and 18 of 26 fatty acids showed significant changes.",
+        "Fasting resulted in an increase in the Omega-3 Index, a marker associated with cardiovascular and overall health.",
+        "Fasting caused an increase of palmitic acid, which long-term implications should be monitored",
+        "Fasting does not compromise blood levels of essential fatty acids, further affirming the safety and nutritional adequacy of supervised long-term fasting.",
+        "Trans fatty acids decreased or remained unchanged. Since elevated levels of industrial trans-FA are associated with cardiovascular disease a decrease in their levels seems beneficial.",
+        "Changes after 14 days of fasting are more pronounced than after 7 days of fasting",
+        "Changes are reversed after a month",
+        "This study opens up exciting avenues for future research, particularly into diseases where structural lipids are impaired. Conditions such as multiple sclerosis, where myelin—the fatty sheath around nerves—is damaged, could potentially benefit from a deeper understanding of fasting’s effects on structural fats."
+      ],
+      "link": "https://doi.org/10.1111/eci.14382",
+      "youtube": null,
+      "published": true
+    },
+  {
+      "id": 5,
+      "title": "Health benefits of a five-day at-home modified fasting program: a randomised controlled trial",
+      "year": 2025,
+      "topics": [
+        "fasting",
+        "fasting box",
+        "safety",
+        "cardiovascular health"
+      ],
+      "bullets": [
+        "We studied a 5-day hypocaloric (~600 kcal/day) and ketogenic, modified fasting program (MFP) for at-home interventions. ",
+        "MFP participants (n=32) experienced weight loss (-3.1 ± 1.1 kg) persisting one month after the intervention. ",
+        "The MFP induced significant, but transient reductions, in systolic (-6.4 ± 11.5 mmHg) and diastolic (-4.4 ± 7.7 mmHg) blood pressure, glucose levels, HbA1c and coagulation factors. ",
+        "The MFP led to greater reductions in BMI (p=0.006), diastolic pressure (p = 0.009), cholesterol (p = 0.02), and LDL (p = 0.02) in individuals at risk of cardiometabolic diseases compared to healthy individuals. ",
+        "Total cholesterol, LDL-C and HDL-C levels continued decreasing during food reintroduction. ",
+        "The MFP also increased emotional and physical well-being. ",
+        "There was no muscle weakness.",
+        "Blood metabolomics revealed a significant decrease in chronic inflammation markers. ",
+        "Shotgun metagenomics of the gut microbiome showed a decrease in families metabolising dietary fibre substrates and an increase in families metabolising host-derived glycan substrates.",
+        "Comparing MFP effects with a previous cohort's 5-day prolonged fasting showed similar metabolic changes.",
+        "While individuals with higher resting energy expenditure  lose more weight due to a greater negative calorie balance, the 600 kcal per day provided in this program is able to produce similar metabolic benefits in people with lower resting energy expenditure."
+      ],
+      "link": "https://www.medrxiv.org/content/10.1101/2024.11.01.24316348v1",
+      "youtube": null,
+      "published": false
+    },
+    {
+      "id": 6,
+      "title": "Impact of long-term fasting on breath volatile sulphur compounds, inflammatory markers and saliva microbiota composition",
+      "year": 2024,
+      "topics": [
+        "oral health",
+        "microbiota",
+        "perioontitis"
+      ],
+      "bullets": [
+        "For decades, we have regularly observed that certain individuals who fast develop noticeably bad breath. Conversely, we have also noted that inflammation of the gums tends to decrease during fasting.",
+        "In 2021, Buchinger Wilhelmi clinics hosted a team of dentists for two months in their scientific department. The study involved 36 patients undergoing a 10±3-day fasting period and utilized advanced techniques including gas chromatography for breath analysis and next-generation sequencing for microbiome profiling",
+        "The study confirmed that fasting decreases inflammation in the gums, suggesting it could be a preventive measure against periodontitis, a severe gum disease leading to loss of teeth.",
+        "The study clarifies that the so-called “bad breath” affecting some people during fasting is due to sulfurous compounds from bacterial fermentation, likely originating in the intestines, rather than from ketone bodies as sometimes suggested.",
+        "Saliva microbiota analysis showed a significant change in microbial composition, including a decrease in bacteria like Porphyromonas, known to cause oral diseases. Some changes in the oral microbiome persisted for up to three months after the fasting period, suggesting potential long-term effects.",
+        "Fasting may impact oral health by temporarily eliminating food intake and provide a restorative break for the oral cavity. The cessation of chewing, mechanical lesions on gingiva, and the absence of nutrients in saliva, might offer the gingiva a chance to recover, similar to the digestive rest that promotes intestinal regeneration during fasting."
+      ],
+      "link": "https://www.quintessence-publishing.com/deu/en/article/5795653",
+      "youtube": null,
+      "published": true
+    },
+      {
+      "id": 7,
+      "title": "Long-term fasting remodels gut microbial metabolism and host metabolism",
+      "year": 2024,
+      "topics": [
+        "fasting",
+        "gut microbiota",
+        "gut health"
+      ],
+      "bullets": [
+        "Long-term fasting has become a promising research subject for its potential of treating and preventing metabolic diseases. However, little is known about its impact on the functional capacity of the gut microbiome and the combined effect on the serum metabolome.",
+        "Here, we demonstrate extensive remodelling of the gut microbial ecosystem in humans (n=92) after an average of 9.8 days of fasting (∼250 kcal / day).",
+        "Fasting transiently affected the relative abundance of the majority of bacterial species (306 decreased and 210 increased out of 772).",
+        "Species changes could largely be explained by their genomic repertoire of carbohydrate-active enzymes (CAZymes), which were investigated here for the first time. Fasting induced extensive abundance changes in CAZyme families, depleting families with dietary fibre substrates and increasing families with host-derived glycan substrates.",
+        "Likewise, we observed extensive changes in the serum metabolome, with 382 out of 721 metabolites significantly affected (246 increased and 136 decreased). ",
+        "Together, our results provide an unprecedented view on the impact of long-term fasting on gut microbiome composition and function."
+      ],
+      "link": "https://www.biorxiv.org/content/10.1101/2024.04.19.590209v1",
+      "youtube": null,
+      "published": false
+    },
+    {
+      "id": 8,
+      "title": "Myths and Facts in the Debates on the Effects of Long-Term Fasting",
+      "year": 2024,
+      "topics": [
+        "fasting",
+        "longevity",
+        "inflammation",
+        "autophagy",
+        "type 2 diabetes",
+        "body composition"
+      ],
+      "bullets": [
+        "This manuscript unravels the myths and presents facts about the effects of long-term fasting on human health.",
+        "While many fear muscle loss and the dreaded “yo-yo effect” of weight regain, the evidence shows that fasting, when done correctly, preserves muscle function and can lead to sustainable weight management.",
+        "Far from draining energy, fasting can boost mental clarity. I explore how fasting improves metabolic health and can be used to prevent cardiovascular diseases, treat type 2 diabetes, and manage autoimmune disorders.",
+        "Altogether, fasting emerges as one of the most efficient non-pharmacological interventions for metabolic normalization. This is especially true for individuals with metabolic syndrome who do not incorporate the physiological fasting periods necessary to balance excessive energy intake, prevent visceral fat accumulation, and promote insulin sensitivity.",
+        "However, long-term fasting is not without its nuances—medical supervision is crucial, especially for those with existing health conditions.",
+        "This review also highlights fasting’s promising role in the medicine of the future as an integrative approach that complements pharmacological interventions."
+      ],
+      "link": "https://www.intechopen.com/chapters/85779",
+      "youtube": null,
+      "published": true
+    },
+    {
+      "id": 9,
+      "title": "Spermidine is essential for fasting-mediated autophagy and longevity",
+      "year": 2024,
+      "topics": [
+        "autophagy"
+      ],
+      "bullets": [
+        "Spermidine is vital for autophagy, a cellular process that degrades and recycles cellular components, which is crucial for longevity.",
+        "Fasting and caloric restriction significantly increase spermidine levels across multiple species, including humans, yeast, flies, and mice.",
+        "Blocking spermidine synthesis (genetically or pharmacologically) eliminates the lifespan, healthspan, cardioprotective, and anti-arthritic benefits of fasting.",
+        "Mass spectrometry-based quantification of spermidine, the primary biologically active polyamine and its precursors ornithine, putrescine, as well as its metabolite spermine revealed a uniform increase in polyamine content in the blood of patients from the Buchinger Wilhelmi Cohorts.",
+        "Spermidine enhances autophagy through the hypusination of eIF5A, a translation regulator.",
+        "Incorporating strategies to boost or maintain spermidine levels could be seen as a way to enhance the health benefits of our fasting regimens, especially to prolong the effects of fasting after the food reintroduction."
+      ],
+      "link": "https://doi.org/10.1038/s41556-024-01468-x",
+      "youtube": null,
+      "published": true
+    },
+    {
+      "id": 10,
+      "title": "HDL cholesterol efflux capacity and cholesterol loading capacity in long-term fasting: evidence from a prospective, single-arm interventional study in healthy individuals",
+      "year": 2024,
+      "topics": [
+        "cholesterol",
+        "lipoproteins",
+        "cardiovascular risks"
+      ],
+      "bullets": [
+        "Fasting has garnered interest for its potential to reduce atherosclerotic cardiovascular disease risk by normalising cholesterol levels.",
+        "However, it is not merely the quantity of cholesterol that is important in reducing the atherosclerotic cardiovascular burden, but also the efficacy with which these cholesterol particles (lipoproteins) perform their functions.",
+        "For instance, HDL, generally known as \"good cholesterol,\" is thought to help remove excess cholesterol from the arteries, a process known as cholesterol efflux.",
+        "The effects of fasting on the functionality of cholesterol particles have never been scientifically investigated.",
+        "An observational study was performed on 40 participants (both men and women, across different ages) who fasted for 12 days under medical supervision. They were followed up one month after they resumed eating.",
+        "Fasting led to a reduction in triglycerides, total cholesterol, LDL and HDL.",
+        "Fasting decreased the levels of very-low-density lipoprotein cholesterol (another type of \"bad cholesterol\") and a specific type of low-density lipoprotein cholesterol called LDL3-C. This remained lower even one month after fasting.",
+        "The ability to load cholesterol into cells decreased during fasting, but returned to normal levels one month after fasting.",
+        "HDL levels were increased one month after fasting, and even higher than at baseline.",
+        "HDL cholesterol efflux capacity decreased during fasting, but increased to levels higher than before the fasting one month after food reintroduction.",
+        "Long-term fasting not only maintains lipoprotein functionality, but also contributes to a beneficial change in the risk profile for developing heart diseases."
+      ],
+      "link": "https://www.atherosclerosis-journal.com/article/S0021-9150(24)01116-X/fulltext",
+      "youtube": "https://www.youtube.com/watch?v=ikbYU1abnxs&t=7s",
+      "published": true
+    },
+    {
+      "id": 11,
+      "title": "Long-Term Fasting-Induced Ketosis in 1610 Subjects: Metabolic Regulation and Safety",
+      "year": 2024,
+      "topics": [
+        "ketosis"
+      ],
+      "bullets": [
+        "We monitored 1610 participants undergoing the Buchinger Wilhelmi fasting program (4-21 days, 75-250 Kcal daily). We examined fasting ketonemia (blood ketones) and ketonuria (urine ketones), and compared these values to the metabolic improvements the patients experienced.",
+        "Long-term fasting induced ketosis safely from day 2 in most patients.",
+        "Minimal carbohydrate intake with juices and honey modulated but did not suppress ketosis.",
+        "We could predict if patients have weak or strong ketosis based on what the patients did in the clinic, the supplements they took, or their age, gender, physiological status.",
+        "Patients with the strongest ketosis had greater reductions in blood glucose, glycated hemoglobin, body weight, and waist circumference.",
+        "Patients with the strongest ketosis had a better antioxidant status than patients with low ketonuria via the increase in uric acid.",
+        "Assessing ketosis in urine with ketostix is a simple non-invasive measurement that can be employed to determine the metabolic switch to the fasting mode during long-term fasting.",
+        "Having an objective visual signal that the body undergoes a series of hormonal and metabolic adaptations during fasting can empower individuals to navigate through the fasting period with a sense of control and safety.",
+        "This supports the potential for personalized fasting strategies to help patients with the lowest metabolic flexibility by recommending physical activity or adjusting supplements"
+      ],
+      "link": "https://doi.org/10.3390/nu16121849",
+      "youtube": null,
+      "published": true
+    },
+    {
+      "id": 12,
+      "title": "World’s longest medically documented repeated fasting history in a 92 years old man who fasted 21 days yearly for 45 years: a case report",
+      "year": 2024,
+      "topics": [
+        "case report",
+        "epigenetic age",
+        "frailty",
+        "longevity"
+      ],
+      "bullets": [
+        "A 92 years old subject who fasted 3 weeks yearly for 45 years is in exceptional, mental and physical health.",
+        "This is the first scientific documentation on lifelong repeated cycles of long-term fasting",
+        "Body weight and clinical parameters showed cyclic variations, returning to normal ranges after food reintroduction",
+        "The biological age analysis indicated that the patient was 5.9 years younger than his chronological age",
+        "The patient seemed to have had protective effects from his yearly practice of long-term fasting.",
+        "This case corroborates the assumption that humans were evolutionary adapted by seasonal food shortage to fast periodically and have still conserve this ability."
+      ],
+      "link": "https://www.liebertpub.com/doi/10.1089/jicm.2023.0352",
+      "youtube": "https://youtu.be/OkbQqLMUoUk?si=uqyjF5ebXdmLiwBJ",
+      "published": true
+    },
+    {
+      "id": 13,
+      "title": "Improvements during long-term fasting in patients with long COVID: a case series and literature review",
+      "year": 2023,
+      "topics": [
+        "long covid"
+      ],
+      "bullets": [
+        "This case series and literature review aimed to explore the effects of long-term fasting on patients suffering from long COVID, a condition where individuals experience persistent symptoms after recovering from the acute phase of COVID-19",
+        "Perceived overall health is enhanced in patients with long-COVID",
+        "Fatigue, breathlessness as well as muscle and joint pains improved",
+        "Less frequent symptoms like cognitive impairment, smell and taste disorders also ameliorated",
+        "The literature review supported these findings by highlighting how fasting influences key biological processes, such as reducing inflammation, enhancing autophagy (cellular cleanup), and improving metabolic health. These mechanisms are particularly relevant to long COVID, where chronic inflammation and immune dysregulation are common.",
+        "The patients in the case series reported sustained improvements in their symptoms even after resuming a normal diet, suggesting that the benefits of fasting may extend beyond the fasting period itself.",
+        "Long-term fasting may offer significant improvements for patients suffering from long COVID by reducing inflammation and enhancing overall metabolic health."
+      ],
+      "link": "https://www.frontiersin.org/articles/10.3389/fnut.2023.1195270/full",
+      "youtube": "https://www.youtube.com/watch?v=NHXvhgJ1R1E&t=14s",
+      "published": true
+    },
+    {
+      "id": 14,
+      "title": "Remodelling of the intestinal ecosystem during caloric restriction and fasting",
+      "year": 2023,
+      "topics": [
+        "review of litterature",
+        "gut microbiome",
+        "intestinal remodelling"
+      ],
+      "bullets": [
+        "Remodelling of the gut and microbiome adaptations to fasting are evolutionarily conserved and comparable in humans and animals (including in hibernators).",
+        "During fasting, bacteria utilising host-derived substrates proliferate at the expense of those relying on dietary substrates.",
+        "Human studies have focused on faecal samples thereby neglecting intestinal tissue remodelling.",
+        "During fasting, the intestinal mucosa is renewed concomitantly to changes in immune function and a decreased inflammatory state.",
+        "Whether the gut microbiome can mediate systemic effects of fasting is still unclear.",
+        "Animal studies have limited relevance, since rodents with a high metabolic rate can rapidly enter starvation.",
+        "Knowledge gaps include how the microbiome is rebuild after food reintroduction and how overall caloric restriction and specific macronutrients contribute to this process."
+      ],
+      "link": "https://www.sciencedirect.com/science/article/pii/S0966842X23000574",
+      "youtube": null,
+      "published": true
+    },
+    {
+      "id": 15,
+      "title": "Leveraging the self-healing abilities of our body to promote healthy longevity",
+      "year": 2023,
+      "topics": [
+        "concept of healthy longevity"
+      ],
+      "bullets": [
+        "Our bodies have self-healing abilities which can be leveraged to promote healthy longevity",
+        "The self-healing abilities of our body can be stimulated by non-pharmacological interventions",
+        "Fasting is the most potent therapeutic, non-pharmacological intervention",
+        "Leveraging these abilities would save costs for taxpayers and national healthcare systems"
+      ],
+      "link": "https://doi.org/10.18332/pht/161464",
+      "youtube": "https://www.youtube.com/watch?v=rnj8VvPEeLc",
+      "published": true
+    },
+    {
+      "id": 16,
+      "title": "Long-term fasting: Multi-system adaptations in humans (GENESIS) study – a single-arm interventional trial",
+      "year": 2022,
+      "topics": [
+        "study protocol"
+      ],
+      "bullets": [
+        "The mechanisms behind fasting's effects on human metabolism are not fully understood, particularly the role of different tissues and organs.",
+        "This study aims to investigate the effects of long-term fasting (9 ± 3 days, 250 kcal/day) and food reintroduction on body composition, organ and tissue volume, lipid transport and storage, protein utilization, blood metabolites, and gut microbiome profiles in 100 human subjects.",
+        "The study will use state-of-the-art techniques, including magnetic resonance imaging (MRI) and spectroscopy, to examine changes in organ volume and function in a subset of 32 subjects who will fast for 12 days."
+      ],
+      "link": "https://www.frontiersin.org/articles/10.3389/fnut.2022.951000/full",
+      "youtube": null,
+      "published": true
+    },
+    {
+      "id": 17,
+      "title": "Fasting-mediated metabolic and toxicity reprogramming impacts circulating microRNA levels in humans",
+      "year": 2021,
+      "topics": [
+        "molecular biology",
+        "regeneration",
+        "autophagy"
+      ],
+      "bullets": [
+        "The study explored how long-term fasting affects the expression of specific microRNAs, which are small molecules that help regulate metabolism and energy balance.",
+        "After a 10-day fasting period, the levels of seven specific microRNAs were significantly altered.",
+        "These changes were opposite to what is typically seen in conditions like obesity, diabetes, liver disease, and cardiovascular disease.",
+        "Among the microRNAs studied, miR-146-5p, known for its anti-inflammatory effects, showed the strongest correlations with various biochemical and antioxidant parameters in the blood.",
+        "Analysis revealed that the fasting-associated microRNAs target important cellular pathways involved in metabolism, such as mTOR (which regulates cell growth and metabolism), FoxO (which is involved in stress resistance and longevity), autophagy (the process of cellular cleanup), and interactions with the extracellular matrix.",
+        "Long-term fasting engages homeostatic mechanisms associated with improved metabolic status and regenerative mechanisms"
+      ],
+      "link": "https://doi.org/10.1016/j.fct.2021.112187",
+      "youtube": null,
+      "published": true
+    },
+    {
+      "id": 18,
+      "title": "Long-term fasting improves lipoprotein-associated atherogenic risk in humans",
+      "year": 2021,
+      "topics": [
+        "cholesterol",
+        "lipoproteins",
+        "cardiovascular risks"
+      ],
+      "bullets": [
+        "The study aimed to explore how a 14-day long-term fasting (LF) impacts lipid and lipoprotein levels, specifically focusing on the detailed composition of lipoproteins, which are crucial in managing cholesterol and cardiovascular health.",
+        "Long-term fasting of 14 days (250 kcal/day) significantly improved plasma lipid profiles.",
+        "The largest changes were found after 14 fasting days.",
+        "Long-term fasting led to significant reductions in triglycerides (TG) and various types of low-density lipoprotein cholesterol (LDL-C), including VLDL (very low-density lipoprotein) and its cholesterol and triglyceride components. Specific subclasses of LDL (LDL1, LDL2, and LDL3) also saw significant decreases.",
+        "Apolipoprotein A1 decreased significantly whereas apolipoprotein B, lipoprotein(a), fibrinogen, and high-sensitivity C-reactive protein were unchanged.",
+        "The study suggests that long-term fasting can significantly improve the lipid profile by reducing levels of harmful cholesterol and triglycerides, and by modifying lipoprotein particles in a way that lowers the risk of cardiovascular disease."
+      ],
+      "link": "https://link.springer.com/article/10.1007/s00394-021-02578-0",
+      "youtube": "https://www.youtube.com/watch?v=gbrvO2rXvo8&t=38s",
+      "published": true
+    },
+    {
+      "id": 19,
+      "title": "Effects of acyl-coenzyme A binding protein (ACBP)/diazepam-binding inhibitor (DBI) on body mass index",
+      "year": 2021,
+      "topics": [
+        "molecular biology of body mass homeostasis"
+      ],
+      "bullets": [
+        "A protein called ACBP (acyl-coenzyme A binding protein), also known as diazepam-binding inhibitor (DBI), increases in response to starvation in mice, but also increases with chronic overnutrition leading to obesity.",
+        "Knockout of ACBP/DBI in adipose tissue prevents high-fat diet-induced weight gain in mice.",
+        "In relatively healthy humans, ACBP/DBI concentrations independently correlate with body mass index (BMI) and age.",
+        "The association between ACBP/DBI and BMI is lost in subjects that undergo major weight gain.",
+        "Voluntary fasting, undernutrition in the context of advanced cancer, and chemotherapy, are associated with an increase in circulating ACBP/DBI levels.",
+        "ACBP/DBI may play an important role in body mass homeostasis as well as in its failure."
+      ],
+      "link": "https://www.nature.com/articles/s41419-021-03864-9",
+      "youtube": null,
+      "published": false
+    },
+    {
+      "id": 20,
+      "title": "Excretion of Heavy Metals and Glyphosate in Urine and Hair Before and After Long-Term Fasting in Humans",
+      "year": 2021,
+      "topics": [
+        "heavy metals",
+        "glyphosate"
+      ],
+      "bullets": [
+        "The study investigated how a 10-day fasting period affects the excretion of heavy metals and glyphosate (a common herbicide) in healthy individuals.",
+        "Long-term fasting can lead to a decrease in body weight and a reduction in certain heavy metal levels in the body.",
+        "The study found a decrease in urinary arsenic (by 72%) and nickel (by 15%) concentrations, and a decrease in hair lead concentrations (by 30%) after 10 days of fasting.",
+        "Glyphosate, chromium, and cobalt were undetectable in most of the subjects, and urinary mercury levels remained unchanged.",
+        "After four weeks following the fasting program, the number of people who almost always ate organic food increased to 40%. The fasting program seemed to encourage a healthier diet, with more participants choosing to eat organic food after the fast, reflecting an increase in health consciousness.",
+        "Fasting led to a significant reduction in smoking, suggesting that the program may have helped participants adopt healthier lifestyle habits, although some resumed smoking after three months.",
+        "Fasting also led to improvements in fatigue, sleep disorders, headache, and hunger."
+      ],
+      "link": "https://www.frontiersin.org/articles/10.3389/fnut.2021.708069/full",
+      "youtube": null,
+      "published": false
+    },
+    {
+      "id": 21,
+      "title": "Is muscle and protein loss relevant in long-term fasting in healthy men? A prospective trial on physiological adaptations",
+      "year": 2021,
+      "topics": [
+        "muscle"
+      ],
+      "bullets": [
+        "This study aimed to understand how a 10-day fasting period, combined with light physical activity, affects body weight, muscle mass, metabolism, and overall health in healthy men.",
+        "Participants lost about 7% of their body weight during the 10-day fast. This included both fat and lean tissue (muscle and other non-fat tissue), with fat making up about 40% of the loss and lean tissue 60%. Fasting leads to significant weight loss, which includes not just fat but also some lean tissue, though a portion of this is water and glycogen (stored energy).",
+        "Muscle strength was maintained in non-weight-bearing muscles (like those in the arms) and even increased by 33% in weight-bearing muscles (like those in the legs).",
+        "Early in the fast, there was some muscle protein breakdown, indicated by an increase in a marker called 3-methyl-histidine. However, this breakdown decreased as the fast progressed, suggesting the body started to preserve protein as it shifted to using fat for energy.",
+        "Myostatin, a protein that inhibits muscle growth, stayed the same during fasting but dropped significantly during the refeeding period. This suggests that while fasting does not immediately increase muscle growth, the body may become more primed for muscle growth once normal eating resumes.",
+        "BMR, which is the rate at which your body burns energy at rest, decreased by 12% during fasting. This reduction remained during refeeding and follow-up, but the change was not statistically significant which means metabolism mostly recovers.",
+        "The study measured hormones related to appetite (ghrelin, PP, PYY, GLP-1). Leptin decreased during fasting and food reintroduction and stayed low at follow-up. By contrast grehlin, was higher at follow-up suggesting participants could experience higher hunger levels when they go home after fasting.",
+        "Urinary cortisol levels, a marker of stress, dropped by 36% by the end of the fasting period and stayed low during refeeding: Fasting might help reduce stress levels.",
+        "A 10-day fast combined with light physical activity is a safe and effective way to lose weight and improve metabolic health in healthy men"
+      ],
+      "link": "https://doi.org/10.1002/jcsm.12766",
+      "youtube": "https://www.youtube.com/watch?v=873gQ33G-6U",
+      "published": false
+    },
+    {
+      "id": 22,
+      "title": "Influence of Long-Term Fasting on Blood Redox Status in Humans",
+      "year": 2020,
+      "topics": [
+        "oxidative stress",
+        "antioxidants"
+      ],
+      "bullets": [
+        "The study examined blood redox status changes in 109 subjects before and after a 10-day fasting period.",
+        "Fasting reduced lipid peroxidation and increased total antioxidant capacity in plasma, which can have protective effects against metabolic diseases.",
+        "The study did not find significant changes in erythrocyte glutathione levels or other antioxidant enzymes, but did observe an increase in uric acid levels which is normal during fasting and did not cause gout attacks.",
+        "The improvements in weight, waist circumference, and glucose levels were linked to the reduced lipid peroxidation."
+      ],
+      "link": "https://doi.org/10.3390/antiox9060496",
+      "youtube": "https://www.youtube.com/watch?v=aJ-5MLj90iY",
+      "published": false
+    },
+    {
+      "id": 23,
+      "title": "Unravelling the health effects of fasting: a long road from obesity treatment to healthy life span increase and improved cognition",
+      "year": 2020,
+      "topics": [
+        "review of litterature"
+      ],
+      "bullets": [
+        "Fasting triggers a switch in the body's energy source from glucose (sugar) to fat and ketones. This switch typically begins 12-16 hours after reducing or stopping food intake.",
+        "Fasting deactivates certain pathways (like mTOR) that promote growth and activates others (like AMP protein kinase) that encourage cell repair and inhibit processes that contribute to aging and disease.",
+        "Studies in both humans and animals show that fasting, when combined with a well-planned diet, can increase lifespan, improve defenses against oxidative stress (which damages cells), enhance brain function, and lower the risk of heart disease, regardless of whether a person is obese.",
+        "Different forms of fasting, including intermittent fasting, periodic fasting, and long-term fasting, can be effective in improving health.",
+        "Long-term fasting, lasting from 5 to 21 days, can be repeated successfully throughout the year."
+      ],
+      "link": "https://doi.org/10.1080/07853890.2020.1770849",
+      "youtube": "https://www.youtube.com/watch?v=KfUQHw1VkxM",
+      "published": false
+    },
+    {
+      "id": 24,
+      "title": "Interplay between oxidative damage, the redox status, and metabolic biomarkers during long-term fasting",
+      "year": 2020,
+      "topics": [
+        "oxidative stress",
+        "antioxidants"
+      ],
+      "bullets": [
+        "The study examined how a 10-day fasting period affects antioxidant levels and metabolic health in 109 people.",
+        "Fasting significantly increased several markers of antioxidant capacity in the body, meaning the body's ability to neutralize harmful free radicals improved. Specifically, the ability to scavenge certain types of radicals (ABTS and hydroxyl radicals) increased.",
+        "The study found that the effectiveness of fasting in improving lipid levels (like LDL cholesterol) was influenced by the participants' baseline levels of oxidative stress (measured by TBARS). A machine learning model showed that the baseline antioxidant status could predict how well fasting would lower LDL levels.",
+        "The benefits of fasting might depend on an individual's starting level of oxidative stress and metabolic health. People with different baseline levels might experience different results from fasting.",
+        "Overall, the study suggests that long-term fasting can enhance the body's production of antioxidant molecules and improve metabolic health."
+      ],
+      "link": "https://doi.org/10.1016/j.fct.2020.111701",
+      "youtube": null,
+      "published": true
+    },
+    {
+      "id": 25,
+      "title": "Blood Pressure Changes in 1610 Subjects With and Without Antihypertensive Medication During Long-Term Fasting",
+      "year": 2020,
+      "topics": [
+        "blood pressure"
+      ],
+      "bullets": [
+        "The study investigated how blood pressure (BP) changes during fasting periods ranging from 4 to 41 days in a group of 1,610 people, including those with normal BP, those with high BP who were not on medication, and those with high BP who were on medication.",
+        "The study found that BP mean values decreased by -6.5/3.8 mm Hg during fasting.",
+        "The decrease in BP was more pronounced in hypertensive non-medicated subjects, with a reduction of 16.7/8.8 mm Hg and 24.7/13.1 mm Hg in those with the highest BP values.",
+        "While fasting generally lowers BP, those with already low BP might experience a slight increase, which could help normalize their BP levels. A subgroup of 69 female subjects with BP <100/60 mm Hg showed an increase in BP by 6.3/2.2 mm Hg.",
+        "Interestingly, 23.6% of these individuals were able to stop their medication, and 43.5% reduced their dosage. Fasting could potentially reduce the need for BP medication, suggesting it might help people manage high BP more naturally.",
+        "The decrease in BP persisted during the 4 days of stepwise food reintroduction, even when subjects stopped their antihypertensive medication.",
+        "Long-term fasting is effective in lowering blood pressure, especially for those with high BP, and can lead to sustained improvements even after fasting is completed. It may also reduce the need for medication in some individuals, making it a potentially valuable strategy for managing hypertension."
+      ],
+      "link": "https://doi.org/10.1161/JAHA.120.018649",
+      "youtube": "https://www.youtube.com/watch?v=bh9ExCaxowg",
+      "published": true
+    },
+    {
+      "id": 26,
+      "title": "Effects of Periodic Fasting on Fatty Liver Index – A Prospective Observational Study",
+      "year": 2019,
+      "topics": [
+        "fatty liver disease"
+      ],
+      "bullets": [
+        "The study looked at how periodic fasting affects liver health and safety in people with and without type 2 diabetes (T2DM). The main focus was on changes in the Fatty Liver Index (FLI), which is an indicator of non-alcoholic fatty liver disease (NAFLD).",
+        "Among the 697 participants, 264 had an FLI of 60 or higher, indicating a fatty liver. After fasting, the FLI significantly decreased by about 14 points on average. The decrease was even more pronounced in those with T2DM, dropping by around 19 points.",
+        "Almost half of the participants who initially had a high FLI shifted to a lower risk category after fasting. The improvement in liver health was stronger in those who fasted longer and lost more weight.",
+        "Each additional day fasting increases the chance of transforming a manifest fatty liver into a lower risk category by 40 %."
+      ],
+      "link": "https://doi.org/10.3390/nu11112601",
+      "youtube": "https://www.youtube.com/watch?v=dDdG1Nb2cME",
+      "published": true
+    },
+    {
+      "id": 27,
+      "title": "Changes in human gut microbiota composition are linked to the energy metabolic switch during 10 d of Buchinger fasting",
+      "year": 2019,
+      "topics": [
+        "gut health",
+        "gut microbiota",
+        "anti inflammation"
+      ],
+      "bullets": [
+        "A 10-day periodic fasting according to Buchinger guidelines was studied in 15 healthy men.",
+        "The types of bacteria in the gut changed. Specifically, there was a decrease in bacteria like Lachnospiraceae and Ruminococcaceae that usually help break down complex carbohydrates (like fibers from food). At the same time, bacteria like Bacteroidetes and Proteobacteria (including Escherichia coli and Bilophila wadsworthia) increased. These bacteria can use energy sources that come from the body itself, rather than from food.",
+        "The changes in gut bacteria were linked to changes in blood sugar levels and certain amino acids in the gut. The way gut bacteria shift during fasting might directly affect how the body manages its energy, possibly contributing to the health benefits of fasting.",
+        "After three months, the gut bacteria returned to their original state. The changes in gut bacteria due to fasting are not permanent. Once normal eating resumes, the gut microbiota goes back to its typical composition, indicating that the gut has a strong ability to adapt and recover.",
+        "The levels of substances in the stool that indicate how \"leaky\" the gut is (like zonulin, α−1-antitrypsin, and bile acids) stayed the same throughout the fasting and refeeding period. Fasting did not affect gut permeability, meaning the gut's barrier function remained stable, preventing harmful substances from leaking into the bloodstream.",
+        "The function of the gut microbiota measured via the production of butyrate was improved after three months.",
+        "The levels of LBP in the blood, which indicate how much the body is exposed to bacterial toxins (like LPS from gut bacteria), decreased significantly during fasting and stayed low even after eating was resumed. Fasting thus reduced the body's exposure to bacterial toxins, which could lower inflammation and improve overall health.",
+        "When participants started eating again, there was an increase in certain immune markers (like IL-6, IL-10, interferon γ, and TNFα). The immune system seems to reactivate once food is reintroduced, possibly as part of the body's natural response to eating after a period of fasting."
+      ],
+      "link": "https://doi.org/10.1017/jns.2019.24",
+      "youtube": "https://www.youtube.com/watch?v=jjDvsHx95O4",
+      "published": true
+    },
+    {
+      "id": 28,
+      "title": "Chemical-shift-encoded magnetic resonance imaging and spectroscopy to reveal immediate and long-term multi-organ composition changes of a 14-days periodic fasting intervention: a technological and case report",
+      "year": 2019,
+      "topics": [
+        "case report",
+        "mri",
+        "fatty liver",
+        "fat metabolism"
+      ],
+      "bullets": [
+        "The study investigated the feasibility of using magnetic resonance spectroscopic (MRS) and imaging (MRI) methods to measure the effects of a 14-day long-term fast.",
+        "The results showed a decrease in body weight (9.5%).",
+        "The quadriceps muscle (a major muscle in the thigh) saw a small decrease in volume (3.2%). This suggests that while fasting can lead to some muscle loss, the reduction is relatively minor compared to the overall weight loss.",
+        "The participant also saw a significant reduction of 20.8% in visceral fat. Reducing visceral fat is particularly beneficial as it's associated with a lower risk of chronic diseases like heart disease and diabetes.",
+        "The fat content in the liver decreased from 2.6% at the start to 1.4% during the fast. Lower liver fat is generally a good sign, as high liver fat is linked to conditions like fatty liver disease.",
+        "The fat content in the bone marrow of the spine increased by 10%, which might suggest that the body is storing more fat in bone marrow during fasting.",
+        "There was only a slight decrease (3.1%) in fat content of the femoral bone marrow, indicating that changes in bone marrow fat may vary depending on the location in the body.",
+        "The fat stored within muscle cells increased after fasting, with a more substantial increase in intramyocellular lipids (fat within muscle cells) compared to extramyocellular lipids (fat outside muscle cells).",
+        "Heterogeneous and reverse changes were also observed after food reintroduction depending on the organs.",
+        "The advanced imaging techniques used in the study provide valuable insights into how fasting affects different organs and tissues, helping to better understand the body's responses to fasting."
+      ],
+      "link": "https://www.frontiersin.org/articles/10.3389/fnut.2019.00005/full",
+      "youtube": "https://www.youtube.com/watch?v=ZdDTJiI2crg",
+      "published": true
+    },
+    {
+      "id": 29,
+      "title": "Safety, health improvement and well-being during a 4 to 21-day fasting period in an observational study including 1422 subjects",
+      "year": 2019,
+      "topics": [
+        "safety",
+        "world's largest study",
+        "weight loss",
+        "wellness",
+        "chronic disease prevention"
+      ],
+      "bullets": [
+        "The study aimed to assess the safety and health effects of prolonged periodic fasting, lasting between 4 and 21 days, among a large cohort of 1422 non-obese participants.",
+        "The study collected and evaluated data from 1,422 subjects (41 % male, 59 % female), who completed the Buchinger Wilhelmi fasting programme over a period of 5, 10, 15 or 20 days in 2016.",
+        "Fasting mobilizes the energy stored in the fatty tissue of the human body. The metabolism switches from glucose to fat and ketone consumption, causing many beneficial effects. The metabolic change was documented in the study by the permanent presence of ketone bodies in the urine.",
+        "Results showed significant reductions in weight, abdominal circumference, and blood pressure, as well as a beneficial modulating effect on blood lipids, glucoregulation, and general health-related blood parameters.",
+        "Furthermore, in 84 % of cases, serious health conditions such as arthritis, type 2 diabetes as well as fatty liver and hypercholesterolemia, high blood pressure and fatigue improved through fasting.",
+        "Fasting led to a decrease in blood glucose levels to low norm range and an increase in ketone bodies levels.",
+        "Within the blood count leukocytes and thrombocytes decreased significantly but not below norm range, this could be associated to regeenrations of blood cell types.",
+        "Increase in physical and emotional well-being and an absence of hunger feeling in 93.2% of the subjects.",
+        "During the fast, the levels of sodium, potassium, calcium, and magnesium remained stable overall, with minor changes in calcium and sodium. Six participants experienced mild low sodium levels, which were safely corrected with sodium chloride.",
+        "Among the 404 subjects with pre-existing health-complaints, 341 reported an improvement.",
+        "During fasting, we saw an increase in uric acid levels, especially after 15 days, but only one person experienced a gout attack, which was in line with previous studies.",
+        "Adverse effects were reported in less than 1% of the participants. Only two subjects had to interrupt the fasting.",
+        "Longer fasting increased blood clotting times, which could affect people on blood thinners, so they should be monitored and have their medication adjusted during fasting.",
+        "The results showed that Buchinger periodic fasting lasting from 4 to 21 days is safe and well-tolerated, and it led to enhancements of emotional and physical well-being, improvements in relevant cardiovascular and general risk factors, and subjective health complaints.",
+        "Medically supervised fasting had only very few side-effects, which could be treated easily and without interruptions to fasting. In individual cases, subjects experienced restless sleep, headaches, tiredness or lumbar spine complaints during the first three days."
+      ],
+      "link": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0209353",
+      "youtube": "https://www.youtube.com/watch?v=6b-EqKYv314",
+      "published": true
+    }
+  ],
+  "generated": "2026-01-08"
+}

@@ -15,14 +15,22 @@ export function init(container, api) {
     <style>
       .dots-wrap{ max-width:720px; margin:0 auto; padding:16px; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif; -webkit-font-smoothing:antialiased; }
 
-      .dots-stage{
-        position:relative; width:100%; height:420px;
-        border-radius:20px; background:#F5F3F0; border:1px solid #E8E4DF;
-        overflow:hidden; user-select:none;
-        display:flex; flex-direction:column;
-      }
-      @media(max-width:600px){ .dots-stage{ height:360px; border-radius:16px; } }
+.dots-stage{
+  position:relative;
+  width:100%;
+  height: 100%;          /* fill the container */
+  min-height: 420px;     /* fallback so it still looks good on desktop */
+  border-radius:20px; background:#F5F3F0; border:1px solid #E8E4DF;
+  overflow:hidden; user-select:none;
+  display:flex; flex-direction:column;
+}
 
+@media(max-width:600px){
+  .dots-stage{
+    min-height: 360px;   /* instead of forcing a fixed height */
+    border-radius:16px;
+  }
+}
       /* Start overlay */
       .dots-start{
         position:absolute; inset:0;
@@ -85,22 +93,24 @@ export function init(container, api) {
       }
 
       /* Arena */
-      .dots-center{
-        flex:1;
-        display:flex; flex-direction:column;
-        align-items:center; justify-content:center;
-        padding:14px;
-      }
-
-      .dots-arena{
-        width:100%;
-        max-width:620px;
-        height:260px;
-        display:grid;
-        grid-template-columns:1fr 1fr;
-        gap:12px;
-      }
-      @media(max-width:600px){ .dots-arena{ height:240px; } }
+ .dots-center{
+  flex:1;
+  min-height: 0;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  padding:14px;
+}
+  .dots-arena{
+  width:100%;
+  max-width:620px;
+  height:260px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+@media(max-width:600px){ .dots-arena{ height:240px; } }
 
       .dots-panel{
         border-radius:18px;

@@ -90,13 +90,13 @@ export function init(container, api) {
     '</div>'
   ].join('\n');
 
-  // ---------- Config (fixed; not shown to users) ----------
-  var DURATION_MS = 120000;      // 2 minutes
-  var STIM_MS = 600;             // stimulus on-screen time
-  var P_NOGO = 0.25;             // 25% donuts
+  // ---------- Config (fixed) ----------
+  var DURATION_MS = 120000; // 2 minutes
+  var STIM_MS = 600;
+  var P_NOGO = 0.25;
   var ITI_MIN = 500;
   var ITI_MAX = 900;
-  var RESPONSE_EXTRA = 250;      // window after stim offset
+  var RESPONSE_EXTRA = 250;
 
   // ---------- Elements ----------
   var stage        = container.querySelector("#gngStage");
@@ -117,7 +117,7 @@ export function init(container, api) {
 
   // ---------- State ----------
   var running = false;
-  var phase = "idle"; // idle | running | done
+  var phase = "idle";
 
   var tStart = null;
   var tEnd = null;
@@ -131,10 +131,12 @@ export function init(container, api) {
   var responded = false;
   var responseAt = null;
 
+  var lastResponseSource = null;
+
   var goCorrect = 0;
   var nogoCorrect = 0;
-  var commission = 0; // tapped on donut
-  var omission = 0;   // missed apple
+  var commission = 0;
+  var omission = 0;
   var rts = [];
   var trials = [];
 
@@ -199,6 +201,7 @@ export function init(container, api) {
     responseDeadline = null;
     responded = false;
     responseAt = null;
+    lastResponseSource = null;
 
     goCorrect = 0;
     nogoCorrect = 0;
@@ -238,6 +241,7 @@ export function init(container, api) {
     responseAt = null;
     stimOnAt = null;
     responseDeadline = null;
+    lastResponseSource = null;
 
     showStimulusBlank("");
 
@@ -255,13 +259,11 @@ export function init(container, api) {
       stimOnAt = now();
       responseDeadline = stimOnAt + STIM_MS + RESPONSE_EXTRA;
 
-      // Hide stimulus after STIM_MS
       timers.push(setTimeout(function(){
         if (!running) return;
         showStimulusBlank("");
       }, STIM_MS));
 
-      // Score at end of response window
       timers.push(setTimeout(function(){
         if (!running) return;
         scoreTrial();
@@ -281,9 +283,10 @@ export function init(container, api) {
 
     responded = true;
     responseAt = t;
+    lastResponseSource = source || null;
 
     if (trialType === "GO") showFeedback("Good", "good");
-    else showFeedback("Too soon", "bad");
+    else showFeedback("Too early", "bad");
   }
 
   function scoreTrial() {
@@ -324,7 +327,7 @@ export function init(container, api) {
       rtMs: rt,
       outcome: outcome,
       correct: correct,
-      source: source || null
+      source: lastResponseSource
     });
   }
 
@@ -361,7 +364,6 @@ export function init(container, api) {
       trials: trials
     };
 
-    // Save to battery result
     api.saveResult("gng", {
       accuracy_pct: Math.round(acc * 100),
       commissionErrors_n: commission,
@@ -372,7 +374,7 @@ export function init(container, api) {
       stimulus_ms: STIM_MS,
       noGoRate_pct: Math.round(P_NOGO * 100),
       nTrials: total,
-      version: "2.0",
+      version: "2.1",
       raw: session
     });
 
@@ -412,9 +414,8 @@ export function init(container, api) {
 
   btnStart.addEventListener("click", start);
 
-  // Tap anywhere on stage to respond (during trials)
   stage.addEventListener("click", function(e){
-    if (e.target === btnStart || startOverlay.contains(e.target)) return;
+    if (startOverlay.contains(e.target)) return;
     registerResponse("tap");
   });
 
@@ -431,7 +432,7 @@ export function init(container, api) {
 
   window.addEventListener("keydown", onKeyDown);
 
-  // Init state
+  // Init
   phase = "idle";
   showStimulusBlank("Press Start");
 

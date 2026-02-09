@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -10,6 +11,7 @@
 <body>
 
   <!-- Navigation -->
+
   <nav>
     <div class="logo">Buchinger Science</div>
     <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
@@ -28,6 +30,7 @@
   </nav>
 
   <!-- Hero -->
+
   <section id="home" class="hero" style="background-image: url('IMG_1198.jpeg');">
     <div class="content">
       <h1>Embark on Your Fasting Journey</h1>
@@ -44,6 +47,7 @@
   </section>
 
   <!-- Stats ribbon -->
+
   <div class="stats-ribbon reveal">
     <div class="stat-card">
       <div class="stat-number" data-target="30">0</div>
@@ -64,75 +68,83 @@
   </div>
 
   <!-- Fasting Journey Explorer -->
+
   <section id="journey" class="journey-explorer reveal">
     <div class="journey-header">
       <h2>Fasting Journey Explorer</h2>
       <p>Slide to explore the main biological phases of fasting. This is a simplified overview, designed for clarity.</p>
     </div>
 
-    <div class="journey-slider-wrap">
-      <input type="range" min="1" max="21" value="1" class="journey-slider" id="fastingSlider" aria-label="Fasting day slider">
-      <div class="journey-ticks" aria-hidden="true">
-        <span>Day 1</span><span>Day 7</span><span>Day 14</span><span>Day 21</span>
-      </div>
-    </div>
+```
+<div class="journey-slider-wrap">
+  <input type="range" min="1" max="21" value="1" class="journey-slider" id="fastingSlider" aria-label="Fasting day slider">
+  <div class="journey-ticks" aria-hidden="true">
+    <span>Day 1</span><span>Day 7</span><span>Day 14</span><span>Day 21</span>
+  </div>
+</div>
 
-    <div class="journey-grid">
-      <div class="journey-visual" role="group" aria-label="Selected day summary">
-        <div class="journey-day" id="stat-value">Day 1</div>
-        <div class="journey-label" id="stat-label">Initial transition</div>
-      </div>
-      <div class="journey-copy">
-        <h3 id="stage-title">Metabolic switch</h3>
-        <p id="stage-description">Your body starts shifting from sugar to fat-burning. Insulin levels begin to drop.</p>
-        <div class="journey-markers" aria-label="Key markers">
-          <span class="journey-chip" id="marker-1">Glucose ↓</span>
-          <span class="journey-chip journey-chip--alt" id="marker-2">Insulin ↓</span>
-        </div>
-      </div>
+<div class="journey-grid">
+  <div class="journey-visual" role="group" aria-label="Selected day summary">
+    <div class="journey-day" id="stat-value">Day 1</div>
+    <div class="journey-label" id="stat-label">Initial transition</div>
+  </div>
+  <div class="journey-copy">
+    <h3 id="stage-title">Metabolic switch</h3>
+    <p id="stage-description">Your body starts shifting from sugar to fat-burning. Insulin levels begin to drop.</p>
+    <div class="journey-markers" aria-label="Key markers">
+      <span class="journey-chip" id="marker-1">Glucose ↓</span>
+      <span class="journey-chip journey-chip--alt" id="marker-2">Insulin ↓</span>
     </div>
+  </div>
+</div>
+```
+
   </section>
 
   <!-- Studies -->
+
   <section id="studies">
     <h2 class="reveal">Our Scientific Studies</h2>
     <p class="reveal reveal-d1">Below is a selection of our recent publications. Each card links to a detailed article in our research library.</p>
 
-    <div class="articles-grid">
-      <div class="article-card reveal reveal-d1">
-        <img src="IMG_1202.jpeg" alt="Remodelling of the gut virome after long-term fasting">
-        <div class="card-body">
-          <h3>Remodelling of the gut virome after long-term fasting</h3>
-          <p class="authors">Natalie Falshaw, Quinten R Ducarmon, Alexandra King, Franziska Grundler, Robin Mesnage</p>
-          <p class="journal">medRxiv. <a href="https://doi.org/10.1101/2025.12.19.25342476" target="_blank" rel="noopener">DOI: 10.1101/2025.12.19.25342476</a></p>
-          <a href="library.html">Learn more</a>
-        </div>
-      </div>
-
-      <div class="article-card reveal reveal-d2">
-        <img src="IMG_1201.jpeg" alt="Revisiting the (anti)inflammatory effects of prolonged fasting">
-        <div class="card-body">
-          <h3>Revisiting the (anti)inflammatory effects of prolonged fasting: the importance of baseline-dependent responses</h3>
-          <p class="authors">Robin Mesnage, Franziska Grundler, Françoise Wilhelmi de Toledo</p>
-          <p class="journal">Frontiers in Nutrition — Nutritional Immunology. <a href="https://doi.org/10.3389/fnut.2025.1715341" target="_blank" rel="noopener">DOI: 10.3389/fnut.2025.1715341</a></p>
-          <a href="library.html">Learn more</a>
-        </div>
-      </div>
-
-      <div class="article-card reveal reveal-d3">
-        <img src="IMG_1200.jpeg" alt="Long-term fasting autonomic nervous system modulation in GENESIS">
-        <div class="card-body">
-          <h3>Long-term fasting-induced parasympathetic and sympathetic autonomic nervous system modulation in a subgroup of the GENESIS study</h3>
-          <p class="authors">Mesnage R, Alfred Holley, Franziska Grundler, Borja Martinez-Tellez, Françoise Wilhelmi de Toledo &amp; Pierre Croisille</p>
-          <p class="journal">International Journal of Obesity. <a href="https://doi.org/10.1038/s41366-025-01843-0" target="_blank" rel="noopener">DOI: 10.1038/s41366-025-01843-0</a></p>
-          <a href="library.html">Learn more</a>
-        </div>
-      </div>
+```
+<div class="articles-grid">
+  <div class="article-card reveal reveal-d1">
+    <img src="IMG_1202.jpeg" alt="Remodelling of the gut virome after long-term fasting">
+    <div class="card-body">
+      <h3>Remodelling of the gut virome after long-term fasting</h3>
+      <p class="authors">Natalie Falshaw, Quinten R Ducarmon, Alexandra King, Franziska Grundler, Robin Mesnage</p>
+      <p class="journal">medRxiv. <a href="https://doi.org/10.1101/2025.12.19.25342476" target="_blank" rel="noopener">DOI: 10.1101/2025.12.19.25342476</a></p>
+      <a href="library.html">Learn more</a>
     </div>
+  </div>
 
-    <div class="studies-cta reveal">
-      <a href="library.html" class="cta-button cta-button--large">See all studies</a>
+  <div class="article-card reveal reveal-d2">
+    <img src="IMG_1201.jpeg" alt="Revisiting the (anti)inflammatory effects of prolonged fasting">
+    <div class="card-body">
+      <h3>Revisiting the (anti)inflammatory effects of prolonged fasting: the importance of baseline-dependent responses</h3>
+      <p class="authors">Robin Mesnage, Franziska Grundler, Françoise Wilhelmi de Toledo</p>
+      <p class="journal">Frontiers in Nutrition — Nutritional Immunology. <a href="https://doi.org/10.3389/fnut.2025.1715341" target="_blank" rel="noopener">DOI: 10.3389/fnut.2025.1715341</a></p>
+      <a href="library.html">Learn more</a>
     </div>
+  </div>
+
+  <div class="article-card reveal reveal-d3">
+    <img src="IMG_1200.jpeg" alt="Long-term fasting autonomic nervous system modulation in GENESIS">
+    <div class="card-body">
+      <h3>Long-term fasting-induced parasympathetic and sympathetic autonomic nervous system modulation in a subgroup of the GENESIS study</h3>
+      <p class="authors">Mesnage R, Alfred Holley, Franziska Grundler, Borja Martinez-Tellez, Françoise Wilhelmi de Toledo &amp; Pierre Croisille</p>
+      <p class="journal">International Journal of Obesity. <a href="https://doi.org/10.1038/s41366-025-01843-0" target="_blank" rel="noopener">DOI: 10.1038/s41366-025-01843-0</a></p>
+      <a href="library.html">Learn more</a>
+    </div>
+  </div>
+</div>
+
+<div class="studies-cta reveal">
+  <a href="library.html" class="cta-button cta-button--large">See all studies</a>
+</div>
+```
+
   </section>
 
   <footer>
@@ -142,6 +154,7 @@
   <script src="script.js"></script>
 
   <!-- Journey Explorer logic -->
+
   <script>
     const slider = document.getElementById('fastingSlider');
     const statValue = document.getElementById('stat-value');
@@ -180,5 +193,6 @@
     slider.addEventListener('input', (e) => updateJourney(parseInt(e.target.value, 10)));
     updateJourney(parseInt(slider.value, 10));
   </script>
+
 </body>
 </html>

@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -82,23 +83,26 @@
       <div class="library-meta" id="resultCount">&mdash;</div>
     </div>
 
-    <div class="lib-panel">
-      <div class="lib-controls">
-        <div class="lib-search" title="Search across titles, keywords and key findings">
-          <label for="q">Search</label>
-          <input id="q" type="text" placeholder="microbiome, LDL, inflammation, stress, autophagy…" />
-        </div>
-        <select class="lib-select" id="sort" aria-label="Sort">
-          <option value="new">Newest first</option>
-          <option value="old">Oldest first</option>
-          <option value="az">Title A &rarr; Z</option>
-          <option value="bul">Most findings</option>
-        </select>
-        <button class="lib-btn" id="btnClear" type="button">Clear</button>
-      </div>
-      <div class="topic-pills" id="topicPills"></div>
-      <div class="results-grid" id="grid"></div>
+```
+<div class="lib-panel">
+  <div class="lib-controls">
+    <div class="lib-search" title="Search across titles, keywords and key findings">
+      <label for="q">Search</label>
+      <input id="q" type="text" placeholder="microbiome, LDL, inflammation, stress, autophagy…" />
     </div>
+    <select class="lib-select" id="sort" aria-label="Sort">
+      <option value="new">Newest first</option>
+      <option value="old">Oldest first</option>
+      <option value="az">Title A &rarr; Z</option>
+      <option value="bul">Most findings</option>
+    </select>
+    <button class="lib-btn" id="btnClear" type="button">Clear</button>
+  </div>
+  <div class="topic-pills" id="topicPills"></div>
+  <div class="results-grid" id="grid"></div>
+</div>
+```
+
   </section>
 
   <footer>
@@ -106,6 +110,7 @@
   </footer>
 
   <script src="script.js"></script>
+
   <script>
     const $ = (sel) => document.querySelector(sel);
 
@@ -222,5 +227,6 @@
       })
       .catch(error => { console.error("Error loading research library:", error); });
   </script>
+
 </body>
 </html>

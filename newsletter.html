@@ -80,9 +80,43 @@
 </main>
 
 <footer>
-  <p>&copy; 2026 Buchinger Science. All rights reserved.</p>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="footer-logo">Buchinger Science</div>
+      <p>Clinical research on fasting, metabolism, and longevity — from the world's leading medically supervised fasting clinic.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Research</h4>
+      <ul>
+        <li><a href="library.html">Research Library</a></li>
+        <li><a href="newsletter.html">Newsletters</a></li>
+        <li><a href="https://dash.buchinger-science.com" target="_blank" rel="noopener">Metabolic Explorer</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Resources</h4>
+      <ul>
+        <li><a href="videos.html">Amplius Videos</a></li>
+        <li><a href="fastingcoach.html">Fasting Coach</a></li>
+        <li><a href="course.html">E-Learning</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 Buchinger Science. All rights reserved.</p>
+    <p>Buchinger Wilhelmi Clinic</p>
+  </div>
 </footer>
 
 <script src="script-newsletter.js"></script>
+<script>
+  // Active nav + scroll shadow
+  document.querySelectorAll("nav a").forEach(a => {
+    if (a.getAttribute("href") === "newsletter.html") a.classList.add("active");
+  });
+  window.addEventListener("scroll", () => {
+    document.querySelector("nav").classList.toggle("nav--scrolled", window.scrollY > 4);
+  }, { passive: true });
+</script>
 </body>
 </html>

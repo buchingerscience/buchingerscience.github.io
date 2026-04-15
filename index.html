@@ -29,30 +29,33 @@
   <!-- Hero Section -->
   <section id="home" class="hero" style="background-image: url('IMG_1198.jpeg');">
     <div class="content">
-      <h1>Embark on Your Fasting Journey</h1>
+      <h1>The Science of Fasting</h1>
       <p>
-        Dive inside the scientific data from the medical clinic where fasting is tracked, tested, and published. 
-        In a world of fake news selling hope, we do not play with your health. 
-        We measure it, to build personalised preventive medicine.
+        Clinical data from the world's leading medically supervised fasting clinic — tracked, tested, and published with top universities.
+        We measure the evidence so you can make informed decisions about your health.
       </p>
-            <p>
-In collaboration with top universities, we scientifically document how Buchinger fasting is one of the most effective health interventions to reset metabolic and physiological health in as little as two weeks.     
-            </p>
-      <a href="contact.html" class="cta-button">More about us</a>
+      <a href="library.html" class="cta-button">Explore the Research</a>
     </div>
+    <a class="hero-scroll-hint" href="#journey" aria-label="Scroll to Fasting Journey Explorer">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="4 8 10 14 16 8"/>
+      </svg>
+    </a>
   </section>
 
-  <!-- NEW: Fasting Journey Explorer (slider-based, styled to match your site) -->
+  <!-- Fasting Journey Explorer -->
   <section id="journey" class="journey-explorer">
     <div class="journey-header">
+      <span class="section-eyebrow">Interactive</span>
       <h2>Fasting Journey Explorer</h2>
       <p>
-        Slide to see the main biological phases of fasting. This is a simplified overview, designed for clarity.
+        Drag the slider to trace the key biological phases of extended fasting.
+        A simplified overview based on published clinical data.
       </p>
     </div>
 
     <div class="journey-slider-wrap">
-      <input type="range" min="1" max="21" value="1" class="journey-slider" id="fastingSlider" aria-label="Fasting day slider">
+      <input type="range" min="1" max="21" value="1" class="journey-slider" id="fastingSlider" aria-label="Fasting day slider" aria-valuemin="1" aria-valuemax="21" aria-valuenow="1">
       <div class="journey-ticks" aria-hidden="true">
         <span>Day 1</span>
         <span>Day 7</span>
@@ -62,12 +65,12 @@ In collaboration with top universities, we scientifically document how Buchinger
     </div>
 
     <div class="journey-grid">
-      <div class="journey-visual" role="group" aria-label="Selected day summary">
+      <div class="journey-visual" id="journey-visual" role="group" aria-label="Selected day summary">
         <div class="journey-day" id="stat-value">Day 1</div>
         <div class="journey-label" id="stat-label">Initial transition</div>
       </div>
 
-      <div class="journey-copy">
+      <div class="journey-copy" id="journey-copy">
         <h3 id="stage-title">Metabolic switch</h3>
         <p id="stage-description">
           Your body starts shifting from sugar to fat-burning. Insulin levels begin to drop.
@@ -76,6 +79,7 @@ In collaboration with top universities, we scientifically document how Buchinger
         <div class="journey-markers" aria-label="Key markers">
           <span class="journey-chip" id="marker-1">Glucose ↓</span>
           <span class="journey-chip journey-chip--alt" id="marker-2">Insulin ↓</span>
+          <span class="journey-chip journey-chip--accent" id="marker-3">Ketones ↑</span>
         </div>
       </div>
     </div>
@@ -83,17 +87,18 @@ In collaboration with top universities, we scientifically document how Buchinger
 
   <!-- List of studies on the landing page -->
   <section id="studies">
+    <span class="section-eyebrow">Recent Publications</span>
     <h2>Our Scientific Studies</h2>
-    <p>Below is a selection of our recent publications. Each card links to a detailed article in our research library.</p>
+    <p>Selected recent publications from the Buchinger Wilhelmi research team, peer-reviewed and openly accessible.</p>
 
     <div class="articles-grid">
       <div class="article-card">
         <img src="IMG_1202.jpeg" alt="Remodelling of the gut virome after long-term fasting">
         <div class="card-body">
           <h3>Remodelling of the gut virome after long-term fasting</h3>
-          <p class="authors">Natalie Falshaw, Quinten R Ducarmon, Alexandra King, Franziska Grundler, Robin Mesnage</p>
-          <p class="journal">medRxiv. <a href="https://doi.org/10.1101/2025.12.19.25342476" target="_blank" rel="noopener">DOI: 10.1101/2025.12.19.25342476</a></p>
-          <a href="library.html">Learn more</a>
+          <p class="authors">Falshaw N, Ducarmon QR, King A, Grundler F, Mesnage R</p>
+          <p class="journal"><em>medRxiv</em> · 2025 · <a href="https://doi.org/10.1101/2025.12.19.25342476" target="_blank" rel="noopener">DOI ↗</a></p>
+          <a href="library.html">View in library →</a>
         </div>
       </div>
 
@@ -101,35 +106,75 @@ In collaboration with top universities, we scientifically document how Buchinger
         <img src="IMG_1201.jpeg" alt="Revisiting the (anti)inflammatory effects of prolonged fasting">
         <div class="card-body">
           <h3>Revisiting the (anti)inflammatory effects of prolonged fasting: the importance of baseline-dependent responses</h3>
-          <p class="authors">Robin Mesnage, Franziska Grundler, Françoise Wilhelmi de Toledo</p>
-          <p class="journal">Frontiers in Nutrition – Nutritional Immunology. <a href="https://doi.org/10.3389/fnut.2025.1715341" target="_blank" rel="noopener">DOI: 10.3389/fnut.2025.1715341</a></p>
-          <a href="library.html">Learn more</a>
+          <p class="authors">Mesnage R, Grundler F, Wilhelmi de Toledo F</p>
+          <p class="journal"><em>Frontiers in Nutrition</em> · 2025 · <a href="https://doi.org/10.3389/fnut.2025.1715341" target="_blank" rel="noopener">DOI ↗</a></p>
+          <a href="library.html">View in library →</a>
         </div>
       </div>
 
       <div class="article-card">
         <img src="IMG_1200.jpeg" alt="Long-term fasting autonomic nervous system modulation in GENESIS">
         <div class="card-body">
-          <h3>Long-term fasting-induced parasympathetic and sympathetic autonomic nervous system modulation in a subgroup of the GENESIS study</h3>
-          <p class="authors">Mesnage R, Alfred Holley, Franziska Grundler, Borja Martinez-Tellez, Françoise Wilhelmi de Toledo &amp; Pierre Croisille</p>
-          <p class="journal">International Journal of Obesity. <a href="https://doi.org/10.1038/s41366-025-01843-0" target="_blank" rel="noopener">DOI: 10.1038/s41366-025-01843-0</a></p>
-          <a href="library.html">Learn more</a>
+          <h3>Long-term fasting-induced autonomic nervous system modulation in the GENESIS study</h3>
+          <p class="authors">Mesnage R, Holley A, Grundler F, Martinez-Tellez B, Wilhelmi de Toledo F, Croisille P</p>
+          <p class="journal"><em>International Journal of Obesity</em> · 2025 · <a href="https://doi.org/10.1038/s41366-025-01843-0" target="_blank" rel="noopener">DOI ↗</a></p>
+          <a href="library.html">View in library →</a>
         </div>
       </div>
     </div>
 
-<div class="studies-cta">
-  <a href="library.html" class="cta-button cta-button--large">See all studies</a>
-</div>
+    <div class="studies-cta">
+      <a href="library.html" class="cta-button cta-button--large">Browse all studies →</a>
+    </div>
   </section>
 
   <!-- Footer -->
   <footer>
-    <p>&copy; 2026 Buchinger Science. All rights reserved.</p>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo">Buchinger Science</div>
+        <p>Clinical research on fasting, metabolism, and longevity — from the world's leading medically supervised fasting clinic.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Research</h4>
+        <ul>
+          <li><a href="library.html">Research Library</a></li>
+          <li><a href="newsletter.html">Newsletters</a></li>
+          <li><a href="https://dash.buchinger-science.com" target="_blank" rel="noopener">Metabolic Explorer</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="videos.html">Amplius Videos</a></li>
+          <li><a href="fastingcoach.html">Fasting Coach</a></li>
+          <li><a href="course.html">E-Learning</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Buchinger Science. All rights reserved.</p>
+      <p>Buchinger Wilhelmi Clinic</p>
+    </div>
   </footer>
 
   <!-- Common scripts -->
   <script src="script.js"></script>
+  <script>
+    // Active nav link
+    document.querySelectorAll("nav a").forEach(a => {
+      if (a.getAttribute("href") === "index.html") a.classList.add("active");
+    });
+    // Nav scroll shadow
+    window.addEventListener("scroll", () => {
+      document.querySelector("nav").classList.toggle("nav--scrolled", window.scrollY > 4);
+    }, { passive: true });
+    // Smooth scroll for hero chevron
+    document.querySelector(".hero-scroll-hint")?.addEventListener("click", e => {
+      e.preventDefault();
+      document.getElementById("journey")?.scrollIntoView({ behavior: "smooth" });
+    });
+  </script>
 
   <!-- Journey Explorer script -->
   <script>
@@ -140,35 +185,78 @@ In collaboration with top universities, we scientifically document how Buchinger
     const stageDescription = document.getElementById('stage-description');
     const marker1 = document.getElementById('marker-1');
     const marker2 = document.getElementById('marker-2');
+    const marker3 = document.getElementById('marker-3');
+    const journeyVisual = document.getElementById('journey-visual');
+    const journeyCopy = document.getElementById('journey-copy');
 
     const stages = {
-      1:  { title: "Metabolic switch",       desc: "Your body starts shifting from sugar to fat-burning. Insulin levels begin to drop.",                                     label: "Initial transition", m1: "Glucose ↓",  m2: "Insulin ↓" },
-      7:  { title: "Cellular recycling",     desc: "Fuel use is now strongly fat-based. Recycling pathways are more active and damaged components are cleared more efficiently.", label: "Cellular repair",    m1: "Ketones ↑",  m2: "Autophagy ↑" },
-      14: { title: "Systemic calm",          desc: "Many people show lower inflammatory tone and improved metabolic markers, especially if baseline levels were elevated.",          label: "Inflammation ↓",     m1: "CRP ↓",     m2: "TG ↓" },
-      21: { title: "Regeneration signals",   desc: "With longer fasting, regenerative signalling becomes more visible. This may involve immune adaptation and tissue renewal.",      label: "Regeneration",       m1: "Immunity ↑", m2: "Stem cells ↑" }
+      1:  {
+        title: "Metabolic switch",
+        desc: "The body begins shifting from glucose to fat oxidation. Glycogen stores deplete and insulin levels start falling — signalling the transition into fasting metabolism.",
+        label: "Initial transition",
+        m1: "Glucose ↓", m2: "Insulin ↓", m3: "Glycogen ↓"
+      },
+      7:  {
+        title: "Ketogenic adaptation",
+        desc: "Fat-derived ketone bodies now supply the brain and muscles. Autophagy — the cellular recycling process — ramps up, clearing dysfunctional components.",
+        label: "Fat-burning & repair",
+        m1: "Ketones ↑", m2: "Autophagy ↑", m3: "IGF-1 ↓"
+      },
+      14: {
+        title: "Systemic calm",
+        desc: "Inflammatory markers often improve, particularly in individuals with elevated baseline levels. Blood pressure, triglycerides, and CRP tend to normalize.",
+        label: "Inflammation ↓",
+        m1: "CRP ↓", m2: "Triglycerides ↓", m3: "Blood pressure ↓"
+      },
+      21: {
+        title: "Regeneration signals",
+        desc: "Longer fasting periods reveal regenerative signalling. Immune system remodelling, gut microbiome shifts, and renewal of cellular populations become measurable.",
+        label: "Deep regeneration",
+        m1: "Stem cells ↑", m2: "Immunity →", m3: "Microbiome shift"
+      }
     };
 
-    function updateJourney(day) {
+    let fadeTimer = null;
+
+    function updateJourney(day, animate) {
+      slider.setAttribute('aria-valuenow', day);
+
+      if (animate) {
+        journeyVisual.classList.add('fading');
+        journeyCopy.classList.add('fading');
+        clearTimeout(fadeTimer);
+        fadeTimer = setTimeout(() => {
+          applyStage(day);
+          journeyVisual.classList.remove('fading');
+          journeyCopy.classList.remove('fading');
+        }, 120);
+      } else {
+        applyStage(day);
+      }
+    }
+
+    function applyStage(day) {
       statValue.textContent = "Day " + day;
 
       let stage;
-      if (day < 7) stage = stages[1];
+      if (day < 7)       stage = stages[1];
       else if (day < 14) stage = stages[7];
       else if (day < 21) stage = stages[14];
-      else stage = stages[21];
+      else               stage = stages[21];
 
       statLabel.textContent = stage.label;
       stageTitle.textContent = stage.title;
       stageDescription.textContent = stage.desc;
       marker1.textContent = stage.m1;
       marker2.textContent = stage.m2;
+      marker3.textContent = stage.m3;
     }
 
     slider.addEventListener('input', (e) => {
-      updateJourney(parseInt(e.target.value, 10));
+      updateJourney(parseInt(e.target.value, 10), true);
     });
 
-    updateJourney(parseInt(slider.value, 10));
+    updateJourney(parseInt(slider.value, 10), false);
   </script>
 </body>
 </html>

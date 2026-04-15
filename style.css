@@ -179,6 +179,22 @@ nav a.active {
   border-color: var(--accent);
 }
 
+/* Scroll shadow — added by JS when page is scrolled */
+nav.nav--scrolled {
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+
+/* Screen-reader only utility */
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
 /* -----------------------------
    Hero (dash-like: image + soft overlay)
 ------------------------------ */
@@ -230,6 +246,45 @@ nav a.active {
   font-size: 1.05rem;
   margin-bottom: 1.2rem;
   color: rgba(255, 255, 255, 0.9);
+}
+
+/* Scroll-down chevron in hero */
+.hero-scroll-hint {
+  position: absolute;
+  bottom: 22px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  color: rgba(255,255,255,0.7);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+.hero-scroll-hint:hover { color: rgba(255,255,255,1); }
+.hero-scroll-hint svg {
+  animation: bounceDown 1.8s ease-in-out infinite;
+}
+@keyframes bounceDown {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(5px); }
+}
+
+/* Section eyebrow text */
+.section-eyebrow {
+  display: block;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 6px;
 }
 
 .cta-button {
@@ -515,31 +570,101 @@ button {
 /* -----------------------------
    Footer (match attached: dark strip)
 ------------------------------ */
-footer {
-  background-color: #34373a;
-  color: #ffffff;
-  padding: 28px 16px;
+/* Studies CTA block */
+.studies-cta {
   text-align: center;
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-soft);
+}
+
+/* ─────────────────────────────
+   Footer — enriched with nav links
+───────────────────────────── */
+footer {
+  background-color: #2c3340;
+  color: rgba(255,255,255,0.85);
+  padding: 40px 24px 28px;
   margin-top: 3rem;
 }
 
-footer p {
+.footer-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  gap: 32px;
+  padding-bottom: 28px;
+  border-bottom: 1px solid rgba(255,255,255,0.10);
+}
+
+.footer-brand .footer-logo {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #ffffff;
+  margin-bottom: 8px;
+}
+
+.footer-brand p {
+  font-size: 0.84rem;
+  color: rgba(255,255,255,0.55);
+  line-height: 1.6;
   margin: 0;
-  font-size: 0.9rem;
-  font-weight: 300;
-  color: #ffffff;
 }
 
-footer a {
-  color: #ffffff;
+.footer-col h4 {
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.45);
+  margin: 0 0 12px;
+}
+
+.footer-col ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.footer-col ul li a {
+  font-size: 0.88rem;
+  color: rgba(255,255,255,0.70);
   text-decoration: none;
-  font-weight: 300;
-  transition: opacity 0.2s ease, text-decoration-color 0.2s ease;
+  transition: color 0.15s ease;
 }
 
-footer a:hover {
-  opacity: 0.85;
-  text-decoration: underline;
+.footer-col ul li a:hover { color: #ffffff; }
+
+.footer-bottom {
+  max-width: 1100px;
+  margin: 20px auto 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.footer-bottom p {
+  margin: 0;
+  font-size: 0.82rem;
+  font-weight: 300;
+  color: rgba(255,255,255,0.40);
+}
+
+@media (max-width: 640px) {
+  .footer-inner {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .footer-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }
 
 /* -----------------------------
@@ -703,6 +828,7 @@ td {
   font-size: 1.25rem;
   font-weight: 400;
   color: var(--heading);
+  transition: opacity 0.18s ease;
 }
 
 .journey-copy p {
@@ -710,7 +836,17 @@ td {
   color: var(--text);
   opacity: 0.92;
   line-height: 1.7;
+  transition: opacity 0.18s ease;
 }
+
+/* Fade animation triggered by JS when slider moves */
+.journey-copy.fading h3,
+.journey-copy.fading p,
+.journey-copy.fading .journey-markers { opacity: 0; }
+.journey-visual.fading .journey-day,
+.journey-visual.fading .journey-label { opacity: 0; }
+.journey-visual .journey-day { transition: opacity 0.18s ease; }
+.journey-visual .journey-label { transition: opacity 0.18s ease; }
 
 /* Chips (pill style, consistent with nav pills) */
 .journey-markers {
@@ -737,6 +873,12 @@ td {
 .journey-chip--alt {
   border-color: rgba(91, 194, 231, 0.55);
   box-shadow: 0 0 0 2px rgba(91, 194, 231, 0.10);
+}
+
+.journey-chip--accent {
+  border-color: rgba(74, 144, 226, 0.5);
+  background: rgba(74, 144, 226, 0.06);
+  color: var(--accent-strong);
 }
 
 /* Responsive */

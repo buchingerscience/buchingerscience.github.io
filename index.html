@@ -2,22 +2,57 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Buchinger Science – Home</title>
+  <title>Buchinger Science – The Science of Fasting</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Josefin+Sans:wght@200;300;400&family=EB+Garamond:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
-  <!-- Chart.js library for pages that require charts -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+  <!-- Index-specific: fixed nav + scrollytelling overrides -->
+  <style>
+    body { background: var(--sand); }
+
+    /* Fixed transparent nav for scrollytelling hero */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      background: transparent;
+      border-bottom: 1px solid transparent;
+      z-index: 800;
+      transition: background 0.5s, border-color 0.5s;
+    }
+    nav .logo { color: var(--sand); }
+    nav a { color: rgba(232,221,208,0.75); }
+    nav a:hover, nav a:focus { background: rgba(255,255,255,0.08); border-color: transparent; color: var(--sand); }
+    nav a.active { background: var(--brass); color: var(--sand); border-color: var(--brass); }
+    nav .nav-toggle { color: rgba(232,221,208,0.85); }
+    nav.nav--scrolled .nav-toggle { color: var(--warm-dark); }
+    nav.menu-open .nav-toggle { color: var(--warm-dark); }
+
+    nav.nav--scrolled {
+      background: rgba(244,240,234,0.94);
+      backdrop-filter: blur(16px);
+      border-bottom-color: var(--stone);
+      box-shadow: none;
+    }
+    nav.nav--scrolled .logo { color: var(--warm-dark); }
+    nav.nav--scrolled a { color: var(--warm-mid); }
+    nav.nav--scrolled a:hover { background: var(--stone); border-color: transparent; color: var(--warm-dark); }
+    nav.nav--scrolled a.active { background: var(--brass); color: var(--chalk); border-color: var(--brass); }
+  </style>
 </head>
 
-<body>
-  <!-- Navigation bar linking to other pages -->
-  <nav>
+<body class="page-home">
+
+  <!-- Scroll progress indicator -->
+  <div id="progress"></div>
+
+  <!-- Navigation -->
+  <nav id="nav">
     <div class="logo">Buchinger Science</div>
     <ul>
-      <li><a href="index.html">Home</a></li>
-      <li><a href="https://dash.buchinger-science.com">Metabolic Explorer</a></li>
-      <li><a href="https://staging.buchinger-wilhelmi.com">Weight loss estimator</a></li>
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="https://dash.buchinger-science.com" target="_blank" rel="noopener">Metabolic Explorer</a></li>
       <li><a href="library.html">Research Library</a></li>
       <li><a href="newsletter.html">Newsletters</a></li>
       <li><a href="videos.html">Amplius Videos</a></li>
@@ -26,109 +61,666 @@
     </ul>
   </nav>
 
-  <!-- Hero Section -->
-  <section id="home" class="hero" style="background-image: url('IMG_1198.jpeg');">
-    <div class="content">
-      <h1>The Science of Fasting</h1>
-      <p>
-        Clinical data from the world's leading medically supervised fasting clinic — tracked, tested, and published with top universities.
-        We measure the evidence so you can make informed decisions about your health.
-      </p>
-      <a href="library.html" class="cta-button">Explore the Research</a>
-    </div>
-    <a class="hero-scroll-hint" href="#journey" aria-label="Scroll to Fasting Journey Explorer">
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-        <polyline points="4 8 10 14 16 8"/>
-      </svg>
-    </a>
-  </section>
-
-  <!-- Fasting Journey Explorer -->
-  <section id="journey" class="journey-explorer">
-    <div class="journey-header">
-      <span class="section-eyebrow">Interactive</span>
-      <h2>Fasting Journey Explorer</h2>
-      <p>
-        Drag the slider to trace the key biological phases of extended fasting.
-        A simplified overview based on published clinical data.
-      </p>
-    </div>
-
-    <div class="journey-slider-wrap">
-      <input type="range" min="1" max="21" value="1" class="journey-slider" id="fastingSlider" aria-label="Fasting day slider" aria-valuemin="1" aria-valuemax="21" aria-valuenow="1">
-      <div class="journey-ticks" aria-hidden="true">
-        <span>Day 1</span>
-        <span>Day 7</span>
-        <span>Day 14</span>
-        <span>Day 21</span>
-      </div>
-    </div>
-
-    <div class="journey-grid">
-      <div class="journey-visual" id="journey-visual" role="group" aria-label="Selected day summary">
-        <div class="journey-day" id="stat-value">Day 1</div>
-        <div class="journey-label" id="stat-label">Initial transition</div>
-      </div>
-
-      <div class="journey-copy" id="journey-copy">
-        <h3 id="stage-title">Metabolic switch</h3>
-        <p id="stage-description">
-          Your body starts shifting from sugar to fat-burning. Insulin levels begin to drop.
-        </p>
-
-        <div class="journey-markers" aria-label="Key markers">
-          <span class="journey-chip" id="marker-1">Glucose ↓</span>
-          <span class="journey-chip journey-chip--alt" id="marker-2">Insulin ↓</span>
-          <span class="journey-chip journey-chip--accent" id="marker-3">Ketones ↑</span>
-        </div>
-      </div>
+  <!-- ── HERO ── -->
+  <section class="hero" style="background-image: url('IMG_1198.jpeg');">
+    <div class="hero-line hero-line-v"></div>
+    <div class="hero-line hero-line-h"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">Clinical Research · Est. 1919</p>
+      <h1>The Science<br>of <em>Fasting</em></h1>
+      <p class="hero-sub">A century of medically supervised fasting, now
+        rigorously documented — exploring metabolism, longevity, the
+        microbiome, and the body's innate capacity for renewal.</p>
+      <div class="hero-scroll"><div class="scroll-tick"></div>Scroll to explore</div>
     </div>
   </section>
 
-  <!-- List of studies on the landing page -->
-  <section id="studies">
-    <span class="section-eyebrow">Recent Publications</span>
-    <h2>Our Scientific Studies</h2>
-    <p>Selected recent publications from the Buchinger Wilhelmi research team, peer-reviewed and openly accessible.</p>
+  <!-- ── PULL QUOTE ── -->
+  <div class="pull-band">
+    <blockquote>"Fasting is not the absence of eating — it serves a
+      <em>repair and regeneration</em> function, activating the hallmarks
+      of ageing in ways no drug yet replicates."</blockquote>
+    <p class="pull-cite">— Buchinger Wilhelmi Scientific Programme</p>
+  </div>
 
-    <div class="articles-grid">
-      <div class="article-card">
-        <img src="IMG_1202.jpeg" alt="Remodelling of the gut virome after long-term fasting">
-        <div class="card-body">
-          <h3>Remodelling of the gut virome after long-term fasting</h3>
-          <p class="authors">Falshaw N, Ducarmon QR, King A, Grundler F, Mesnage R</p>
-          <p class="journal"><em>medRxiv</em> · 2025 · <a href="https://doi.org/10.1101/2025.12.19.25342476" target="_blank" rel="noopener">DOI ↗</a></p>
-          <a href="library.html">View in library →</a>
+  <!-- ── CHAPTER 1: METABOLISM ── -->
+  <section class="chapter" id="metabolism">
+
+    <div class="sticky-panel">
+      <div class="panel-inner panel-metabolism">
+        <svg viewBox="0 0 420 420" style="width:84%;max-height:84%" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <linearGradient id="gGluc" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#a8885a" stop-opacity="0.5"/>
+              <stop offset="100%" stop-color="#a8885a" stop-opacity="0.06"/>
+            </linearGradient>
+            <linearGradient id="gKeto" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#6b9080" stop-opacity="0.06"/>
+              <stop offset="100%" stop-color="#6b9080" stop-opacity="0.42"/>
+            </linearGradient>
+          </defs>
+          <line x1="52" y1="32" x2="52" y2="340" stroke="#cfc3b0" stroke-width="0.75"/>
+          <line x1="52" y1="340" x2="390" y2="340" stroke="#cfc3b0" stroke-width="0.75"/>
+          <line x1="52" y1="260" x2="390" y2="260" stroke="#cfc3b0" stroke-width="0.4" stroke-dasharray="4 4"/>
+          <line x1="52" y1="180" x2="390" y2="180" stroke="#cfc3b0" stroke-width="0.4" stroke-dasharray="4 4"/>
+          <line x1="52" y1="100" x2="390" y2="100" stroke="#cfc3b0" stroke-width="0.4" stroke-dasharray="4 4"/>
+          <polygon points="52,260 120,245 190,215 230,195 230,340 52,340" fill="url(#gGluc)" opacity="0.7"/>
+          <polygon points="230,195 290,145 350,95 390,70 390,340 230,340" fill="url(#gKeto)" opacity="0.7"/>
+          <path d="M 52 260 Q 120 248 190 218 Q 210 208 230 195" fill="none" stroke="#a8885a" stroke-width="2" stroke-linecap="round"/>
+          <path d="M 230 195 Q 270 155 320 110 Q 355 85 390 70" fill="none" stroke="#6b9080" stroke-width="2" stroke-linecap="round"/>
+          <circle cx="230" cy="195" r="6" fill="#a8885a" opacity="0.9"/>
+          <line x1="230" y1="50" x2="230" y2="340" stroke="#a8885a" stroke-width="0.75" stroke-dasharray="5 4" opacity="0.4"/>
+          <text x="236" y="65" fill="#a8885a" font-family="'Josefin Sans',sans-serif" font-size="9" letter-spacing="1.5" opacity="0.8">~24–36 H</text>
+          <text x="88" y="368" fill="#a8885a" font-family="'Josefin Sans',sans-serif" font-size="8.5" letter-spacing="2" opacity="0.7">GLUCOSE</text>
+          <text x="296" y="368" fill="#6b9080" font-family="'Josefin Sans',sans-serif" font-size="8.5" letter-spacing="2" opacity="0.7">KETONES</text>
+          <text x="20" y="200" fill="#8a7a6a" font-family="'Josefin Sans',sans-serif" font-size="8" letter-spacing="1.5" transform="rotate(-90 20 200)" opacity="0.6">ENERGY FUEL</text>
+          <text x="220" y="20" fill="#8a7a6a" font-family="'Josefin Sans',sans-serif" font-size="8" letter-spacing="2.5" text-anchor="middle" opacity="0.6">METABOLIC FUEL SHIFT</text>
+          <text x="52" y="354" fill="#8a7a6a" font-family="'Josefin Sans',sans-serif" font-size="8" text-anchor="middle" opacity="0.5">0</text>
+          <text x="180" y="354" fill="#8a7a6a" font-family="'Josefin Sans',sans-serif" font-size="8" text-anchor="middle" opacity="0.5">2d</text>
+          <text x="320" y="354" fill="#8a7a6a" font-family="'Josefin Sans',sans-serif" font-size="8" text-anchor="middle" opacity="0.5">7d</text>
+          <text x="390" y="354" fill="#8a7a6a" font-family="'Josefin Sans',sans-serif" font-size="8" text-anchor="middle" opacity="0.5">14d</text>
+        </svg>
+      </div>
+    </div>
+
+    <div class="narrative">
+      <div class="step active">
+        <div class="eyebrow">Chapter 01 · Metabolism</div>
+        <h2>The Metabolic <em>Switch</em></h2>
+        <p>Within 24 to 36 hours of fasting, the body exhausts its hepatic
+          glycogen stores and shifts its primary energy substrate from glucose to
+          fatty acids and ketone bodies. This "metabolic switch" is a deeply
+          conserved evolutionary programme and the cornerstone of fasting
+          physiology.</p>
+        <p>The GENESIS study (Grundler, Mesnage et al., <em>Frontiers in
+          Nutrition</em>, 2022) was designed to characterise the multi-system
+          adaptations induced by 10-day fasting at Buchinger Wilhelmi, tracking
+          blood, urine, and tissue markers at baseline, post-fasting, and 1- and
+          4-month follow-up visits.</p>
+      </div>
+
+      <div class="step">
+        <h2>Ketosis in <em>1,610 Subjects</em></h2>
+        <p>A 2024 analysis of 1,610 patients undergoing Buchinger Wilhelmi
+          fasting documented the kinetics and safety of fasting-induced ketosis at
+          scale. Beta-hydroxybutyrate (BHB) rose markedly across all patients,
+          reaching peak levels between days 3 and 7 — confirming that deep,
+          consistent ketosis is safely achievable across diverse patient
+          populations including those with metabolic comorbidities.</p>
+        <div class="stat-pill">
+          <span class="num">1,610</span>
+          <span class="unit">Patients · Nutrients 2024</span>
+          <p class="note">Long-term fasting-induced ketosis: metabolic
+            regulation and safety — Grundler, Mesnage, Ruppert, Kouretas, Wilhelmi
+            de Toledo</p>
         </div>
       </div>
 
-      <div class="article-card">
-        <img src="IMG_1201.jpeg" alt="Revisiting the (anti)inflammatory effects of prolonged fasting">
-        <div class="card-body">
-          <h3>Revisiting the (anti)inflammatory effects of prolonged fasting: the importance of baseline-dependent responses</h3>
-          <p class="authors">Mesnage R, Grundler F, Wilhelmi de Toledo F</p>
-          <p class="journal"><em>Frontiers in Nutrition</em> · 2025 · <a href="https://doi.org/10.3389/fnut.2025.1715341" target="_blank" rel="noopener">DOI ↗</a></p>
-          <a href="library.html">View in library →</a>
+      <div class="step">
+        <h2>Erythrocyte Membrane <em>Remodelling</em></h2>
+        <p>A 2025 study in the <em>European Journal of Clinical
+          Investigation</em> found that 10 days of fasting substantially
+          remodels the fatty acid composition of red blood cell membranes.
+          Saturated and monounsaturated fatty acids declined; omega-3
+          polyunsaturated fatty acids increased — a favourable shift with direct
+          implications for cardiovascular membrane biology.</p>
+        <p>These changes in membrane fluidity represent a novel cellular-level
+          biomarker of prolonged fasting, opening new windows into how fasting
+          reshapes cell physiology beyond standard blood panels.</p>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ── INTERLUDE 1 ── -->
+  <div class="interlude reveal">
+    <div class="interlude-left">
+      <p class="interlude-label">Foundation Study · 2019</p>
+      <p class="interlude-num"><em>1,422</em></p>
+      <p class="interlude-text">The world's largest prospective fasting
+        study — documenting the safety, health improvements, and well-being of
+        patients across 4 to 21 days of Buchinger Wilhelmi fasting.</p>
+    </div>
+    <div class="interlude-divider"></div>
+    <div class="interlude-right">
+      <h3 class="interlude-title">Safety, first and <em>always</em></h3>
+      <p class="interlude-body">Across 1,422 subjects spanning a decade of
+        clinical records, fasting was overwhelmingly safe. Adverse events were
+        rare and minor. The study documented improvements in body weight, blood
+        pressure, fasting glucose, lipid profiles, and quality of life across
+        the full cohort — establishing Buchinger Wilhelmi fasting as a
+        rigorously evidenced clinical intervention.</p>
+      <p class="interlude-body" style="margin-top:14px;font-style:italic;font-size:0.85rem;">Wilhelmi
+        de Toledo, Grundler, Bergouignan, Drinda &amp; Michalsen — PLOS ONE,
+        2019.</p>
+    </div>
+  </div>
+
+  <!-- ── CHAPTER 2: BIOMARKERS ── -->
+  <section class="chapter flip" id="biomarkers">
+
+    <div class="sticky-panel">
+      <div class="panel-inner panel-biomarkers">
+        <svg viewBox="0 0 420 400" style="width:84%;max-height:84%" xmlns="http://www.w3.org/2000/svg">
+          <line x1="52" y1="32" x2="52" y2="320" stroke="rgba(232,221,208,0.1)" stroke-width="0.75"/>
+          <line x1="52" y1="320" x2="390" y2="320" stroke="rgba(232,221,208,0.1)" stroke-width="0.75"/>
+          <line x1="52" y1="240" x2="390" y2="240" stroke="rgba(232,221,208,0.06)" stroke-width="0.6" stroke-dasharray="4 4"/>
+          <line x1="52" y1="160" x2="390" y2="160" stroke="rgba(232,221,208,0.06)" stroke-width="0.6" stroke-dasharray="4 4"/>
+          <line x1="52" y1="80" x2="390" y2="80" stroke="rgba(232,221,208,0.06)" stroke-width="0.6" stroke-dasharray="4 4"/>
+          <polyline points="52,230 110,200 170,165 230,130 290,105 350,88 390,80" fill="none" stroke="#c9a870" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+          <polygon points="52,230 110,200 170,165 230,130 290,105 350,88 390,80 390,320 52,320" fill="#c9a870" opacity="0.07"/>
+          <polyline points="52,210 110,196 170,178 230,162 290,148 350,140 390,136" fill="none" stroke="#8aaa90" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <polyline points="52,245 110,228 170,208 230,188 290,173 350,165 390,161" fill="none" stroke="rgba(232,221,208,0.35)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="390" cy="80" r="4" fill="#c9a870" opacity="0.9"/>
+          <circle cx="390" cy="136" r="4" fill="#8aaa90" opacity="0.9"/>
+          <circle cx="390" cy="161" r="4" fill="rgba(232,221,208,0.4)"/>
+          <text x="52" y="336" fill="rgba(232,221,208,0.3)" font-family="'Josefin Sans',sans-serif" font-size="8" text-anchor="middle" letter-spacing="1">0</text>
+          <text x="170" y="336" fill="rgba(232,221,208,0.3)" font-family="'Josefin Sans',sans-serif" font-size="8" text-anchor="middle" letter-spacing="1">4d</text>
+          <text x="290" y="336" fill="rgba(232,221,208,0.3)" font-family="'Josefin Sans',sans-serif" font-size="8" text-anchor="middle" letter-spacing="1">8d</text>
+          <text x="390" y="336" fill="rgba(232,221,208,0.3)" font-family="'Josefin Sans',sans-serif" font-size="8" text-anchor="middle" letter-spacing="1">14d</text>
+          <rect x="52" y="354" width="18" height="2" fill="#c9a870" rx="1"/>
+          <text x="76" y="359" fill="rgba(232,221,208,0.5)" font-family="'Josefin Sans',sans-serif" font-size="8" letter-spacing="1.5">CRP</text>
+          <rect x="120" y="354" width="18" height="2" fill="#8aaa90" rx="1"/>
+          <text x="144" y="359" fill="rgba(232,221,208,0.5)" font-family="'Josefin Sans',sans-serif" font-size="8" letter-spacing="1.5">BLOOD PRESSURE</text>
+          <rect x="280" y="354" width="18" height="2" fill="rgba(232,221,208,0.35)" rx="1"/>
+          <text x="304" y="359" fill="rgba(232,221,208,0.5)" font-family="'Josefin Sans',sans-serif" font-size="8" letter-spacing="1.5">TRIGLYCERIDES</text>
+          <text x="220" y="20" fill="rgba(232,221,208,0.35)" font-family="'Josefin Sans',sans-serif" font-size="8" text-anchor="middle" letter-spacing="2.5">BIOMARKER TRAJECTORIES</text>
+        </svg>
+      </div>
+    </div>
+
+    <div class="narrative">
+      <div class="step active">
+        <div class="eyebrow">Chapter 02 · Biomarkers</div>
+        <h2>Blood Pressure &amp;<br><em>1,610 Patients</em></h2>
+        <p>A 2020 study in the <em>Journal of the American Heart
+          Association</em> documented blood pressure changes in 1,610 patients
+          — with and without antihypertensive medication — during Buchinger
+          Wilhelmi fasting. Both groups showed significant, clinically meaningful
+          reductions in systolic and diastolic blood pressure.</p>
+        <div class="stat-pill">
+          <span class="num">−17 mmHg</span>
+          <span class="unit">Mean systolic BP reduction</span>
+          <p class="note">In hypertensive patients during 10-day Buchinger
+            Wilhelmi fasting — Grundler, Mesnage et al., JAHA 2020</p>
         </div>
       </div>
 
-      <div class="article-card">
-        <img src="IMG_1200.jpeg" alt="Long-term fasting autonomic nervous system modulation in GENESIS">
-        <div class="card-body">
-          <h3>Long-term fasting-induced autonomic nervous system modulation in the GENESIS study</h3>
-          <p class="authors">Mesnage R, Holley A, Grundler F, Martinez-Tellez B, Wilhelmi de Toledo F, Croisille P</p>
-          <p class="journal"><em>International Journal of Obesity</em> · 2025 · <a href="https://doi.org/10.1038/s41366-025-01843-0" target="_blank" rel="noopener">DOI ↗</a></p>
-          <a href="library.html">View in library →</a>
+      <div class="step">
+        <h2>Inflammation — <em>Baseline Matters</em></h2>
+        <p>A 2025 paper in <em>Frontiers in Nutrition</em> revisited the
+          anti-inflammatory effects of prolonged fasting and identified a critical
+          but overlooked variable: baseline CRP level.</p>
+        <p>Re-analysing the clinical dataset, Mesnage, Grundler and Wilhelmi
+          de Toledo showed that patients with elevated baseline CRP experienced
+          the greatest reductions during fasting — while those with already-low
+          CRP showed minimal change. This "baseline-dependent response" reframes
+          the anti-inflammatory evidence and has direct clinical implications for
+          patient selection and outcome prediction.</p>
+      </div>
+
+      <div class="step">
+        <h2>HDL Function &amp;<br><em>Cardiovascular Risk</em></h2>
+        <p>A 2024 prospective study assessed HDL cholesterol efflux capacity
+          during long-term fasting — a functional measure of how effectively HDL
+          removes cholesterol from arterial walls, widely considered more
+          predictive of cardiovascular risk than total HDL levels.</p>
+        <p>Fasting improved both efflux capacity and cholesterol loading
+          capacity in erythrocyte membranes, pointing to qualitative improvements
+          in cardiovascular protective function beyond what standard lipid panels
+          detect.</p>
+        <div class="stat-pill">
+          <span class="num">Atherosclerosis</span>
+          <span class="unit">2024 · Prospective study</span>
+          <p class="note">HDL cholesterol efflux capacity in long-term fasting
+            — Grundler, Palumbo, Adorni, Zimetti, Papotti, Plonné</p>
         </div>
       </div>
     </div>
 
-    <div class="studies-cta">
-      <a href="library.html" class="cta-button cta-button--large">Browse all studies →</a>
+  </section>
+
+  <!-- ── CHAPTER 3: GUT MICROBIOME ── -->
+  <section class="chapter" id="microbiome">
+
+    <div class="sticky-panel">
+      <div class="panel-inner panel-microbiome">
+        <svg viewBox="0 0 400 420" style="width:82%;max-height:84%" xmlns="http://www.w3.org/2000/svg">
+          <ellipse cx="200" cy="200" rx="155" ry="145" fill="none" stroke="#cfc3b0" stroke-width="0.75" opacity="0.6"/>
+          <ellipse cx="200" cy="200" rx="110" ry="100" fill="none" stroke="#cfc3b0" stroke-width="0.5" stroke-dasharray="3 3" opacity="0.4"/>
+          <circle cx="165" cy="175" r="7" fill="#a8885a" opacity="0.55"/>
+          <circle cx="235" cy="185" r="10" fill="#a8885a" opacity="0.45"/>
+          <circle cx="200" cy="230" r="8" fill="#a8885a" opacity="0.5"/>
+          <circle cx="152" cy="235" r="5" fill="#a8885a" opacity="0.45"/>
+          <circle cx="250" cy="240" r="7" fill="#a8885a" opacity="0.45"/>
+          <circle cx="178" cy="158" r="5" fill="#6b9080" opacity="0.75"/>
+          <circle cx="225" cy="155" r="7" fill="#6b9080" opacity="0.65"/>
+          <circle cx="258" cy="195" r="4" fill="#6b9080" opacity="0.7"/>
+          <circle cx="202" cy="198" r="11" fill="#6b9080" opacity="0.4"/>
+          <circle cx="166" cy="218" r="6" fill="#6b9080" opacity="0.65"/>
+          <circle cx="238" cy="228" r="5" fill="#6b9080" opacity="0.6"/>
+          <circle cx="152" cy="258" r="4" fill="#a8885a" opacity="0.6"/>
+          <circle cx="214" cy="262" r="6" fill="#6b9080" opacity="0.55"/>
+          <circle cx="267" cy="248" r="4" fill="#a8885a" opacity="0.55"/>
+          <circle cx="188" cy="283" r="5" fill="#6b9080" opacity="0.5"/>
+          <circle cx="245" cy="168" r="4" fill="#a8885a" opacity="0.5"/>
+          <circle cx="72" cy="355" r="5" fill="#a8885a" opacity="0.6"/>
+          <text x="84" y="359" fill="#8a7a6a" font-family="'Josefin Sans',sans-serif" font-size="8.5" letter-spacing="1.5">BEFORE</text>
+          <circle cx="148" cy="355" r="5" fill="#6b9080" opacity="0.75"/>
+          <text x="160" y="359" fill="#8a7a6a" font-family="'Josefin Sans',sans-serif" font-size="8.5" letter-spacing="1.5">AFTER FASTING</text>
+          <text x="200" y="20" fill="#8a7a6a" font-family="'Josefin Sans',sans-serif" font-size="8" text-anchor="middle" letter-spacing="2.5" opacity="0.7">GUT MICROBIOME · DIVERSITY SHIFT</text>
+          <text x="200" y="385" fill="#8a7a6a" font-family="'Josefin Sans',sans-serif" font-size="7.5" text-anchor="middle" letter-spacing="1.5" opacity="0.5">ALPHA-DIVERSITY INCREASE — 10-DAY FASTING</text>
+        </svg>
+      </div>
+    </div>
+
+    <div class="narrative">
+      <div class="step active">
+        <div class="eyebrow">Chapter 03 · Microbiome</div>
+        <h2>Gut Microbiota &amp; the<br><em>Metabolic Switch</em></h2>
+        <p>A 2019 study in the <em>Journal of Nutritional Science</em> was
+          the first to directly link gut microbiota compositional changes to the
+          metabolic switch during 10-day Buchinger fasting. As the energy
+          substrate shifted from glucose to ketones, the intestinal microbial
+          community reorganised — with shifts in Firmicutes-to-Bacteroidetes
+          ratios and enrichment of anti-inflammatory taxa.</p>
+      </div>
+
+      <div class="step">
+        <h2>Remodelling the<br><em>Gut Virome</em></h2>
+        <p>A December 2025 preprint on <em>medRxiv</em> reported the first
+          comprehensive characterisation of the gut virome — the community of
+          bacteriophages that regulate microbial dynamics — in the context of
+          long-term fasting.</p>
+        <p>Using metagenomics across discovery and validation cohorts from
+          Buchinger Wilhelmi clinical trials, the team identified consistent
+          virome signatures post-fasting, including enrichment of phages linked to
+          metabolically beneficial bacteria. This opens an unexplored dimension of
+          the microbiome-fasting interface.</p>
+        <div class="stat-pill">
+          <span class="num">Gut Virome</span>
+          <span class="unit">medRxiv · December 2025</span>
+          <p class="note">Remodelling of the gut virome after long-term
+            fasting — Falshaw N, Ducarmon QR, King A, Grundler F, Mesnage R</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <h2>Intestinal Ecosystem —<br><em>A 2023 Review</em></h2>
+        <p>A 2023 review in <em>Trends in Microbiology</em>, co-authored
+          by Buchinger Wilhelmi researchers, synthesised the evidence on how
+          caloric restriction and fasting reorganise the intestinal
+          ecosystem.</p>
+        <p>The review positioned the gut as an active participant in fasting
+          physiology — connecting fasting-induced microbial metabolite shifts to
+          host immune function, gut barrier integrity, and the anti-inflammatory
+          effects documented clinically.</p>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ── INTERLUDE 2 ── -->
+  <div class="interlude reveal">
+    <div class="interlude-left">
+      <p class="interlude-label">Case Study · 2024</p>
+      <p class="interlude-num"><em>45</em> years</p>
+      <p class="interlude-text">The world's longest medically documented
+        repeated fasting history — a 92-year-old man who fasted 21 days
+        annually for 45 years. Biological age analysis placed him 5.9 years
+        younger than his chronological age. No frailty. Excellent cognition.
+        Full mobility.</p>
+    </div>
+    <div class="interlude-divider"></div>
+    <div class="interlude-right">
+      <h3 class="interlude-title">Fasting as a<br><em>lifelong practice</em></h3>
+      <p class="interlude-body">Published in the <em>Journal of
+        Integrative and Complementary Medicine</em> in 2024, this
+        extraordinary case report provides the first long-term documented
+        evidence that repeated annual fasting cycles are compatible with
+        exceptional longevity and function into extreme old age. Body weight and
+        clinical parameters cycled predictably, always returning to pre-fasting
+        baselines after refeeding.</p>
+      <p class="interlude-body" style="margin-top:14px;font-style:italic;font-size:0.85rem;">Wilhelmi
+        de Toledo F, Grundler F, Mesnage R — JICM, 2024.</p>
+    </div>
+  </div>
+
+  <!-- ── CHAPTER 4: AUTONOMIC NERVOUS SYSTEM ── -->
+  <section class="chapter flip" id="autonomic">
+
+    <div class="sticky-panel">
+      <div class="panel-inner panel-autonomic">
+        <svg viewBox="0 0 420 420" style="width:84%;max-height:84%" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="210" cy="195" r="130" fill="none" stroke="rgba(232,221,208,0.08)" stroke-width="1"/>
+          <circle cx="210" cy="195" r="90" fill="none" stroke="rgba(232,221,208,0.05)" stroke-width="1"/>
+          <path d="M 210 65 A 130 130 0 0 1 340 195" fill="none" stroke="#c9a870" stroke-width="2.5" stroke-linecap="round" opacity="0.8"/>
+          <path d="M 210 65 A 130 130 0 1 0 340 195" fill="none" stroke="rgba(232,221,208,0.2)" stroke-width="1.5" stroke-linecap="round"/>
+          <circle cx="210" cy="65" r="5" fill="#c9a870" opacity="0.9"/>
+          <circle cx="340" cy="195" r="5" fill="#c9a870" opacity="0.8"/>
+          <circle cx="210" cy="325" r="4" fill="rgba(232,221,208,0.25)"/>
+          <circle cx="80" cy="195" r="4" fill="rgba(232,221,208,0.2)"/>
+          <text x="66" y="326" fill="rgba(232,221,208,0.35)" font-family="'Josefin Sans',sans-serif" font-size="8" letter-spacing="1.5">HEART RATE VARIABILITY</text>
+          <rect x="66" y="340" width="90" height="9" rx="1" fill="rgba(232,221,208,0.18)"/>
+          <text x="162" y="349" fill="rgba(232,221,208,0.4)" font-family="'Josefin Sans',sans-serif" font-size="8" letter-spacing="1">BEFORE</text>
+          <rect x="66" y="356" width="140" height="9" rx="1" fill="#c9a870" opacity="0.65"/>
+          <text x="212" y="365" fill="#c9a870" font-family="'Josefin Sans',sans-serif" font-size="8" letter-spacing="1">AFTER FASTING</text>
+          <text x="210" y="188" fill="rgba(232,221,208,0.5)" font-family="'Josefin Sans',sans-serif" font-size="8" text-anchor="middle" letter-spacing="2">AUTONOMIC</text>
+          <text x="210" y="202" fill="rgba(232,221,208,0.5)" font-family="'Josefin Sans',sans-serif" font-size="8" text-anchor="middle" letter-spacing="2">BALANCE</text>
+          <text x="210" y="20" fill="rgba(232,221,208,0.3)" font-family="'Josefin Sans',sans-serif" font-size="8" text-anchor="middle" letter-spacing="2.5">ANS MODULATION · GENESIS STUDY</text>
+        </svg>
+      </div>
+    </div>
+
+    <div class="narrative">
+      <div class="step active">
+        <div class="eyebrow">Chapter 04 · Autonomic System</div>
+        <h2>The Nervous System<br><em>in Fasting</em></h2>
+        <p>The GENESIS study included a cardiovascular autonomic sub-study
+          published in the <em>International Journal of Obesity</em> in 2025.
+          Using heart rate variability (HRV) analysis, the team characterised
+          autonomic nervous system (ANS) modulation during and after 10-day
+          fasting in a subgroup of participants.</p>
+        <p>HRV is a sensitive index of the balance between sympathetic
+          ("fight or flight") and parasympathetic ("rest and digest") nervous
+          system activity. Disrupted autonomic balance is associated with
+          cardiovascular disease, metabolic syndrome, and accelerated
+          ageing.</p>
+      </div>
+
+      <div class="step">
+        <h2>Parasympathetic <em>Upregulation</em></h2>
+        <p>Fasting induced a statistically significant shift toward
+          parasympathetic dominance — evidenced by increased high-frequency HRV
+          components and reduced sympathetic indicators. The effect peaked around
+          day 7 and showed partial persistence at the 1-month follow-up
+          visit.</p>
+        <p>This autonomic recalibration may help explain the subjective
+          improvements in mood, sleep quality, and stress resilience that
+          Buchinger Wilhelmi patients consistently report — bridging the
+          molecular observations with patient-reported outcomes.</p>
+        <div class="stat-pill">
+          <span class="num">Int J Obesity</span>
+          <span class="unit">2025 · GENESIS Sub-Study</span>
+          <p class="note">Mesnage R, Holley A, Grundler F, Martinez-Tellez B,
+            Wilhelmi de Toledo F, Croisille P</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <h2>Cardiac MRI &amp;<br><em>Ectopic Fat</em></h2>
+        <p>The GENESIS protocol also incorporated cardiac MRI to quantify
+          pericardial, epicardial, and hepatic fat — ectopic fat depots that
+          predict cardiometabolic risk independently of total body weight and that
+          standard BMI-based assessments fail to capture.</p>
+        <p>Ten days of supervised fasting produced substantial reductions in
+          all three compartments, demonstrating that Buchinger Wilhelmi fasting
+          achieves targeted reductions in metabolically harmful fat that
+          conventional caloric restriction approaches typically reach only after
+          many months.</p>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ── CHAPTER 5: LONGEVITY ── -->
+  <section class="chapter" id="longevity">
+
+    <div class="sticky-panel">
+      <div class="panel-inner panel-longevity">
+        <svg viewBox="0 0 420 420" style="width:84%;max-height:84%" xmlns="http://www.w3.org/2000/svg">
+          <line x1="52" y1="32" x2="52" y2="340" stroke="#cfc3b0" stroke-width="0.75"/>
+          <line x1="52" y1="340" x2="390" y2="340" stroke="#cfc3b0" stroke-width="0.75"/>
+          <line x1="52" y1="340" x2="390" y2="40" stroke="#cfc3b0" stroke-width="1" stroke-dasharray="6 4" opacity="0.5"/>
+          <text x="395" y="40" fill="#8a7a6a" font-family="'Josefin Sans',sans-serif" font-size="8" letter-spacing="1" opacity="0.5">Expected</text>
+          <circle cx="120" cy="295" r="5" fill="#a8885a" opacity="0.65"/>
+          <circle cx="165" cy="265" r="6" fill="#a8885a" opacity="0.6"/>
+          <circle cx="210" cy="235" r="7" fill="#6b9080" opacity="0.65"/>
+          <circle cx="250" cy="210" r="5" fill="#6b9080" opacity="0.6"/>
+          <circle cx="295" cy="185" r="8" fill="#a8885a" opacity="0.55"/>
+          <circle cx="340" cy="160" r="6" fill="#6b9080" opacity="0.6"/>
+          <circle cx="360" cy="118" r="9" fill="none" stroke="#a8885a" stroke-width="1.5"/>
+          <circle cx="360" cy="118" r="4" fill="#a8885a" opacity="0.9"/>
+          <text x="372" y="116" fill="#a8885a" font-family="'Josefin Sans',sans-serif" font-size="8" letter-spacing="1">92 yr old</text>
+          <text x="372" y="127" fill="#a8885a" font-family="'Josefin Sans',sans-serif" font-size="8" letter-spacing="1">−5.9 yrs</text>
+          <path d="M 110 306 Q 220 238 355 148" fill="none" stroke="#a8885a" stroke-width="1.5" opacity="0.5"/>
+          <text x="220" y="368" fill="#8a7a6a" font-family="'Josefin Sans',sans-serif" font-size="8" text-anchor="middle" letter-spacing="2" opacity="0.6">CHRONOLOGICAL AGE</text>
+          <text x="20" y="195" fill="#8a7a6a" font-family="'Josefin Sans',sans-serif" font-size="8" letter-spacing="1.5" transform="rotate(-90 20 195)" opacity="0.6">BIOLOGICAL AGE</text>
+          <polygon points="52,340 390,340 390,40 52,340" fill="#6b9080" opacity="0.04"/>
+          <text x="200" y="308" fill="#6b9080" font-family="'Josefin Sans',sans-serif" font-size="8" text-anchor="middle" letter-spacing="2" opacity="0.45">BIOLOGICALLY YOUNGER</text>
+          <circle cx="72" cy="390" r="5" fill="#a8885a" opacity="0.65"/>
+          <text x="84" y="394" fill="#8a7a6a" font-family="'Josefin Sans',sans-serif" font-size="8" letter-spacing="1.5">FASTING PATIENTS</text>
+          <text x="220" y="20" fill="#8a7a6a" font-family="'Josefin Sans',sans-serif" font-size="8" text-anchor="middle" letter-spacing="2.5" opacity="0.7">BIOLOGICAL VS CHRONOLOGICAL AGE</text>
+        </svg>
+      </div>
+    </div>
+
+    <div class="narrative">
+      <div class="step active">
+        <div class="eyebrow">Chapter 05 · Longevity</div>
+        <h2>Hallmarks of <em>Ageing</em></h2>
+        <p>The Buchinger Wilhelmi scientific programme has documented that
+          therapeutic fasting activates core hallmarks-of-ageing pathways —
+          slowing cell growth, reducing oxidative stress, and inducing autophagy.
+          These are the same pathways targeted by caloric restriction
+          interventions that extend lifespan in animal models.</p>
+        <p>Fasting upregulates AMPK, inhibits mTOR signalling, and activates
+          SIRT1 — a molecular signature associated with decelerated ageing and
+          improved metabolic healthspan.</p>
+      </div>
+
+      <div class="step">
+        <h2>Biological Age &amp;<br><em>Epigenetic Clocks</em></h2>
+        <p>Epigenetic biological age — estimated from DNA methylation
+          patterns — is a validated surrogate for physiological ageing rate.
+          Initial analyses from the Buchinger Wilhelmi cohort indicate that
+          patients engaging in repeated long-term fasting tend to display
+          biological ages below their chronological ages.</p>
+        <p>The 2024 case report of a 92-year-old patient with 45 years of
+          annual fasting showed a biological age 5.9 years below his chronological
+          age — no frailty, excellent cognition, intact mobility.</p>
+        <div class="stat-pill">
+          <span class="num">−5.9 years</span>
+          <span class="unit">Biological age advantage</span>
+          <p class="note">92-year-old man, 45 consecutive years of annual
+            21-day fasting. Biological age below chronological age — Wilhelmi de
+            Toledo, Grundler, Mesnage, JICM 2024</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <h2>Current &amp; Future<br><em>Research</em></h2>
+        <p>A 2024 study launched at Buchinger Wilhelmi focuses on the
+          refeeding phase — how the critical food reintroduction period after
+          prolonged fasting can be optimised to consolidate and extend the
+          metabolic gains achieved during the fast itself.</p>
+        <p>Active research also covers the musculoskeletal system, joint
+          inflammation and chronic pain, and the longer-term follow-up of patients
+          who practise fasting repeatedly over years — building the first
+          longitudinal evidence base for the cumulative health effects of
+          therapeutic fasting.</p>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ── PUBLICATIONS ── -->
+  <section class="pubs-section" id="publications">
+    <div class="section-header reveal">
+      <h2>Selected Publications</h2>
+      <p>Peer-reviewed work from the Buchinger Wilhelmi research team —
+        openly published, openly accessible.</p>
+    </div>
+
+    <div class="pubs-grid">
+
+      <div class="pub reveal">
+        <div class="pub-meta"><span class="pub-year">2025</span><span class="pub-journal">Front. Nutrition</span></div>
+        <h4>Revisiting the Anti-Inflammatory Effects of Prolonged Fasting</h4>
+        <p>Baseline CRP status determines the magnitude of anti-inflammatory
+          response — reframing fasting's evidence base and guiding clinical
+          patient selection.</p>
+        <div class="pub-authors">Mesnage R · Grundler F · Wilhelmi de Toledo F</div>
+        <a class="pub-doi" href="https://doi.org/10.3389/fnut.2025.1715341" target="_blank" rel="noopener">10.3389/fnut.2025.1715341</a>
+      </div>
+
+      <div class="pub reveal">
+        <div class="pub-meta"><span class="pub-year">2025</span><span class="pub-journal">Int J Obesity</span></div>
+        <h4>Autonomic Nervous System Modulation in the GENESIS Study</h4>
+        <p>Long-term fasting shifts the ANS toward parasympathetic dominance.
+          Durable HRV improvements documented post-10-day fasting.</p>
+        <div class="pub-authors">Mesnage R · Holley A · Grundler F · Martinez-Tellez B · Wilhelmi de Toledo F · Croisille P</div>
+        <a class="pub-doi" href="https://doi.org/10.1038/s41366-025-01843-0" target="_blank" rel="noopener">10.1038/s41366-025-01843-0</a>
+      </div>
+
+      <div class="pub reveal">
+        <div class="pub-meta"><span class="pub-year">2025</span><span class="pub-journal">medRxiv</span></div>
+        <h4>Remodelling of the Gut Virome After Long-Term Fasting</h4>
+        <p>First metagenomics-based characterisation of gut virome remodelling
+          during fasting. Consistent bacteriophage community signatures across cohorts.</p>
+        <div class="pub-authors">Falshaw N · Ducarmon QR · King A · Grundler F · Mesnage R</div>
+        <a class="pub-doi" href="https://doi.org/10.1101/2025.12.19.25342476" target="_blank" rel="noopener">10.1101/2025.12.19.25342476</a>
+      </div>
+
+      <div class="pub reveal">
+        <div class="pub-meta"><span class="pub-year">2024</span><span class="pub-journal">Nutrients</span></div>
+        <h4>Long-Term Fasting-Induced Ketosis in 1,610 Subjects</h4>
+        <p>Large-scale characterisation of ketosis kinetics and safety across
+          diverse patient populations, confirming consistent and safe deep ketosis.</p>
+        <div class="pub-authors">Grundler F · Mesnage R · Ruppert PMM · Kouretas D · Wilhelmi de Toledo F</div>
+        <a class="pub-doi" href="https://doi.org/10.3390/nu16121849" target="_blank" rel="noopener">10.3390/nu16121849</a>
+      </div>
+
+      <div class="pub reveal">
+        <div class="pub-meta"><span class="pub-year">2024</span><span class="pub-journal">JICM</span></div>
+        <h4>45 Years of Annual Fasting — A 92-Year-Old Case Report</h4>
+        <p>World's longest medically documented repeated fasting history.
+          Biological age 5.9 years below chronological age. No frailty at 92.</p>
+        <div class="pub-authors">Wilhelmi de Toledo F · Grundler F · Mesnage R</div>
+        <a class="pub-doi" href="https://doi.org/10.1089/jicm.2023.0352" target="_blank" rel="noopener">10.1089/jicm.2023.0352</a>
+      </div>
+
+      <div class="pub reveal">
+        <div class="pub-meta"><span class="pub-year">2020</span><span class="pub-journal">JAHA</span></div>
+        <h4>Blood Pressure in 1,610 Subjects During Long-Term Fasting</h4>
+        <p>Significant reductions in systolic and diastolic BP. Establishes
+          the cardiovascular safety and efficacy of Buchinger Wilhelmi fasting at scale.</p>
+        <div class="pub-authors">Grundler F · Mesnage R · Michalsen A · Wilhelmi de Toledo F</div>
+        <a class="pub-doi" href="https://doi.org/10.1161/JAHA.120.018649" target="_blank" rel="noopener">10.1161/JAHA.120.018649</a>
+      </div>
+
+      <div class="pub reveal">
+        <div class="pub-meta"><span class="pub-year">2022</span><span class="pub-journal">Front. Nutrition</span></div>
+        <h4>GENESIS: Multi-System Adaptations in Humans</h4>
+        <p>Protocol and design for the GENESIS interventional trial —
+          integrating metabolomics, microbiome, cardiac MRI, HRV, and 4-month follow-up.</p>
+        <div class="pub-authors">Grundler F · Viallon M · Mesnage R · Ruscica M · von Schacky C · Madeo F · Croisille P · Wilhelmi de Toledo F</div>
+        <a class="pub-doi" href="https://doi.org/10.3389/fnut.2022.951000" target="_blank" rel="noopener">10.3389/fnut.2022.951000</a>
+      </div>
+
+      <div class="pub reveal">
+        <div class="pub-meta"><span class="pub-year">2019</span><span class="pub-journal">PLOS ONE</span></div>
+        <h4>Safety, Health Improvement &amp; Well-Being in 1,422 Subjects</h4>
+        <p>The world's largest prospective fasting study. Improvements in all
+          major clinical parameters. The foundational evidence paper for Buchinger Wilhelmi fasting.</p>
+        <div class="pub-authors">Wilhelmi de Toledo F · Grundler F · Bergouignan A · Drinda S · Michalsen A</div>
+        <a class="pub-doi" href="https://doi.org/10.1371/journal.pone.0209353" target="_blank" rel="noopener">10.1371/journal.pone.0209353</a>
+      </div>
+
+      <div class="pub reveal">
+        <div class="pub-meta"><span class="pub-year">2019</span><span class="pub-journal">J Nutr Science</span></div>
+        <h4>Gut Microbiota &amp; the Energy Metabolic Switch</h4>
+        <p>First study directly linking gut microbiota compositional changes
+          to the metabolic switch during Buchinger fasting.</p>
+        <div class="pub-authors">Mesnage R · Grundler F · Schwiertz A · Le Maho Y · Wilhelmi de Toledo F</div>
+        <a class="pub-doi" href="https://doi.org/10.1017/jns.2019.33" target="_blank" rel="noopener">10.1017/jns.2019.33</a>
+      </div>
+
+    </div>
+
+    <div class="pubs-cta reveal">
+      <a href="library.html" class="btn-ghost">Browse the full research library</a>
     </div>
   </section>
 
-  <!-- Footer -->
+  <!-- ── TIMELINE ── -->
+  <section class="timeline-section" id="timeline">
+    <div class="timeline-wrap">
+      <div class="timeline-head reveal">
+        <div class="eyebrow" style="justify-content:center;">Research History</div>
+        <h2>A Century of<br>Fasting Science</h2>
+      </div>
+
+      <div class="tl">
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <p class="tl-year">1919</p>
+          <h4>Otto Buchinger Pioneers Therapeutic Fasting</h4>
+          <p>Recovering from rheumatoid arthritis through a supervised fast,
+            Otto Buchinger develops therapeutic fasting as a systematic clinical
+            practice and establishes the first fasting clinic in Germany.</p>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <p class="tl-year">1953</p>
+          <h4>Clinic Opens on Lake Constance</h4>
+          <p>Buchinger Wilhelmi opens at Bodensee, integrating medical
+            supervision, structured movement, nutritional refeeding, and
+            psycho-spiritual support into a programme still running today.</p>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <p class="tl-year">2002</p>
+          <h4>Expert Consensus Guidelines</h4>
+          <p>Fasting therapy guidelines co-authored by Buchinger Wilhelmi
+            clinicians are published — the first evidence-based framework for
+            medically supervised fasting, updated in 2013.</p>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <p class="tl-year">2019</p>
+          <h4>Landmark 1,422-Patient PLOS ONE Study</h4>
+          <p>The world's largest prospective fasting study is published —
+            1,422 patients, a decade of records — becoming the most-cited evidence
+            base for therapeutic fasting worldwide.</p>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <p class="tl-year">2021</p>
+          <h4>GENESIS Multi-System Trial Launches</h4>
+          <p>The most comprehensive clinical fasting trial to date begins,
+            integrating metabolomics, metagenomics, cardiac MRI, HRV analysis, and
+            4-month follow-up across 100 participants.</p>
+        </div>
+
+        <div class="tl-item">
+          <div class="tl-dot"></div>
+          <p class="tl-year">2024–25</p>
+          <h4>Virome, Longevity &amp; Refeeding Research</h4>
+          <p>New frontiers: the gut virome in fasting; 45-year repeated fasting
+            case; biological age clocks; refeeding optimisation. The evidence base
+            continues to grow — openly published and openly accessible.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER CTA ── -->
+  <section class="footer-cta">
+    <div class="footer-cta-inner">
+      <div class="eyebrow" style="justify-content:center;margin-bottom:20px;">Our Mission</div>
+      <h2>Science in service<br>of <em>human health</em></h2>
+      <p>Rigorous clinical research — openly published, openly accessible —
+        from the world's leading medically supervised fasting clinic.</p>
+      <a class="btn-ghost" href="library.html">Explore the Research Library</a>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
   <footer>
     <div class="footer-inner">
       <div class="footer-brand">
@@ -158,105 +750,48 @@
     </div>
   </footer>
 
-  <!-- Common scripts -->
   <script src="script.js"></script>
   <script>
-    // Active nav link
-    document.querySelectorAll("nav a").forEach(a => {
-      if (a.getAttribute("href") === "index.html") a.classList.add("active");
-    });
-    // Nav scroll shadow
-    window.addEventListener("scroll", () => {
-      document.querySelector("nav").classList.toggle("nav--scrolled", window.scrollY > 4);
+    // Progress bar
+    const prog = document.getElementById('progress');
+    const nav  = document.getElementById('nav');
+
+    window.addEventListener('scroll', () => {
+      prog.style.width = (window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100) + '%';
+      nav.classList.toggle('nav--scrolled', window.scrollY > 60);
     }, { passive: true });
-    // Smooth scroll for hero chevron
-    document.querySelector(".hero-scroll-hint")?.addEventListener("click", e => {
-      e.preventDefault();
-      document.getElementById("journey")?.scrollIntoView({ behavior: "smooth" });
+
+    // Generic reveal (fade-up) observer
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.reveal, .tl-item').forEach(el => io.observe(el));
+
+    // Pub card stagger
+    document.querySelectorAll('.pub').forEach((p, i) => {
+      p.style.transitionDelay = (i % 3) * 0.1 + 's';
     });
-  </script>
+    const pubIO = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.pub').forEach(p => pubIO.observe(p));
 
-  <!-- Journey Explorer script -->
-  <script>
-    const slider = document.getElementById('fastingSlider');
-    const statValue = document.getElementById('stat-value');
-    const statLabel = document.getElementById('stat-label');
-    const stageTitle = document.getElementById('stage-title');
-    const stageDescription = document.getElementById('stage-description');
-    const marker1 = document.getElementById('marker-1');
-    const marker2 = document.getElementById('marker-2');
-    const marker3 = document.getElementById('marker-3');
-    const journeyVisual = document.getElementById('journey-visual');
-    const journeyCopy = document.getElementById('journey-copy');
-
-    const stages = {
-      1:  {
-        title: "Metabolic switch",
-        desc: "The body begins shifting from glucose to fat oxidation. Glycogen stores deplete and insulin levels start falling — signalling the transition into fasting metabolism.",
-        label: "Initial transition",
-        m1: "Glucose ↓", m2: "Insulin ↓", m3: "Glycogen ↓"
-      },
-      7:  {
-        title: "Ketogenic adaptation",
-        desc: "Fat-derived ketone bodies now supply the brain and muscles. Autophagy — the cellular recycling process — ramps up, clearing dysfunctional components.",
-        label: "Fat-burning & repair",
-        m1: "Ketones ↑", m2: "Autophagy ↑", m3: "IGF-1 ↓"
-      },
-      14: {
-        title: "Systemic calm",
-        desc: "Inflammatory markers often improve, particularly in individuals with elevated baseline levels. Blood pressure, triglycerides, and CRP tend to normalize.",
-        label: "Inflammation ↓",
-        m1: "CRP ↓", m2: "Triglycerides ↓", m3: "Blood pressure ↓"
-      },
-      21: {
-        title: "Regeneration signals",
-        desc: "Longer fasting periods reveal regenerative signalling. Immune system remodelling, gut microbiome shifts, and renewal of cellular populations become measurable.",
-        label: "Deep regeneration",
-        m1: "Stem cells ↑", m2: "Immunity →", m3: "Microbiome shift"
-      }
-    };
-
-    let fadeTimer = null;
-
-    function updateJourney(day, animate) {
-      slider.setAttribute('aria-valuenow', day);
-
-      if (animate) {
-        journeyVisual.classList.add('fading');
-        journeyCopy.classList.add('fading');
-        clearTimeout(fadeTimer);
-        fadeTimer = setTimeout(() => {
-          applyStage(day);
-          journeyVisual.classList.remove('fading');
-          journeyCopy.classList.remove('fading');
-        }, 120);
-      } else {
-        applyStage(day);
-      }
-    }
-
-    function applyStage(day) {
-      statValue.textContent = "Day " + day;
-
-      let stage;
-      if (day < 7)       stage = stages[1];
-      else if (day < 14) stage = stages[7];
-      else if (day < 21) stage = stages[14];
-      else               stage = stages[21];
-
-      statLabel.textContent = stage.label;
-      stageTitle.textContent = stage.title;
-      stageDescription.textContent = stage.desc;
-      marker1.textContent = stage.m1;
-      marker2.textContent = stage.m2;
-      marker3.textContent = stage.m3;
-    }
-
-    slider.addEventListener('input', (e) => {
-      updateJourney(parseInt(e.target.value, 10), true);
+    // Timeline stagger
+    document.querySelectorAll('.tl-item').forEach((item, i) => {
+      item.style.transitionDelay = i * 0.1 + 's';
     });
 
-    updateJourney(parseInt(slider.value, 10), false);
+    // Scrollytelling — activate step when centred in viewport
+    const stepIO = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.closest('.narrative').querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+          e.target.classList.add('active');
+        }
+      });
+    }, { threshold: 0.45, rootMargin: '-15% 0px -15% 0px' });
+    document.querySelectorAll('.step').forEach(s => stepIO.observe(s));
   </script>
+
 </body>
 </html>

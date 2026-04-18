@@ -9,6 +9,40 @@
  */
 
 document.addEventListener('DOMContentLoaded', function () {
+
+  /* ── Mobile navigation hamburger (injected on all pages) ── */
+  const nav = document.querySelector('nav');
+  if (nav) {
+    const toggle = document.createElement('button');
+    toggle.className = 'nav-toggle';
+    toggle.setAttribute('aria-label', 'Toggle navigation');
+    toggle.setAttribute('aria-expanded', 'false');
+    toggle.innerHTML =
+      '<span></span><span></span><span></span>';
+    nav.appendChild(toggle);
+
+    toggle.addEventListener('click', function () {
+      const isOpen = nav.classList.toggle('menu-open');
+      toggle.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    // Close menu on any nav link click
+    nav.querySelectorAll('a').forEach(function (link) {
+      link.addEventListener('click', function () {
+        nav.classList.remove('menu-open');
+        toggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+
+    // Close menu on outside click
+    document.addEventListener('click', function (e) {
+      if (!nav.contains(e.target)) {
+        nav.classList.remove('menu-open');
+        toggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+  }
+
   /*
    * Data explorer for metabolic page
    * If a canvas with id "metabolicChart" exists, we initialize a line chart

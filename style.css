@@ -1565,9 +1565,6 @@ nav.menu-open .nav-toggle span:nth-child(3) { transform: translateY(-6.5px) rota
 @media (max-width: 860px) {
   :root { --s5: 28px; --s6: 56px; --s7: 80px; }
 
-  /* Mobile: snap-scroll makes chapters feel like slides */
-  html { scroll-snap-type: y proximity; }
-
   nav { padding: 0.75rem 1.25rem; }
   nav ul { display: none; }
   .nav-toggle { display: flex; }
@@ -1606,37 +1603,117 @@ nav.menu-open .nav-toggle span:nth-child(3) { transform: translateY(-6.5px) rota
   .hero { padding: 0 24px 64px; }
   .pull-band { padding: 64px 24px; }
 
-  /* ── Mobile scrollytelling: full-height slides ── */
+  /* ── Mobile scrollytelling: sticky-stacked sliding panels ──
+     Each step uses position:sticky so the next card slides
+     physically UP and OVER the previous one as you scroll —
+     the same "deck of panels" feel as physical exhibition sites. */
   .chapter { display: block; }
   .chapter.flip { direction: ltr; }
-
-  /* Hide sticky panels — each step stands alone on mobile */
   .sticky-panel { display: none !important; }
 
-  .narrative { padding: 0; }
+  .narrative {
+    padding: 0;
+    display: block;
+    position: relative;
+  }
 
   .step {
-    min-height: 100svh;
-    padding: 88px 32px 64px;
+    position: sticky;
+    top: 0;
+    height: 100svh;
+    min-height: unset;
+    padding: 88px 28px 56px;
+    display: flex;
+    flex-direction: column;
     justify-content: center;
     opacity: 1 !important;
     transform: none !important;
-    transition: background-color 0.3s ease !important;
-    scroll-snap-align: start;
-    border-bottom: 1px solid var(--stone);
+    transition: none !important;
+    border-radius: 20px 20px 0 0;
+    box-shadow: 0 -8px 48px rgba(0,0,0,0.13);
+    border-bottom: none;
+    overflow: hidden;
     box-sizing: border-box;
   }
-  .step:last-child { border-bottom: none; }
 
-  /* Alternate backgrounds across all steps for visual rhythm */
-  .chapter:nth-child(odd) .step:nth-child(odd)   { background: var(--chalk); }
-  .chapter:nth-child(odd) .step:nth-child(even)   { background: var(--linen); }
-  .chapter:nth-child(even) .step:nth-child(odd)   { background: var(--linen); }
-  .chapter:nth-child(even) .step:nth-child(even)  { background: var(--chalk); }
+  /* Each later step slides over the one before it */
+  .step:nth-child(1) { z-index: 1; }
+  .step:nth-child(2) { z-index: 2; }
+  .step:nth-child(3) { z-index: 3; }
+
+  /* ── Step backgrounds: light chapters ── */
+  #foundation .step:nth-child(1) { background: linear-gradient(160deg, #f0e8da, #e6d8c5); }
+  #foundation .step:nth-child(2) { background: linear-gradient(160deg, #e8ddd0, #ddd0bb); }
+  #fat .step:nth-child(1)        { background: linear-gradient(160deg, #f0e8da, #e6d8c5); }
+  #fat .step:nth-child(2)        { background: linear-gradient(160deg, #e8ddd0, #ddd0bb); }
+  #inflammation .step:nth-child(1) { background: linear-gradient(160deg, #f0e8da, #e6d8c5); }
+  #inflammation .step:nth-child(2) { background: linear-gradient(160deg, #e8ddd0, #ddd0bb); }
+  #inflammation .step:nth-child(3) { background: linear-gradient(160deg, #e4d4c0, #d8c8b0); }
+  #muscle .step:nth-child(1)     { background: linear-gradient(160deg, #f0e8da, #e6d8c5); }
+  #muscle .step:nth-child(2)     { background: linear-gradient(160deg, #e8ddd0, #ddd0bb); }
+  #longevity .step:nth-child(1)  { background: linear-gradient(160deg, #ede5d8, #e4dace); }
+  #longevity .step:nth-child(2)  { background: linear-gradient(160deg, #e8e0d2, #ddd5c4); }
+
+  /* ── Step backgrounds: dark chapters ── */
+  #weight .step:nth-child(1)         { background: linear-gradient(160deg, #2a2520, #3d3228); }
+  #weight .step:nth-child(2)         { background: linear-gradient(160deg, #322b24, #423525); }
+  #blood-pressure .step:nth-child(1) { background: linear-gradient(160deg, #1a1510, #252015); }
+  #blood-pressure .step:nth-child(2) { background: linear-gradient(160deg, #1f1a14, #2d2418); }
+  #glycemia .step:nth-child(1)       { background: linear-gradient(160deg, #231e18, #3a3025); }
+  #glycemia .step:nth-child(2)       { background: linear-gradient(160deg, #2a2420, #3d3228); }
+  #autonomic .step:nth-child(1)      { background: linear-gradient(160deg, #231e18, #3a3025); }
+  #autonomic .step:nth-child(2)      { background: linear-gradient(160deg, #2a2420, #3d3228); }
+
+  /* ── Text on dark chapter steps ── */
+  #weight .step .eyebrow,
+  #blood-pressure .step .eyebrow,
+  #glycemia .step .eyebrow,
+  #autonomic .step .eyebrow { color: rgba(168,136,90,0.75); }
+
+  #weight .step h2,
+  #blood-pressure .step h2,
+  #glycemia .step h2,
+  #autonomic .step h2 { color: #ede5d8; }
+
+  #weight .step h2 em,
+  #blood-pressure .step h2 em,
+  #glycemia .step h2 em,
+  #autonomic .step h2 em { color: #c9a870; }
+
+  #weight .step p,
+  #blood-pressure .step p,
+  #glycemia .step p,
+  #autonomic .step p { color: rgba(232,221,208,0.82); }
+
+  #weight .step .stat-pill,
+  #blood-pressure .step .stat-pill,
+  #glycemia .step .stat-pill,
+  #autonomic .step .stat-pill {
+    border-color: rgba(168,136,90,0.22);
+    background: rgba(168,136,90,0.08);
+  }
+
+  #weight .step .stat-pill .num,
+  #blood-pressure .step .stat-pill .num,
+  #glycemia .step .stat-pill .num,
+  #autonomic .step .stat-pill .num { color: #c9a870; }
+
+  #weight .step .stat-pill .unit,
+  #blood-pressure .step .stat-pill .unit,
+  #glycemia .step .stat-pill .unit,
+  #autonomic .step .stat-pill .unit { color: rgba(232,221,208,0.5); }
+
+  #weight .step .note,
+  #blood-pressure .step .note,
+  #glycemia .step .note,
+  #autonomic .step .note { color: rgba(232,221,208,0.4); }
+
+  #blood-pressure .step .mobile-only-link {
+    color: #c9a870;
+    border-bottom-color: rgba(201,168,112,0.4);
+  }
 
   .step h2 { font-size: 1.9rem; }
-
-  /* Show mobile-only link */
   .mobile-only-link { display: inline-block; }
 
   .interlude { grid-template-columns: 1fr; gap: 40px 0; padding: 72px 24px; }

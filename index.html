@@ -265,7 +265,7 @@
         <div class="eyebrow">Chapter 03 · Blood Pressure</div>
         <h2>Blood Pressure Reduction<br><em>During Fasting</em></h2>
         <div class="bp-embed">
-          <iframe src="bp_shooting_stars.html?embed" scrolling="no" title="Blood Pressure Reduction — 1,610 patients"></iframe>
+          <iframe src="bp_shooting_stars.html?embed" loading="lazy" scrolling="no" title="Blood Pressure Reduction — 1,610 patients"></iframe>
         </div>
         <p class="note" style="margin-top:4px">Data from 1,610 patients · JAHA 2020 · Grundler et al.</p>
       </div>
@@ -495,7 +495,7 @@
 
   <!-- ── HEART VIDEO ── -->
   <div class="video-band">
-    <video autoplay muted loop playsinline>
+    <video id="heart-video" muted loop playsinline preload="none">
       <source src="heart_video.mov" type="video/mp4">
     </video>
     <div class="video-overlay">
@@ -857,6 +857,19 @@
 
     // Assign globally unique z-indices so sticky steps from different chapters stack correctly
     document.querySelectorAll('.step').forEach((s, i) => { s.style.zIndex = i + 1; });
+
+    // Heart video: play when in view, pause when scrolled past
+    const heartVideo = document.getElementById('heart-video');
+    if (heartVideo) {
+      const heartIO = new IntersectionObserver(([e]) => {
+        if (e.isIntersecting) {
+          heartVideo.play().catch(() => {});
+        } else {
+          heartVideo.pause();
+        }
+      }, { threshold: 0.2 });
+      heartIO.observe(heartVideo);
+    }
 
     // Restart BP animation when chapter enters view (desktop panel + mobile embed)
     const bpSection = document.getElementById('blood-pressure');

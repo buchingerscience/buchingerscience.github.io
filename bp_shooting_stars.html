@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Blood Pressure — 100 Responders</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Josefin+Sans:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #1a1510;
+      --sand: #e8ddd0;
+      --brass: #a8885a;
+      --brass-light: #c9a870;
+      --stone: #5a5048;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--sand);
+      font-family: 'Josefin Sans', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 24px;
+      overflow: hidden;
+    }
+
+    /* ── Header ── */
+    .header {
+      text-align: center;
+      margin-bottom: 48px;
+      opacity: 0;
+      animation: fadeUp 0.8s ease 0.2s forwards;
+    }
+    .header h1 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 400;
+      font-size: clamp(1.3rem, 2.8vw, 1.9rem);
+      letter-spacing: 0.01em;
+      color: var(--sand);
+      margin-bottom: 8px;
+    }
+    .header p {
+      font-size: 0.68rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--brass);
+    }
+
+    /* ── Counter card ── */
+    .card {
+      width: 100%;
+      max-width: 560px;
+      text-align: center;
+      position: relative;
+    }
+
+    /* patient index */
+    .patient-index {
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--brass);
+      margin-bottom: 28px;
+      height: 14px;
+      transition: opacity 0.15s;
+    }
+
+    /* bp numbers */
+    .bp-row {
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      gap: clamp(32px, 8vw, 80px);
+      margin-bottom: 32px;
+    }
+
+    .bp-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .bp-label {
+      font-size: 0.62rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--stone);
+    }
+
+    .bp-value {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: clamp(4rem, 14vw, 8rem);
+      line-height: 1;
+      color: var(--brass-light);
+      letter-spacing: -0.02em;
+      /* transition handled by JS number roll */
+    }
+
+    .bp-unit {
+      font-size: 0.65rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--stone);
+    }
+
+    /* divider */
+    .divider {
+      width: 1px;
+      height: 60px;
+      background: var(--stone);
+      opacity: 0.4;
+      align-self: center;
+    }
+
+    /* meta row */
+    .meta {
+      display: flex;
+      justify-content: center;
+      gap: clamp(16px, 5vw, 40px);
+      margin-bottom: 48px;
+    }
+    .meta-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+    .meta-val {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.1rem, 3vw, 1.6rem);
+      color: var(--sand);
+    }
+    .meta-label {
+      font-size: 0.58rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--stone);
+    }
+
+    /* progress bar */
+    .progress-track {
+      width: 100%;
+      height: 1px;
+      background: rgba(90,80,72,0.35);
+      margin-bottom: 14px;
+      border-radius: 1px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      background: var(--brass);
+      width: 0%;
+      transition: width 0.2s linear;
+    }
+    .progress-label {
+      font-size: 0.58rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--stone);
+      text-align: center;
+    }
+
+    /* summary overlay */
+    .summary {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 32px;
+    }
+    .summary.visible { display: flex; animation: fadeUp 0.8s ease forwards; }
+
+    .summary-title {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-weight: 400;
+      font-size: clamp(1.4rem, 3.5vw, 2.2rem);
+      color: var(--sand);
+      max-width: 480px;
+      line-height: 1.4;
+    }
+
+    .summary-stats {
+      display: flex;
+      gap: clamp(24px, 6vw, 56px);
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .summary-stat { text-align: center; }
+    .summary-num {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 6vw, 3.5rem);
+      color: var(--brass-light);
+      line-height: 1;
+    }
+    .summary-desc {
+      font-size: 0.62rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--brass);
+      margin-top: 6px;
+    }
+
+    .replay-btn {
+      background: none;
+      border: 1px solid var(--brass);
+      color: var(--brass-light);
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 0.66rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      padding: 11px 32px;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+      margin-top: 8px;
+    }
+    .replay-btn:hover { background: var(--brass); color: var(--bg); }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: none; }
+    }
+
+    /* number flip animation */
+    .flip-in {
+      animation: flipIn 0.18s ease-out forwards;
+    }
+    @keyframes flipIn {
+      from { opacity: 0; transform: translateY(-12px); }
+      to   { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Blood Pressure Reduction During Fasting</h1>
+  <p>100 strongest responders · Buchinger Wilhelmi · n = 959</p>
+</div>
+
+<div class="card" id="card">
+  <div class="patient-index" id="patientIndex">—</div>
+
+  <div class="bp-row">
+    <div class="bp-block">
+      <div class="bp-label">Systolic</div>
+      <div class="bp-value" id="sbpVal">—</div>
+      <div class="bp-unit">mmHg</div>
+    </div>
+    <div class="divider"></div>
+    <div class="bp-block">
+      <div class="bp-label">Diastolic</div>
+      <div class="bp-value" id="dbpVal">—</div>
+      <div class="bp-unit">mmHg</div>
+    </div>
+  </div>
+
+  <div class="meta" id="meta">
+    <div class="meta-item">
+      <div class="meta-val" id="metaSex">—</div>
+      <div class="meta-label">Sex</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-val" id="metaAge">—</div>
+      <div class="meta-label">Age</div>
+    </div>
+    <div class="meta-item">
+      <div class="meta-val" id="metaDays">—</div>
+      <div class="meta-label">Fasting days</div>
+    </div>
+  </div>
+
+  <div class="progress-track">
+    <div class="progress-fill" id="progressFill"></div>
+  </div>
+  <div class="progress-label" id="progressLabel"></div>
+</div>
+
+<!-- Summary shown after all 100 -->
+<div class="summary" id="summary">
+  <div class="summary-title">100 patients. Every one reduced their blood pressure.</div>
+  <div class="summary-stats">
+    <div class="summary-stat">
+      <div class="summary-num">94%</div>
+      <div class="summary-desc">of all 959 patients improved</div>
+    </div>
+    <div class="summary-stat">
+      <div class="summary-num">−22.9</div>
+      <div class="summary-desc">mean systolic drop (mmHg)</div>
+    </div>
+    <div class="summary-stat">
+      <div class="summary-num">−80</div>
+      <div class="summary-desc">strongest systolic drop</div>
+    </div>
+  </div>
+  <button class="replay-btn" id="replayBtn">↺ Replay</button>
+</div>
+
+<script>
+const DATA = [{"id":515,"age":52,"sex":1,"days":10,"sbp_pre":148,"sbp_drop":44.0,"dbp_pre":90,"dbp_drop":15.0},{"id":725,"age":78,"sex":1,"days":7,"sbp_pre":194,"sbp_drop":44.0,"dbp_pre":86,"dbp_drop":7.0},{"id":799,"age":56,"sex":1,"days":7,"sbp_pre":122,"sbp_drop":44.0,"dbp_pre":77,"dbp_drop":2.0},{"id":932,"age":67,"sex":1,"days":17,"sbp_pre":159,"sbp_drop":44.0,"dbp_pre":95,"dbp_drop":22.0},{"id":1090,"age":53,"sex":0,"days":16,"sbp_pre":126,"sbp_drop":44.0,"dbp_pre":88,"dbp_drop":20.0},{"id":1211,"age":63,"sex":0,"days":9,"sbp_pre":146,"sbp_drop":44.0,"dbp_pre":87,"dbp_drop":18.0},{"id":1348,"age":70,"sex":1,"days":6,"sbp_pre":170,"sbp_drop":44.0,"dbp_pre":96,"dbp_drop":19.0},{"id":1797,"age":49,"sex":0,"days":9,"sbp_pre":150,"sbp_drop":44.0,"dbp_pre":106,"dbp_drop":28.0},{"id":1823,"age":65,"sex":0,"days":9,"sbp_pre":164,"sbp_drop":44.0,"dbp_pre":98,"dbp_drop":28.0},{"id":133,"age":58,"sex":0,"days":7,"sbp_pre":183,"sbp_drop":45.0,"dbp_pre":97,"dbp_drop":23.0},{"id":152,"age":65,"sex":1,"days":6,"sbp_pre":163,"sbp_drop":45.0,"dbp_pre":100,"dbp_drop":15.0},{"id":458,"age":84,"sex":1,"days":10,"sbp_pre":156,"sbp_drop":45.0,"dbp_pre":81,"dbp_drop":17.0},{"id":548,"age":71,"sex":1,"days":9,"sbp_pre":151,"sbp_drop":45.0,"dbp_pre":74,"dbp_drop":6.0},{"id":608,"age":55,"sex":0,"days":5,"sbp_pre":194,"sbp_drop":45.0,"dbp_pre":120,"dbp_drop":19.0},{"id":991,"age":67,"sex":1,"days":9,"sbp_pre":140,"sbp_drop":45.0,"dbp_pre":80,"dbp_drop":25.0},{"id":1295,"age":60,"sex":1,"days":8,"sbp_pre":165,"sbp_drop":45.0,"dbp_pre":90,"dbp_drop":12.0},{"id":1391,"age":54,"sex":0,"days":8,"sbp_pre":154,"sbp_drop":45.0,"dbp_pre":93,"dbp_drop":17.0},{"id":1474,"age":59,"sex":1,"days":11,"sbp_pre":159,"sbp_drop":45.0,"dbp_pre":99,"dbp_drop":19.0},{"id":1477,"age":69,"sex":1,"days":9,"sbp_pre":144,"sbp_drop":45.0,"dbp_pre":90,"dbp_drop":17.0},{"id":1618,"age":68,"sex":1,"days":10,"sbp_pre":146,"sbp_drop":45.0,"dbp_pre":107,"dbp_drop":33.0},{"id":1773,"age":63,"sex":0,"days":7,"sbp_pre":162,"sbp_drop":45.0,"dbp_pre":100,"dbp_drop":28.0},{"id":1813,"age":66,"sex":1,"days":8,"sbp_pre":155,"sbp_drop":45.0,"dbp_pre":126,"dbp_drop":66.0},{"id":230,"age":59,"sex":1,"days":16,"sbp_pre":138,"sbp_drop":46.0,"dbp_pre":86,"dbp_drop":16.0},{"id":999,"age":63,"sex":1,"days":16,"sbp_pre":155,"sbp_drop":46.0,"dbp_pre":111,"dbp_drop":37.0},{"id":1680,"age":77,"sex":0,"days":10,"sbp_pre":156,"sbp_drop":46.0,"dbp_pre":97,"dbp_drop":17.0},{"id":1836,"age":74,"sex":1,"days":17,"sbp_pre":157,"sbp_drop":46.0,"dbp_pre":96,"dbp_drop":22.0},{"id":159,"age":46,"sex":0,"days":10,"sbp_pre":164,"sbp_drop":47.0,"dbp_pre":89,"dbp_drop":12.0},{"id":211,"age":59,"sex":1,"days":23,"sbp_pre":165,"sbp_drop":47.0,"dbp_pre":102,"dbp_drop":28.0},{"id":609,"age":71,"sex":1,"days":7,"sbp_pre":189,"sbp_drop":47.0,"dbp_pre":94,"dbp_drop":30.0},{"id":1048,"age":70,"sex":1,"days":16,"sbp_pre":167,"sbp_drop":47.0,"dbp_pre":86,"dbp_drop":12.0},{"id":1143,"age":57,"sex":1,"days":14,"sbp_pre":141,"sbp_drop":47.0,"dbp_pre":95,"dbp_drop":30.0},{"id":1795,"age":56,"sex":1,"days":10,"sbp_pre":172,"sbp_drop":47.0,"dbp_pre":101,"dbp_drop":16.0},{"id":129,"age":77,"sex":1,"days":10,"sbp_pre":150,"sbp_drop":48.0,"dbp_pre":88,"dbp_drop":32.0},{"id":391,"age":77,"sex":0,"days":9,"sbp_pre":169,"sbp_drop":48.0,"dbp_pre":100,"dbp_drop":17.0},{"id":469,"age":62,"sex":1,"days":9,"sbp_pre":162,"sbp_drop":48.0,"dbp_pre":101,"dbp_drop":30.0},{"id":1728,"age":70,"sex":0,"days":20,"sbp_pre":171,"sbp_drop":48.0,"dbp_pre":93,"dbp_drop":11.0},{"id":125,"age":78,"sex":0,"days":11,"sbp_pre":170,"sbp_drop":49.0,"dbp_pre":150,"dbp_drop":67.0},{"id":149,"age":60,"sex":0,"days":16,"sbp_pre":146,"sbp_drop":49.0,"dbp_pre":85,"dbp_drop":20.0},{"id":182,"age":73,"sex":0,"days":15,"sbp_pre":146,"sbp_drop":49.0,"dbp_pre":89,"dbp_drop":18.0},{"id":811,"age":74,"sex":0,"days":9,"sbp_pre":175,"sbp_drop":49.0,"dbp_pre":87,"dbp_drop":5.0},{"id":864,"age":71,"sex":1,"days":10,"sbp_pre":149,"sbp_drop":49.0,"dbp_pre":86,"dbp_drop":26.0},{"id":887,"age":74,"sex":1,"days":23,"sbp_pre":151,"sbp_drop":49.0,"dbp_pre":94,"dbp_drop":25.0},{"id":1263,"age":57,"sex":0,"days":16,"sbp_pre":157,"sbp_drop":49.0,"dbp_pre":99,"dbp_drop":26.0},{"id":1729,"age":60,"sex":1,"days":7,"sbp_pre":143,"sbp_drop":49.0,"dbp_pre":102,"dbp_drop":27.0},{"id":1965,"age":72,"sex":0,"days":10,"sbp_pre":152,"sbp_drop":49.0,"dbp_pre":91,"dbp_drop":26.0},{"id":201,"age":73,"sex":1,"days":15,"sbp_pre":166,"sbp_drop":50.0,"dbp_pre":89,"dbp_drop":15.0},{"id":419,"age":75,"sex":1,"days":8,"sbp_pre":165,"sbp_drop":50.0,"dbp_pre":82,"dbp_drop":16.0},{"id":473,"age":62,"sex":1,"days":9,"sbp_pre":150,"sbp_drop":50.0,"dbp_pre":90,"dbp_drop":17.0},{"id":518,"age":74,"sex":0,"days":10,"sbp_pre":135,"sbp_drop":50.0,"dbp_pre":84,"dbp_drop":20.0},{"id":536,"age":66,"sex":0,"days":21,"sbp_pre":160,"sbp_drop":50.0,"dbp_pre":90,"dbp_drop":20.0},{"id":715,"age":56,"sex":0,"days":16,"sbp_pre":145,"sbp_drop":50.0,"dbp_pre":99,"dbp_drop":34.0},{"id":1068,"age":76,"sex":0,"days":11,"sbp_pre":160,"sbp_drop":50.0,"dbp_pre":80,"dbp_drop":14.0},{"id":1743,"age":70,"sex":1,"days":8,"sbp_pre":150,"sbp_drop":50.0,"dbp_pre":82,"dbp_drop":22.0},{"id":1909,"age":61,"sex":0,"days":17,"sbp_pre":173,"sbp_drop":50.0,"dbp_pre":113,"dbp_drop":28.0},{"id":2002,"age":79,"sex":1,"days":5,"sbp_pre":170,"sbp_drop":50.0,"dbp_pre":80,"dbp_drop":15.0},{"id":98,"age":68,"sex":1,"days":16,"sbp_pre":146,"sbp_drop":51.0,"dbp_pre":87,"dbp_drop":23.0},{"id":455,"age":72,"sex":0,"days":7,"sbp_pre":164,"sbp_drop":51.0,"dbp_pre":103,"dbp_drop":25.0},{"id":1802,"age":62,"sex":0,"days":16,"sbp_pre":162,"sbp_drop":52.0,"dbp_pre":99,"dbp_drop":21.0},{"id":12,"age":50,"sex":0,"days":7,"sbp_pre":178,"sbp_drop":53.0,"dbp_pre":104,"dbp_drop":24.0},{"id":429,"age":74,"sex":0,"days":9,"sbp_pre":148,"sbp_drop":53.0,"dbp_pre":74,"dbp_drop":10.0},{"id":1140,"age":60,"sex":1,"days":16,"sbp_pre":130,"sbp_drop":53.0,"dbp_pre":90,"dbp_drop":19.0},{"id":1838,"age":68,"sex":0,"days":11,"sbp_pre":139,"sbp_drop":53.0,"dbp_pre":80,"dbp_drop":20.0},{"id":1293,"age":50,"sex":0,"days":12,"sbp_pre":169,"sbp_drop":55.0,"dbp_pre":105,"dbp_drop":15.0},{"id":1321,"age":48,"sex":0,"days":9,"sbp_pre":137,"sbp_drop":55.0,"dbp_pre":86,"dbp_drop":9.0},{"id":1649,"age":85,"sex":1,"days":11,"sbp_pre":137,"sbp_drop":55.0,"dbp_pre":78,"dbp_drop":11.0},{"id":330,"age":63,"sex":0,"days":12,"sbp_pre":166,"sbp_drop":56.0,"dbp_pre":99,"dbp_drop":31.0},{"id":478,"age":52,"sex":1,"days":9,"sbp_pre":190,"sbp_drop":56.0,"dbp_pre":111,"dbp_drop":23.0},{"id":750,"age":65,"sex":0,"days":23,"sbp_pre":154,"sbp_drop":56.0,"dbp_pre":92,"dbp_drop":20.0},{"id":1112,"age":74,"sex":1,"days":11,"sbp_pre":150,"sbp_drop":56.0,"dbp_pre":107,"dbp_drop":36.0},{"id":857,"age":53,"sex":0,"days":6,"sbp_pre":148,"sbp_drop":57.0,"dbp_pre":98,"dbp_drop":36.0},{"id":1731,"age":66,"sex":0,"days":8,"sbp_pre":147,"sbp_drop":57.0,"dbp_pre":92,"dbp_drop":26.0},{"id":1876,"age":75,"sex":1,"days":8,"sbp_pre":168,"sbp_drop":57.0,"dbp_pre":78,"dbp_drop":8.0},{"id":503,"age":58,"sex":0,"days":11,"sbp_pre":168,"sbp_drop":58.0,"dbp_pre":114,"dbp_drop":40.0},{"id":1599,"age":63,"sex":1,"days":7,"sbp_pre":160,"sbp_drop":58.0,"dbp_pre":102,"dbp_drop":36.0},{"id":1736,"age":73,"sex":0,"days":6,"sbp_pre":178,"sbp_drop":58.0,"dbp_pre":93,"dbp_drop":18.0},{"id":1766,"age":79,"sex":0,"days":17,"sbp_pre":150,"sbp_drop":58.0,"dbp_pre":82,"dbp_drop":30.0},{"id":195,"age":51,"sex":1,"days":13,"sbp_pre":146,"sbp_drop":59.0,"dbp_pre":98,"dbp_drop":32.0},{"id":870,"age":75,"sex":0,"days":9,"sbp_pre":170,"sbp_drop":59.0,"dbp_pre":95,"dbp_drop":22.0},{"id":959,"age":45,"sex":0,"days":8,"sbp_pre":180,"sbp_drop":59.0,"dbp_pre":108,"dbp_drop":34.0},{"id":984,"age":67,"sex":1,"days":7,"sbp_pre":179,"sbp_drop":59.0,"dbp_pre":114,"dbp_drop":44.0},{"id":1436,"age":85,"sex":0,"days":16,"sbp_pre":173,"sbp_drop":59.0,"dbp_pre":99,"dbp_drop":29.0},{"id":1481,"age":57,"sex":1,"days":10,"sbp_pre":154,"sbp_drop":59.0,"dbp_pre":95,"dbp_drop":17.0},{"id":1990,"age":54,"sex":1,"days":6,"sbp_pre":171,"sbp_drop":59.0,"dbp_pre":108,"dbp_drop":40.0},{"id":1389,"age":53,"sex":0,"days":21,"sbp_pre":161,"sbp_drop":60.0,"dbp_pre":110,"dbp_drop":41.0},{"id":1466,"age":60,"sex":1,"days":16,"sbp_pre":164,"sbp_drop":60.0,"dbp_pre":90,"dbp_drop":22.0},{"id":303,"age":52,"sex":1,"days":22,"sbp_pre":172,"sbp_drop":61.0,"dbp_pre":112,"dbp_drop":35.0},{"id":1926,"age":65,"sex":0,"days":10,"sbp_pre":182,"sbp_drop":61.0,"dbp_pre":107,"dbp_drop":33.0},{"id":234,"age":80,"sex":0,"days":11,"sbp_pre":206,"sbp_drop":62.0,"dbp_pre":82,"dbp_drop":13.0},{"id":1028,"age":68,"sex":0,"days":7,"sbp_pre":174,"sbp_drop":63.0,"dbp_pre":110,"dbp_drop":40.0},{"id":1262,"age":55,"sex":1,"days":16,"sbp_pre":154,"sbp_drop":63.0,"dbp_pre":89,"dbp_drop":30.0},{"id":1841,"age":60,"sex":1,"days":23,"sbp_pre":173,"sbp_drop":64.0,"dbp_pre":105,"dbp_drop":43.0},{"id":78,"age":51,"sex":1,"days":16,"sbp_pre":183,"sbp_drop":65.0,"dbp_pre":112,"dbp_drop":33.0},{"id":1029,"age":58,"sex":1,"days":9,"sbp_pre":163,"sbp_drop":65.0,"dbp_pre":108,"dbp_drop":38.0},{"id":1126,"age":70,"sex":0,"days":10,"sbp_pre":183,"sbp_drop":70.0,"dbp_pre":94,"dbp_drop":24.0},{"id":1351,"age":44,"sex":1,"days":8,"sbp_pre":186,"sbp_drop":71.0,"dbp_pre":110,"dbp_drop":30.0},{"id":1656,"age":74,"sex":1,"days":7,"sbp_pre":162,"sbp_drop":72.0,"dbp_pre":72,"dbp_drop":2.0},{"id":96,"age":69,"sex":0,"days":16,"sbp_pre":184,"sbp_drop":74.0,"dbp_pre":85,"dbp_drop":17.0},{"id":1932,"age":51,"sex":0,"days":15,"sbp_pre":176,"sbp_drop":76.0,"dbp_pre":110,"dbp_drop":40.0},{"id":732,"age":65,"sex":0,"days":9,"sbp_pre":207,"sbp_drop":77.0,"dbp_pre":114,"dbp_drop":22.0},{"id":242,"age":76,"sex":0,"days":9,"sbp_pre":158,"sbp_drop":80.0,"dbp_pre":89,"dbp_drop":30.0}];
+
+const N = DATA.length; // 100
+
+// Timing: easeIn curve — fast start, dramatic slowdown for last ~15
+function intervalFor(i) {
+  // t goes 0→1 across the 100 patients
+  const t = i / (N - 1);
+  // ease-in cubic: slow start actually? No — user wants fast start slow finish
+  // so use ease-out on the interval growth: interval = min + (max-min) * t^2
+  const MIN_MS = 80;
+  const MAX_MS = 1400;
+  return MIN_MS + (MAX_MS - MIN_MS) * Math.pow(t, 2.5);
+}
+
+const card = document.getElementById('card');
+const summary = document.getElementById('summary');
+const sbpEl = document.getElementById('sbpVal');
+const dbpEl = document.getElementById('dbpVal');
+const idxEl = document.getElementById('patientIndex');
+const sexEl = document.getElementById('metaSex');
+const ageEl = document.getElementById('metaAge');
+const daysEl = document.getElementById('metaDays');
+const fillEl = document.getElementById('progressFill');
+const labelEl = document.getElementById('progressLabel');
+
+let currentIdx = 0;
+let timer = null;
+
+function formatDrop(v) {
+  return '−' + Math.round(v);
+}
+
+function flip(el, newText) {
+  el.classList.remove('flip-in');
+  void el.offsetWidth; // reflow to restart animation
+  el.textContent = newText;
+  el.classList.add('flip-in');
+}
+
+function showPatient(i) {
+  const p = DATA[i];
+  const pct = ((i + 1) / N * 100).toFixed(0);
+
+  flip(sbpEl, formatDrop(p.sbp_drop));
+  flip(dbpEl, formatDrop(p.dbp_drop));
+
+  idxEl.textContent = 'Patient ' + (i + 1) + ' of ' + N;
+  sexEl.textContent = p.sex === 0 ? 'Male' : 'Female';
+  ageEl.textContent = p.age;
+  daysEl.textContent = p.days;
+
+  fillEl.style.width = pct + '%';
+  labelEl.textContent = '−' + Math.round(p.sbp_drop) + ' systolic · −' + Math.round(p.dbp_drop) + ' diastolic';
+}
+
+function advance() {
+  showPatient(currentIdx);
+
+  if (currentIdx < N - 1) {
+    const delay = intervalFor(currentIdx);
+    currentIdx++;
+    timer = setTimeout(advance, delay);
+  } else {
+    // Linger on the last one, then show summary
+    timer = setTimeout(showSummary, 2400);
+  }
+}
+
+function showSummary() {
+  card.style.opacity = '0';
+  card.style.transition = 'opacity 0.6s ease';
+  setTimeout(() => {
+    card.style.display = 'none';
+    summary.classList.add('visible');
+  }, 600);
+}
+
+function replay() {
+  if (timer) clearTimeout(timer);
+  currentIdx = 0;
+  summary.classList.remove('visible');
+  card.style.display = '';
+  card.style.opacity = '';
+  card.style.transition = '';
+  fillEl.style.width = '0%';
+  sbpEl.textContent = '—';
+  dbpEl.textContent = '—';
+  idxEl.textContent = '—';
+  sexEl.textContent = '—';
+  ageEl.textContent = '—';
+  daysEl.textContent = '—';
+  labelEl.textContent = '';
+  setTimeout(advance, 500);
+}
+
+document.getElementById('replayBtn').addEventListener('click', replay);
+
+// Allow parent page to trigger replay via postMessage
+window.addEventListener('message', function(e) {
+  if (e.data === 'replay') replay();
+});
+
+// Start
+setTimeout(advance, 800);
+</script>
+</body>
+</html>

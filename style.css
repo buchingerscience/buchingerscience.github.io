@@ -498,6 +498,92 @@ nav a.active {
 .panel-microbiome { background: linear-gradient(140deg, #ede5d8 0%, #ddd0c0 50%, #cfc3b0 100%); }
 .panel-autonomic  { background: linear-gradient(155deg, #231e18 0%, #3d3228 60%, #231e18 100%); }
 .panel-longevity  { background: linear-gradient(145deg, #f4ede3 0%, #e8ddd0 50%, #e0d3c3 100%); }
+.panel-foundation { background: linear-gradient(145deg, #f4ede3 0%, #e8ddd0 100%); }
+.panel-weight     { background: linear-gradient(150deg, #2a2520 0%, #3d3228 100%); }
+.panel-bloodpressure { background: #1a1510; }
+.panel-fat        { background: linear-gradient(145deg, #f4ede3 0%, #e0d3c3 100%); }
+.panel-glycemia   { background: linear-gradient(150deg, #231e18 0%, #3d3228 100%); }
+.panel-inflammation { background: linear-gradient(145deg, #f4ede3 0%, #e8ddd0 100%); }
+.panel-nervous    { background: linear-gradient(155deg, #231e18 0%, #3d3228 100%); }
+.panel-muscle     { background: linear-gradient(145deg, #f4ede3 0%, #e0d3c3 100%); }
+
+/* Foundation panel — typographic stat grid */
+.panel-stat-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 100%;
+  height: 100%;
+  gap: 1px;
+  background: rgba(168,136,90,0.15);
+}
+.ps-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 28px 32px;
+  background: linear-gradient(145deg, #f4ede3, #e8ddd0);
+  gap: 6px;
+}
+.ps-num {
+  font-family: var(--display);
+  font-size: clamp(1.8rem, 3vw, 2.8rem);
+  color: var(--warm-dark);
+  line-height: 1;
+}
+.ps-label {
+  font-family: var(--sans);
+  font-size: 0.58rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--brass);
+}
+
+/* Inline stat grid (used in narrative steps) */
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px 12px;
+  margin: 24px 0 8px;
+}
+.stat-item {
+  padding: 14px 12px 14px 16px;
+  border-left: 2px solid var(--brass);
+  background: rgba(168,136,90,0.06);
+}
+.stat-num {
+  font-family: var(--display);
+  font-size: clamp(1.3rem, 2.2vw, 1.9rem);
+  color: var(--brass);
+  line-height: 1;
+  display: block;
+  margin-bottom: 4px;
+}
+.stat-desc {
+  font-family: var(--sans);
+  font-size: 0.58rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--warm-mid);
+  display: block;
+  line-height: 1.4;
+}
+@media (max-width: 600px) {
+  .stat-grid { grid-template-columns: 1fr 1fr; }
+}
+
+/* Mobile link shown only on small screens */
+.mobile-only-link {
+  display: none;
+  margin-top: 20px;
+  font-family: var(--sans);
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--brass);
+  text-decoration: none;
+  border-bottom: 1px solid var(--brass-light);
+  padding-bottom: 2px;
+}
 
 /* Scrolling narrative column */
 .narrative {
@@ -1479,6 +1565,9 @@ nav.menu-open .nav-toggle span:nth-child(3) { transform: translateY(-6.5px) rota
 @media (max-width: 860px) {
   :root { --s5: 28px; --s6: 56px; --s7: 80px; }
 
+  /* Mobile: snap-scroll makes chapters feel like slides */
+  html { scroll-snap-type: y proximity; }
+
   nav { padding: 0.75rem 1.25rem; }
   nav ul { display: none; }
   .nav-toggle { display: flex; }
@@ -1517,10 +1606,38 @@ nav.menu-open .nav-toggle span:nth-child(3) { transform: translateY(-6.5px) rota
   .hero { padding: 0 24px 64px; }
   .pull-band { padding: 64px 24px; }
 
-  .chapter { grid-template-columns: 1fr; }
+  /* ── Mobile scrollytelling: full-height slides ── */
+  .chapter { display: block; }
   .chapter.flip { direction: ltr; }
-  .sticky-panel { position: relative; height: 60vw; min-height: 260px; }
-  .narrative { padding: 40px 24px 72px; }
+
+  /* Hide sticky panels — each step stands alone on mobile */
+  .sticky-panel { display: none !important; }
+
+  .narrative { padding: 0; }
+
+  .step {
+    min-height: 100svh;
+    padding: 88px 32px 64px;
+    justify-content: center;
+    opacity: 1 !important;
+    transform: none !important;
+    transition: background-color 0.3s ease !important;
+    scroll-snap-align: start;
+    border-bottom: 1px solid var(--stone);
+    box-sizing: border-box;
+  }
+  .step:last-child { border-bottom: none; }
+
+  /* Alternate backgrounds across all steps for visual rhythm */
+  .chapter:nth-child(odd) .step:nth-child(odd)   { background: var(--chalk); }
+  .chapter:nth-child(odd) .step:nth-child(even)   { background: var(--linen); }
+  .chapter:nth-child(even) .step:nth-child(odd)   { background: var(--linen); }
+  .chapter:nth-child(even) .step:nth-child(even)  { background: var(--chalk); }
+
+  .step h2 { font-size: 1.9rem; }
+
+  /* Show mobile-only link */
+  .mobile-only-link { display: inline-block; }
 
   .interlude { grid-template-columns: 1fr; gap: 40px 0; padding: 72px 24px; }
   .interlude-divider { display: none; }

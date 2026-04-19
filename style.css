@@ -661,6 +661,9 @@ nav a.active {
   padding-right: max(var(--s5), 8vw);
 }
 
+/* Stats grid shown only on mobile (desktop has sticky panel) */
+.mobile-only-stats { display: none; }
+
 /* Mobile link shown only on small screens */
 .mobile-only-link {
   display: none;
@@ -1804,12 +1807,21 @@ nav.menu-open .nav-toggle span:nth-child(3) { transform: translateY(-6.5px) rota
 
   .step h2 { font-size: 1.9rem; }
   .mobile-only-link { display: inline-block; }
+  .mobile-only-stats { display: block; }
+
+  /* Blood-pressure narrative: remove desktop centering/padding on mobile */
+  #blood-pressure .narrative {
+    max-width: none;
+    margin: 0;
+    padding-left: 0;
+    padding-right: 0;
+  }
 
   /* BP embed: full-bleed on mobile, tighter height */
   .bp-embed {
     width: calc(100% + 56px);
     margin: 12px -28px 12px;
-    height: 46vh;
+    height: 52vh;
     border-radius: 0;
   }
 

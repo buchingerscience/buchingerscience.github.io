@@ -27,27 +27,27 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 40px 24px;
+      padding: 20px 16px;
       overflow: hidden;
     }
 
     /* ── Header ── */
     .header {
       text-align: center;
-      margin-bottom: 48px;
+      margin-bottom: 20px;
       opacity: 0;
       animation: fadeUp 0.8s ease 0.2s forwards;
     }
     .header h1 {
       font-family: 'Playfair Display', serif;
       font-weight: 400;
-      font-size: clamp(1.3rem, 2.8vw, 1.9rem);
+      font-size: clamp(1.05rem, 2.4vw, 1.7rem);
       letter-spacing: 0.01em;
       color: var(--sand);
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
     .header p {
-      font-size: 0.68rem;
+      font-size: 0.63rem;
       letter-spacing: 0.18em;
       text-transform: uppercase;
       color: var(--brass);
@@ -63,11 +63,11 @@
 
     /* patient index */
     .patient-index {
-      font-size: 0.65rem;
+      font-size: 0.63rem;
       letter-spacing: 0.2em;
       text-transform: uppercase;
       color: var(--brass);
-      margin-bottom: 28px;
+      margin-bottom: 10px;
       height: 14px;
       transition: opacity 0.15s;
     }
@@ -77,8 +77,8 @@
       display: flex;
       justify-content: center;
       align-items: flex-end;
-      gap: clamp(32px, 8vw, 80px);
-      margin-bottom: 32px;
+      gap: clamp(24px, 6vw, 60px);
+      margin-bottom: 14px;
     }
 
     .bp-block {
@@ -98,7 +98,7 @@
     .bp-value {
       font-family: 'Playfair Display', serif;
       font-weight: 700;
-      font-size: clamp(4rem, 14vw, 8rem);
+      font-size: clamp(2.8rem, 11vw, 6rem);
       line-height: 1;
       color: var(--brass-light);
       letter-spacing: -0.02em;
@@ -126,7 +126,7 @@
       display: flex;
       justify-content: center;
       gap: clamp(16px, 5vw, 40px);
-      margin-bottom: 48px;
+      margin-bottom: 16px;
     }
     .meta-item {
       display: flex;
@@ -241,11 +241,6 @@
   </style>
 </head>
 <body>
-
-<div class="header">
-  <h1>Blood Pressure Reduction During Fasting</h1>
-  <p>100 strongest responders · Buchinger Wilhelmi · n = 959</p>
-</div>
 
 <div class="card" id="card">
   <div class="patient-index" id="patientIndex">—</div>
@@ -408,6 +403,12 @@ document.getElementById('replayBtn').addEventListener('click', replay);
 window.addEventListener('message', function(e) {
   if (e.data === 'replay') replay();
 });
+
+// Hide header when embedded via ?embed param
+if (new URLSearchParams(window.location.search).has('embed')) {
+  const hdr = document.querySelector('.header');
+  if (hdr) hdr.style.display = 'none';
+}
 
 // Start
 setTimeout(advance, 800);

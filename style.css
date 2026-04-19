@@ -571,9 +571,94 @@ nav a.active {
   .stat-grid { grid-template-columns: 1fr 1fr; }
 }
 
-/* BP animation embed — mobile only */
-.mobile-bp-embed {
+/* ─────────────────────────────────────────
+   Team photo band
+───────────────────────────────────────── */
+.team-photo-band {
+  position: relative;
+  height: 58vh;
+  overflow: hidden;
+}
+.team-photo-band img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 25%;
+  display: block;
+}
+.team-photo-overlay {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 32px var(--s5) 20px;
+  background: linear-gradient(transparent, rgba(20,14,8,0.5));
+}
+.team-photo-caption {
+  font-family: var(--sans);
+  font-size: 0.58rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(244,240,234,0.6);
+}
+
+/* ─────────────────────────────────────────
+   Heart video band
+───────────────────────────────────────── */
+.video-band {
+  position: relative;
+  height: 62vh;
+  overflow: hidden;
+  background: #050505;
+}
+.video-band video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.video-overlay {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  padding: 32px var(--s5) 20px;
+  background: linear-gradient(transparent, rgba(0,0,0,0.45));
+}
+.video-caption {
+  font-family: var(--sans);
+  font-size: 0.58rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(232,221,208,0.5);
+}
+
+/* ─────────────────────────────────────────
+   BP animation embed (all screens)
+───────────────────────────────────────── */
+.bp-embed {
+  display: block;
+  width: 100%;
+  height: 400px;
+  border-radius: 8px;
+  overflow: hidden;
+  margin: 20px 0 8px;
+}
+.bp-embed iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+
+/* BP chapter: full-width on desktop (animation lives in step, not panel) */
+#blood-pressure {
+  display: block;
+}
+#blood-pressure .sticky-panel {
   display: none;
+}
+#blood-pressure .narrative {
+  max-width: 820px;
+  margin: 0 auto;
+  padding-left: max(var(--s5), 8vw);
+  padding-right: max(var(--s5), 8vw);
 }
 
 /* Mobile link shown only on small screens */
@@ -1721,20 +1806,27 @@ nav.menu-open .nav-toggle span:nth-child(3) { transform: translateY(-6.5px) rota
   .step h2 { font-size: 1.9rem; }
   .mobile-only-link { display: inline-block; }
 
-  /* BP animation embed in step */
-  .mobile-bp-embed {
-    display: block;
+  /* BP embed: full-bleed on mobile, tighter height */
+  .bp-embed {
     width: calc(100% + 56px);
-    margin: 12px -28px 16px;
-    height: 48vh;
-    overflow: hidden;
-    border-radius: 12px;
+    margin: 12px -28px 12px;
+    height: 46vh;
+    border-radius: 0;
   }
-  .mobile-bp-embed iframe {
-    width: 100%;
-    height: 100%;
-    border: 0;
-  }
+
+  /* Team photo and video: reduce height on mobile */
+  .team-photo-band { height: 42vh; }
+  .video-band { height: 46vh; }
+
+  /* Slide harmonization: compact content to fit 100svh reliably */
+  .step p { font-size: 0.88rem; line-height: 1.72; }
+  .step h2 { font-size: 1.75rem; line-height: 1.18; margin-bottom: 14px; }
+  .eyebrow { font-size: 0.55rem; }
+  .stat-grid { gap: 10px 8px; margin: 16px 0 6px; }
+  .stat-num { font-size: 1.4rem !important; }
+  .stat-desc { font-size: 0.55rem; line-height: 1.35; }
+  .stat-pill { padding: 12px 16px; margin-top: 14px; }
+  .stat-pill .num { font-size: clamp(1.3rem, 5vw, 1.8rem); }
 
   /* Show only 3 publications on mobile */
   .pub.mobile-hide { display: none; }

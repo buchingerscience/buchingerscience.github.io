@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Buchinger Science – Weight Loss Estimator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Josefin+Sans:wght@200;300;400&family=EB+Garamond:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+  <style>
+    body { background: var(--sand); }
+
+    /* ── Page hero ── */
+    .wl-hero {
+      background: var(--deep);
+      color: var(--chalk);
+      padding: 140px 24px 64px;
+      text-align: center;
+    }
+    .wl-hero .eyebrow {
+      font-family: 'Josefin Sans', sans-serif;
+      font-weight: 300;
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--brass);
+      margin-bottom: 16px;
+    }
+    .wl-hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 400;
+      font-size: clamp(2.2rem, 5vw, 3.6rem);
+      color: var(--chalk);
+      line-height: 1.15;
+      margin: 0 0 20px;
+    }
+    .wl-hero p {
+      max-width: 580px;
+      margin: 0 auto;
+      font-size: 1rem;
+      color: rgba(244,240,234,0.72);
+      line-height: 1.7;
+    }
+
+    /* ── Main estimator layout ── */
+    .wl-wrap {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 60px 24px 80px;
+      display: grid;
+      grid-template-columns: 340px 1fr;
+      gap: 40px;
+      align-items: start;
+    }
+
+    /* ── Form panel ── */
+    .wl-form-panel {
+      background: var(--surface);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-soft);
+      padding: 32px 28px;
+      box-shadow: var(--shadow-soft);
+      position: sticky;
+      top: 88px;
+    }
+
+    .wl-form-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      font-weight: 400;
+      color: var(--heading);
+      margin: 0 0 24px;
+    }
+
+    .wl-field {
+      margin-bottom: 22px;
+    }
+
+    .wl-label {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 11px;
+      font-weight: 300;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--warm-mid);
+      margin-bottom: 8px;
+    }
+
+    .wl-label-val {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: var(--heading);
+      letter-spacing: 0;
+      text-transform: none;
+    }
+
+    /* Slider */
+    input[type="range"].wl-range {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 4px;
+      border-radius: 2px;
+      background: var(--border);
+      outline: none;
+      cursor: pointer;
+      accent-color: var(--accent);
+    }
+    input[type="range"].wl-range::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--accent);
+      border: 2px solid var(--chalk);
+      box-shadow: 0 1px 4px rgba(7,78,99,0.25);
+      cursor: pointer;
+    }
+    input[type="range"].wl-range::-moz-range-thumb {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--accent);
+      border: 2px solid var(--chalk);
+      box-shadow: 0 1px 4px rgba(7,78,99,0.25);
+      cursor: pointer;
+    }
+
+    /* Gender toggle */
+    .wl-gender {
+      display: flex;
+      gap: 8px;
+      margin-top: 2px;
+    }
+    .wl-gender input[type="radio"] { display: none; }
+    .wl-gender label {
+      flex: 1;
+      text-align: center;
+      padding: 8px 12px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-soft);
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 11px;
+      font-weight: 300;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--warm-mid);
+      cursor: pointer;
+      transition: background 0.15s, border-color 0.15s, color 0.15s;
+    }
+    .wl-gender input[type="radio"]:checked + label {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: var(--chalk);
+    }
+
+    /* ── Results panel ── */
+    .wl-results-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .wl-result-card {
+      background: var(--surface);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-soft);
+      padding: 24px 28px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .wl-result-card .card-label {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 10px;
+      font-weight: 300;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--brass);
+      margin-bottom: 8px;
+    }
+
+    .wl-stats {
+      display: flex;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+
+    .wl-stat {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .wl-stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 500;
+      color: var(--heading);
+      line-height: 1;
+    }
+
+    .wl-stat-unit {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 10px;
+      font-weight: 300;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    /* Chart wrapper */
+    .wl-chart-card {
+      background: var(--surface);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-soft);
+      padding: 24px 28px 20px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .wl-chart-card .card-label {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 10px;
+      font-weight: 300;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--brass);
+      margin-bottom: 16px;
+    }
+
+    .wl-chart-wrap {
+      position: relative;
+      height: 340px;
+    }
+
+    .wl-chart-note {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 12px;
+      line-height: 1.55;
+    }
+
+    /* ── Disclaimer band ── */
+    .wl-disclaimer {
+      background: var(--panel);
+      border-top: 1px solid var(--border-soft);
+      padding: 32px 24px;
+    }
+    .wl-disclaimer-inner {
+      max-width: 1040px;
+      margin: 0 auto;
+      font-size: 0.83rem;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+    .wl-disclaimer-inner strong { color: var(--warm-mid); }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      .wl-wrap {
+        grid-template-columns: 1fr;
+        padding: 36px 20px 56px;
+        gap: 28px;
+      }
+      .wl-form-panel {
+        position: static;
+      }
+      .wl-chart-wrap { height: 260px; }
+    }
+  </style>
+</head>
+
+<body class="page-weightloss">
+
+  <nav id="nav">
+    <div class="logo">Buchinger Science</div>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="https://dash.buchinger-science.com" target="_blank" rel="noopener">Metabolic Explorer</a></li>
+      <li><a href="weightloss.html" class="active">Weight Loss Estimator</a></li>
+      <li><a href="library.html">Research Library</a></li>
+      <li><a href="newsletter.html">Newsletters</a></li>
+      <li><a href="videos.html">Amplius Videos</a></li>
+      <li><a href="fastingcoach.html">Fasting Coach</a></li>
+      <li><a href="contact.html">About us</a></li>
+    </ul>
+  </nav>
+
+  <!-- ── HERO ── -->
+  <section class="wl-hero">
+    <p class="eyebrow">Clinical Research · Predictive Modelling</p>
+    <h1>Weight Loss <em>Estimator</em></h1>
+    <p>Personalised weight loss projections based on data from more than 1,500 patients, validated to 85% accuracy.</p>
+  </section>
+
+  <!-- ── ESTIMATOR ── -->
+  <div class="wl-wrap">
+
+    <!-- Form -->
+    <div class="wl-form-panel">
+      <h2 class="wl-form-title">Your parameters</h2>
+
+      <div class="wl-field">
+        <div class="wl-label">Weight <span class="wl-label-val"><span id="weight_output">90</span> kg</span></div>
+        <input type="range" class="wl-range" id="weight_baseline" min="40" max="200" step="1" value="90">
+      </div>
+
+      <div class="wl-field">
+        <div class="wl-label">Height <span class="wl-label-val"><span id="height_output">170</span> cm</span></div>
+        <input type="range" class="wl-range" id="height" min="110" max="220" step="1" value="170">
+      </div>
+
+      <div class="wl-field">
+        <div class="wl-label">Age <span class="wl-label-val"><span id="age_output">35</span> yrs</span></div>
+        <input type="range" class="wl-range" id="age" min="18" max="100" step="1" value="35">
+      </div>
+
+      <div class="wl-field">
+        <div class="wl-label" style="margin-bottom:10px">Biological sex</div>
+        <div class="wl-gender">
+          <input type="radio" name="gender" id="gender_men" value="Men" checked>
+          <label for="gender_men">Male</label>
+          <input type="radio" name="gender" id="gender_women" value="Women">
+          <label for="gender_women">Female</label>
+        </div>
+      </div>
+
+      <div class="wl-field" style="margin-bottom:0">
+        <div class="wl-label">Fasting days <span class="wl-label-val"><span id="timeline_output">20</span> days</span></div>
+        <input type="range" class="wl-range" id="timeline" min="1" max="30" step="1" value="20">
+      </div>
+    </div>
+
+    <!-- Results -->
+    <div class="wl-results-panel">
+
+      <div class="wl-result-card">
+        <p class="card-label">Estimates at end of fast</p>
+        <div class="wl-stats">
+          <div class="wl-stat">
+            <span class="wl-stat-num" id="res-loss">—</span>
+            <span class="wl-stat-unit">kg lost</span>
+          </div>
+          <div class="wl-stat">
+            <span class="wl-stat-num" id="res-bmr">—</span>
+            <span class="wl-stat-unit">kcal / day (BMR)</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="wl-chart-card">
+        <p class="card-label">Weight loss over time</p>
+        <div class="wl-chart-wrap">
+          <canvas id="weightChart"></canvas>
+        </div>
+        <p class="wl-chart-note">Shaded areas represent 70% and 95% confidence intervals. Individual results vary based on physical activity, medical history, and other factors.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── DISCLAIMER ── -->
+  <div class="wl-disclaimer">
+    <div class="wl-disclaimer-inner">
+      <strong>For informational purposes only.</strong> This estimation was established using clinical data from more than 1,500 patients at the Buchinger Wilhelmi Clinics. The model accounts for weight, height, age and sex with a mean accuracy of 85%. Individual outcomes depend on factors not captured here, including physical activity, medical history and hydration. Always consult a qualified medical professional before undertaking a prolonged fast.
+    </div>
+  </div>
+
+  <!-- ── FOOTER ── -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo">Buchinger Science</div>
+        <p>Clinical research on fasting, metabolism, and longevity — from the world's leading medically supervised fasting clinic.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Research</h4>
+        <ul>
+          <li><a href="library.html">Research Library</a></li>
+          <li><a href="newsletter.html">Newsletters</a></li>
+          <li><a href="https://dash.buchinger-science.com" target="_blank" rel="noopener">Metabolic Explorer</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="videos.html">Amplius Videos</a></li>
+          <li><a href="fastingcoach.html">Fasting Coach</a></li>
+          <li><a href="weightloss.html">Weight Loss Estimator</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Buchinger Science. All rights reserved.</p>
+      <p>Buchinger Wilhelmi Clinic</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    // Active nav state
+    document.querySelectorAll("nav a").forEach(a => {
+      if (a.getAttribute("href") === "weightloss.html") a.classList.add("active");
+    });
+
+    // ── Color palette ──
+    const COLORS = {
+      men:   { line: '#074e63', ci1: 'rgba(7,78,99,0.18)',   ci2: 'rgba(7,78,99,0.07)'   },
+      women: { line: '#b05a6e', ci1: 'rgba(176,90,110,0.18)', ci2: 'rgba(176,90,110,0.07)' }
+    };
+
+    // ── DOM refs ──
+    const weightInput   = document.getElementById('weight_baseline');
+    const heightInput   = document.getElementById('height');
+    const ageInput      = document.getElementById('age');
+    const timelineInput = document.getElementById('timeline');
+    const genderRadios  = document.querySelectorAll('input[name="gender"]');
+
+    const weightOutput   = document.getElementById('weight_output');
+    const heightOutput   = document.getElementById('height_output');
+    const ageOutput      = document.getElementById('age_output');
+    const timelineOutput = document.getElementById('timeline_output');
+    const resLoss        = document.getElementById('res-loss');
+    const resBmr         = document.getElementById('res-bmr');
+
+    // ── Live slider labels ──
+    weightInput.addEventListener('input',   () => { weightOutput.textContent   = weightInput.value;   update(); });
+    heightInput.addEventListener('input',   () => { heightOutput.textContent   = heightInput.value;   update(); });
+    ageInput.addEventListener('input',      () => { ageOutput.textContent      = ageInput.value;      update(); });
+    timelineInput.addEventListener('input', () => { timelineOutput.textContent = timelineInput.value; update(); });
+    genderRadios.forEach(r => r.addEventListener('change', update));
+
+    // ── Model helpers ──
+    function getGender() {
+      return document.querySelector('input[name="gender"]:checked').value;
+    }
+
+    function computeMB(weight, height, age, gender) {
+      const coef = gender === 'Men' ? 1.083 : 0.963;
+      return coef * Math.pow(weight, 0.48) * Math.pow(height / 100, 0.50) * Math.pow(age, -0.13);
+    }
+
+    function computeBMR(weight, height, age, gender) {
+      const kcalCoef = gender === 'Men' ? 259 : 230;
+      return Math.pow(weight, 0.48) * Math.pow(height / 100, 0.50) * Math.pow(age, -0.13) * kcalCoef;
+    }
+
+    function weightLoss(mb, day) {
+      if (day === 0) return 0;
+      const t = Math.sqrt(day + 1);
+      return 0.3324 * mb + 0.6037 * t - 0.4320 * mb * t;
+    }
+
+    function computeOffset(mb) {
+      const slope = (1.55 - 0.73) / (12 - 4.5);
+      return 0.73 + slope * (mb - 5);
+    }
+
+    // ── Chart ──
+    let chart;
+
+    function buildDatasets(mb, timeline, colors) {
+      const days = [], loss = [], upper1 = [], upper2 = [], lower1 = [], lower2 = [];
+      const offset = computeOffset(mb);
+
+      for (let i = 0; i <= timeline; i++) {
+        days.push(i);
+        const wl = weightLoss(mb, i);
+        loss.push(wl);
+        upper1.push(i === 0 ? 0 : Math.min(0, wl + offset));
+        upper2.push(i === 0 ? 0 : Math.min(0, wl + 2 * offset));
+        lower1.push(i === 0 ? 0 : wl - offset);
+        lower2.push(i === 0 ? 0 : wl - 2 * offset);
+      }
+
+      const base = {
+        pointRadius: 0,
+        pointHoverRadius: 4,
+        tension: 0.35,
+        borderWidth: 0
+      };
+
+      return {
+        labels: days,
+        datasets: [
+          { ...base, label: 'Estimated loss', data: loss,   borderColor: colors.line, borderWidth: 2.5, backgroundColor: 'transparent' },
+          { ...base, label: '70% interval',   data: upper1, backgroundColor: colors.ci1, fill: '+1' },
+          { ...base, label: '',               data: lower1, backgroundColor: colors.ci1, fill: false },
+          { ...base, label: '95% interval',   data: upper2, backgroundColor: colors.ci2, fill: '+1' },
+          { ...base, label: '',               data: lower2, backgroundColor: colors.ci2, fill: false }
+        ]
+      };
+    }
+
+    function plotChart(mb, timeline, gender) {
+      const colors = gender === 'Men' ? COLORS.men : COLORS.women;
+      const { labels, datasets } = buildDatasets(mb, timeline, colors);
+      const ctx = document.getElementById('weightChart').getContext('2d');
+
+      if (!chart) {
+        chart = new Chart(ctx, {
+          type: 'line',
+          data: { labels, datasets },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              x: {
+                title: { display: true, text: 'Fasting days', font: { family: 'Josefin Sans', size: 11 }, color: '#8a7f74' },
+                ticks: { font: { family: 'Josefin Sans', size: 10 }, color: '#8a7f74' },
+                grid: { color: 'rgba(138,127,116,0.12)' }
+              },
+              y: {
+                title: { display: true, text: 'Weight change (kg)', font: { family: 'Josefin Sans', size: 11 }, color: '#8a7f74' },
+                ticks: { font: { family: 'Josefin Sans', size: 10 }, color: '#8a7f74' },
+                grid: { color: 'rgba(138,127,116,0.12)' }
+              }
+            },
+            plugins: {
+              legend: {
+                position: 'bottom',
+                labels: {
+                  font: { family: 'Josefin Sans', size: 10 },
+                  color: '#6b5f55',
+                  filter: item => !!item.text,
+                  boxWidth: 12,
+                  padding: 16
+                }
+              },
+              tooltip: {
+                callbacks: {
+                  label: ctx => ctx.dataset.label ? `${ctx.dataset.label}: ${ctx.parsed.y.toFixed(1)} kg` : null
+                }
+              }
+            }
+          }
+        });
+      } else {
+        chart.data.labels = labels;
+        chart.data.datasets = datasets;
+        chart.update('none');
+      }
+    }
+
+    function update() {
+      const weight   = parseFloat(weightInput.value);
+      const height   = parseFloat(heightInput.value);
+      const age      = parseFloat(ageInput.value);
+      const timeline = parseInt(timelineInput.value);
+      const gender   = getGender();
+
+      const mb  = computeMB(weight, height, age, gender);
+      const bmr = computeBMR(weight, height, age, gender);
+      const loss = weightLoss(mb, timeline);
+
+      resLoss.textContent = Math.abs(loss).toFixed(1);
+      resBmr.textContent  = Math.round(bmr);
+
+      plotChart(mb, timeline, gender);
+    }
+
+    // Initial render
+    update();
+  </script>
+</body>
+</html>

@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Buchinger Science – Metabolic Explorer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Josefin+Sans:wght@200;300;400&family=EB+Garamond:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../style.css">
+
+  <!-- Highcharts (boxplot + sankey) -->
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://code.highcharts.com/highcharts-more.js"></script>
+  <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+  <script src="https://code.highcharts.com/modules/jitter.js"></script>
+  <script src="https://code.highcharts.com/modules/sankey.js"></script>
+
+  <!-- PapaParse (CSV loader) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+
+  <!-- noUiSlider (range slider) -->
+  <link href="https://cdn.jsdelivr.net/npm/nouislider@15.7.1/dist/nouislider.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/nouislider@15.7.1/dist/nouislider.min.js"></script>
+
+  <link rel="stylesheet" href="styles.css">
+
+  <style>
+    body { background: var(--sand); }
+
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      background: rgba(244,240,234,0.94);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--stone);
+      z-index: 800;
+    }
+    nav .logo { color: var(--warm-dark); }
+    nav a { color: var(--warm-mid); }
+    nav a:hover { background: var(--sand); border-color: transparent; color: var(--warm-dark); }
+    nav a.active { background: var(--brass); color: var(--chalk); border-color: var(--brass); }
+  </style>
+</head>
+
+<body class="page-metabolic">
+
+  <div id="progress"></div>
+
+  <!-- Navigation -->
+  <nav id="nav">
+    <div class="logo">Buchinger Science</div>
+    <ul>
+      <li><a href="../index.html">Home</a></li>
+      <li><a href="index.html" class="active">Metabolic Explorer</a></li>
+      <li><a href="../weightloss.html">Weight Loss Estimator</a></li>
+      <li><a href="../library.html">Research Library</a></li>
+      <li><a href="../newsletter.html">Newsletters</a></li>
+      <li><a href="../videos.html">Amplius Videos</a></li>
+      <li><a href="../fastingcoach.html">Fasting Coach</a></li>
+      <li><a href="../contact.html">About us</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero -->
+  <section class="me-hero" style="background-image: url('../IMG_1201.jpeg');">
+    <div class="me-hero-overlay"></div>
+    <div class="me-hero-content">
+      <p class="eyebrow" style="justify-content:center;margin-bottom:16px;color:var(--brass);">Clinical Research · Biomarker Analysis</p>
+      <h1>Metabolic <em>Explorer</em></h1>
+      <p class="me-hero-sub">Explore how medically supervised fasting transforms blood markers across 1,422 patients — filter by duration, age, BMI and gender to investigate the cohort most relevant to you.</p>
+    </div>
+  </section>
+
+  <!-- Main -->
+  <div class="me-wrap">
+
+    <!-- Filter panel -->
+    <section class="me-filter-panel">
+      <h3 class="me-section-label">Filtering Criteria</h3>
+      <div class="me-controls-grid">
+
+        <div class="me-field">
+          <label for="age-input">Age group</label>
+          <select id="age-input" class="me-select">
+            <option value="">All ages</option>
+            <option value="Young adults (18-34 years)">Young adults (18–34 years)</option>
+            <option value="Middle age (35-64 years)">Middle age (35–64 years)</option>
+            <option value="Older adults (≥65 years)">Older adults (≥65 years)</option>
+          </select>
+        </div>
+
+        <div class="me-field">
+          <label for="bmi-input">BMI category</label>
+          <select id="bmi-input" class="me-select">
+            <option value="">All BMI</option>
+            <option value="Normal (18–24.9 kg/m²)">Normal (18–24.9 kg/m²)</option>
+            <option value="Overweight (25.0–29.9 kg/m²)">Overweight (25.0–29.9 kg/m²)</option>
+            <option value="Obesity (≥30 kg/m²)">Obesity (≥30 kg/m²)</option>
+          </select>
+        </div>
+
+        <div class="me-field">
+          <label>Gender</label>
+          <div class="me-sex-row">
+            <button type="button" id="sex-button-M" class="me-sex-btn">Male</button>
+            <button type="button" id="sex-button-F" class="me-sex-btn">Female</button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Parameter + baseline range -->
+    <section class="me-param-panel">
+      <div class="me-controls-grid">
+        <div class="me-field">
+          <label for="parameter-dropdown">Biomarker</label>
+          <select id="parameter-dropdown" class="me-select"></select>
+        </div>
+        <div class="me-field">
+          <label>Filter by baseline value</label>
+          <div class="me-slider-wrap">
+            <div id="baseline-range-slider"></div>
+            <div class="me-slider-values">
+              <span id="baseline-range-low">0</span>
+              <span id="baseline-range-high">100</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Chart area -->
+    <section class="me-results">
+      <div id="charts-container">
+        <div class="me-loading">Loading data… <span class="me-loading-sub">(the dataset is ~2 MB and may take a few seconds)</span></div>
+      </div>
+
+      <!-- Grouping tabs -->
+      <nav class="me-tab-nav" id="grouping-nav" aria-label="Group results by">
+        <button type="button" id="grp-btn-duration" class="me-tab selected">By fasting duration</button>
+        <button type="button" id="grp-btn-gender"   class="me-tab">By Gender</button>
+        <button type="button" id="grp-btn-bmi"      class="me-tab">By BMI category</button>
+        <button type="button" id="grp-btn-age"      class="me-tab">By Age category</button>
+      </nav>
+
+      <div id="data-table-container"></div>
+    </section>
+
+    <!-- Cohort / Sankey -->
+    <section class="me-cohort">
+      <h3 class="me-cohort-title">Patient profile</h3>
+      <p class="me-cohort-sub">Use the controls below to explore the composition of the cohort matching your filters.</p>
+
+      <div class="me-sankey-controls">
+        <div class="me-sankey-row">
+          <span class="me-sankey-label">From</span>
+          <div class="me-tab-nav">
+            <button type="button" id="sankey-a-age"     class="me-tab" data-key="age">Age</button>
+            <button type="button" id="sankey-a-bmi"     class="me-tab" data-key="bmi">BMI</button>
+            <button type="button" id="sankey-a-gender"  class="me-tab selected" data-key="gender">Gender</button>
+            <button type="button" id="sankey-a-fasting" class="me-tab" data-key="fasting">Fasting duration</button>
+          </div>
+        </div>
+        <div class="me-sankey-row">
+          <span class="me-sankey-label">To</span>
+          <div class="me-tab-nav">
+            <button type="button" id="sankey-b-age"     class="me-tab" data-key="age">Age</button>
+            <button type="button" id="sankey-b-bmi"     class="me-tab" data-key="bmi">BMI</button>
+            <button type="button" id="sankey-b-gender"  class="me-tab" data-key="gender">Gender</button>
+            <button type="button" id="sankey-b-fasting" class="me-tab selected" data-key="fasting">Fasting duration</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="cohort-stats-container" class="me-sankey-mount"></div>
+    </section>
+
+  </div><!-- /.me-wrap -->
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo">Buchinger Science</div>
+        <p>Clinical research on fasting, metabolism, and longevity — from the world's leading medically supervised fasting clinic.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Research</h4>
+        <ul>
+          <li><a href="../library.html">Research Library</a></li>
+          <li><a href="../newsletter.html">Newsletters</a></li>
+          <li><a href="index.html">Metabolic Explorer</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="../videos.html">Amplius Videos</a></li>
+          <li><a href="../fastingcoach.html">Fasting Coach</a></li>
+          <li><a href="../course.html">E-Learning</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Buchinger Science. All rights reserved.</p>
+      <p>Buchinger Wilhelmi Clinic</p>
+    </div>
+  </footer>
+
+  <script src="../script.js"></script>
+  <script>
+    const prog = document.getElementById('progress');
+    const navEl = document.getElementById('nav');
+    window.addEventListener('scroll', () => {
+      prog.style.width = (window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100) + '%';
+    }, { passive: true });
+  </script>
+  <script src="app.js"></script>
+</body>
+</html>

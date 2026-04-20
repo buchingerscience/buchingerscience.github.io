@@ -1,0 +1,187 @@
+{
+  "ALP [U/L]": {
+    "low": 40.0,
+    "high": 120.0,
+    "normal_range": "40–120"
+  },
+  "GGT [U/L]": {
+    "low": 5.0,
+    "high": 50.0,
+    "normal_range": "5–50"
+  },
+  "GOT AST [U/L]": {
+    "low": 10.0,
+    "high": 40.0,
+    "normal_range": "10–40"
+  },
+  "GPT ALT [U/L]": {
+    "low": 7.0,
+    "high": 56.0,
+    "normal_range": "7–56"
+  },
+  "FLI": {
+    "low": 30.0,
+    "high": 60.0,
+    "normal_range": "30–59"
+  },
+  "TC [mg/dL]": {
+    "low": 120.0,
+    "high": 200.0,
+    "normal_range": "120–200"
+  },
+  "LDL [mg/dL]": {
+    "low": 70.0,
+    "high": 130.0,
+    "normal_range": "70–129"
+  },
+  "HDL [mg/dL]": {
+    "low": 45.0,
+    "high": 80.0,
+    "normal_range": "45–80"
+  },
+  "TG [mg/dL]": {
+    "low": 50.0,
+    "high": 150.0,
+    "normal_range": "50–150"
+  },
+  "SBP [mmHg]": {
+    "low": 90.0,
+    "high": 130.0,
+    "normal_range": "90–129"
+  },
+  "DBP [mmHg]": {
+    "low": 60.0,
+    "high": 80.0,
+    "normal_range": "60–79"
+  },
+  "glucose [mg/dL]": {
+    "low": 70.0,
+    "high": 100.0,
+    "normal_range": "70–99"
+  },
+  "HBA1C [%]": {
+    "low": 4.0,
+    "high": 5.7,
+    "normal_range": "4.0–5.7"
+  },
+  "TSH [µU/mL]": {
+    "low": 0.4,
+    "high": 4.0,
+    "normal_range": "0.4–4.0"
+  },
+  "BMI [kg/m²]": {
+    "low": 18.5,
+    "high": 25.0,
+    "normal_range": "18.5–24.9"
+  },
+  "weight [kg]": {
+    "low": null,
+    "high": null,
+    "normal_range": "via BMI"
+  },
+  "WC [cm]": {
+    "low": 80.0,
+    "high": 95.0,
+    "normal_range": "80–94"
+  },
+  "creatinine [mg/dL]": {
+    "low": 0.5,
+    "high": 1.2,
+    "normal_range": "0.65–1.2"
+  },
+  "GFR [mL/min/1.73m²]": {
+    "low": 60.0,
+    "high": 90.0,
+    "normal_range": "60–89"
+  },
+  "urea [mg/dL]": {
+    "low": 10.0,
+    "high": 50.0,
+    "normal_range": "17–43"
+  },
+  "uric acid [mg/dL]": {
+    "low": 2.7,
+    "high": 6.5,
+    "normal_range": "3.0–6.5"
+  },
+  "K [mmol/L]": {
+    "low": 3.5,
+    "high": 5.0,
+    "normal_range": "3.5–5.0"
+  },
+  "Na [mmol/L]": {
+    "low": 135.0,
+    "high": 145.0,
+    "normal_range": "135–145"
+  },
+  "Mg [mg/dL]": {
+    "low": 1.7,
+    "high": 2.2,
+    "normal_range": "1.7–2.2"
+  },
+  "Ca [mg/dL]": {
+    "low": 8.6,
+    "high": 10.2,
+    "normal_range": "8.6–10.2"
+  },
+  "erythrocytes [T/L]": {
+    "low": 4.3,
+    "high": 5.5,
+    "normal_range": "4.3–5.5"
+  },
+  "hemoglobin [g/dL]": {
+    "low": 12.8,
+    "high": 17.5,
+    "normal_range": "12.8–16.5"
+  },
+  "hematocrit [%]": {
+    "low": 38.5,
+    "high": 50.0,
+    "normal_range": "38.5–49.5"
+  },
+  "thrombocytes [G/L]": {
+    "low": 150.0,
+    "high": 450.0,
+    "normal_range": "150–400"
+  },
+  "MCV [fL]": {
+    "low": 80.0,
+    "high": 100.0,
+    "normal_range": "80–100"
+  },
+  "MCH [pg]": {
+    "low": 27.0,
+    "high": 33.0,
+    "normal_range": "27–33"
+  },
+  "MCHC [g/dL]": {
+    "low": 32.0,
+    "high": 36.0,
+    "normal_range": "32–36"
+  },
+  "CRP hs [mg/L]": {
+    "low": null,
+    "high": 5.0,
+    "normal_range": "0–5"
+  },
+  "ESR 1H [mm/h]": {
+    "low": null,
+    "high": 25.0,
+    "normal_range": "0–25"
+  },
+  "ESR 2H [mm/h]": {
+    "low": null,
+    "high": 50.0,
+    "normal_range": "0–50"
+  },
+  "leukocytes [G/L]": {
+    "low": 4.0,
+    "high": 10.0,
+    "normal_range": "4.0–10.0"
+  },
+  "HBA1C [mmol/mol]": {
+    "low": 20.2,
+    "high": 38.8,
+    "normal_range": "20–39 mmol/mol"
+  }
+}

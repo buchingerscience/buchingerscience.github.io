@@ -357,40 +357,6 @@
         });
         var totalPatients = scatterData.length;
 
-        // --- Compute a baseline reference band (delta-from-reference) to show on the change chart ---
-        // Displays as plot bands on the y-axis: if post-value stays inside the reference
-        // range, delta is bounded by (low - currentBaseline) and (high - currentBaseline).
-        // We draw bands relative to the mean baseline per group to give a sense of
-        // "neutral zone". This is a light visual hint, not a statistical claim.
-        var refRange = STATE.referenceRanges && STATE.referenceRanges[p];
-        var yPlotBands = [];
-        if (refRange && (refRange.low !== undefined || refRange.high !== undefined)) {
-            var allBaselines = [];
-            CATEGORY_ORDER.forEach(function(cat){ allBaselines = allBaselines.concat(baselinePerCat[cat] || []); });
-            if (allBaselines.length) {
-                var meanBaseline = allBaselines.reduce(function(a,b){return a+b;},0) / allBaselines.length;
-                var bandFrom = (refRange.low  !== null && refRange.low  !== undefined) ? (refRange.low  - meanBaseline) : null;
-                var bandTo   = (refRange.high !== null && refRange.high !== undefined) ? (refRange.high - meanBaseline) : null;
-                if (bandFrom !== null && bandTo !== null) {
-                    yPlotBands.push({
-                        from: Math.min(bandFrom, bandTo),
-                        to:   Math.max(bandFrom, bandTo),
-                        color: 'rgba(80, 227, 194, 0.12)',
-                        borderColor: 'rgba(80, 200, 120, 0.9)',
-                        borderWidth: 1.5,
-                        dashStyle: 'Dash',
-                        zIndex: 1,
-                        label: {
-                            text: 'Reference range (normal): '
-                                  + (refRange.normal_range || (refRange.low + '–' + refRange.high)),
-                            style: { color: '#3a7d5a', fontSize: '11px' },
-                            align: 'right', x: -8, y: 12
-                        }
-                    });
-                }
-            }
-        }
-
         var mountId = 'hc_' + p.replace(/[^a-zA-Z0-9_]/g,'_');
         var vw = (typeof window !== 'undefined') ? window.innerWidth : 1024;
         var isMobile = vw <= 768;
@@ -446,7 +412,7 @@
                 yAxis: {
                     title:{ text:'Changes (Post - Pre)' },
                     plotLines: [{ value:0, color:'#888', dashStyle:'dashed', width:2.5, zIndex:0 }],
-                    plotBands: yPlotBands
+                    plotBands: []
                 },
                 accessibility:{enabled:true}, legend:{enabled:false}, credits:{enabled:false},
                 tooltip: {
@@ -468,8 +434,8 @@
                     { name:'Delta', type:'boxplot', data: seriesData, whiskerWidth:0,
                       lineWidth:1.5, color:'rgba(50,50,50,1)' },
                     { name:'Individuals', type:'scatter', data: scatterData,
-                      jitter:{x:0.24,y:0}, marker:{radius:3.5, lineWidth:0.5},
-                      opacity: 0.45, tooltip:{enabled:false},
+                      jitter:{x:0.24,y:0}, marker:{radius:3.5, lineWidth:0, fillColor:'#a8885a'},
+                      opacity: 0.55, tooltip:{enabled:false},
                       states:{hover:{enabled:false}, inactive:{opacity:1}},
                       showInLegend:false }
                 ]
@@ -491,21 +457,6 @@
             window.addEventListener('resize', resize, { passive:true });
             chart._resizeHandler = resize;
 
-            // Add a small legend below the chart if a reference band was drawn
-            if (yPlotBands.length) {
-                var legendId = mountId + '_ref_legend';
-                var prevLegend = document.getElementById(legendId);
-                if (prevLegend) prevLegend.parentNode.removeChild(prevLegend);
-                var legend = document.createElement('div');
-                legend.id = legendId;
-                legend.className = 'reference-range-legend';
-                legend.innerHTML = '<span class="swatch"></span>'
-                    + 'Highlighted band shows where the <b>Post</b> value would fall inside the normal reference range '
-                    + '<i>(' + (refRange.normal_range || (refRange.low + '–' + refRange.high)) + ')</i> '
-                    + 'for a patient whose baseline equals the cohort mean.';
-                var mountEl = document.getElementById(mountId);
-                if (mountEl && mountEl.parentNode) mountEl.parentNode.appendChild(legend);
-            }
         }, 0);
 
         // Build summary table rows
@@ -955,18 +906,7 @@
         appendChild(tableEl,  out[1]);
     }
 
-    function renderCohort() {
-        var out = UI.updateCohortStats(
-            STATE.data,
-            STATE.filters.age_cat, STATE.filters.bmi_cat, STATE.filters.sex,
-            STATE.sankeyA, STATE.sankeyB,
-            STATE.filters.parameter, STATE.filters.baselineRange
-        );
-        var el = document.getElementById('cohort-stats-container');
-        clear(el); appendChild(el, out);
-    }
-
-    function renderAll() { renderAnalysis(); renderCohort(); }
+    function renderAll() { renderAnalysis(); }
 
     /* ---------------- UI wiring ---------------- */
 
@@ -1012,36 +952,6 @@
                 renderAnalysis();
             });
         });
-
-        // Sankey "From" and "To" tab groups
-        function wireSankeyGroup(prefix, stateKey, otherKey) {
-            var keys = ['age','bmi','gender','fasting'];
-            keys.forEach(function (k) {
-                var btn = document.getElementById(prefix + '-' + k);
-                btn.addEventListener('click', function () {
-                    // Can't match the other axis
-                    if (STATE[otherKey] === k) return;
-                    STATE[stateKey] = k;
-                    keys.forEach(function (kk) {
-                        var b = document.getElementById(prefix + '-' + kk);
-                        b.classList.toggle('selected', kk === STATE[stateKey]);
-                        b.disabled = (kk === STATE[otherKey]);
-                    });
-                    renderCohort();
-                });
-            });
-            // Initial disabled-state for the other axis
-            keys.forEach(function (kk) {
-                document.getElementById(prefix + '-' + kk).disabled = (kk === STATE[otherKey]);
-            });
-        }
-        wireSankeyGroup('sankey-a', 'sankeyA', 'sankeyB');
-        wireSankeyGroup('sankey-b', 'sankeyB', 'sankeyA');
-
-        // Read-more toggle
-        var rm = document.getElementById('aboutShowMoreTrigger');
-        var opened = false;
-        rm.addEventListener('click', function () { opened = !opened; UI.toggleReadMore(opened); });
 
         // Footer year
         var fy = document.getElementById('footer-year');

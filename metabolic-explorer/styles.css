@@ -432,4 +432,21 @@ optgroup {
     padding: 18px 16px;
   }
   .me-controls-grid { grid-template-columns: 1fr; gap: 16px; }
+
+  /* Grouping tabs: single scrollable row so they never wrap near the nav bar */
+  #grouping-nav.me-tab-nav {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    justify-content: flex-start;
+    scrollbar-width: none;
+    padding-bottom: 4px;
+    /* Negative margin trick to allow scroll edge-to-edge */
+    margin-left: -16px;
+    margin-right: -16px;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  #grouping-nav.me-tab-nav::-webkit-scrollbar { display: none; }
+  #grouping-nav.me-tab-nav .me-tab { flex-shrink: 0; }
 }

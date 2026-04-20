@@ -1,0 +1,435 @@
+/*
+ * Metabolic Explorer — page-specific styles
+ * Inherits design tokens from ../style.css
+ * Color palette: brass / sand / stone / chalk / charcoal
+ */
+
+/* ── Hero ── */
+.me-hero {
+  min-height: 460px;
+  background-size: cover;
+  background-position: center 40%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 120px 24px 72px;
+}
+
+.me-hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(160deg, rgba(26,21,16,0.72) 0%, rgba(42,37,32,0.55) 100%);
+}
+
+.me-hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 680px;
+}
+
+.me-hero-content h1 {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(2.2rem, 5vw, 3.4rem);
+  color: var(--chalk);
+  line-height: 1.15;
+  margin: 0 0 20px;
+}
+
+.me-hero-content h1 em {
+  font-style: italic;
+  color: var(--brass-light);
+}
+
+.me-hero-sub {
+  font-family: var(--body);
+  font-size: 1rem;
+  color: rgba(250,248,245,0.75);
+  line-height: 1.7;
+  max-width: 580px;
+  margin: 0 auto;
+}
+
+/* ── Main wrapper ── */
+.me-wrap {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 40px 24px 80px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+/* ── Section label ── */
+.me-section-label {
+  font-family: var(--sans);
+  font-weight: 300;
+  font-size: 0.6rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+
+/* ── Panels (filter + parameter) ── */
+.me-filter-panel,
+.me-param-panel {
+  background: var(--surface);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-soft);
+  padding: 24px 28px 20px;
+  box-shadow: var(--shadow-soft);
+}
+
+/* ── Controls grid ── */
+.me-controls-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+/* ── Form fields ── */
+.me-field {
+  display: flex;
+  flex-direction: column;
+}
+
+.me-field label {
+  font-family: var(--sans);
+  font-weight: 300;
+  font-size: 0.6rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+.me-select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-soft);
+  background: var(--chalk);
+  font-family: var(--body);
+  font-size: 0.9rem;
+  color: var(--charcoal);
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23a8885a'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.me-select:focus {
+  outline: none;
+  border-color: var(--brass);
+  box-shadow: 0 0 0 3px rgba(168,136,90,0.12);
+}
+
+optgroup {
+  font-family: var(--sans);
+  font-weight: 400;
+  font-size: 0.8rem;
+  color: var(--warm-mid);
+}
+
+/* ── Sex toggle buttons ── */
+.me-sex-row {
+  display: flex;
+  gap: 10px;
+}
+
+.me-sex-btn {
+  flex: 1;
+  padding: 9px 16px;
+  background: var(--chalk);
+  border: 1.5px solid var(--border-soft);
+  border-radius: var(--radius-soft);
+  font-family: var(--sans);
+  font-weight: 300;
+  font-size: 0.62rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--warm-mid);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.me-sex-btn:hover {
+  border-color: var(--brass);
+  background: var(--brass-pale);
+  color: var(--warm-dark);
+}
+
+.me-sex-btn.selected {
+  background: var(--brass);
+  border-color: var(--brass);
+  color: var(--chalk);
+}
+
+/* ── Baseline slider ── */
+.me-slider-wrap {
+  padding: 14px 4px 4px;
+}
+
+.me-slider-values {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--sans);
+  font-size: 0.58rem;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  margin-top: 10px;
+}
+
+/* noUiSlider brass theme */
+.noUi-target {
+  background: var(--stone);
+  border: none;
+  box-shadow: none;
+  height: 4px;
+  border-radius: 2px;
+}
+
+.noUi-connect {
+  background: var(--brass);
+}
+
+.noUi-handle {
+  border: 2px solid var(--brass);
+  background: var(--chalk);
+  box-shadow: 0 1px 6px rgba(168,136,90,0.25);
+  border-radius: 50%;
+  width: 18px !important;
+  height: 18px !important;
+  right: -9px !important;
+  top: -8px !important;
+  cursor: pointer;
+}
+
+.noUi-handle::before,
+.noUi-handle::after { display: none; }
+
+.noUi-tooltip {
+  font-family: var(--sans);
+  font-size: 0.58rem;
+  letter-spacing: 0.06em;
+  color: var(--chalk);
+  background: var(--brass);
+  border: none;
+  border-radius: var(--radius-soft);
+  padding: 3px 7px;
+}
+
+/* ── Results section ── */
+.me-results {
+  background: var(--surface);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-soft);
+  padding: 28px;
+  box-shadow: var(--shadow-soft);
+}
+
+/* ── Loading indicator ── */
+.me-loading {
+  text-align: center;
+  padding: 60px 24px;
+  font-family: var(--body);
+  font-size: 1rem;
+  color: var(--muted);
+}
+
+.me-loading-sub {
+  display: block;
+  font-size: 0.82rem;
+  margin-top: 6px;
+  opacity: 0.7;
+}
+
+/* ── Grouping / tab nav ── */
+.me-tab-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 20px 0 16px;
+  justify-content: center;
+}
+
+.me-tab {
+  padding: 7px 16px;
+  background: var(--chalk);
+  border: 1.5px solid var(--border-soft);
+  border-radius: var(--radius-pill);
+  font-family: var(--sans);
+  font-weight: 300;
+  font-size: 0.58rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--warm-mid);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.me-tab:hover:not(:disabled) {
+  border-color: var(--brass);
+  background: var(--brass-pale);
+  color: var(--warm-dark);
+}
+
+.me-tab.selected {
+  background: var(--brass);
+  border-color: var(--brass);
+  color: var(--chalk);
+}
+
+.me-tab:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* ── Data table ── */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0 8px;
+  font-family: var(--body);
+}
+
+.data-table th {
+  background: var(--linen);
+  font-family: var(--sans);
+  font-weight: 400;
+  font-size: 0.6rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--warm-mid);
+  padding: 10px 14px;
+  text-align: center;
+  border-bottom: 1.5px solid var(--stone);
+}
+
+.data-table td {
+  padding: 10px 14px;
+  text-align: center;
+  font-size: 0.88rem;
+  color: var(--charcoal);
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.data-table td:first-child {
+  font-family: var(--sans);
+  font-weight: 400;
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--warm-mid);
+}
+
+.data-table tbody tr:last-child td { border-bottom: none; }
+
+/* ── Reference range legend ── */
+.reference-range-legend {
+  font-family: var(--body);
+  font-size: 0.8rem;
+  color: var(--muted);
+  text-align: center;
+  margin-top: 8px;
+  padding: 4px 8px;
+  font-style: italic;
+}
+
+.reference-range-legend .swatch {
+  display: inline-block;
+  width: 14px;
+  height: 8px;
+  background: rgba(80,227,194,0.15);
+  border-top: 1.5px dashed rgba(80,200,120,0.7);
+  border-bottom: 1.5px dashed rgba(80,200,120,0.7);
+  vertical-align: middle;
+  margin: 0 6px 1px;
+}
+
+/* ── Chart card ── */
+.chart-card {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ── Cohort / Sankey section ── */
+.me-cohort {
+  background: var(--surface);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-soft);
+  padding: 28px;
+  box-shadow: var(--shadow-soft);
+}
+
+.me-cohort-title {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: 1.4rem;
+  color: var(--heading);
+  margin-bottom: 6px;
+}
+
+.me-cohort-sub {
+  font-family: var(--body);
+  font-size: 0.88rem;
+  color: var(--muted);
+  margin-bottom: 20px;
+}
+
+.me-sankey-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.me-sankey-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.me-sankey-label {
+  font-family: var(--sans);
+  font-weight: 300;
+  font-size: 0.58rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  min-width: 36px;
+}
+
+.me-sankey-mount {
+  min-height: 60px;
+}
+
+/* ── Mean change H4 heading ── */
+#data-table-container h4 {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: 1.1rem;
+  color: var(--heading);
+  margin-top: 28px;
+  margin-bottom: 8px;
+}
+
+/* ── Responsive ── */
+@media (max-width: 860px) {
+  .me-hero { padding: 100px 20px 56px; min-height: 360px; }
+  .me-wrap { padding: 24px 16px 60px; gap: 20px; }
+  .me-filter-panel, .me-param-panel, .me-results, .me-cohort {
+    padding: 18px 16px;
+  }
+  .me-controls-grid { grid-template-columns: 1fr; gap: 16px; }
+}

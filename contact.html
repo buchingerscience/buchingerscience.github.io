@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Buchinger Science – The Team</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Josefin+Sans:wght@200;300;400&family=EB+Garamond:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    /* ── Page-level overrides ── */
+    body { background: var(--sand); }
+
+    /* ── Page hero ── */
+    .team-hero {
+      background: var(--deep);
+      color: var(--chalk);
+      padding: 140px 24px 72px;
+      text-align: center;
+    }
+    .team-hero .eyebrow {
+      font-family: 'Josefin Sans', sans-serif;
+      font-weight: 300;
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--brass);
+      margin-bottom: 16px;
+    }
+    .team-hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 400;
+      font-size: clamp(2.4rem, 6vw, 4rem);
+      color: var(--chalk);
+      line-height: 1.15;
+      margin: 0 0 20px;
+    }
+    .team-hero p {
+      max-width: 600px;
+      margin: 0 auto;
+      font-size: 1.05rem;
+      color: rgba(244,240,234,0.75);
+      line-height: 1.7;
+    }
+
+    /* ── Section wrappers ── */
+    .team-section {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 72px 24px;
+    }
+    .team-section + .team-section {
+      padding-top: 0;
+    }
+
+    .section-label {
+      font-family: 'Josefin Sans', sans-serif;
+      font-weight: 300;
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--brass);
+      margin-bottom: 8px;
+    }
+    .section-heading {
+      font-family: 'Playfair Display', serif;
+      font-weight: 400;
+      font-size: clamp(1.6rem, 3.5vw, 2.4rem);
+      color: var(--heading);
+      margin: 0 0 48px;
+      line-height: 1.2;
+    }
+
+    /* ── Team member cards ── */
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
+      gap: 40px;
+    }
+
+    .team-card {
+      background: var(--surface);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-soft);
+      overflow: hidden;
+      box-shadow: var(--shadow-soft);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .team-card-inner {
+      display: flex;
+      gap: 0;
+    }
+
+    .team-photo {
+      width: 140px;
+      flex-shrink: 0;
+      aspect-ratio: 1 / 1.1;
+      object-fit: cover;
+      object-position: center top;
+    }
+
+    .team-info {
+      padding: 24px 24px 20px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .team-name {
+      font-family: 'Playfair Display', serif;
+      font-weight: 500;
+      font-size: 1.15rem;
+      color: var(--heading);
+      margin: 0 0 4px;
+      line-height: 1.25;
+    }
+
+    .team-role {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 11px;
+      font-weight: 300;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--brass);
+      margin-bottom: 12px;
+    }
+
+    .team-bio {
+      font-size: 0.88rem;
+      color: var(--text);
+      line-height: 1.65;
+      margin: 0;
+      flex: 1;
+    }
+
+    .team-links {
+      display: flex;
+      gap: 10px;
+      margin-top: 16px;
+      flex-wrap: wrap;
+    }
+
+    .team-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 11px;
+      font-weight: 300;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      text-decoration: none;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-pill);
+      padding: 5px 11px;
+      transition: background 0.2s, border-color 0.2s, color 0.2s;
+    }
+
+    .team-link:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: var(--chalk);
+    }
+
+    .team-link svg {
+      width: 13px;
+      height: 13px;
+      flex-shrink: 0;
+    }
+
+    /* ── Junior members ── */
+    .junior-band {
+      background: var(--panel);
+      border-top: 1px solid var(--border-soft);
+      border-bottom: 1px solid var(--border-soft);
+      padding: 40px 24px;
+    }
+
+    .junior-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      display: flex;
+      gap: 32px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .junior-label {
+      font-family: 'Josefin Sans', sans-serif;
+      font-weight: 300;
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--brass);
+      margin-bottom: 16px;
+    }
+
+    .junior-cards {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .junior-card {
+      background: var(--surface);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-soft);
+      padding: 16px 20px;
+      flex: 1 1 200px;
+    }
+
+    .junior-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--heading);
+      margin: 0 0 4px;
+    }
+
+    .junior-role {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 10px;
+      font-weight: 300;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* ── Divider ── */
+    .section-divider {
+      max-width: 960px;
+      margin: 0 auto;
+      border: none;
+      border-top: 1px solid var(--border-soft);
+    }
+
+    /* ── Collaborators ── */
+    .collab-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .collab-card {
+      background: var(--surface);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-soft);
+      padding: 20px 22px;
+      box-shadow: var(--shadow-soft);
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+
+    .collab-card:hover {
+      box-shadow: 0 6px 24px rgba(7,78,99,0.10);
+      transform: translateY(-2px);
+    }
+
+    .collab-name {
+      font-family: 'Playfair Display', serif;
+      font-weight: 500;
+      font-size: 1rem;
+      color: var(--heading);
+      margin: 0 0 3px;
+      line-height: 1.3;
+    }
+
+    .collab-institution {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 10px;
+      font-weight: 300;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--brass);
+      margin-bottom: 10px;
+    }
+
+    .collab-desc {
+      font-size: 0.84rem;
+      color: var(--text);
+      line-height: 1.6;
+      margin: 0;
+    }
+
+    /* ── Intro band ── */
+    .intro-band {
+      background: var(--chalk);
+      border-bottom: 1px solid var(--border-soft);
+      padding: 52px 24px;
+      text-align: center;
+    }
+
+    .intro-band p {
+      max-width: 680px;
+      margin: 0 auto;
+      font-size: 1.05rem;
+      color: var(--text);
+      line-height: 1.75;
+    }
+
+    .intro-band strong {
+      color: var(--heading);
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 640px) {
+      .team-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .team-card-inner {
+        flex-direction: column;
+      }
+
+      .team-photo {
+        width: 100%;
+        height: 220px;
+        aspect-ratio: unset;
+        object-position: center 15%;
+      }
+
+      .collab-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .team-hero {
+        padding: 120px 20px 56px;
+      }
+    }
+  </style>
+</head>
+
+<body class="page-team">
+
+  <!-- Navigation -->
+  <nav id="nav">
+    <div class="logo">Buchinger Science</div>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="https://dash.buchinger-science.com" target="_blank" rel="noopener">Metabolic Explorer</a></li>
+      <li><a href="library.html">Research Library</a></li>
+      <li><a href="newsletter.html">Newsletters</a></li>
+      <li><a href="videos.html">Amplius Videos</a></li>
+      <li><a href="fastingcoach.html">Fasting Coach</a></li>
+      <li><a href="contact.html" class="active">About us</a></li>
+    </ul>
+  </nav>
+
+  <!-- ── HERO ── -->
+  <section class="team-hero">
+    <p class="eyebrow">Buchinger Wilhelmi Science · Our People</p>
+    <h1>The <em>Team</em></h1>
+    <p>The scientists and clinicians behind the world's most rigorous programme of research on therapeutic fasting.</p>
+  </section>
+
+  <!-- ── INTRO ── -->
+  <div class="intro-band">
+    <p>Buchinger Wilhelmi clinics are the world's largest clinical centres for research on therapeutic fasting — the only fasting clinics that test and validate their therapeutic programme through clinical trials published in peer-reviewed journals. <strong>Fasting is one of the most powerful therapeutic interventions to promote longevity.</strong> By publishing our research, we empower society to understand the evidence behind fasting, in line with our mission: <em>we empower people to live a healthy and fulfilling life.</em></p>
+  </div>
+
+  <!-- ── CORE TEAM ── -->
+  <section class="team-section">
+    <p class="section-label">Core Science Team</p>
+    <h2 class="section-heading">Meet the researchers</h2>
+
+    <div class="team-grid">
+
+      <!-- Françoise -->
+      <div class="team-card reveal">
+        <div class="team-card-inner">
+          <img class="team-photo" src="team_francoise.png" alt="Dr. Françoise Wilhelmi de Toledo" loading="lazy">
+          <div class="team-info">
+            <h3 class="team-name">Dr. Françoise Wilhelmi de Toledo</h3>
+            <p class="team-role">Senior Scientific Advisor</p>
+            <p class="team-bio">Dr. Wilhelmi de Toledo established the Buchinger Wilhelmi research department more than 20 years ago. Born in Geneva, she graduated in medicine in 1981 and discovered fasting at 18, dedicating her life to guiding long-term fasting patients. In 1986 she co-founded and chaired the German Medical Association for Fasting and Nutrition (ÄGHE e.V.) and has organised international medical congresses every two years since. She is also chairwoman of the Maria Buchinger Foundation, supporting research on therapeutic fasting.</p>
+            <div class="team-links">
+              <a class="team-link" href="https://www.linkedin.com/in/fran%C3%A7oise-wilhelmi-de-toledo-61b84332/" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+                LinkedIn
+              </a>
+              <a class="team-link" href="mailto:francoise.wilhelmi@buchinger-wilhelmi.com">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                Email
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Robin -->
+      <div class="team-card reveal">
+        <div class="team-card-inner">
+          <img class="team-photo" src="team_robin.jpg" alt="Dr. Robin Mesnage" loading="lazy">
+          <div class="team-info">
+            <h3 class="team-name">Dr. Robin Mesnage</h3>
+            <p class="team-role">Scientific Director</p>
+            <p class="team-bio">Dr. Mesnage is Scientific Director of the Buchinger Wilhelmi Clinics and a research fellow in the Department of Nutrition at King's College London, where he investigates the role of the gut microbiome in the health benefits of plant foods. He has published over 100 scientific articles cited more than 8,000 times and is among the top 1% of cited scientists worldwide for his work on the health effects of chemical pollutants. He serves as an expert for the French government and the European Parliament.</p>
+            <div class="team-links">
+              <a class="team-link" href="https://www.instagram.com/robinmesnage/" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8 1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3z"/></svg>
+                Instagram
+              </a>
+              <a class="team-link" href="https://www.linkedin.com/in/robin-mesnage/" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+                LinkedIn
+              </a>
+              <a class="team-link" href="mailto:robin.mesnage@buchinger-wilhelmi.com">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                Email
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Franziska -->
+      <div class="team-card reveal">
+        <div class="team-card-inner">
+          <img class="team-photo" src="team_franziska.png" alt="Dr. Franziska Grundler" loading="lazy">
+          <div class="team-info">
+            <h3 class="team-name">Dr. Franziska Grundler</h3>
+            <p class="team-role">Head of Research</p>
+            <p class="team-bio">Dr. Grundler heads the research department, which she joined in 2014. She holds a Master of Science in Nutrition and was awarded her Dr. Rer. Medic. in March 2022 for her discoveries on the therapeutic effects of fasting for the prevention and treatment of metabolic diseases. Her work bridges clinical observation and rigorous scientific methodology, producing landmark publications on metabolic adaptation during prolonged fasting.</p>
+            <div class="team-links">
+              <a class="team-link" href="https://www.linkedin.com/in/franziska-grundler/" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.79M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+                LinkedIn
+              </a>
+              <a class="team-link" href="mailto:franziska.grundler@buchinger-wilhelmi.com">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
+                Email
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Marie -->
+      <div class="team-card reveal">
+        <div class="team-card-inner">
+          <img class="team-photo" src="team_marie.jpg" alt="Marie Knufinke" loading="lazy">
+          <div class="team-info">
+            <h3 class="team-name">Marie Knufinke</h3>
+            <p class="team-role">Research Scientist</p>
+            <p class="team-bio">Marie Knufinke joined the research team in 2022 and works closely with the Scientific Director. She is also affiliated with ETH Zurich, where she is completing her PhD thesis on food reintroduction after fasting — a critical and underexplored phase of the fasting protocol that shapes the durability of its metabolic benefits.</p>
+            <div class="team-links">
+              <!-- No public social links listed in source -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── JUNIOR MEMBERS ── -->
+  <div class="junior-band">
+    <div class="junior-inner">
+      <div style="flex: 0 0 auto;">
+        <p class="junior-label">Also on the team</p>
+      </div>
+      <div class="junior-cards">
+        <div class="junior-card">
+          <p class="junior-name">Alfred Holley</p>
+          <p class="junior-role">Junior Data Scientist</p>
+        </div>
+        <div class="junior-card">
+          <p class="junior-name">Katharina Stroppel</p>
+          <p class="junior-role">Clinical Study Coordinator</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── COLLABORATORS ── -->
+  <section class="team-section">
+    <p class="section-label">Global Research Network</p>
+    <h2 class="section-heading">Scientific Collaborators</h2>
+
+    <div class="collab-grid">
+
+      <div class="collab-card reveal">
+        <p class="collab-name">Andreas Michalsen</p>
+        <p class="collab-institution">Charité – Universitätsmedizin Berlin</p>
+        <p class="collab-desc">A leading figure in fasting research and integrative medicine. Our long-standing collaboration supports clinical studies and the development of evidence-based fasting protocols.</p>
+      </div>
+
+      <div class="collab-card reveal">
+        <p class="collab-name">Pierre Croisille &amp; Magalie Viallon</p>
+        <p class="collab-institution">CREATIS / University of Lyon</p>
+        <p class="collab-desc">Experts in advanced MRI imaging. Together, we explore how fasting induces structural and metabolic adaptations in tissues, with a particular focus on liver and muscle physiology.</p>
+      </div>
+
+      <div class="collab-card reveal">
+        <p class="collab-name">Borja Martínez-Téllez &amp; Andrés Baena Raya</p>
+        <p class="collab-institution">University of Almería</p>
+        <p class="collab-desc">Specialists in exercise physiology and metabolic health. We collaborate on understanding how fasting and physical activity interact to improve metabolic flexibility and fat oxidation.</p>
+      </div>
+
+      <div class="collab-card reveal">
+        <p class="collab-name">Massimiliano Ruscica</p>
+        <p class="collab-institution">University of Milan</p>
+        <p class="collab-desc">Expert in lipid metabolism. Together, we investigate how fasting influences lipoproteins and cardiovascular risk markers, with a focus on LDL dynamics.</p>
+      </div>
+
+      <div class="collab-card reveal">
+        <p class="collab-name">Marco Witkowski</p>
+        <p class="collab-institution">Charité – Universitätsmedizin Berlin</p>
+        <p class="collab-desc">Researcher in immune and cardiovascular interactions. Our collaboration explores how fasting modulates immune responses and inflammation in clinical populations.</p>
+      </div>
+
+      <div class="collab-card reveal">
+        <p class="collab-name">Stefan Jordan</p>
+        <p class="collab-institution">University of Heidelberg</p>
+        <p class="collab-desc">Focuses on metabolic regulation and clinical nutrition. We work together on the critical phase of food reintroduction, aiming to optimise recovery and long-term benefits after fasting.</p>
+      </div>
+
+      <div class="collab-card reveal">
+        <p class="collab-name">Ferdinand von Meyenn</p>
+        <p class="collab-institution">ETH Zurich</p>
+        <p class="collab-desc">Specialist in epigenetics. Our joint work examines how fasting influences biological ageing and epigenetic reprogramming at the molecular level.</p>
+      </div>
+
+      <div class="collab-card reveal">
+        <p class="collab-name">Georg Zeller</p>
+        <p class="collab-institution">Leiden University Medical Center</p>
+        <p class="collab-desc">Leads research in microbiome science. We collaborate to understand how fasting reshapes the gut microbiome and its links to metabolic health.</p>
+      </div>
+
+      <div class="collab-card reveal">
+        <p class="collab-name">Michael MacArthur</p>
+        <p class="collab-institution">Princeton University</p>
+        <p class="collab-desc">Works at the interface of microbiology and computational biology. Our collaboration focuses on analysing complex microbial ecosystems and their adaptation to fasting.</p>
+      </div>
+
+      <div class="collab-card reveal">
+        <p class="collab-name">Sebastian Hofer</p>
+        <p class="collab-institution">Max Delbrück Center, Berlin</p>
+        <p class="collab-desc">Studies immune cell dynamics. Together, we investigate how fasting influences immune cell function and systemic inflammation.</p>
+      </div>
+
+      <div class="collab-card reveal">
+        <p class="collab-name">Nele Wagener</p>
+        <p class="collab-institution">Charité – Universitätsmedizin Berlin</p>
+        <p class="collab-desc">Contributes to clinical and translational research on fasting. Our work focuses on using the fasting box as a prehabilitation tool before hip surgery.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo">Buchinger Science</div>
+        <p>Clinical research on fasting, metabolism, and longevity — from the world's leading medically supervised fasting clinic.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Research</h4>
+        <ul>
+          <li><a href="library.html">Research Library</a></li>
+          <li><a href="newsletter.html">Newsletters</a></li>
+          <li><a href="https://dash.buchinger-science.com" target="_blank" rel="noopener">Metabolic Explorer</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="videos.html">Amplius Videos</a></li>
+          <li><a href="fastingcoach.html">Fasting Coach</a></li>
+          <li><a href="course.html">E-Learning</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Buchinger Science. All rights reserved.</p>
+      <p>Buchinger Wilhelmi Clinic</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    // Active nav state
+    document.querySelectorAll("nav a").forEach(a => {
+      if (a.getAttribute("href") === "contact.html") a.classList.add("active");
+    });
+
+    // Scroll-reveal for cards
+    const revealIO = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.reveal').forEach((el, i) => {
+      el.style.transitionDelay = (i % 4) * 0.08 + 's';
+      revealIO.observe(el);
+    });
+  </script>
+</body>
+</html>

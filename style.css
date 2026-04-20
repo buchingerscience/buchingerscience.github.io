@@ -1726,6 +1726,8 @@ nav.menu-open .nav-toggle span:nth-child(3) { transform: translateY(-6.5px) rota
     border-bottom: none;
     overflow: hidden;
     box-sizing: border-box;
+    will-change: transform;
+    -webkit-overflow-scrolling: touch;
   }
 
   /* Each later step slides over the one before it */

@@ -698,7 +698,36 @@
       "link": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0209353",
       "youtube": "https://www.youtube.com/watch?v=6b-EqKYv314",
       "published": true
+    },
+    {
+      "id": 30,
+      "title": "Beneficial outcome pathways: a new mechanistic framework to map the health effects of fasting in metabolic dysfunction-associated steatotic liver disease",
+      "year": 2026,
+      "topics": [
+        "fatty liver disease",
+        "gut microbiome",
+        "inflammation",
+        "autophagy",
+        "molecular biology",
+        "fasting"
+      ],
+      "bullets": [
+        "The Beneficial Outcome Pathways (BOP) framework was developed to better evaluate lifestyle interventions such as fasting, which are difficult to study using classical randomized controlled trials, by integrating mechanistic and clinical evidence into a coherent causal model.",
+        "A BOP describes a sequence that starts with a Molecular Initiating Event, followed by Key Events linked through causal relationships, and ends with a Beneficial Outcome that reflects a meaningful improvement in health or quality of life.",
+        "In the context of metabolic dysfunction-associated steatotic liver disease (MASLD), fasting is recognized as an effective intervention to reduce liver fat and improve metabolic parameters, although the magnitude and mechanisms of benefit vary across fasting protocols.",
+        "The central initiating event of fasting is an acute energy deficit, which activates AMPK signaling and inhibits mTOR, thereby triggering a metabolic shift from energy storage to energy mobilization.",
+        "This metabolic switch leads to coordinated biological responses, including activation of autophagy and lipophagy, suppression of lipogenesis, increased fatty acid oxidation and ketogenesis, and modulation of inflammatory and oxidative stress pathways.",
+        "These mechanisms collectively improve hepatic and systemic insulin sensitivity, reduce inflammation, and promote the mobilization of liver fat, contributing to the resolution or improvement of MASLD.",
+        "The activation of fasting metabolism can be monitored through biomarkers such as ketone bodies, growth hormone, and signaling pathways like AMPK and mTOR, although some processes such as autophagy remain difficult to measure in humans.",
+        "The magnitude and safety of the fasting response depend on individual factors such as age, sex, metabolic health, medication use, and physical activity, which must be considered when applying the BOP framework.",
+        "Different fasting protocols, including intermittent fasting, time-restricted eating, prolonged fasting, and fasting-mimicking diets, induce the metabolic switch to varying degrees depending on their duration, caloric restriction, and macronutrient composition.",
+        "The BOP framework highlights important limitations, including the heterogeneity of fasting interventions, the influence of co-interventions and food reintroduction, and the need for better quantitative and population-specific evidence to strengthen causal interpretation.",
+        "Overall, the BOP framework provides a structured and mechanistic basis that can support risk assessors and policymakers in evaluating and regulating the health effects of fasting interventions."
+      ],
+      "link": null,
+      "youtube": null,
+      "published": true
     }
   ],
-  "generated": "2026-01-08"
+  "generated": "2026-04-24"
 }

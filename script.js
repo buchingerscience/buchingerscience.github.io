@@ -43,6 +43,38 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
+  /* ── Tools dropdown ── */
+  document.querySelectorAll('.nav-dropdown-wrap').forEach(function(wrap) {
+    var btn = wrap.querySelector('.nav-dropdown-btn');
+    var sub = wrap.querySelector('.nav-sub');
+    if (!btn || !sub) return;
+
+    btn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      var isOpen = btn.classList.toggle('open');
+      sub.classList.toggle('open', isOpen);
+      btn.setAttribute('aria-expanded', String(isOpen));
+    });
+
+    // Close on outside click
+    document.addEventListener('click', function(e) {
+      if (!wrap.contains(e.target)) {
+        btn.classList.remove('open');
+        sub.classList.remove('open');
+        btn.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    // Close when a sub-link is clicked
+    sub.querySelectorAll('a').forEach(function(a) {
+      a.addEventListener('click', function() {
+        btn.classList.remove('open');
+        sub.classList.remove('open');
+        btn.setAttribute('aria-expanded', 'false');
+      });
+    });
+  });
+
   /*
    * Data explorer for metabolic page
    * If a canvas with id "metabolicChart" exists, we initialize a line chart

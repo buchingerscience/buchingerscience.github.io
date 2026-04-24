@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Buchinger Science – Ongoing Research</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Josefin+Sans:wght@200;300;400&family=EB+Garamond:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    body { background: var(--sand); }
+
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      background: rgba(244,240,234,0.94);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--stone);
+      z-index: 800;
+    }
+    nav .logo { color: var(--warm-dark); }
+    nav a { color: var(--warm-mid); }
+    nav a:hover { background: var(--sand); border-color: transparent; color: var(--warm-dark); }
+    nav a.active { background: var(--brass); color: var(--chalk); border-color: var(--brass); }
+
+    /* ── Hero ── */
+    .or-hero {
+      min-height: 380px;
+      background-image: url('IMG_1201.jpeg');
+      background-size: cover;
+      background-position: center 35%;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 120px 24px 72px;
+    }
+    .or-hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(160deg, rgba(26,21,16,0.72) 0%, rgba(42,37,32,0.55) 100%);
+    }
+    .or-hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 680px;
+    }
+    .or-hero-content h1 {
+      font-family: var(--display);
+      font-weight: 400;
+      font-size: clamp(2.2rem, 5vw, 3.2rem);
+      color: var(--chalk);
+      line-height: 1.15;
+      margin: 0 0 20px;
+    }
+    .or-hero-content h1 em {
+      font-style: italic;
+      color: var(--brass-light);
+    }
+    .or-hero-sub {
+      font-family: var(--body);
+      font-size: 1rem;
+      color: rgba(250,248,245,0.78);
+      line-height: 1.7;
+      max-width: 560px;
+      margin: 0 auto;
+    }
+
+    /* ── Overview table ── */
+    .or-wrap {
+      max-width: 1060px;
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+    }
+
+    .or-table-section {
+      background: var(--surface);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-soft);
+      padding: 28px;
+      box-shadow: var(--shadow-soft);
+      margin-bottom: 40px;
+    }
+    .or-table-label {
+      font-family: var(--sans);
+      font-weight: 300;
+      font-size: 0.6rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    .or-overview-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: var(--body);
+    }
+    .or-overview-table th {
+      background: var(--linen);
+      font-family: var(--sans);
+      font-weight: 400;
+      font-size: 0.58rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--warm-mid);
+      padding: 10px 16px;
+      text-align: left;
+      border-bottom: 1.5px solid var(--stone);
+    }
+    .or-overview-table td {
+      padding: 12px 16px;
+      font-size: 0.9rem;
+      color: var(--charcoal);
+      border-bottom: 1px solid var(--border-soft);
+      vertical-align: top;
+    }
+    .or-overview-table tbody tr:last-child td { border-bottom: none; }
+    .or-overview-table td:first-child {
+      font-family: var(--sans);
+      font-weight: 400;
+      font-size: 0.8rem;
+      color: var(--warm-dark);
+      white-space: nowrap;
+    }
+
+    /* ── Project cards ── */
+    .or-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .or-card {
+      background: var(--surface);
+      border: 1px solid var(--border-soft);
+      border-left: 3px solid var(--brass);
+      border-radius: var(--radius-soft);
+      padding: 28px 32px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .or-card-eyebrow {
+      font-family: var(--sans);
+      font-weight: 300;
+      font-size: 0.58rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--brass);
+      margin-bottom: 8px;
+    }
+
+    .or-card h3 {
+      font-family: var(--display);
+      font-weight: 400;
+      font-size: 1.4rem;
+      color: var(--heading);
+      margin: 0 0 6px;
+    }
+
+    .or-card-impact {
+      font-family: var(--body);
+      font-size: 0.88rem;
+      color: var(--muted);
+      font-style: italic;
+      margin-bottom: 16px;
+    }
+
+    .or-card p {
+      font-family: var(--body);
+      font-size: 0.95rem;
+      color: var(--charcoal);
+      line-height: 1.75;
+      margin: 0 0 12px;
+    }
+    .or-card p:last-child { margin-bottom: 0; }
+
+    .or-card ul {
+      margin: 10px 0 12px 0;
+      padding-left: 20px;
+    }
+    .or-card ul li {
+      font-family: var(--body);
+      font-size: 0.92rem;
+      color: var(--charcoal);
+      line-height: 1.65;
+      margin-bottom: 4px;
+    }
+
+    .or-badge {
+      display: inline-block;
+      font-family: var(--sans);
+      font-weight: 300;
+      font-size: 0.55rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--warm-mid);
+      background: var(--linen);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-pill);
+      padding: 3px 10px;
+      margin-right: 6px;
+      margin-bottom: 12px;
+    }
+
+    @media (max-width: 860px) {
+      .or-hero { padding: 100px 20px 56px; min-height: 300px; }
+      .or-wrap { padding: 28px 16px 56px; }
+      .or-table-section { padding: 18px 16px; overflow-x: auto; }
+      .or-card { padding: 20px 18px; }
+      .or-overview-table td:first-child { white-space: normal; }
+    }
+  </style>
+</head>
+
+<body class="page-ongoing-research">
+
+  <div id="progress"></div>
+
+  <nav id="nav">
+    <div class="logo">Buchinger Science</div>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li class="nav-dropdown-wrap">
+        <button class="nav-dropdown-btn" aria-expanded="false">Tools <span class="nav-chevron">▾</span></button>
+        <ul class="nav-sub">
+          <li><a href="metabolic-explorer/">Metabolic Explorer</a></li>
+          <li><a href="weightloss.html">Weight Loss Estimator</a></li>
+          <li><a href="fastingcoach.html">Fasting Coach</a></li>
+        </ul>
+      </li>
+      <li><a href="ongoing-research.html" class="active">Ongoing Research</a></li>
+      <li><a href="library.html">Research Library</a></li>
+      <li><a href="newsletter.html">Newsletters</a></li>
+      <li><a href="videos.html">Amplius Videos</a></li>
+      <li><a href="contact.html">About us</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero -->
+  <section class="or-hero">
+    <div class="or-hero-overlay"></div>
+    <div class="or-hero-content">
+      <p class="eyebrow" style="justify-content:center;margin-bottom:16px;color:var(--brass);">Clinical Research · 2026</p>
+      <h1>Ongoing <em>Research</em></h1>
+      <p class="or-hero-sub">Seven active studies advancing the science of fasting — from gut microbiome modulation and women's health to cardiac imaging, prehabilitation surgery, and physical performance.</p>
+    </div>
+  </section>
+
+  <!-- Main -->
+  <div class="or-wrap">
+
+    <!-- Overview table -->
+    <section class="or-table-section">
+      <p class="or-table-label">2026 Active Projects</p>
+      <table class="or-overview-table">
+        <thead>
+          <tr>
+            <th>Project</th>
+            <th>Impact</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>FastForward Study</td>
+            <td>Confirms long-term efficacy of fasting and acts as innovation test ground</td>
+          </tr>
+          <tr>
+            <td>Women's Health Study</td>
+            <td>Generates evidence across menstrual and menopausal phases</td>
+          </tr>
+          <tr>
+            <td>GENESIS – Cardiac &amp; Liver Health</td>
+            <td>Continues documenting changes in body composition and function</td>
+          </tr>
+          <tr>
+            <td>CoFFIe (Fibres × Fasting)</td>
+            <td>Develops a new fasting programme optimised for gut health</td>
+          </tr>
+          <tr>
+            <td>FASTEX Physical Activity Programme</td>
+            <td>Creates a reproducible movement protocol to integrate into fasting care</td>
+          </tr>
+          <tr>
+            <td>Milan Collaboration – UNION</td>
+            <td>Adds mechanistic depth to our scientific narrative on fasting and regeneration</td>
+          </tr>
+          <tr>
+            <td>Prehabilitation Study (Charité Berlin)</td>
+            <td>Strategic move into hospital care pathways with fasting before surgery</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Project cards -->
+    <div class="or-grid">
+
+      <!-- 1. FastForward -->
+      <div class="or-card">
+        <p class="or-card-eyebrow">Project 01 · Flagship Clinical Study</p>
+        <h3>FastForward Study</h3>
+        <p class="or-card-impact">Confirms long-term efficacy of fasting and acts as innovation test ground</p>
+        <p>FastForward is our flagship clinical study aimed at improving post-fasting outcomes. We have collected data on more than 300 individuals, generating one of the most comprehensive fasting datasets ever assembled:</p>
+        <ul>
+          <li>840 venous blood samples including during food reintroduction</li>
+          <li>720 dry blood samples to understand persistence of fasting effects at home</li>
+          <li>3,920 days of continuous glucose monitoring (CGM) data during food reintroduction</li>
+          <li>3,920 days of food records during food reintroduction</li>
+          <li>500 stool samples</li>
+          <li>120 PBMC samples</li>
+          <li>350 days of continuous ketone monitoring data</li>
+          <li>1,120 questionnaires</li>
+        </ul>
+        <p>Key objectives include comparing ketogenic and non-ketogenic food reintroduction; evaluating fasting's impact on glucose responses, immune function, autophagy, and biological age; establishing a structured follow-up programme for patients using wearable devices and at-home testing tools; and creating a long-term observational study model integrated into clinic operations.</p>
+      </div>
+
+      <!-- 2. Women's Health -->
+      <div class="or-card">
+        <p class="or-card-eyebrow">Project 02 · Women's Health</p>
+        <h3>Women's Health Study</h3>
+        <p class="or-card-impact">Generates evidence across menstrual and menopausal phases</p>
+        <p>We launched a Women's Health Survey to explore how fasting affects the menstrual cycle, menopausal symptoms, and overall well-being across different life stages. The questionnaire captures data before fasting, immediately afterward, and at 1- and 3-month follow-ups. It covers menstrual regularity, menopause-related symptoms, hormonal treatments, fertility history, and emotional and physical health.</p>
+      </div>
+
+      <!-- 3. GENESIS -->
+      <div class="or-card">
+        <p class="or-card-eyebrow">Project 03 · Multi-System Trial</p>
+        <h3>GENESIS – Cardiac &amp; Liver Health</h3>
+        <p class="or-card-impact">Continues documenting changes in body composition and function</p>
+        <p>The GENESIS study continues. Using quantitative MRI, we studied 32 participants of a 12-day fasting intervention with follow-up at 1 and 4 months to understand changes in liver, subcutaneous, and visceral fat volumes. Our partners at the University of Lyon are also studying how cardiac parameters change during fasting at an unprecedented level of detail.</p>
+      </div>
+
+      <!-- 4. CoFFIe -->
+      <div class="or-card">
+        <p class="or-card-eyebrow">Project 04 · Gut Health</p>
+        <h3>CoFFIe – Dietary Fibres × Fasting</h3>
+        <p class="or-card-impact">Develops a new fasting programme optimised for gut health</p>
+        <span class="or-badge">RCT</span>
+        <span class="or-badge">€1M Grant</span>
+        <span class="or-badge">LUMC · TNO</span>
+        <p>We have initiated the CoFFIe trial, a randomized controlled study designed to investigate whether supplementing long-term fasting with dietary fibre can enhance health outcomes through gut microbiome modulation. Seventy-five participants will undergo a 10 ± 3 day Buchinger Wilhelmi fasting programme. Fifty will receive maize-derived resistant starch type IV (fibre), while twenty-five will receive a placebo.</p>
+        <p>Multi-omics analyses — metagenomics, metabolomics, and transcriptomics — and clinical markers will be used to track changes in metabolism. The study is conducted in partnership with Leiden University Medical Center (LUMC) and TNO, as part of a successful grant application that secured €1 million in funding, with the clinic as a key partner.</p>
+      </div>
+
+      <!-- 5. FASTEX -->
+      <div class="or-card">
+        <p class="or-card-eyebrow">Project 05 · Physical Activity</p>
+        <h3>FASTEX – Fasting Meets Fitness</h3>
+        <p class="or-card-impact">Creates a reproducible movement protocol to integrate into fasting care</p>
+        <span class="or-badge">RCT</span>
+        <span class="or-badge">University of Almería</span>
+        <p>We are collaborating with the team of Dr. Borja Martinez-Tellez at the University of Almería on a randomized controlled trial exploring the synergy between fasting, physical activity, and sleep quality in older adults. Participants are divided into three groups:</p>
+        <ul>
+          <li>Standard Buchinger Wilhelmi programme</li>
+          <li>Home-based familiarisation programme followed by the standard Buchinger Wilhelmi programme</li>
+          <li>Home-based familiarisation programme with a structured resistance training programme during the clinic stay, developed with the University of Almería team</li>
+        </ul>
+      </div>
+
+      <!-- 6. Milan / UNION -->
+      <div class="or-card">
+        <p class="or-card-eyebrow">Project 06 · Mechanistic Research</p>
+        <h3>Milan Collaboration – UNION</h3>
+        <p class="or-card-impact">Adds mechanistic depth to our scientific narrative on fasting and regeneration</p>
+        <span class="or-badge">European Project</span>
+        <p>We collaborate with the team of Massimiliano Ruscica as part of the UNION project, which brings together new collaborations to deepen our mechanistic understanding of fasting. This is a large European project focused on extracellular vesicles and autophagy where Buchinger Wilhelmi appears as an industrial partner.</p>
+      </div>
+
+      <!-- 7. Charité Berlin -->
+      <div class="or-card">
+        <p class="or-card-eyebrow">Project 07 · Prehabilitation</p>
+        <h3>Prehabilitation Study – Charité Berlin</h3>
+        <p class="or-card-impact">Strategic move into hospital care pathways with fasting before surgery</p>
+        <span class="or-badge">RCT</span>
+        <span class="or-badge">Charité Universitätsmedizin Berlin</span>
+        <p>In cooperation with Charité – Universitätsmedizin Berlin, a randomized clinical trial on preoperative metabolic optimization in hip arthroplasty is currently underway. The study investigates whether a structured preoperative fasting intervention, delivered with the fasting box, can influence the gut microbiome, immunological markers, and postoperative complications.</p>
+        <p>The intervention is implemented using fasting boxes and supported by a dedicated app created by our scientific department, as well as continuous glucose monitoring. Collected data include ketone bodies, anthropometric measures, blood pressure, and glucose values. Immune status analyses and shotgun metagenomic sequencing of the gut microbiome are performed at defined time points before and after surgery.</p>
+      </div>
+
+    </div><!-- /.or-grid -->
+  </div><!-- /.or-wrap -->
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo">Buchinger Science</div>
+        <p>Clinical research on fasting, metabolism, and longevity — from the world's leading medically supervised fasting clinic.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Research</h4>
+        <ul>
+          <li><a href="library.html">Research Library</a></li>
+          <li><a href="newsletter.html">Newsletters</a></li>
+          <li><a href="ongoing-research.html">Ongoing Research</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="videos.html">Amplius Videos</a></li>
+          <li><a href="fastingcoach.html">Fasting Coach</a></li>
+          <li><a href="course.html">E-Learning</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Buchinger Science. All rights reserved.</p>
+      <p>Buchinger Wilhelmi Clinic</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    const prog = document.getElementById('progress');
+    window.addEventListener('scroll', () => {
+      prog.style.width = (window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100) + '%';
+    }, { passive: true });
+  </script>
+
+</body>
+</html>

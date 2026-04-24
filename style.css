@@ -1741,7 +1741,7 @@ nav.menu-open .nav-toggle span:nth-child(3) { transform: translateY(-6.5px) rota
   }
   .nav-sub {
     position: static;
-    display: flex;
+    display: none;
     flex-direction: column;
     border: none;
     box-shadow: none;
@@ -1754,6 +1754,7 @@ nav.menu-open .nav-toggle span:nth-child(3) { transform: translateY(-6.5px) rota
     border-top: 1px solid var(--border-soft);
     margin-top: 2px;
   }
+  .nav-sub.open { display: flex; }
   .nav-sub a {
     font-size: 0.65rem;
     padding: 10px 20px;
@@ -1772,7 +1773,7 @@ nav.menu-open .nav-toggle span:nth-child(3) { transform: translateY(-6.5px) rota
   .nav-toggle { display: flex; }
 
   /* Open state — dropdown below nav bar */
-  nav.menu-open ul {
+  nav.menu-open > ul {
     display: flex;
     flex-direction: column;
     position: absolute;
@@ -1785,6 +1786,8 @@ nav.menu-open .nav-toggle span:nth-child(3) { transform: translateY(-6.5px) rota
     border-bottom: 1px solid var(--stone);
     padding: 12px 20px 20px;
     gap: 2px;
+    max-height: calc(100svh - 60px);
+    overflow-y: auto;
   }
 
   nav.menu-open ul a {

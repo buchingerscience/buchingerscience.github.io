@@ -249,6 +249,15 @@
       font-weight: 400;
       color: var(--heading);
     }
+    .study-title a {
+      color: inherit;
+      text-decoration: none;
+      transition: color 0.15s ease;
+    }
+    .study-title a:hover {
+      color: var(--accent-strong, #1a6fa8);
+      text-decoration: underline;
+    }
 
     details.findings { margin-top: 12px; }
     details.findings summary {
@@ -290,12 +299,12 @@
           <li><a href="metabolic-explorer/">Metabolic Explorer</a></li>
           <li><a href="weightloss.html">Weight Loss Estimator</a></li>
           <li><a href="fastingcoach.html">Fasting Coach</a></li>
+          <li><a href="videos.html">Amplius Videos</a></li>
         </ul>
       </li>
       <li><a href="ongoing-research.html">Ongoing Research</a></li>
       <li><a href="library.html">Research Library</a></li>
       <li><a href="newsletter.html">Newsletters</a></li>
-      <li><a href="videos.html">Amplius Videos</a></li>
       <li><a href="contact.html">About us</a></li>
     </ul>
   </nav>
@@ -507,7 +516,7 @@
                 ${ytBtn}
               </div>
 
-              <h3 class="study-title">${esc(s.title)}</h3>
+              <h3 class="study-title">${s.link ? `<a href="${esc(s.link)}" target="_blank" rel="noopener noreferrer">${esc(s.title)}</a>` : esc(s.title)}</h3>
 
               <details class="findings">
                 <summary>Key findings (${(s.bullets||[]).length})</summary>

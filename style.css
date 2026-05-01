@@ -257,6 +257,27 @@ nav a.active {
   max-width: 680px;
 }
 
+/* Inner-page heroes (library, newsletter, etc.) use .hero .content */
+.hero .content {
+  position: relative;
+  z-index: 3;
+  max-width: 680px;
+}
+.hero .content h1 {
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(2.2rem, 5vw, 3.8rem);
+  color: var(--chalk);
+  line-height: 1.1;
+  margin-bottom: 16px;
+}
+.hero .content p {
+  color: rgba(250, 248, 245, 0.95);
+  font-size: 1.05rem;
+  line-height: 1.75;
+  max-width: 560px;
+}
+
 .hero-eyebrow {
   font-family: var(--sans);
   font-weight: 200;

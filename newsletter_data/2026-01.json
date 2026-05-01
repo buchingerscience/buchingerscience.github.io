@@ -1,0 +1,99 @@
+{
+  "title": "Recent Research on Fasting and Calorie Restriction",
+  "month": "January",
+  "year": 2026,
+  "editorial": "This issue draws on extreme biology — from humpback whales to hibernating squirrels — alongside cutting-edge human trials in IBD, cancer, and metabolic disease. A recurring theme: the body is not just consuming reserves during fasting, it is actively reorganizing itself.",
+  "studies": [
+    {
+      "number": 1,
+      "title": "Extreme fasting biology: what whales can teach us",
+      "summary": "Southern Hemisphere humpback whales can lose up to half their body mass during migration while maintaining function. NMR metabolomics revealed dynamic shifts in fatty acid oxidation, protein catabolism, and glucose conservation at different fasting stages.",
+      "commentary": "Fasting is a deeply conserved biological program, and the 'fasting phenotype' is dynamic over time. The study also highlights a relevant concern: mobilization of lipophilic contaminants during fat loss may represent a specific stress window in long fasts.",
+      "link": ""
+    },
+    {
+      "number": 2,
+      "title": "Hibernation and microbiome-driven carbon recycling during prolonged fasting",
+      "summary": "Ground squirrels recycle urea carbon through microbial ureolysis and reductive acetogenesis during hibernation, generating acetate that is absorbed and oxidized by the host. Mucin-degradation pathways remain active even in the absence of food.",
+      "commentary": "This reinforces a key concept for fasting physiology: the body does not only 'consume stores' — it actively reorganizes internal resource flows to maintain essential functions. Hannah Carey has also recently shown how muscle mass is preserved via urea recycling in squirrels.",
+      "link": ""
+    },
+    {
+      "number": 3,
+      "title": "Intermittent fasting improves bone repair in obese animals",
+      "summary": "In a mouse model, obesity impaired fracture healing with delayed mineralization and increased adipocyte accumulation in the callus. Alternate-day fasting improved these outcomes in high-fat-fed mice but not in lean controls, partly by reducing inflammation and reshaping the gut microbiome.",
+      "commentary": "Fasting effects depend strongly on baseline metabolic context. In individuals with metabolic dysfunction, fasting may improve tissue repair in ways that would not occur in healthy individuals.",
+      "link": ""
+    },
+    {
+      "number": 4,
+      "title": "Nitric oxide controls a critical transition window during calorie restriction",
+      "summary": "Using heavy-water labeling and flux proteomics, researchers showed that calorie restriction induces a rapid transition to slower hepatic protein synthesis between days 25 and 30. Nitric oxide deficiency disrupted this global slowing and reduced some calorie restriction benefits; an NO donor restored the response.",
+      "commentary": "Adaptation is not linear. There may be a critical transition period where key signals determine the long-term metabolic state — a clinically relevant insight for understanding fasting timelines.",
+      "link": ""
+    },
+    {
+      "number": 5,
+      "title": "Calorie restriction during hospitalization for ulcerative colitis improves outcomes",
+      "summary": "In this retrospective analysis, hospitalized UC flare patients receiving ≤400 kcal/day showed higher remission at day 14 (86% vs 42%), shorter hospital stays, and fewer serious adverse events than those receiving more calories.",
+      "commentary": "Although retrospective and small, this study challenges the reflex to provide high calorie support during inflammatory flares. The concept is aligned with emerging biology suggesting short-term restriction may help in selected contexts.",
+      "link": ""
+    },
+    {
+      "number": 6,
+      "title": "Fasting-mimicking diet in Crohn's disease: a randomized controlled trial",
+      "summary": "In this open-label RCT published in Nature Medicine, adults with mild-to-moderate Crohn's disease followed a 5-day fasting-mimicking diet each month for 3 months. Clinical response was higher with FMD than control diet (69% vs 44%), with reduced fecal calprotectin and inflammatory lipid mediators.",
+      "commentary": "One of the strongest clinical signals to date for a fasting-based intervention in IBD. The convergence of clinical, biomarker, and molecular readouts makes the results difficult to ignore, despite the open-label design.",
+      "link": ""
+    },
+    {
+      "number": 7,
+      "title": "Calorie restriction reduces testicular inflammation but disrupts testicular homeostasis in aged rats",
+      "summary": "Six months of 40% calorie restriction in aged rats reduced inflammatory signaling (NFκB/MAPK, NLRP3) and immune infiltration in the testis, but also disrupted germinative epithelium and reduced markers of testicular physiology.",
+      "commentary": "Benefits may come with trade-offs. This reinforces the need to define who benefits, at what age, and under what intensity and duration of restriction.",
+      "link": ""
+    },
+    {
+      "number": 8,
+      "title": "Akkermansia extracellular vesicles link alternate-day fasting to vascular protection",
+      "summary": "Alternate-day fasting reduced vitamin D–induced vascular calcification in mice via gut microbiota enrichment of Akkermansia muciniphila. Akkermansia-derived vesicles carrying protein B2URF3 inhibited osteogenic transdifferentiation in vascular smooth muscle cells.",
+      "commentary": "Lower fecal Akkermansia and serum B2URF3 were associated with coronary calcification in humans — a mechanistically ambitious finding with potentially important clinical relevance.",
+      "link": ""
+    },
+    {
+      "number": 9,
+      "title": "Adding a 12-hour overnight fasting window improves outcomes beyond calorie restriction alone",
+      "summary": "In a 3-month randomized trial (N=99), calorie restriction plus a 12-hour overnight fasting window led to greater weight loss and better HbA1c improvement than calorie restriction alone, with more pronounced reductions in waist circumference and fat mass.",
+      "commentary": "A 12-hour overnight fasting window is realistic for many people, and the added benefit suggests that timing may contribute beyond calorie reduction alone. This fits well with the broader circadian-aligned nutrition perspective.",
+      "link": ""
+    },
+    {
+      "number": 10,
+      "title": "Very low calorie diet reshapes oral microbiota and improves metabolic markers",
+      "summary": "A prospective cohort study (n=101) of a short-term very low calorie diet showed rapid weight loss, improved glucose regulation, and increased tongue-coating microbiota diversity with decreases in disease-associated species. LDL cholesterol transiently rose early then normalized.",
+      "commentary": "The transient LDL rise is a practical point for clinicians interpreting short-term lab results. The oral microbiome remains underexplored in metabolic interventions.",
+      "link": ""
+    },
+    {
+      "number": 11,
+      "title": "Calorie deprivation sensitizes leukemic cells to therapy",
+      "summary": "Glucose and serum deprivation sensitized ALL cells to DNA damage–induced apoptosis via ROS and p38 MAPK signaling. In a xenograft model, intermittent fasting combined with subtherapeutic irradiation slowed leukemia progression.",
+      "commentary": "This supports continued investigation of fasting strategies as adjuncts to conventional cancer therapy, under strict medical supervision.",
+      "link": ""
+    },
+    {
+      "number": 12,
+      "title": "Calorie restriction modifies small RNA profiles across species",
+      "summary": "In the CALERIE study, calorie restriction altered small RNA profiles linked to insulin signaling, circadian rhythm, cell cycle control, and stress response. Some microRNA changes were conserved in rhesus monkeys, suggesting cross-species relevance for aging prevention.",
+      "link": ""
+    },
+    {
+      "number": 13,
+      "title": "Intermittent fasting inhibits TP53-driven glioblastoma through gut microbiota",
+      "summary": "In mouse models, intermittent fasting slowed glioblastoma growth specifically in TP53-mutant tumors. The mechanism involved fasting-induced microbiome changes that increased methionine sulfoxide, altering m6A RNA modification and reducing TGF-β signaling in tumor cells.",
+      "commentary": "The gut bacteria appear central to the anti-tumor effect of fasting in this context — a striking example of the microbiome's reach into cancer biology.",
+      "link": ""
+    }
+  ],
+  "closing_note": "As usual feel free to comment, raise any questions, or simply like or repost this new issue in order to raise awareness about the science of fasting!"
+}

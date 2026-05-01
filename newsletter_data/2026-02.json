@@ -1,0 +1,90 @@
+{
+  "title": "Recent Research on Fasting & Calorie Restriction",
+  "month": "February",
+  "year": 2026,
+  "editorial": "This issue covers a wide range: a critical look at a Cochrane meta-analysis on intermittent fasting, long-term diabetes remission, energy expenditure preservation, ketogenic diets for fatty liver, and emerging insights into circadian fertility and stem cell aging.",
+  "studies": [
+    {
+      "number": 1,
+      "title": "Is intermittent fasting superior to conventional dieting for weight loss?",
+      "summary": "A Cochrane review of 22 randomized trials (~2,000 participants) found little difference between intermittent fasting and regular dietary advice for weight loss at up to 12 months.",
+      "commentary": "The methodology is highly questionable — the authors were so restrictive in their inclusion criteria that they ended up analyzing very few studies with heterogeneous designs. Other umbrella and systematic reviews using more appropriate filters have reached clearer conclusions. Making a good scientific review requires finding the right balance between rigor and breadth.",
+      "link": ""
+    },
+    {
+      "number": 2,
+      "title": "Diabetes remission persists three years after intermittent calorie restriction",
+      "summary": "In a randomized trial, participants with type 2 diabetes followed cyclical 5-day energy restriction phases. Remarkably, 75% maintained diabetes remission three years later without structured maintenance, whereas none in the control group did.",
+      "link": ""
+    },
+    {
+      "number": 3,
+      "title": "Intermittent restriction preserves resting energy expenditure better than continuous restriction",
+      "summary": "A comparison of continuous calorie restriction and time-restricted eating in people with type 2 diabetes found that resting energy expenditure declined only in the continuous restriction group. Dropout was also substantially higher with continuous restriction.",
+      "commentary": "Eating-window approaches may be more sustainable and attenuate early adaptive reductions in energy expenditure.",
+      "link": ""
+    },
+    {
+      "number": 4,
+      "title": "Ketogenic diets reduce liver fat more strongly than standard calorie restriction",
+      "summary": "In individuals with metabolic dysfunction-associated steatotic liver disease, a crossover trial showed the ketogenic diet reduced intrahepatic triglycerides and improved hepatic insulin sensitivity more strongly than a non-ketogenic diet under identical energy deficits.",
+      "link": ""
+    },
+    {
+      "number": 5,
+      "title": "Time-restricted feeding improves clinical activity in Crohn's disease",
+      "summary": "In a pilot randomized trial, 12 weeks of time-restricted feeding reduced BMI, visceral adiposity, systemic inflammation, and disease activity in adults with Crohn's disease and overweight.",
+      "commentary": "While weight loss likely contributed, the pattern of immunologic changes suggested additional mechanisms beyond calorie reduction.",
+      "link": ""
+    },
+    {
+      "number": 6,
+      "title": "Fasting rewires immunity to conserve glucose",
+      "summary": "Dietary restriction elevated glucocorticoids which reorganized immune cell distribution in mice: naive T cells preferentially homed to bone marrow, effector responses were dampened, and neutrophil activity enhanced in a more glucose-efficient manner.",
+      "commentary": "This elegant work provides an evolutionary explanation: during food scarcity, the immune system adapts to maintain host defense while conserving systemic glucose.",
+      "link": ""
+    },
+    {
+      "number": 7,
+      "title": "A 'fasting mimetic capsule' reproduces some cardiometabolic effects",
+      "summary": "In a double-blind randomized trial, a supplement combining spermidine, nicotinamide, PEA, and OEA improved hunger control, LDL cholesterol, oxidized LDL, and fasting glucose over eight weeks compared to placebo.",
+      "commentary": "The claim that this mimics fasting is highly speculative. The trend of labeling supplements as 'fasting mimetics' is becoming a marketing device rather than a scientific statement.",
+      "link": ""
+    },
+    {
+      "number": 8,
+      "title": "Genetic background determines response to intermittent fasting",
+      "summary": "Using genetically diverse mouse strains, researchers showed that lifespan extension and metabolic responses to intermittent fasting varied strongly by strain and sex. Some strains benefited markedly, others did not.",
+      "commentary": "By doing studies on mice which are literally clones, we only look at the tip of the iceberg — like if all our clinical studies were done on a single person. These results reinforce the need for personalization.",
+      "link": ""
+    },
+    {
+      "number": 9,
+      "title": "Feeding at the wrong circadian time may impair male fertility",
+      "summary": "In mice, nighttime-restricted feeding disrupted spermatogenesis, reduced sperm quality, and altered gut microbiota. Increased kynurenic acid, a microbiota-derived metabolite, appeared to mediate these effects. Daytime-restricted feeding did not produce the same harm.",
+      "commentary": "Timing relative to circadian biology seems critical, particularly for reproductive physiology.",
+      "link": ""
+    },
+    {
+      "number": 10,
+      "title": "Hyperinsulinemia shifts nutrient partitioning during intermittent fasting",
+      "summary": "In obese mice, chronic hyperinsulinemia led to greater lean mass loss and higher fat retention during 5:2 fasting. In parallel, human males with higher insulin levels lost more lean mass after a 48-hour fast.",
+      "commentary": "This raises important questions, since classic studies by Cahill and Owen showed that higher BMI (often linked with high insulin) is associated with lower protein mobilization. Baseline insulin status may determine how tissues respond to fasting.",
+      "link": ""
+    },
+    {
+      "number": 11,
+      "title": "Brown adipose tissue adapts dynamically to restriction and refeeding",
+      "summary": "Mild short-term calorie restriction preserved thermogenic capacity despite lower mitochondrial content. Alternate-day fasting reshaped lipid saturation and storage patterns through mTORC1 signaling.",
+      "commentary": "Brown adipose tissue does not simply 'burn more' during restriction — it reorganizes its lipid architecture in a highly dynamic way.",
+      "link": ""
+    },
+    {
+      "number": 12,
+      "title": "Calorie restriction reshapes stem cell aging and lineage allocation",
+      "summary": "Epigenetic profiling of hematopoietic stem cells revealed that calorie restriction shifts blood-cell production toward myeloid and erythroid lineages while suppressing age-associated transcriptomic changes. Regulators KDR and PU.1 appear central to this adaptation.",
+      "link": ""
+    }
+  ],
+  "closing_note": "As usual feel free to comment, raise any questions, or simply like or repost this new issue in order to raise awareness about the science of fasting!"
+}

@@ -1,0 +1,119 @@
+{
+  "title": "Recent Research on Fasting & Calorie Restriction",
+  "month": "March",
+  "year": 2026,
+  "editorial": "Here we are, a new digest of fasting research. This issue covers novel gut hormone pathways, fasting's impact on immunity and DNA repair, time-restricted eating in IBS and heart disease, and the latest primate data on cardiometabolic protection.",
+  "studies": [
+    {
+      "number": 1,
+      "title": "A new gut hormone pathway for weight loss: beyond GLP-1",
+      "summary": "A novel lipidated IL-22 analog induced up to 20% weight loss in mice, and up to 40% when combined with GLP-1 agonists. It preserved lean mass much better than caloric restriction or GLP-1 alone, acting through the gut by increasing satiety hormones (PYY) and reducing calorie absorption.",
+      "commentary": "This highlights an emerging concept: targeting intestinal energy handling, not just appetite, could be key in obesity treatment.",
+      "link": "https://pubmed.ncbi.nlm.nih.gov/41764072/"
+    },
+    {
+      "number": 2,
+      "title": "A liver signal that links feeding to thermogenesis",
+      "summary": "Indian Hedgehog (Ihh), a liver-derived hormone, is induced upon feeding and promotes thermogenesis in adipose tissue, improving metabolic flexibility. In humans, higher Ihh levels were associated with better insulin sensitivity and lower adiposity.",
+      "commentary": "Ihh declines with age, suggesting a potential link between aging and reduced metabolic adaptability.",
+      "link": "https://pubmed.ncbi.nlm.nih.gov/41763608/"
+    },
+    {
+      "number": 3,
+      "title": "Caloric restriction partially improves inflammatory bowel disease",
+      "summary": "In a mouse model of colitis, short-term caloric restriction modestly reduced symptoms such as bleeding and inflammation, reduced NF-κB and IL-17 pathways, promoted epithelial repair, and partially restored microbiome diversity.",
+      "commentary": "The effects are consistent with recent studies showing similar results using fasting mimicking diets in humans. CR could serve as a supportive non-pharmacological strategy in IBD.",
+      "link": "https://pubmed.ncbi.nlm.nih.gov/41761057/"
+    },
+    {
+      "number": 4,
+      "title": "Fasting may reduce antibody persistence",
+      "summary": "In mice and human models, intermittent fasting accelerated the loss of long-lived plasma cells, leading to faster decline in circulating antibodies. The mechanism involves β-hydroxybutyrate altering plasma cell survival via HCAR2 signaling.",
+      "commentary": "This raises an important question: could fasting influence vaccine responses or long-term immunity? The response is not yet clear, but this is definitely an important topic to investigate.",
+      "link": ""
+    },
+    {
+      "number": 5,
+      "title": "How to train safely during Ramadan fasting",
+      "summary": "This review provides practical recommendations for athletes fasting during Ramadan, including adapting training timing, reducing intensity, and managing hydration and sleep.",
+      "commentary": "In real life, the main challenge is not energy restriction, but hypohydration and circadian disruption. Context matters a lot when applying fasting in practice.",
+      "link": "https://pubmed.ncbi.nlm.nih.gov/41741338/"
+    },
+    {
+      "number": 6,
+      "title": "The hidden role of gut viruses during caloric restriction",
+      "summary": "This large longitudinal study shows that bacteriophages are highly dynamic during aging and dietary restriction. Caloric restriction reduced certain phages with high metabolic cost for their host, while aging increased lytic viral activity.",
+      "commentary": "We often focus on bacteria, but the virome is also an important player in metabolic adaptation. Our own paper on this topic during long-term fasting in humans is in revision.",
+      "link": "https://pubmed.ncbi.nlm.nih.gov/41772715/"
+    },
+    {
+      "number": 7,
+      "title": "A comprehensive review on dietary restriction and aging",
+      "summary": "This large review summarizes decades of research showing that fasting and calorie restriction are among the most potent approaches to extend healthy lifespan in animal models. Key mechanisms include AMPK activation, mTOR inhibition, NAD+ modulation, and autophagy induction.",
+      "commentary": "The authors also emphasize potential downsides: impaired wound healing, increased infection risk, and reduced fertility — a balanced and important overview.",
+      "link": "https://pubmed.ncbi.nlm.nih.gov/41792328/"
+    },
+    {
+      "number": 8,
+      "title": "A digital support-enhanced 5:2 fasting protocol achieves high adherence",
+      "summary": "A 4-week pilot study combining 5:2 intermittent fasting with meal replacements and digital coaching showed ~90% adherence. Participants lost ~4 kg with most weight coming from fat and minimal muscle loss.",
+      "commentary": "Structured and supported fasting programs can work well in real-world settings.",
+      "link": "https://pubmed.ncbi.nlm.nih.gov/41786246/"
+    },
+    {
+      "number": 9,
+      "title": "Time-restricted eating improves IBS symptoms",
+      "summary": "In a pilot study of 97 patients, an 8-week 16:8 protocol significantly reduced IBS symptom severity (−100 points on IBS-SSS). Improvements were seen across all IBS subtypes, along with better physical and mental well-being.",
+      "link": "https://pubmed.ncbi.nlm.nih.gov/41829935/"
+    },
+    {
+      "number": 10,
+      "title": "Intermittent fasting and refeeding induce lasting metabolic adaptations in primates",
+      "summary": "In overweight monkeys, a 20:4 intermittent fasting protocol improved weight, triglycerides, insulin, and insulin resistance. Some changes persisted even after returning to normal feeding.",
+      "commentary": "This suggests that intermittent fasting may induce lasting metabolic adaptations, not only transient effects.",
+      "link": "https://pubmed.ncbi.nlm.nih.gov/4181270/"
+    },
+    {
+      "number": 11,
+      "title": "Fasting enhances DNA repair and genome stability in the brain",
+      "summary": "Repeated intermittent fasting increased β-hydroxybutyrate levels in the brain and activated epigenetic programs linked to DNA repair, leading to reduced oxidative DNA damage and improved genome stability.",
+      "commentary": "A very interesting mechanism linking fasting to brain aging and neuroprotection.",
+      "link": "https://pubmed.ncbi.nlm.nih.gov/41811201/"
+    },
+    {
+      "number": 12,
+      "title": "Blood factors during caloric restriction may protect muscle",
+      "summary": "Although some protocols of caloric restriction tend to reduce muscle mass, serum from calorie-restricted mice increased protein synthesis and mitochondrial function in muscle cells.",
+      "commentary": "This suggests that circulating factors during CR may help preserve muscle quality despite reduced mass — an interesting paradox that deserves further investigation.",
+      "link": "https://pubmed.ncbi.nlm.nih.gov/37606077/"
+    },
+    {
+      "number": 13,
+      "title": "A new microbiome-derived appetite signal found in pythons",
+      "summary": "A metabolite (pTOS) produced by the microbiome after feeding in pythons increased more than 1,000-fold and reduced food intake via hypothalamic pathways. This metabolite is also present in humans, uncovering a conserved postprandial anorexigenic signal linking nutrient intake to energy balance.",
+      "link": "https://pubmed.ncbi.nlm.nih.gov/41857429/"
+    },
+    {
+      "number": 14,
+      "title": "Time-restricted eating reduces inflammation after heart disease",
+      "summary": "In patients with previous myocardial infarction, a 2-week early time-restricted eating protocol reduced inflammatory markers and improved immune cell profiles.",
+      "commentary": "This suggests a potential role of fasting in secondary cardiovascular prevention.",
+      "link": "https://pubmed.ncbi.nlm.nih.gov/41859904/"
+    },
+    {
+      "number": 15,
+      "title": "Caloric restriction reduces future cardiometabolic risk",
+      "summary": "Data from the CALERIE trial show that caloric restriction reduces predicted long-term risk of cardiovascular disease and type 2 diabetes in healthy adults.",
+      "commentary": "This supports CR as a preventive strategy, even in relatively healthy populations.",
+      "link": "https://pubmed.ncbi.nlm.nih.gov/41852238/"
+    },
+    {
+      "number": 16,
+      "title": "Brain neurons are essential to maintain body temperature during fasting",
+      "summary": "AgRP neurons are required to maintain body temperature during fasting. Without them, mice develop hypothermia and cannot survive under restricted feeding.",
+      "commentary": "This highlights how tightly energy balance and thermoregulation are connected.",
+      "link": "https://pubmed.ncbi.nlm.nih.gov/41850420/"
+    }
+  ],
+  "closing_note": "As usual feel free to comment, raise any questions, or simply like or repost this new issue in order to raise awareness about the science of fasting!"
+}

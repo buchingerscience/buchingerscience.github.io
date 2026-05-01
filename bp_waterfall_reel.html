@@ -42,11 +42,11 @@
     /* ── Header ── */
     .s-header {
       flex: 0 0 auto;
-      padding: 2% 7% 1.5%;
+      padding: 2.5% 7% 2%;
       border-bottom: 1px solid rgba(168,136,90,0.18);
       display: flex;
       flex-direction: column;
-      gap: 0.8%;
+      gap: 1.5%;
     }
     .s-brand {
       font-family: var(--sans);
@@ -77,8 +77,8 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      padding: 0.5% 5%;
+      justify-content: space-evenly;
+      padding: 1% 5%;
       gap: 0;
     }
 
@@ -88,7 +88,7 @@
       letter-spacing: 0.22em;
       text-transform: uppercase;
       color: var(--brass);
-      margin-bottom: 0.3%;
+      margin-bottom: 0;
     }
 
     .c-rank-row {
@@ -121,7 +121,7 @@
       align-items: baseline;
       justify-content: center;
       gap: 1.5%;
-      padding: 0.5% 7%;
+      padding: 0.8% 7%;
       border-top: 1px solid rgba(90,80,72,0.22);
     }
     .s-rank-num {
@@ -180,10 +180,10 @@
       transition: color 0.25s ease;
     }
     .c-val--sbp {
-      font-size: clamp(2.8rem, 11vh, 10rem);
+      font-size: clamp(2rem, 8vh, 7.5rem);
     }
     .c-val--dbp {
-      font-size: clamp(2rem, 7.5vh, 7rem);
+      font-size: clamp(2rem, 8vh, 7.5rem);
     }
     .c-val.positive { color: var(--rust); }
     .c-val.negative { color: var(--teal); }
@@ -206,7 +206,7 @@
     .c-unit--dbp { flex: 0 0 42%; text-align: left;  padding-left: 3%; }
 
     .c-stats {
-      margin-top: 0.8%;
+      margin-top: 0;
       font-family: var(--sans);
       font-size: clamp(0.55rem, 1.4vh, 1.1rem);
       letter-spacing: 0.12em;
@@ -222,8 +222,8 @@
       display: flex;
       justify-content: center;
       gap: clamp(16px, 8%, 36px);
-      margin-top: 1%;
-      padding-top: 1%;
+      margin-top: 0;
+      padding-top: 0.8%;
       border-top: 1px solid rgba(90,80,72,0.28);
       width: 78%;
     }
@@ -231,12 +231,12 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 2px;
+      gap: 6px;
     }
     .c-meta-val {
       font-family: var(--display);
       font-weight: 400;
-      font-size: clamp(0.9rem, 3.5vh, 3rem);
+      font-size: clamp(0.85rem, 2.8vh, 2.4rem);
       color: var(--sand);
       line-height: 1;
     }

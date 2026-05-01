@@ -42,15 +42,15 @@
     /* ── Header ── */
     .s-header {
       flex: 0 0 auto;
-      padding: 4% 7% 3%;
+      padding: 3% 7% 2%;
       border-bottom: 1px solid rgba(168,136,90,0.18);
       display: flex;
       flex-direction: column;
-      gap: 1.8%;
+      gap: 1.2%;
     }
     .s-brand {
       font-family: var(--sans);
-      font-size: clamp(0.5rem, 1.3vh, 1rem);
+      font-size: clamp(0.9rem, 2.5vh, 2rem);
       letter-spacing: 0.26em;
       text-transform: uppercase;
       color: var(--brass);
@@ -59,13 +59,13 @@
       font-family: var(--display);
       font-weight: 400;
       font-style: italic;
-      font-size: clamp(1rem, 3vh, 2.5rem);
+      font-size: clamp(1.6rem, 5.8vh, 5rem);
       color: var(--sand);
       line-height: 1.1;
     }
     .s-sub {
       font-family: var(--sans);
-      font-size: clamp(0.45rem, 1vh, 0.8rem);
+      font-size: clamp(0.75rem, 2.1vh, 1.8rem);
       letter-spacing: 0.18em;
       text-transform: uppercase;
       color: var(--stone-mid);
@@ -78,29 +78,29 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 1.5% 6%;
+      padding: 0.5% 5%;
       gap: 0;
     }
 
     .c-label {
       font-family: var(--sans);
-      font-size: clamp(0.45rem, 1vh, 0.8rem);
+      font-size: clamp(0.8rem, 2.2vh, 1.9rem);
       letter-spacing: 0.22em;
       text-transform: uppercase;
       color: var(--brass);
-      margin-bottom: 0.5%;
+      margin-bottom: 0.3%;
     }
 
     .c-rank-row {
       display: flex;
       align-items: baseline;
       gap: 2%;
-      margin-bottom: 0.5%;
+      margin-bottom: 0.2%;
     }
     .c-rank-num {
       font-family: var(--display);
       font-weight: 400;
-      font-size: clamp(1rem, 3.5vh, 3.5rem);
+      font-size: clamp(1.2rem, 5.5vh, 5rem);
       color: var(--stone-mid);
       line-height: 1;
       letter-spacing: -0.01em;
@@ -109,7 +109,33 @@
     }
     .c-rank-of {
       font-family: var(--sans);
-      font-size: clamp(0.4rem, 0.9vh, 0.72rem);
+      font-size: clamp(0.55rem, 1.4vh, 1.1rem);
+      letter-spacing: 0.1em;
+      color: var(--stone);
+    }
+
+    /* ── Patient rank strip (sits just above waterfall) ── */
+    .s-rank {
+      flex: 0 0 auto;
+      display: flex;
+      align-items: baseline;
+      justify-content: center;
+      gap: 1.5%;
+      padding: 0.8% 7%;
+      border-top: 1px solid rgba(90,80,72,0.22);
+    }
+    .s-rank-num {
+      font-family: var(--display);
+      font-weight: 400;
+      font-size: clamp(0.9rem, 3vh, 2.8rem);
+      color: var(--stone-mid);
+      line-height: 1;
+      min-width: 2.5ch;
+      text-align: right;
+    }
+    .s-rank-of {
+      font-family: var(--sans);
+      font-size: clamp(0.65rem, 1.9vh, 1.6rem);
       letter-spacing: 0.1em;
       color: var(--stone);
     }
@@ -118,7 +144,7 @@
       width: 60%;
       height: 1px;
       background: linear-gradient(90deg, transparent, rgba(168,136,90,0.45) 50%, transparent);
-      margin: 2% 0;
+      margin: 1% 0;
       flex-shrink: 0;
     }
 
@@ -154,10 +180,10 @@
       transition: color 0.25s ease;
     }
     .c-val--sbp {
-      font-size: clamp(3rem, 12vh, 12rem);
+      font-size: clamp(4rem, 17vh, 16rem);
     }
     .c-val--dbp {
-      font-size: clamp(2rem, 8.5vh, 8.5rem);
+      font-size: clamp(2.5rem, 12vh, 11rem);
     }
     .c-val.positive { color: var(--rust); }
     .c-val.negative { color: var(--teal); }
@@ -167,11 +193,11 @@
     .c-unit-row {
       display: flex;
       width: 100%;
-      margin-top: 0.8%;
+      margin-top: 0.3%;
     }
     .c-unit {
       font-family: var(--sans);
-      font-size: clamp(0.4rem, 1.1vh, 0.9rem);
+      font-size: clamp(0.8rem, 2.2vh, 1.9rem);
       letter-spacing: 0.18em;
       text-transform: uppercase;
       color: var(--stone-mid);
@@ -180,9 +206,9 @@
     .c-unit--dbp { flex: 0 0 42%; text-align: left;  padding-left: 3%; }
 
     .c-stats {
-      margin-top: 2.5%;
+      margin-top: 0.8%;
       font-family: var(--sans);
-      font-size: clamp(0.4rem, 1vh, 0.8rem);
+      font-size: clamp(0.8rem, 2.2vh, 1.9rem);
       letter-spacing: 0.12em;
       text-transform: uppercase;
       color: var(--stone-mid);
@@ -195,9 +221,9 @@
     .c-meta {
       display: flex;
       justify-content: center;
-      gap: clamp(12px, 7%, 28px);
-      margin-top: 3%;
-      padding-top: 2.5%;
+      gap: clamp(16px, 8%, 36px);
+      margin-top: 1.5%;
+      padding-top: 1.5%;
       border-top: 1px solid rgba(90,80,72,0.28);
       width: 78%;
     }
@@ -210,13 +236,13 @@
     .c-meta-val {
       font-family: var(--display);
       font-weight: 400;
-      font-size: clamp(0.75rem, 2vh, 2rem);
+      font-size: clamp(1.3rem, 5.5vh, 5rem);
       color: var(--sand);
       line-height: 1;
     }
     .c-meta-label {
       font-family: var(--sans);
-      font-size: clamp(0.35rem, 0.82vh, 0.68rem);
+      font-size: clamp(0.5rem, 1.3vh, 1rem);
       letter-spacing: 0.18em;
       text-transform: uppercase;
       color: var(--stone);
@@ -224,7 +250,7 @@
 
     /* ── Chart section ── */
     .s-chart {
-      flex: 0 0 38%;
+      flex: 0 0 35%;
       position: relative;
       border-top: 1px solid rgba(90,80,72,0.3);
       overflow: hidden;
@@ -332,13 +358,6 @@
 
   <!-- ── Counter ── -->
   <section class="s-counter">
-    <div class="c-label">Patient rank</div>
-    <div class="c-rank-row">
-      <span class="c-rank-num" id="rankNum">—</span>
-      <span class="c-rank-of">of 309</span>
-    </div>
-    <div class="c-divider"></div>
-
     <div class="c-bp-wrap">
       <div class="c-bp-col c-bp-col--sbp">
         <div class="c-label" style="text-align:right">Systolic</div>
@@ -372,6 +391,12 @@
       </div>
     </div>
   </section>
+
+  <!-- ── Patient rank strip ── -->
+  <div class="s-rank">
+    <span class="s-rank-num" id="rankNum">—</span>
+    <span class="s-rank-of">/ 309 patients</span>
+  </div>
 
   <!-- ── Waterfall chart (SBP only) ── -->
   <section class="s-chart" aria-hidden="true">

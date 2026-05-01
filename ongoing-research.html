@@ -125,6 +125,21 @@
       color: var(--warm-dark);
       white-space: nowrap;
     }
+    .or-overview-table tbody tr {
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .or-overview-table tbody tr:hover { background: var(--linen); }
+    .or-overview-table td:first-child a {
+      color: inherit;
+      text-decoration: none;
+      display: block;
+    }
+    .or-overview-table td:first-child a::after {
+      content: ' ↓';
+      font-size: 0.7em;
+      opacity: 0.5;
+    }
 
     /* ── Project cards ── */
     .or-grid {
@@ -229,12 +244,12 @@
           <li><a href="metabolic-explorer/">Metabolic Explorer</a></li>
           <li><a href="weightloss.html">Weight Loss Estimator</a></li>
           <li><a href="fastingcoach.html">Fasting Coach</a></li>
+          <li><a href="videos.html">Amplius Videos</a></li>
         </ul>
       </li>
       <li><a href="ongoing-research.html" class="active">Ongoing Research</a></li>
       <li><a href="library.html">Research Library</a></li>
       <li><a href="newsletter.html">Newsletters</a></li>
-      <li><a href="videos.html">Amplius Videos</a></li>
       <li><a href="contact.html">About us</a></li>
     </ul>
   </nav>
@@ -263,32 +278,32 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>FastForward Study</td>
+          <tr onclick="location.href='#study-fastforward'">
+            <td><a href="#study-fastforward">FastForward Study</a></td>
             <td>Confirms long-term efficacy of fasting and acts as innovation test ground</td>
           </tr>
-          <tr>
-            <td>Women's Health Study</td>
+          <tr onclick="location.href='#study-womens-health'">
+            <td><a href="#study-womens-health">Women's Health Study</a></td>
             <td>Generates evidence across menstrual and menopausal phases</td>
           </tr>
-          <tr>
-            <td>GENESIS – Cardiac &amp; Liver Health</td>
+          <tr onclick="location.href='#study-genesis'">
+            <td><a href="#study-genesis">GENESIS – Cardiac &amp; Liver Health</a></td>
             <td>Continues documenting changes in body composition and function</td>
           </tr>
-          <tr>
-            <td>CoFFIe (Fibres × Fasting)</td>
+          <tr onclick="location.href='#study-coffie'">
+            <td><a href="#study-coffie">CoFFIe (Fibres × Fasting)</a></td>
             <td>Develops a new fasting programme optimised for gut health</td>
           </tr>
-          <tr>
-            <td>FASTEX Physical Activity Programme</td>
+          <tr onclick="location.href='#study-fastex'">
+            <td><a href="#study-fastex">FASTEX Physical Activity Programme</a></td>
             <td>Creates a reproducible movement protocol to integrate into fasting care</td>
           </tr>
-          <tr>
-            <td>Milan Collaboration – UNION</td>
+          <tr onclick="location.href='#study-milan'">
+            <td><a href="#study-milan">Milan Collaboration – UNION</a></td>
             <td>Adds mechanistic depth to our scientific narrative on fasting and regeneration</td>
           </tr>
-          <tr>
-            <td>Prehabilitation Study (Charité Berlin)</td>
+          <tr onclick="location.href='#study-prehab'">
+            <td><a href="#study-prehab">Prehabilitation Study (Charité Berlin)</a></td>
             <td>Strategic move into hospital care pathways with fasting before surgery</td>
           </tr>
         </tbody>
@@ -299,7 +314,7 @@
     <div class="or-grid">
 
       <!-- 1. FastForward -->
-      <div class="or-card">
+      <div class="or-card" id="study-fastforward">
         <p class="or-card-eyebrow">Project 01 · Flagship Clinical Study</p>
         <h3>FastForward Study</h3>
         <p class="or-card-impact">Confirms long-term efficacy of fasting and acts as innovation test ground</p>
@@ -318,7 +333,7 @@
       </div>
 
       <!-- 2. Women's Health -->
-      <div class="or-card">
+      <div class="or-card" id="study-womens-health">
         <p class="or-card-eyebrow">Project 02 · Women's Health</p>
         <h3>Women's Health Study</h3>
         <p class="or-card-impact">Generates evidence across menstrual and menopausal phases</p>
@@ -326,7 +341,7 @@
       </div>
 
       <!-- 3. GENESIS -->
-      <div class="or-card">
+      <div class="or-card" id="study-genesis">
         <p class="or-card-eyebrow">Project 03 · Multi-System Trial</p>
         <h3>GENESIS – Cardiac &amp; Liver Health</h3>
         <p class="or-card-impact">Continues documenting changes in body composition and function</p>
@@ -334,7 +349,7 @@
       </div>
 
       <!-- 4. CoFFIe -->
-      <div class="or-card">
+      <div class="or-card" id="study-coffie">
         <p class="or-card-eyebrow">Project 04 · Gut Health</p>
         <h3>CoFFIe – Dietary Fibres × Fasting</h3>
         <p class="or-card-impact">Develops a new fasting programme optimised for gut health</p>
@@ -346,7 +361,7 @@
       </div>
 
       <!-- 5. FASTEX -->
-      <div class="or-card">
+      <div class="or-card" id="study-fastex">
         <p class="or-card-eyebrow">Project 05 · Physical Activity</p>
         <h3>FASTEX – Fasting Meets Fitness</h3>
         <p class="or-card-impact">Creates a reproducible movement protocol to integrate into fasting care</p>
@@ -361,7 +376,7 @@
       </div>
 
       <!-- 6. Milan / UNION -->
-      <div class="or-card">
+      <div class="or-card" id="study-milan">
         <p class="or-card-eyebrow">Project 06 · Mechanistic Research</p>
         <h3>Milan Collaboration – UNION</h3>
         <p class="or-card-impact">Adds mechanistic depth to our scientific narrative on fasting and regeneration</p>
@@ -370,7 +385,7 @@
       </div>
 
       <!-- 7. Charité Berlin -->
-      <div class="or-card">
+      <div class="or-card" id="study-prehab">
         <p class="or-card-eyebrow">Project 07 · Prehabilitation</p>
         <h3>Prehabilitation Study – Charité Berlin</h3>
         <p class="or-card-impact">Strategic move into hospital care pathways with fasting before surgery</p>

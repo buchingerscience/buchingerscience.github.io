@@ -1,0 +1,1204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Buchinger Science – The Science of Fasting</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Josefin+Sans:wght@200;300;400&family=EB+Garamond:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    /* ─────────────────────────────────────────
+       Page-local styling — science prototype
+    ───────────────────────────────────────── */
+
+    /* Hero — restate the eyebrow as a soft pill, title as serif headline */
+    .science-hero {
+      background: var(--linen);
+      padding: 140px 52px 96px;
+      border-bottom: 1px solid var(--border-soft);
+      position: relative;
+    }
+    .science-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 30% 50%, rgba(168,136,90,0.08) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .science-hero-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+    }
+    .science-tag {
+      display: inline-block;
+      font-family: var(--sans);
+      font-size: 0.62rem;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--brass);
+      background: rgba(237,224,204,0.85);
+      padding: 8px 16px;
+      border-radius: 4px;
+      margin-bottom: 28px;
+    }
+    .science-hero h1 {
+      font-family: var(--display);
+      font-weight: 400;
+      font-size: clamp(2.4rem, 5.5vw, 4.6rem);
+      color: var(--warm-dark);
+      line-height: 1.08;
+      max-width: 12em;
+      margin: 0;
+    }
+    .science-hero h1 .highlight {
+      background: linear-gradient(180deg, transparent 55%, rgba(237,224,204,0.85) 55%, rgba(237,224,204,0.85) 95%, transparent 95%);
+      padding: 0 6px;
+      font-style: italic;
+      color: var(--brass);
+    }
+    .science-hero h1 em {
+      font-style: italic;
+      color: var(--brass);
+    }
+    .science-hero-sub {
+      margin-top: 28px;
+      font-family: var(--body);
+      font-size: 1.05rem;
+      line-height: 1.75;
+      color: var(--warm-mid);
+      max-width: 620px;
+      font-style: italic;
+    }
+
+    /* ── Section frame ── */
+    .sci-section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: var(--s7) var(--s5);
+    }
+    .sci-section + .sci-section { padding-top: 0; }
+
+    .sci-section h2 {
+      font-family: var(--display);
+      font-weight: 400;
+      font-size: clamp(2rem, 3.6vw, 2.8rem);
+      color: var(--warm-dark);
+      margin: 0 0 var(--s4);
+      line-height: 1.15;
+    }
+    .sci-section h2 em { color: var(--brass); font-style: italic; }
+
+    /* ─────────────────────────────────────────
+       What happens when you fast — accordion + image
+    ───────────────────────────────────────── */
+    .body-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.05fr;
+      gap: var(--s5);
+      align-items: stretch;
+    }
+
+    .accordion {
+      display: flex;
+      flex-direction: column;
+      border-top: 1px solid var(--border-soft);
+    }
+    .acc-item {
+      border-bottom: 1px solid var(--border-soft);
+    }
+    .acc-trigger {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      background: none;
+      border: 0;
+      padding: 22px 4px;
+      cursor: pointer;
+      text-align: left;
+      font-family: var(--display);
+      font-size: 1.15rem;
+      font-weight: 400;
+      color: var(--warm-dark);
+      transition: color 0.2s;
+    }
+    .acc-trigger:hover { color: var(--brass); }
+    .acc-chevron {
+      flex-shrink: 0;
+      width: 14px;
+      height: 14px;
+      position: relative;
+      transition: transform 0.3s ease;
+    }
+    .acc-chevron::before, .acc-chevron::after {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      width: 10px; height: 1.5px;
+      background: var(--warm-mid);
+      transform-origin: center;
+    }
+    .acc-chevron::before { transform: translate(-50%, -50%) rotate(45deg) translateX(-3px); }
+    .acc-chevron::after  { transform: translate(-50%, -50%) rotate(-45deg) translateX(3px); }
+    .acc-item.open .acc-chevron { transform: rotate(180deg); }
+    .acc-panel {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, padding 0.3s ease;
+    }
+    .acc-panel-inner {
+      padding: 0 4px 24px;
+      font-family: var(--body);
+      font-size: 1rem;
+      line-height: 1.78;
+      color: var(--warm-mid);
+    }
+    .acc-panel-inner p { margin: 0 0 14px; }
+    .acc-panel-inner p:last-child { margin-bottom: 0; }
+    .acc-item.open .acc-panel { max-height: 600px; }
+
+    .body-figure {
+      position: relative;
+      background: var(--sand);
+      border-radius: var(--radius-soft);
+      overflow: hidden;
+      min-height: 460px;
+      box-shadow: var(--shadow-soft);
+      background-image:
+        radial-gradient(ellipse 60% 80% at 50% 50%, rgba(168,136,90,0.15), transparent 70%),
+        linear-gradient(160deg, var(--sand) 0%, var(--brass-pale) 100%);
+    }
+    .body-figure svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* ─────────────────────────────────────────
+       How fasting helps different conditions — tabs
+    ───────────────────────────────────────── */
+    .cond-tabs {
+      display: flex;
+      gap: 28px;
+      border-bottom: 1px solid var(--border-soft);
+      margin-bottom: var(--s4);
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .cond-tabs::-webkit-scrollbar { display: none; }
+
+    .cond-tab {
+      flex-shrink: 0;
+      background: none;
+      border: 0;
+      padding: 14px 2px;
+      font-family: var(--sans);
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      cursor: pointer;
+      position: relative;
+      transition: color 0.2s;
+    }
+    .cond-tab:hover { color: var(--warm-dark); }
+    .cond-tab.active { color: var(--warm-dark); font-weight: 400; }
+    .cond-tab.active::after {
+      content: '';
+      position: absolute;
+      left: 0; right: 0; bottom: -1px;
+      height: 2px;
+      background: var(--brass);
+    }
+
+    .cond-panels { position: relative; }
+    .cond-panel {
+      display: none;
+      grid-template-columns: 0.85fr 1.15fr;
+      gap: var(--s4);
+      align-items: center;
+    }
+    .cond-panel.active { display: grid; animation: fadeIn 0.4s ease; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .cond-figure {
+      background: var(--sand);
+      border-radius: var(--radius-soft);
+      min-height: 320px;
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+      background-image:
+        radial-gradient(ellipse 60% 80% at 50% 50%, rgba(168,136,90,0.18), transparent 70%),
+        linear-gradient(160deg, var(--sand) 0%, var(--brass-pale) 100%);
+    }
+    .cond-figure svg {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+    }
+
+    .cond-card {
+      background: var(--chalk);
+      border: 1px solid var(--border-soft);
+      box-shadow: var(--shadow-soft);
+      padding: 36px 36px 38px;
+      border-radius: var(--radius-soft);
+    }
+    .cond-card h3 {
+      font-family: var(--display);
+      font-weight: 400;
+      font-size: 1.6rem;
+      color: var(--warm-dark);
+      margin: 0 0 16px;
+    }
+    .cond-card p {
+      font-family: var(--body);
+      font-size: 0.98rem;
+      line-height: 1.78;
+      color: var(--warm-mid);
+      margin: 0 0 14px;
+    }
+    .cond-card p:last-child { margin: 0; }
+    .cond-stat {
+      margin-top: 22px;
+      padding-top: 18px;
+      border-top: 1px solid var(--border-soft);
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .cond-stat span {
+      font-family: var(--sans);
+      font-size: 0.6rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--brass);
+    }
+    .cond-stat strong {
+      font-family: var(--display);
+      font-weight: 500;
+      font-size: 1.4rem;
+      color: var(--warm-dark);
+      display: block;
+      margin-top: 4px;
+    }
+
+    /* ─────────────────────────────────────────
+       Our resources — sub-tabs and grid
+    ───────────────────────────────────────── */
+    .res-section { background: var(--linen); border-top: 1px solid var(--stone); }
+    .res-section .sci-section { padding-top: var(--s7); }
+
+    .res-tabs {
+      display: flex;
+      gap: 32px;
+      border-bottom: 1px solid var(--border-soft);
+      margin-bottom: var(--s4);
+    }
+    .res-tab {
+      background: none;
+      border: 0;
+      padding: 14px 2px;
+      font-family: var(--sans);
+      font-size: 0.72rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      cursor: pointer;
+      position: relative;
+      transition: color 0.2s;
+    }
+    .res-tab:hover { color: var(--warm-dark); }
+    .res-tab.active { color: var(--warm-dark); }
+    .res-tab.active::after {
+      content: '';
+      position: absolute;
+      left: 0; right: 0; bottom: -1px;
+      height: 2px;
+      background: var(--brass);
+    }
+
+    .res-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      margin-bottom: var(--s4);
+    }
+
+    .res-card {
+      background: var(--chalk);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-soft);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      position: relative;
+    }
+    .res-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--brass);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s ease;
+    }
+    .res-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+    .res-card:hover::after { transform: scaleX(1); }
+
+    .res-thumb {
+      position: relative;
+      aspect-ratio: 16/10;
+      background: var(--sand);
+      background-image:
+        radial-gradient(ellipse 50% 60% at 50% 60%, rgba(168,136,90,0.18), transparent 70%),
+        linear-gradient(160deg, var(--sand) 0%, var(--brass-pale) 100%);
+      overflow: hidden;
+    }
+    .res-thumb img {
+      width: 100%; height: 100%; object-fit: cover;
+      display: block;
+    }
+    .res-tags {
+      position: absolute;
+      top: 14px; right: 14px;
+      display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end;
+      max-width: calc(100% - 28px);
+    }
+    .res-tag {
+      font-family: var(--sans);
+      font-size: 0.55rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--warm-dark);
+      background: rgba(250,248,245,0.92);
+      backdrop-filter: blur(4px);
+      border: 1px solid var(--border-soft);
+      padding: 5px 11px;
+      border-radius: var(--radius-pill);
+    }
+
+    .res-body {
+      padding: 22px 24px 24px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+    .res-body h3 {
+      font-family: var(--display);
+      font-weight: 500;
+      font-size: 1.1rem;
+      line-height: 1.3;
+      color: var(--warm-dark);
+      margin: 0 0 10px;
+    }
+    .res-body p {
+      font-family: var(--body);
+      font-size: 0.9rem;
+      line-height: 1.7;
+      color: var(--muted);
+      margin: 0 0 18px;
+      flex-grow: 1;
+    }
+    .res-link {
+      align-self: flex-start;
+      font-family: var(--sans);
+      font-size: 0.62rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--brass);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border-soft);
+      transition: color 0.2s, gap 0.2s;
+    }
+    .res-link:hover { color: var(--warm-dark); gap: 12px; }
+    .res-link::after { content: '→'; font-size: 0.85rem; letter-spacing: 0; }
+
+    .res-cta {
+      text-align: center;
+      margin-top: var(--s3);
+    }
+    .btn-load {
+      display: inline-block;
+      padding: 13px 36px;
+      background: var(--brass);
+      color: var(--chalk);
+      font-family: var(--sans);
+      font-size: 0.62rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      border: 1px solid var(--brass);
+      border-radius: var(--radius-pill);
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.25s, color 0.25s;
+    }
+    .btn-load:hover { background: var(--warm-dark); border-color: var(--warm-dark); color: var(--sand); }
+
+    .res-pane { display: none; }
+    .res-pane.active { display: block; animation: fadeIn 0.35s ease; }
+
+    /* ─────────────────────────────────────────
+       Responsive
+    ───────────────────────────────────────── */
+    @media (max-width: 980px) {
+      .body-grid { grid-template-columns: 1fr; gap: var(--s4); }
+      .body-figure { min-height: 320px; }
+      .cond-panel.active { grid-template-columns: 1fr; }
+      .res-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+    }
+    @media (max-width: 620px) {
+      .science-hero { padding: 100px 24px 64px; }
+      .res-grid { grid-template-columns: 1fr; }
+      .cond-tabs { gap: 18px; }
+      .cond-tab { font-size: 0.65rem; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Navigation -->
+  <nav id="nav">
+    <div class="logo">Buchinger Science</div>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li class="nav-dropdown-wrap">
+        <button class="nav-dropdown-btn" aria-expanded="false">Tools <span class="nav-chevron">▾</span></button>
+        <ul class="nav-sub">
+          <li><a href="metabolic-explorer/">Metabolic Explorer</a></li>
+          <li><a href="weightloss.html">Weight Loss Estimator</a></li>
+          <li><a href="fastingcoach.html">Fasting Coach</a></li>
+          <li><a href="videos.html">Amplius Videos</a></li>
+        </ul>
+      </li>
+      <li><a href="science_prototype.html" class="active">Science</a></li>
+      <li><a href="ongoing-research.html">Ongoing Research</a></li>
+      <li><a href="library.html">Research Library</a></li>
+      <li><a href="newsletter.html">Newsletters</a></li>
+      <li><a href="contact.html">About us</a></li>
+    </ul>
+  </nav>
+
+  <!-- ── HERO ── -->
+  <section class="science-hero">
+    <div class="science-hero-inner">
+      <span class="science-tag">Science</span>
+      <h1>A time-proven practice rooted in <span class="highlight">science</span> and wisdom</h1>
+      <p class="science-hero-sub">A century of medically supervised fasting at Buchinger Wilhelmi —
+        rigorously documented across metabolism, longevity, the microbiome,
+        and the body's innate capacity for renewal.</p>
+    </div>
+  </section>
+
+  <!-- ── WHAT HAPPENS WHEN YOU FAST ── -->
+  <section class="sci-section" id="what-happens">
+    <h2>What happens when you <em>fast</em></h2>
+
+    <div class="body-grid">
+
+      <div class="accordion" id="bodyAccordion">
+
+        <div class="acc-item open">
+          <button class="acc-trigger" aria-expanded="true">
+            How your body responds
+            <span class="acc-chevron"></span>
+          </button>
+          <div class="acc-panel">
+            <div class="acc-panel-inner">
+              <p>Fasting helps your body heal and renew itself from the inside out. It triggers the body's natural cleanup and repair system through autophagy, clearing out damaged cells and recycling them into something useful again.</p>
+              <p>By extending the time without food, the body uses up its sugar stores, called glycogen. Insulin levels are kept low and stored fat becomes accessible.</p>
+              <p>Fatty acids are released, and the liver converts part of this fat into ketone bodies, providing a clean and efficient fuel for the brain and muscles — a state known as ketosis.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item">
+          <button class="acc-trigger" aria-expanded="false">
+            How your body sustains itself
+            <span class="acc-chevron"></span>
+          </button>
+          <div class="acc-panel">
+            <div class="acc-panel-inner">
+              <p>Once in ketosis, the body shifts into a remarkably stable energy state. Ketones efficiently power the brain and muscles, while preserved muscle protein keeps strength and mobility intact across long fasts.</p>
+              <p>Hormonal regulation re-balances: growth hormone rises, insulin remains low, and stress responses are dampened by parasympathetic activation — the "rest-and-digest" branch of the nervous system.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item">
+          <button class="acc-trigger" aria-expanded="false">
+            The impact on your wellbeing
+            <span class="acc-chevron"></span>
+          </button>
+          <div class="acc-panel">
+            <div class="acc-panel-inner">
+              <p>In our 1,422-patient study, 93.2% of participants reported improvements in physical and emotional wellbeing during fasting, alongside the absence of hunger.</p>
+              <p>Mood lifts, sleep deepens, and mental clarity sharpens — supported by stable ketone-fuelled brain energy and a calmer autonomic nervous system.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="acc-item">
+          <button class="acc-trigger" aria-expanded="false">
+            How your body rebuilds
+            <span class="acc-chevron"></span>
+          </button>
+          <div class="acc-panel">
+            <div class="acc-panel-inner">
+              <p>Refeeding is its own carefully designed phase. The body re-introduces nutrients in a stepwise way that preserves the benefits of fasting and allows tissues to rebuild stronger.</p>
+              <p>Insulin sensitivity is restored, the gut microbiome reorganises around the new metabolic state, and many of the molecular shifts triggered by fasting persist for weeks or months.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="body-figure" aria-hidden="true">
+        <svg viewBox="0 0 420 480" xmlns="http://www.w3.org/2000/svg">
+          <!-- Stylised silhouette suggesting a human form in profile, in a meditative posture -->
+          <g fill="none" stroke="#a8885a" stroke-width="1.2" opacity="0.6" stroke-linecap="round">
+            <!-- Outer halo rings -->
+            <circle cx="210" cy="240" r="170" stroke-dasharray="2 6" opacity="0.25"/>
+            <circle cx="210" cy="240" r="140" stroke-dasharray="2 6" opacity="0.35"/>
+            <!-- Body silhouette -->
+            <path d="M 210 90 Q 188 92 184 116 Q 180 138 200 152 Q 220 158 240 144 Q 252 128 246 110 Q 240 90 220 88 Z"
+                  fill="rgba(168,136,90,0.12)"/>
+            <path d="M 178 174 Q 152 196 148 234 Q 145 274 156 308 Q 142 336 144 364 Q 148 396 168 418 Q 188 432 210 432 Q 232 432 252 418 Q 272 396 276 364 Q 278 336 264 308 Q 275 274 272 234 Q 268 196 242 174 Q 226 162 210 162 Q 194 162 178 174 Z"
+                  fill="rgba(168,136,90,0.18)"/>
+          </g>
+          <!-- Subtle organ glow -->
+          <ellipse cx="210" cy="260" rx="38" ry="44" fill="#a8885a" opacity="0.18"/>
+          <ellipse cx="210" cy="260" rx="22" ry="26" fill="#c9a870" opacity="0.35"/>
+          <!-- Central spark -->
+          <circle cx="210" cy="260" r="4" fill="#a8885a" opacity="0.9"/>
+          <!-- Caption -->
+          <text x="210" y="468" fill="#8a7a6a" font-family="'Josefin Sans',sans-serif" font-size="9"
+                letter-spacing="3" text-anchor="middle" opacity="0.65">METABOLIC SHIFT · KETOSIS</text>
+        </svg>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── HOW FASTING HELPS DIFFERENT CONDITIONS ── -->
+  <section class="sci-section" id="conditions">
+    <h2>How fasting helps different <em>conditions</em></h2>
+
+    <div class="cond-tabs" role="tablist" id="condTabs">
+      <button class="cond-tab active" data-cond="cardio" role="tab">Cardiovascular</button>
+      <button class="cond-tab" data-cond="gi" role="tab">Gastrointestinal</button>
+      <button class="cond-tab" data-cond="mental" role="tab">Mental health</button>
+      <button class="cond-tab" data-cond="metabolic" role="tab">Metabolic disorders</button>
+      <button class="cond-tab" data-cond="muscle" role="tab">Musculoskeletal</button>
+      <button class="cond-tab" data-cond="inflam" role="tab">Inflammation</button>
+      <button class="cond-tab" data-cond="neuro" role="tab">Neurological</button>
+      <button class="cond-tab" data-cond="auto" role="tab">Auto-immune</button>
+    </div>
+
+    <div class="cond-panels">
+
+      <div class="cond-panel active" data-cond="cardio">
+        <div class="cond-figure" aria-hidden="true">
+          <svg viewBox="0 0 420 320" xmlns="http://www.w3.org/2000/svg">
+            <line x1="40" y1="40" x2="40" y2="270" stroke="rgba(168,136,90,0.3)" stroke-width="0.75"/>
+            <line x1="40" y1="270" x2="380" y2="270" stroke="rgba(168,136,90,0.3)" stroke-width="0.75"/>
+            <path d="M 40 110 Q 130 130 220 180 Q 305 220 380 240" fill="none" stroke="#a8885a" stroke-width="2.5" stroke-linecap="round"/>
+            <polygon points="40,110 130,130 220,180 305,220 380,240 380,270 40,270" fill="#a8885a" opacity="0.1"/>
+            <circle cx="40" cy="110" r="5" fill="#a8885a"/>
+            <circle cx="380" cy="240" r="5" fill="#a8885a"/>
+            <text x="220" y="296" fill="#8a7a6a" font-family="'Josefin Sans',sans-serif" font-size="9" letter-spacing="2.5" text-anchor="middle" opacity="0.7">BLOOD PRESSURE · 1,610 PATIENTS</text>
+          </svg>
+        </div>
+        <div class="cond-card">
+          <h3>Cardiovascular</h3>
+          <p>Across 1,610 fasting subjects, both systolic and diastolic blood pressure fell consistently and substantially during long-term fasting under medical supervision (JAHA 2020). Heart rate variability — a marker of autonomic balance — improved durably, persisting weeks after refeeding.</p>
+          <p>In hypertensive patients, antihypertensive medication was reduced or stopped in roughly two thirds of cases, all under medical oversight as clinical parameters improved.</p>
+          <div class="cond-stat">
+            <div><span>Patients studied</span><strong>1,610</strong></div>
+            <div><span>Stopped meds</span><strong>23.6%</strong></div>
+            <div><span>Reduced meds</span><strong>43.5%</strong></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cond-panel" data-cond="gi">
+        <div class="cond-figure" aria-hidden="true">
+          <svg viewBox="0 0 420 320" xmlns="http://www.w3.org/2000/svg">
+            <g stroke="#a8885a" fill="none" stroke-linecap="round">
+              <path d="M 130 60 Q 200 90 200 130 Q 200 170 140 180 Q 90 195 100 240 Q 110 280 180 280" stroke-width="3" opacity="0.7"/>
+              <circle cx="130" cy="60"  r="6" fill="#a8885a" opacity="0.8" stroke="none"/>
+              <circle cx="180" cy="280" r="6" fill="#a8885a" opacity="0.7" stroke="none"/>
+            </g>
+            <g fill="#c9a870" opacity="0.7">
+              <circle cx="240" cy="100" r="3"/>
+              <circle cx="280" cy="140" r="4"/>
+              <circle cx="320" cy="110" r="3"/>
+              <circle cx="350" cy="160" r="4"/>
+              <circle cx="290" cy="200" r="3"/>
+              <circle cx="330" cy="230" r="4"/>
+            </g>
+            <text x="210" y="296" fill="#8a7a6a" font-family="'Josefin Sans',sans-serif" font-size="9" letter-spacing="2.5" text-anchor="middle" opacity="0.7">GUT MICROBIOME · REORGANISED</text>
+          </svg>
+        </div>
+        <div class="cond-card">
+          <h3>Gastrointestinal</h3>
+          <p>Fasting profoundly reshapes the gut microbiome — the trillions of bacteria, viruses and fungi that regulate immunity, metabolism and inflammation. Bacterial communities shift in step with the metabolic switch from glucose to ketone fuel.</p>
+          <p>A 2025 preprint extended this picture to the gut virome, showing structured, largely reversible reorganisation of bacteriophage communities, with many shifts persisting for up to three months after refeeding.</p>
+          <div class="cond-stat">
+            <div><span>Participants</span><strong>89</strong></div>
+            <div><span>Persistence</span><strong>3 months</strong></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cond-panel" data-cond="mental">
+        <div class="cond-figure" aria-hidden="true">
+          <svg viewBox="0 0 420 320" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="210" cy="160" r="110" fill="none" stroke="rgba(168,136,90,0.25)" stroke-width="1"/>
+            <circle cx="210" cy="160" r="80"  fill="none" stroke="rgba(168,136,90,0.15)" stroke-width="1"/>
+            <path d="M 210 50 A 110 110 0 0 1 320 160" fill="none" stroke="#a8885a" stroke-width="2.5" stroke-linecap="round"/>
+            <circle cx="210" cy="50"  r="5" fill="#a8885a"/>
+            <circle cx="320" cy="160" r="5" fill="#a8885a"/>
+            <text x="210" y="156" fill="#8a7a6a" font-family="'Josefin Sans',sans-serif" font-size="9" letter-spacing="2" text-anchor="middle" opacity="0.7">CALMER</text>
+            <text x="210" y="170" fill="#8a7a6a" font-family="'Josefin Sans',sans-serif" font-size="9" letter-spacing="2" text-anchor="middle" opacity="0.7">NERVOUS SYSTEM</text>
+            <text x="210" y="296" fill="#8a7a6a" font-family="'Josefin Sans',sans-serif" font-size="9" letter-spacing="2.5" text-anchor="middle" opacity="0.7">PARASYMPATHETIC ACTIVATION</text>
+          </svg>
+        </div>
+        <div class="cond-card">
+          <h3>Mental health</h3>
+          <p>Fasting does not cause distress — it relieves it. In our 1,422-patient study, 93.2% of participants reported improvements in physical and emotional wellbeing during fasting.</p>
+          <p>The 2025 GENESIS sub-study showed that fasting shifts the autonomic nervous system into a calmer, more restorative state — better sleep, better mood, lower stress — by activating the parasympathetic branch and measurably improving heart rate variability.</p>
+          <div class="cond-stat">
+            <div><span>Improved wellbeing</span><strong>93.2%</strong></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cond-panel" data-cond="metabolic">
+        <div class="cond-figure" aria-hidden="true">
+          <svg viewBox="0 0 420 320" xmlns="http://www.w3.org/2000/svg">
+            <line x1="40" y1="40" x2="40" y2="270" stroke="rgba(168,136,90,0.3)" stroke-width="0.75"/>
+            <line x1="40" y1="270" x2="380" y2="270" stroke="rgba(168,136,90,0.3)" stroke-width="0.75"/>
+            <path d="M 40 90 Q 110 110 180 150 Q 260 200 380 230" fill="none" stroke="#a8885a" stroke-width="2.5" stroke-linecap="round"/>
+            <polygon points="40,90 110,110 180,150 260,200 380,230 380,270 40,270" fill="#a8885a" opacity="0.1"/>
+            <circle cx="40" cy="90" r="5" fill="#a8885a"/>
+            <circle cx="380" cy="230" r="5" fill="#a8885a"/>
+            <text x="210" y="296" fill="#8a7a6a" font-family="'Josefin Sans',sans-serif" font-size="9" letter-spacing="2.5" text-anchor="middle" opacity="0.7">BLOOD GLUCOSE · NORMALISED</text>
+          </svg>
+        </div>
+        <div class="cond-card">
+          <h3>Metabolic disorders</h3>
+          <p>Fasting blood glucose consistently decreases to low-normal range during Buchinger Wilhelmi fasting, reflecting the shift from glucose to fat and ketone metabolism. Visceral fat — the metabolically harmful fat surrounding abdominal organs — falls by 20.8% (MRI confirmed), with liver fat dropping from 2.6% to 1.4%.</p>
+          <p>A 2025 case report (Frontiers) documented a clinically reversed type-2 diabetes through repeated long-term fasting: improved HbA1c, restored insulin sensitivity, sharply reduced drug dependence.</p>
+          <div class="cond-stat">
+            <div><span>Visceral fat</span><strong>−20.8%</strong></div>
+            <div><span>Glucose</span><strong>↓13%</strong></div>
+            <div><span>LDL</span><strong>↓9%</strong></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cond-panel" data-cond="muscle">
+        <div class="cond-figure" aria-hidden="true">
+          <svg viewBox="0 0 420 320" xmlns="http://www.w3.org/2000/svg">
+            <line x1="40" y1="270" x2="380" y2="270" stroke="rgba(168,136,90,0.3)" stroke-width="0.75"/>
+            <rect x="80" y="60" width="60" height="210" fill="rgba(168,136,90,0.25)" rx="2"/>
+            <rect x="146" y="80" width="60" height="190" fill="#a8885a" rx="2" opacity="0.75"/>
+            <text x="113" y="50" fill="#8a7a6a" font-family="'Josefin Sans',sans-serif" font-size="8" text-anchor="middle" letter-spacing="1" opacity="0.7">BEFORE</text>
+            <text x="176" y="74" fill="#a8885a" font-family="'Josefin Sans',sans-serif" font-size="8" text-anchor="middle" letter-spacing="1">−7.4%</text>
+            <text x="143" y="296" fill="#8a7a6a" font-family="'Josefin Sans',sans-serif" font-size="9" text-anchor="middle" letter-spacing="2" opacity="0.7">BODY WEIGHT</text>
+            <rect x="240" y="80" width="60" height="190" fill="rgba(107,144,128,0.25)" rx="2"/>
+            <rect x="306" y="100" width="60" height="170" fill="#6b9080" rx="2" opacity="0.7"/>
+            <text x="271" y="70" fill="#8a7a6a" font-family="'Josefin Sans',sans-serif" font-size="8" text-anchor="middle" letter-spacing="1" opacity="0.7">BEFORE</text>
+            <text x="335" y="94" fill="#6b9080" font-family="'Josefin Sans',sans-serif" font-size="8" text-anchor="middle" letter-spacing="1">−5.4%</text>
+            <text x="302" y="296" fill="#8a7a6a" font-family="'Josefin Sans',sans-serif" font-size="9" text-anchor="middle" letter-spacing="2" opacity="0.7">MUSCLE VOLUME</text>
+          </svg>
+        </div>
+        <div class="cond-card">
+          <h3>Musculoskeletal</h3>
+          <p>Fasting does not destroy muscle — this fear is not supported by the evidence. In the GENESIS study (12 days, 250 kcal/day), body weight fell by 7.4% while skeletal muscle volume fell by just 5.4% — a substantially better ratio than seen with calorie-restricted diets.</p>
+          <p>Muscle strength was maintained and improved by up to 33% in the best responders. At the cellular level, fasting activates mitochondrial biogenesis, boosting the energy-producing capacity of muscle cells.</p>
+          <div class="cond-stat">
+            <div><span>Muscle loss</span><strong>−5.4%</strong></div>
+            <div><span>Strength gain</span><strong>+33%</strong></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cond-panel" data-cond="inflam">
+        <div class="cond-figure" aria-hidden="true">
+          <svg viewBox="0 0 420 320" xmlns="http://www.w3.org/2000/svg">
+            <line x1="40" y1="40" x2="40" y2="270" stroke="rgba(168,136,90,0.3)" stroke-width="0.75"/>
+            <line x1="40" y1="270" x2="380" y2="270" stroke="rgba(168,136,90,0.3)" stroke-width="0.75"/>
+            <path d="M 80 60 Q 130 100 160 220" fill="none" stroke="#a8885a" stroke-width="2.5" stroke-linecap="round" opacity="0.85"/>
+            <path d="M 100 60 Q 145 110 175 215" fill="none" stroke="#a8885a" stroke-width="1.8" stroke-linecap="round" opacity="0.6"/>
+            <path d="M 120 60 Q 160 120 190 225" fill="none" stroke="#a8885a" stroke-width="1.4" stroke-linecap="round" opacity="0.45"/>
+            <path d="M 250 235 Q 300 232 360 240" fill="none" stroke="rgba(168,136,90,0.35)" stroke-width="1.8"/>
+            <path d="M 250 250 Q 300 248 360 252" fill="none" stroke="rgba(168,136,90,0.25)" stroke-width="1.4"/>
+            <text x="125" y="46" fill="#8a7a6a" font-family="'Josefin Sans',sans-serif" font-size="8" text-anchor="middle" letter-spacing="1.5" opacity="0.75">HIGH BASELINE</text>
+            <text x="305" y="225" fill="#8a7a6a" font-family="'Josefin Sans',sans-serif" font-size="8" text-anchor="middle" letter-spacing="1.5" opacity="0.55">LOW BASELINE</text>
+            <text x="210" y="296" fill="#8a7a6a" font-family="'Josefin Sans',sans-serif" font-size="9" text-anchor="middle" letter-spacing="2.5" opacity="0.7">CRP RESPONSE TO FASTING</text>
+          </svg>
+        </div>
+        <div class="cond-card">
+          <h3>Inflammation</h3>
+          <p>Our 2025 Frontiers in Nutrition paper revisited the anti-inflammatory effects of long-term fasting and found that baseline CRP status determines the magnitude of response: patients with high inflammation see steep, durable reductions, while already-low-CRP patients show little change.</p>
+          <p>This reframes fasting as a baseline-dependent therapy and informs clinical patient selection — anti-inflammatory effects are real, but most pronounced where they are most needed.</p>
+          <div class="cond-stat">
+            <div><span>Mechanism</span><strong>Baseline-dependent</strong></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cond-panel" data-cond="neuro">
+        <div class="cond-figure" aria-hidden="true">
+          <svg viewBox="0 0 420 320" xmlns="http://www.w3.org/2000/svg">
+            <g fill="none" stroke="#a8885a" stroke-linecap="round">
+              <path d="M 80 200 Q 130 60 210 150 Q 290 240 360 100" stroke-width="2.5" opacity="0.85"/>
+              <path d="M 80 200 Q 130 60 210 150 Q 290 240 360 100" stroke-width="6" opacity="0.15"/>
+            </g>
+            <circle cx="80" cy="200" r="4" fill="#a8885a"/>
+            <circle cx="360" cy="100" r="4" fill="#a8885a"/>
+            <g fill="#c9a870" opacity="0.6">
+              <circle cx="140" cy="120" r="2"/>
+              <circle cx="210" cy="150" r="2.5"/>
+              <circle cx="280" cy="180" r="2"/>
+              <circle cx="320" cy="130" r="2"/>
+            </g>
+            <text x="210" y="296" fill="#8a7a6a" font-family="'Josefin Sans',sans-serif" font-size="9" letter-spacing="2.5" text-anchor="middle" opacity="0.7">KETONE-FUELLED BRAIN</text>
+          </svg>
+        </div>
+        <div class="cond-card">
+          <h3>Neurological</h3>
+          <p>Ketone bodies provide a clean and efficient fuel for the brain, with neuroprotective effects observed across multiple lines of research. A 2023 case series and literature review examined long-term fasting in five long-COVID patients and reported improvements in cognitive impairment, fatigue, and disorders of smell and taste.</p>
+          <p>The proposed mechanisms include anti-inflammatory action, autophagy induction in neurons, immune recalibration and gut-brain microbiome remodelling.</p>
+          <div class="cond-stat">
+            <div><span>Mechanisms</span><strong>4 pathways</strong></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="cond-panel" data-cond="auto">
+        <div class="cond-figure" aria-hidden="true">
+          <svg viewBox="0 0 420 320" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="210" cy="160" r="100" fill="none" stroke="rgba(168,136,90,0.25)" stroke-width="1" stroke-dasharray="4 4"/>
+            <g stroke="#a8885a" fill="none" stroke-linecap="round" stroke-width="2">
+              <path d="M 130 160 Q 170 130 210 160 Q 250 190 290 160" opacity="0.85"/>
+              <path d="M 130 200 Q 170 170 210 200 Q 250 230 290 200" opacity="0.55"/>
+              <path d="M 130 120 Q 170 90 210 120 Q 250 150 290 120" opacity="0.35"/>
+            </g>
+            <circle cx="210" cy="160" r="6" fill="#a8885a" opacity="0.85"/>
+            <text x="210" y="296" fill="#8a7a6a" font-family="'Josefin Sans',sans-serif" font-size="9" letter-spacing="2.5" text-anchor="middle" opacity="0.7">IMMUNE RECALIBRATION</text>
+          </svg>
+        </div>
+        <div class="cond-card">
+          <h3>Auto-immune</h3>
+          <p>Otto Buchinger's clinic was founded in 1919 after he himself recovered from severe rheumatoid arthritis through supervised fasting — an origin story that grounds the modern clinical programme.</p>
+          <p>Across our patient cohort, 84% of pre-existing chronic complaints — including arthritis, fatty liver, hypertension, hypercholesterolaemia and type-2 diabetes — improved during medically supervised fasting, supported by autophagy, immune-cell turnover and reduced systemic inflammation.</p>
+          <div class="cond-stat">
+            <div><span>Conditions improved</span><strong>84%</strong></div>
+            <div><span>Patients</span><strong>404</strong></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── OUR RESOURCES ── -->
+  <section class="res-section">
+    <div class="sci-section" id="resources">
+      <h2>Our <em>resources</em></h2>
+
+      <div class="res-tabs" role="tablist" id="resTabs">
+        <button class="res-tab active" data-pane="publications" role="tab">Publications</button>
+        <button class="res-tab" data-pane="articles" role="tab">Articles</button>
+        <button class="res-tab" data-pane="videos" role="tab">Videos</button>
+      </div>
+
+      <!-- Publications -->
+      <div class="res-pane active" data-pane="publications">
+        <div class="res-grid">
+
+          <article class="res-card">
+            <div class="res-thumb">
+              <div class="res-tags">
+                <span class="res-tag">PLOS ONE</span>
+                <span class="res-tag">2019</span>
+              </div>
+            </div>
+            <div class="res-body">
+              <h3>Safety, health improvement &amp; well-being in 1,422 subjects</h3>
+              <p>The world's largest prospective fasting study. Improvements in all major clinical parameters — the foundational evidence paper for Buchinger Wilhelmi fasting.</p>
+              <a class="res-link" href="https://doi.org/10.1371/journal.pone.0209353" target="_blank" rel="noopener">Read publication</a>
+            </div>
+          </article>
+
+          <article class="res-card">
+            <div class="res-thumb">
+              <div class="res-tags">
+                <span class="res-tag">JAHA</span>
+                <span class="res-tag">2020</span>
+              </div>
+            </div>
+            <div class="res-body">
+              <h3>Blood pressure in 1,610 subjects during long-term fasting</h3>
+              <p>Significant reductions in systolic and diastolic BP — establishing the cardiovascular safety and efficacy of medically supervised fasting at scale.</p>
+              <a class="res-link" href="https://doi.org/10.1161/JAHA.120.018649" target="_blank" rel="noopener">Read publication</a>
+            </div>
+          </article>
+
+          <article class="res-card">
+            <div class="res-thumb">
+              <div class="res-tags">
+                <span class="res-tag">Front. Nutr.</span>
+                <span class="res-tag">2025</span>
+              </div>
+            </div>
+            <div class="res-body">
+              <h3>Revisiting the anti-inflammatory effects of prolonged fasting</h3>
+              <p>Baseline CRP status determines the magnitude of anti-inflammatory response — reframing fasting's evidence base and guiding clinical patient selection.</p>
+              <a class="res-link" href="https://doi.org/10.3389/fnut.2025.1715341" target="_blank" rel="noopener">Read publication</a>
+            </div>
+          </article>
+
+          <article class="res-card">
+            <div class="res-thumb">
+              <div class="res-tags">
+                <span class="res-tag">Int. J. Obesity</span>
+                <span class="res-tag">2025</span>
+              </div>
+            </div>
+            <div class="res-body">
+              <h3>Autonomic nervous system modulation in the GENESIS study</h3>
+              <p>Long-term fasting shifts the ANS toward parasympathetic dominance — durable HRV improvements documented post-10-day fasting.</p>
+              <a class="res-link" href="https://doi.org/10.1038/s41366-025-01843-0" target="_blank" rel="noopener">Read publication</a>
+            </div>
+          </article>
+
+          <article class="res-card">
+            <div class="res-thumb">
+              <div class="res-tags">
+                <span class="res-tag">JICM</span>
+                <span class="res-tag">2024</span>
+              </div>
+            </div>
+            <div class="res-body">
+              <h3>45 years of annual fasting — a 92-year-old case report</h3>
+              <p>The world's longest medically documented repeated fasting history. Biological age 5.9 years below chronological age. No frailty at 92.</p>
+              <a class="res-link" href="https://doi.org/10.1089/jicm.2023.0352" target="_blank" rel="noopener">Read publication</a>
+            </div>
+          </article>
+
+          <article class="res-card">
+            <div class="res-thumb">
+              <div class="res-tags">
+                <span class="res-tag">medRxiv</span>
+                <span class="res-tag">2025</span>
+              </div>
+            </div>
+            <div class="res-body">
+              <h3>Remodelling of the gut virome after long-term fasting</h3>
+              <p>First metagenomics-based characterisation of gut virome remodelling during fasting — bacteriophage signatures consistent across cohorts.</p>
+              <a class="res-link" href="https://doi.org/10.1101/2025.12.19.25342476" target="_blank" rel="noopener">Read publication</a>
+            </div>
+          </article>
+
+        </div>
+        <div class="res-cta">
+          <a href="library.html" class="btn-load">Load more</a>
+        </div>
+      </div>
+
+      <!-- Articles -->
+      <div class="res-pane" data-pane="articles">
+        <div class="res-grid">
+
+          <article class="res-card">
+            <div class="res-thumb">
+              <div class="res-tags">
+                <span class="res-tag">Newsletter</span>
+                <span class="res-tag">2025</span>
+              </div>
+            </div>
+            <div class="res-body">
+              <h3>Why baseline matters: rethinking fasting and inflammation</h3>
+              <p>A plain-language tour of how baseline CRP shapes who benefits most from the anti-inflammatory side of fasting.</p>
+              <a class="res-link" href="newsletter.html">Read article</a>
+            </div>
+          </article>
+
+          <article class="res-card">
+            <div class="res-thumb">
+              <div class="res-tags">
+                <span class="res-tag">Newsletter</span>
+                <span class="res-tag">2024</span>
+              </div>
+            </div>
+            <div class="res-body">
+              <h3>The metabolic switch, illustrated</h3>
+              <p>From glucose to ketones in plain language — what changes hour by hour as the body enters and sustains a long fast.</p>
+              <a class="res-link" href="newsletter.html">Read article</a>
+            </div>
+          </article>
+
+          <article class="res-card">
+            <div class="res-thumb">
+              <div class="res-tags">
+                <span class="res-tag">Story</span>
+                <span class="res-tag">2024</span>
+              </div>
+            </div>
+            <div class="res-body">
+              <h3>One man, 45 years of annual fasts</h3>
+              <p>The story behind the JICM case report: a 92-year-old's biological age reads 5.9 years below his chronological age.</p>
+              <a class="res-link" href="newsletter.html">Read article</a>
+            </div>
+          </article>
+
+          <article class="res-card">
+            <div class="res-thumb">
+              <div class="res-tags">
+                <span class="res-tag">Method</span>
+                <span class="res-tag">2024</span>
+              </div>
+            </div>
+            <div class="res-body">
+              <h3>The Buchinger Wilhelmi method, end to end</h3>
+              <p>Preparation, the fast itself, and the carefully designed refeeding phase — what each step is for, and why it matters.</p>
+              <a class="res-link" href="method.html">Read article</a>
+            </div>
+          </article>
+
+          <article class="res-card">
+            <div class="res-thumb">
+              <div class="res-tags">
+                <span class="res-tag">Microbiome</span>
+                <span class="res-tag">2025</span>
+              </div>
+            </div>
+            <div class="res-body">
+              <h3>What the gut virome tells us about fasting</h3>
+              <p>Bacteriophages reorganise during long-term fasting — and many shifts persist months after refeeding ends.</p>
+              <a class="res-link" href="newsletter.html">Read article</a>
+            </div>
+          </article>
+
+          <article class="res-card">
+            <div class="res-thumb">
+              <div class="res-tags">
+                <span class="res-tag">Wellbeing</span>
+                <span class="res-tag">2024</span>
+              </div>
+            </div>
+            <div class="res-body">
+              <h3>Why fasting feels calming, not stressful</h3>
+              <p>Heart rate variability, parasympathetic tone, and the autonomic nervous system shift we measured in GENESIS.</p>
+              <a class="res-link" href="newsletter.html">Read article</a>
+            </div>
+          </article>
+
+        </div>
+        <div class="res-cta">
+          <a href="newsletter.html" class="btn-load">Load more</a>
+        </div>
+      </div>
+
+      <!-- Videos -->
+      <div class="res-pane" data-pane="videos">
+        <div class="res-grid">
+
+          <article class="res-card">
+            <div class="res-thumb" style="background:#1a1510;">
+              <img src="https://img.youtube.com/vi/UnVo_xA4fM8/hqdefault.jpg" alt="" loading="lazy">
+              <div class="res-tags">
+                <span class="res-tag">Talk</span>
+                <span class="res-tag">PLOS ONE</span>
+              </div>
+            </div>
+            <div class="res-body">
+              <h3>The PLOS ONE foundation paper, explained</h3>
+              <p>The 1,422-patient study, walked through by the research team — what we measured, what we found, what came next.</p>
+              <a class="res-link" href="videos.html">Watch video</a>
+            </div>
+          </article>
+
+          <article class="res-card">
+            <div class="res-thumb" style="background:#1a1510;">
+              <img src="https://img.youtube.com/vi/wqA9Hu5tg2E/hqdefault.jpg" alt="" loading="lazy">
+              <div class="res-tags">
+                <span class="res-tag">Explainer</span>
+                <span class="res-tag">Metabolism</span>
+              </div>
+            </div>
+            <div class="res-body">
+              <h3>Why fasting works — the metabolic switch</h3>
+              <p>How and why the body shifts from glucose to ketones, and what makes that shift therapeutically interesting.</p>
+              <a class="res-link" href="videos.html">Watch video</a>
+            </div>
+          </article>
+
+          <article class="res-card">
+            <div class="res-thumb" style="background:#1a1510;">
+              <img src="https://img.youtube.com/vi/Md8Xt_-PW9I/hqdefault.jpg" alt="" loading="lazy">
+              <div class="res-tags">
+                <span class="res-tag">Imaging</span>
+                <span class="res-tag">MRI</span>
+              </div>
+            </div>
+            <div class="res-body">
+              <h3>What MRI reveals about fasting metabolism</h3>
+              <p>From visceral fat to liver fat to muscle volume — what advanced imaging adds to the fasting evidence base.</p>
+              <a class="res-link" href="videos.html">Watch video</a>
+            </div>
+          </article>
+
+          <article class="res-card">
+            <div class="res-thumb" style="background:#1a1510;">
+              <img src="https://img.youtube.com/vi/IlwOK76DUb4/hqdefault.jpg" alt="" loading="lazy">
+              <div class="res-tags">
+                <span class="res-tag">Microbiome</span>
+                <span class="res-tag">Gut</span>
+              </div>
+            </div>
+            <div class="res-body">
+              <h3>Fasting and the gut microbiome</h3>
+              <p>How the bacterial community in the gut tracks the metabolic switch — and why some changes persist long after refeeding.</p>
+              <a class="res-link" href="videos.html">Watch video</a>
+            </div>
+          </article>
+
+          <article class="res-card">
+            <div class="res-thumb" style="background:#1a1510;">
+              <img src="https://img.youtube.com/vi/Cul2JqhdQyE/hqdefault.jpg" alt="" loading="lazy">
+              <div class="res-tags">
+                <span class="res-tag">Inflammation</span>
+              </div>
+            </div>
+            <div class="res-body">
+              <h3>Fasting and inflammation</h3>
+              <p>Anti-inflammatory mechanisms, who benefits most, and how baseline status shapes the size of the response.</p>
+              <a class="res-link" href="videos.html">Watch video</a>
+            </div>
+          </article>
+
+          <article class="res-card">
+            <div class="res-thumb" style="background:#1a1510;">
+              <img src="https://img.youtube.com/vi/pA6O4-n5Z_8/hqdefault.jpg" alt="" loading="lazy">
+              <div class="res-tags">
+                <span class="res-tag">Wellbeing</span>
+              </div>
+            </div>
+            <div class="res-body">
+              <h3>Fasting and mental wellbeing</h3>
+              <p>Mood, sleep and stress during and after fasting — what patients report, and what the autonomic-nervous-system data show.</p>
+              <a class="res-link" href="videos.html">Watch video</a>
+            </div>
+          </article>
+
+        </div>
+        <div class="res-cta">
+          <a href="videos.html" class="btn-load">Load more</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── FOOTER CTA ── -->
+  <section class="footer-cta">
+    <div class="footer-cta-inner">
+      <div class="eyebrow" style="justify-content:center;margin-bottom:20px;">Our Mission</div>
+      <h2>Science in service<br>of <em>human health</em></h2>
+      <p>Rigorous clinical research — openly published, openly accessible —
+        from the world's leading medically supervised fasting clinic.</p>
+      <a class="btn-ghost" href="library.html">Explore the Research Library</a>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo">Buchinger Science</div>
+        <p>Clinical research on fasting, metabolism, and longevity — from the world's leading medically supervised fasting clinic.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Research</h4>
+        <ul>
+          <li><a href="library.html">Research Library</a></li>
+          <li><a href="newsletter.html">Newsletters</a></li>
+          <li><a href="metabolic-explorer/">Metabolic Explorer</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="videos.html">Amplius Videos</a></li>
+          <li><a href="fastingcoach.html">Fasting Coach</a></li>
+          <li><a href="course.html">E-Learning</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Buchinger Science. All rights reserved.</p>
+      <p>Buchinger Wilhelmi Clinic</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    // Accordion: one or many open at a time. Here: only one.
+    document.querySelectorAll('#bodyAccordion .acc-trigger').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.parentElement;
+        const wasOpen = item.classList.contains('open');
+        document.querySelectorAll('#bodyAccordion .acc-item').forEach(i => i.classList.remove('open'));
+        if (!wasOpen) item.classList.add('open');
+        document.querySelectorAll('#bodyAccordion .acc-trigger').forEach(b => {
+          b.setAttribute('aria-expanded', b.parentElement.classList.contains('open'));
+        });
+      });
+    });
+
+    // Conditions tabs
+    const condTabs = document.querySelectorAll('#condTabs .cond-tab');
+    const condPanels = document.querySelectorAll('.cond-panel');
+    condTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const target = tab.dataset.cond;
+        condTabs.forEach(t => t.classList.toggle('active', t === tab));
+        condPanels.forEach(p => p.classList.toggle('active', p.dataset.cond === target));
+      });
+    });
+
+    // Resources tabs
+    const resTabs = document.querySelectorAll('#resTabs .res-tab');
+    const resPanes = document.querySelectorAll('.res-pane');
+    resTabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const target = tab.dataset.pane;
+        resTabs.forEach(t => t.classList.toggle('active', t === tab));
+        resPanes.forEach(p => p.classList.toggle('active', p.dataset.pane === target));
+      });
+    });
+  </script>
+
+</body>
+</html>

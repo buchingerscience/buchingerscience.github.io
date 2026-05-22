@@ -220,9 +220,9 @@
     .cond-panels { position: relative; }
     .cond-panel {
       display: none;
-      grid-template-columns: 0.85fr 1.15fr;
+      grid-template-columns: 0.62fr 1.38fr;
       gap: var(--s4);
-      align-items: center;
+      align-items: flex-start;
     }
     .cond-panel.active { display: grid; animation: fadeIn 0.4s ease; }
 
@@ -241,6 +241,8 @@
       background-image:
         radial-gradient(ellipse 60% 80% at 50% 50%, rgba(168,136,90,0.18), transparent 70%),
         linear-gradient(160deg, var(--sand) 0%, var(--brass-pale) 100%);
+      position: sticky;
+      top: 100px;
     }
     .cond-figure svg {
       position: absolute; inset: 0;
@@ -251,46 +253,87 @@
       background: var(--chalk);
       border: 1px solid var(--border-soft);
       box-shadow: var(--shadow-soft);
-      padding: 36px 36px 38px;
+      padding: 36px 40px 40px;
       border-radius: var(--radius-soft);
     }
     .cond-card h3 {
       font-family: var(--display);
       font-weight: 400;
-      font-size: 1.6rem;
+      font-size: 1.7rem;
       color: var(--warm-dark);
-      margin: 0 0 16px;
+      margin: 0 0 8px;
     }
-    .cond-card p {
-      font-family: var(--body);
-      font-size: 0.98rem;
-      line-height: 1.78;
-      color: var(--warm-mid);
-      margin: 0 0 14px;
-    }
-    .cond-card p:last-child { margin: 0; }
-    .cond-stat {
-      margin-top: 22px;
-      padding-top: 18px;
-      border-top: 1px solid var(--border-soft);
-      display: flex;
-      gap: 24px;
-      flex-wrap: wrap;
-    }
-    .cond-stat span {
+    .cond-eyebrow {
       font-family: var(--sans);
       font-size: 0.6rem;
-      letter-spacing: 0.18em;
+      letter-spacing: 0.22em;
       text-transform: uppercase;
       color: var(--brass);
+      margin: 0 0 14px;
     }
-    .cond-stat strong {
-      font-family: var(--display);
-      font-weight: 500;
-      font-size: 1.4rem;
+    .cond-intro {
+      font-family: var(--body);
+      font-size: 1rem;
+      line-height: 1.78;
+      color: var(--warm-mid);
+      margin: 0 0 22px;
+      padding-bottom: 22px;
+      border-bottom: 1px solid var(--border-soft);
+      font-style: italic;
+    }
+
+    .cond-bullets {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 22px;
+    }
+    .cond-bullets li {
+      position: relative;
+      padding: 6px 0 6px 28px;
+      margin-bottom: 8px;
+      font-family: var(--body);
+      font-size: 0.97rem;
+      line-height: 1.65;
+      color: var(--warm-mid);
+    }
+    .cond-bullets li::before {
+      content: '';
+      position: absolute;
+      left: 6px;
+      top: 16px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--brass);
+      box-shadow: 0 0 0 4px rgba(168,136,90,0.12);
+    }
+    .cond-bullets strong {
+      color: var(--brass);
+      font-weight: 600;
+      font-family: var(--sans);
+      font-size: 0.96em;
+      letter-spacing: 0.01em;
+    }
+    .cond-bullets em {
+      font-style: italic;
       color: var(--warm-dark);
-      display: block;
-      margin-top: 4px;
+    }
+
+    .cond-sources {
+      margin-top: 6px;
+      padding-top: 18px;
+      border-top: 1px solid var(--border-soft);
+      font-family: var(--sans);
+      font-size: 0.58rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+    .cond-sources strong {
+      color: var(--warm-dark);
+      font-weight: 400;
+      letter-spacing: 0.18em;
     }
 
     /* ─────────────────────────────────────────
@@ -461,6 +504,7 @@
       .body-grid { grid-template-columns: 1fr; gap: var(--s4); }
       .body-figure { min-height: 320px; }
       .cond-panel.active { grid-template-columns: 1fr; }
+      .cond-figure { position: relative; top: 0; min-height: 260px; }
       .res-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
     }
     @media (max-width: 620px) {
@@ -609,6 +653,8 @@
       <button class="cond-tab" data-cond="inflam" role="tab">Inflammation</button>
       <button class="cond-tab" data-cond="neuro" role="tab">Neurological</button>
       <button class="cond-tab" data-cond="auto" role="tab">Auto-immune</button>
+      <button class="cond-tab" data-cond="longevity" role="tab">Longevity</button>
+      <button class="cond-tab" data-cond="detox" role="tab">Detoxification</button>
     </div>
 
     <div class="cond-panels">
@@ -626,14 +672,20 @@
           </svg>
         </div>
         <div class="cond-card">
+          <p class="cond-eyebrow">Heart &amp; circulation</p>
           <h3>Cardiovascular</h3>
-          <p>Across 1,610 fasting subjects, both systolic and diastolic blood pressure fell consistently and substantially during long-term fasting under medical supervision (JAHA 2020). Heart rate variability — a marker of autonomic balance — improved durably, persisting weeks after refeeding.</p>
-          <p>In hypertensive patients, antihypertensive medication was reduced or stopped in roughly two thirds of cases, all under medical oversight as clinical parameters improved.</p>
-          <div class="cond-stat">
-            <div><span>Patients studied</span><strong>1,610</strong></div>
-            <div><span>Stopped meds</span><strong>23.6%</strong></div>
-            <div><span>Reduced meds</span><strong>43.5%</strong></div>
-          </div>
+          <p class="cond-intro">Heart-related risk factors are where supervised fasting shows some of its biggest and most repeatable effects — across thousands of patients, in real clinics, under real medical supervision.</p>
+          <ul class="cond-bullets">
+            <li><strong>1,610 patients</strong> were monitored across 4–41 days of medically supervised fasting — one of the largest prospective datasets ever assembled on this question.</li>
+            <li>Blood pressure fell on average by <strong>−6.5 / −3.8 mmHg</strong> during the fast — and persisted through the 4 days of food reintroduction.</li>
+            <li>In patients with the highest starting blood pressure, drops reached <strong>−24.7 / −13.1 mmHg</strong>.</li>
+            <li><strong>23.6%</strong> of medicated hypertensive patients were able to <em>stop</em> their blood-pressure drugs entirely; another <strong>43.5%</strong> reduced their dose — all under medical supervision.</li>
+            <li>Triglycerides, total cholesterol, LDL and very-low-density lipoprotein all fell significantly after <strong>14 days</strong> of fasting.</li>
+            <li>HDL ("good cholesterol") rose to levels <em>higher than baseline</em> one month after refeeding, with improved cholesterol-efflux capacity — a functional measure of cardiovascular protection.</li>
+            <li>Fasting raised the <strong>Omega-3 Index</strong>, a recognised cardiovascular-health marker, and reduced industrial trans fatty acids in red-blood-cell membranes.</li>
+            <li>In the GENESIS sub-study, heart rate variability improved (<strong>p &lt; 0.001</strong>), pointing to a healthier autonomic balance that persisted after refeeding.</li>
+          </ul>
+          <p class="cond-sources"><strong>Sources:</strong> JAHA 2020 (1,610 patients) · Eur J Nutr 2021 · Atherosclerosis 2024 · Eur J Clin Invest 2025 · Int J Obesity 2025 (GENESIS)</p>
         </div>
       </div>
 
@@ -657,13 +709,20 @@
           </svg>
         </div>
         <div class="cond-card">
+          <p class="cond-eyebrow">Gut &amp; microbiome</p>
           <h3>Gastrointestinal</h3>
-          <p>Fasting profoundly reshapes the gut microbiome — the trillions of bacteria, viruses and fungi that regulate immunity, metabolism and inflammation. Bacterial communities shift in step with the metabolic switch from glucose to ketone fuel.</p>
-          <p>A 2025 preprint extended this picture to the gut virome, showing structured, largely reversible reorganisation of bacteriophage communities, with many shifts persisting for up to three months after refeeding.</p>
-          <div class="cond-stat">
-            <div><span>Participants</span><strong>89</strong></div>
-            <div><span>Persistence</span><strong>3 months</strong></div>
-          </div>
+          <p class="cond-intro">The gut isn't a passive tube — it's a community of trillions of bacteria and viruses that shape immunity, metabolism and inflammation. Fasting reorganises that community in measurable, reproducible ways.</p>
+          <ul class="cond-bullets">
+            <li>Across <strong>92 patients</strong> fasting for about 10 days, roughly two-thirds of all bacterial species shifted significantly — <strong>306 went down</strong> and <strong>210 went up</strong>.</li>
+            <li>Bacteria that feed on dietary fibre fell; bacteria that feed on host-derived molecules rose — a clean biological signature of the body switching its fuel source.</li>
+            <li><strong>382 of 721</strong> blood metabolites changed significantly in parallel, directly linking the gut shift to whole-body metabolism.</li>
+            <li>In a 2025 gut-virome study of <strong>89 patients</strong>, <strong>121 viral species</strong> shifted at end-of-fast, and <strong>49 bacteriophages</strong> showed reproducible responses across three independent fasting cohorts.</li>
+            <li>Many virome shifts persisted <strong>up to 3 months</strong> after fasting ended — these are durable, not transient effects.</li>
+            <li>LBP (a blood marker of bacterial-toxin exposure) fell significantly during fasting and <em>stayed low</em> after refeeding — suggesting less inflammatory leakage from the gut.</li>
+            <li>The function of the gut microbiota — measured via short-chain-fatty-acid (butyrate) production — was improved <strong>3 months after</strong> the fast ended.</li>
+            <li>Periodontitis-linked oral bacteria (e.g. Porphyromonas) decreased measurably; some oral-microbiome changes persisted <strong>3 months</strong> after refeeding (Quintessence 2024).</li>
+          </ul>
+          <p class="cond-sources"><strong>Sources:</strong> bioRxiv 2024 (92 patients) · medRxiv 2025 gut virome (89 patients) · J Nutr Sci 2019 · Quintessence 2024 oral microbiome · Trends Microbiol 2023 (review)</p>
         </div>
       </div>
 
@@ -681,12 +740,20 @@
           </svg>
         </div>
         <div class="cond-card">
+          <p class="cond-eyebrow">Mood, stress &amp; sleep</p>
           <h3>Mental health</h3>
-          <p>Fasting does not cause distress — it relieves it. In our 1,422-patient study, 93.2% of participants reported improvements in physical and emotional wellbeing during fasting.</p>
-          <p>The 2025 GENESIS sub-study showed that fasting shifts the autonomic nervous system into a calmer, more restorative state — better sleep, better mood, lower stress — by activating the parasympathetic branch and measurably improving heart rate variability.</p>
-          <div class="cond-stat">
-            <div><span>Improved wellbeing</span><strong>93.2%</strong></div>
-          </div>
+          <p class="cond-intro">A common worry is that fasting must feel terrible. The data say the opposite — patients overwhelmingly feel <em>better</em>, and the underlying nervous-system signature confirms it.</p>
+          <ul class="cond-bullets">
+            <li>In the world's largest fasting study (<strong>1,422 patients</strong>), <strong>93.2%</strong> reported improvements in physical and emotional wellbeing during fasting.</li>
+            <li>The same <strong>93.2%</strong> reported the <em>absence</em> of hunger feeling — once ketosis sets in, appetite drops naturally.</li>
+            <li>In the GENESIS sub-study, fasting shifted the nervous system toward parasympathetic ("rest-and-digest") dominance (<strong>p &lt; 0.001</strong>) and reduced sympathetic activation (<strong>p &lt; 0.001</strong>).</li>
+            <li>Heart rate variability (RMSSD) — a recognised marker of resilience and recovery — improved significantly (<strong>p &lt; 0.001</strong>).</li>
+            <li>Mental wellbeing improved significantly during fasting (<strong>p &lt; 0.05</strong>); sleep quality remained stable.</li>
+            <li>Urinary cortisol — the main stress hormone — fell by <strong>−36%</strong> by the end of a 10-day fast and stayed low during refeeding.</li>
+            <li>This parasympathetic shift is linked to improved <em>interoception</em>, emotional regulation and mindfulness — fasting feels calming, not depleting.</li>
+            <li>In long-COVID patients, fasting improved cognitive impairment, fatigue and mood — symptoms many patients had carried for months.</li>
+          </ul>
+          <p class="cond-sources"><strong>Sources:</strong> PLOS ONE 2019 (1,422 patients) · Int J Obesity 2025 GENESIS · J Cachexia Sarcopenia Muscle 2021 · Frontiers in Nutrition 2023 (long COVID)</p>
         </div>
       </div>
 
@@ -703,14 +770,20 @@
           </svg>
         </div>
         <div class="cond-card">
+          <p class="cond-eyebrow">Diabetes, weight &amp; fatty liver</p>
           <h3>Metabolic disorders</h3>
-          <p>Fasting blood glucose consistently decreases to low-normal range during Buchinger Wilhelmi fasting, reflecting the shift from glucose to fat and ketone metabolism. Visceral fat — the metabolically harmful fat surrounding abdominal organs — falls by 20.8% (MRI confirmed), with liver fat dropping from 2.6% to 1.4%.</p>
-          <p>A 2025 case report (Frontiers) documented a clinically reversed type-2 diabetes through repeated long-term fasting: improved HbA1c, restored insulin sensitivity, sharply reduced drug dependence.</p>
-          <div class="cond-stat">
-            <div><span>Visceral fat</span><strong>−20.8%</strong></div>
-            <div><span>Glucose</span><strong>↓13%</strong></div>
-            <div><span>LDL</span><strong>↓9%</strong></div>
-          </div>
+          <p class="cond-intro">Metabolic syndrome, type-2 diabetes and fatty liver are the defining health challenges of our era. Fasting moves the dial on every one of them — with effects that hold up after refeeding.</p>
+          <ul class="cond-bullets">
+            <li>In <strong>1,422 patients</strong>, <strong>84%</strong> of pre-existing chronic complaints — type-2 diabetes, fatty liver, high cholesterol, high blood pressure — improved during medically supervised fasting.</li>
+            <li>Blood glucose dropped reliably to the low-normal range; ketone bodies appeared in urine in essentially everyone, confirming the metabolic switch.</li>
+            <li>In <strong>1,610 patients</strong> monitored for ketosis, fasting safely induced deep ketosis from <strong>day 2</strong>; patients with the strongest ketosis had the largest drops in glucose, HbA1c, weight and waist circumference.</li>
+            <li>On MRI, <strong>visceral fat fell by 20.8%</strong> and liver fat dropped from <strong>2.6% to 1.4%</strong> after a 14-day fast.</li>
+            <li>In <strong>697 patients</strong> with elevated Fatty Liver Index, the FLI dropped by an average of <strong>14 points</strong> (19 in type-2 diabetics); almost half shifted to a lower risk category.</li>
+            <li>Each additional fasting day raised the chance of improving a manifest fatty liver by <strong>+40%</strong>.</li>
+            <li>A 57-year-old with poorly controlled type-2 diabetes achieved sustained weight loss, lower HbA1c and reduced drug dependence through repeated long-term fasting (Frontiers 2025).</li>
+            <li>Even a <strong>5-day at-home modified fast</strong> (~600 kcal/day) produced lasting weight loss (<strong>−3.1 kg</strong> a month later) and durable improvements in cholesterol and LDL.</li>
+          </ul>
+          <p class="cond-sources"><strong>Sources:</strong> PLOS ONE 2019 (1,422 patients) · Nutrients 2024 ketosis (1,610) · Frontiers in Nutrition 2019 MRI · Nutrients 2019 FLI (697) · Frontiers Clin Diab 2025 case report · medRxiv 2024 modified fast</p>
         </div>
       </div>
 
@@ -731,13 +804,20 @@
           </svg>
         </div>
         <div class="cond-card">
+          <p class="cond-eyebrow">Muscle, bone &amp; strength</p>
           <h3>Musculoskeletal</h3>
-          <p>Fasting does not destroy muscle — this fear is not supported by the evidence. In the GENESIS study (12 days, 250 kcal/day), body weight fell by 7.4% while skeletal muscle volume fell by just 5.4% — a substantially better ratio than seen with calorie-restricted diets.</p>
-          <p>Muscle strength was maintained and improved by up to 33% in the best responders. At the cellular level, fasting activates mitochondrial biogenesis, boosting the energy-producing capacity of muscle cells.</p>
-          <div class="cond-stat">
-            <div><span>Muscle loss</span><strong>−5.4%</strong></div>
-            <div><span>Strength gain</span><strong>+33%</strong></div>
-          </div>
+          <p class="cond-intro">"You'll lose all your muscle" is the most common worry about long fasts. The MRI and strength data — across two independent studies — say otherwise.</p>
+          <ul class="cond-bullets">
+            <li>In the GENESIS 12-day fast, body weight fell by <strong>−7.4%</strong> (5.9 kg) while skeletal muscle volume fell by just <strong>−5.4%</strong> (542 ml).</li>
+            <li>Most of that "muscle loss" is glycogen depletion (1–2%) and bound water (3–4%) — actual protein loss is likely minimal.</li>
+            <li>Muscle strength was <em>stable or rose</em>: maximum voluntary contraction +4.6% in older subjects, +2.4% in young subjects, +4.2% in males.</li>
+            <li>VO₂max (maximum oxygen uptake) was unchanged after 12 days of fasting; the first ventilatory threshold rose by <strong>+10%</strong>, meaning daily tasks feel easier.</li>
+            <li>In a separate 10-day fast in healthy men, strength in <em>weight-bearing</em> muscles (legs) rose by <strong>+33%</strong>.</li>
+            <li>MRI showed <em>no</em> structural or inflammatory changes in muscle — the muscle tissue itself remains healthy.</li>
+            <li>Mitochondrial oxidative capacity stayed stable across the fast; females showed faster mitochondrial recovery than males.</li>
+            <li>This pattern looks more like the seasonal-fasting adaptation seen in wild animals than the muscle wasting seen in calorie-restricted diets.</li>
+          </ul>
+          <p class="cond-sources"><strong>Sources:</strong> J Cachexia Sarcopenia Muscle 2025 GENESIS (12-day) · J Cachexia Sarcopenia Muscle 2021 (10-day, healthy men)</p>
         </div>
       </div>
 
@@ -757,12 +837,20 @@
           </svg>
         </div>
         <div class="cond-card">
+          <p class="cond-eyebrow">Chronic low-grade inflammation</p>
           <h3>Inflammation</h3>
-          <p>Our 2025 Frontiers in Nutrition paper revisited the anti-inflammatory effects of long-term fasting and found that baseline CRP status determines the magnitude of response: patients with high inflammation see steep, durable reductions, while already-low-CRP patients show little change.</p>
-          <p>This reframes fasting as a baseline-dependent therapy and informs clinical patient selection — anti-inflammatory effects are real, but most pronounced where they are most needed.</p>
-          <div class="cond-stat">
-            <div><span>Mechanism</span><strong>Baseline-dependent</strong></div>
-          </div>
+          <p class="cond-intro">Fasting's effect on inflammation has been the most-debated chapter of the field. A large reanalysis settles the puzzle: it depends on where you start.</p>
+          <ul class="cond-bullets">
+            <li>Across <strong>1,422 patients</strong>, fasting reduced CRP — but only in patients whose baseline CRP was already <em>elevated</em>.</li>
+            <li>Patients with low baseline CRP often showed a transient rise — explaining decades of contradictory headlines.</li>
+            <li>The pattern is biphasic: a short adaptive stress reaction, followed by longer-term immune recalibration.</li>
+            <li>Among 7 measured microRNAs, <strong>miR-146-5p</strong> — a known anti-inflammatory regulator — showed the strongest fasting-related changes.</li>
+            <li>LBP (a blood marker of bacterial-toxin-driven inflammation) <em>fell</em> during fasting and <em>stayed low</em> after refeeding, suggesting durable reduction of gut-derived inflammatory load.</li>
+            <li>In long-COVID patients (a model chronic-inflammation condition), fatigue, breathlessness, muscle and joint pain all improved.</li>
+            <li>In a 5-day modified fast, blood metabolomics revealed a significant <em>decrease</em> in chronic inflammation markers.</li>
+            <li>Anti-inflammatory effects are real — and most pronounced in the patients who actually need them.</li>
+          </ul>
+          <p class="cond-sources"><strong>Sources:</strong> Front Clin Diab Healthcare 2025 (1,422 patients) · Food Chem Toxicol 2021 microRNAs · J Nutr Sci 2019 LBP · Frontiers in Nutrition 2023 long COVID · medRxiv 2024 modified fast</p>
         </div>
       </div>
 
@@ -785,12 +873,20 @@
           </svg>
         </div>
         <div class="cond-card">
+          <p class="cond-eyebrow">Brain &amp; nervous system</p>
           <h3>Neurological</h3>
-          <p>Ketone bodies provide a clean and efficient fuel for the brain, with neuroprotective effects observed across multiple lines of research. A 2023 case series and literature review examined long-term fasting in five long-COVID patients and reported improvements in cognitive impairment, fatigue, and disorders of smell and taste.</p>
-          <p>The proposed mechanisms include anti-inflammatory action, autophagy induction in neurons, immune recalibration and gut-brain microbiome remodelling.</p>
-          <div class="cond-stat">
-            <div><span>Mechanisms</span><strong>4 pathways</strong></div>
-          </div>
+          <p class="cond-intro">The brain doesn't shut down during fasting — it switches fuels. Ketone bodies are a clean, efficient alternative, and several pathways activated by fasting are at the centre of modern neuroscience research.</p>
+          <ul class="cond-bullets">
+            <li>The metabolic switch from glucose to ketones is documented in <strong>1,422 patients</strong>; ketones supply up to <strong>60–70%</strong> of brain energy needs during long-term fasting.</li>
+            <li>Long-term fasting <em>deactivates</em> mTOR and <em>activates</em> AMPK — the same molecular pathways implicated in neurodegenerative disease and longevity research.</li>
+            <li>In a long-COVID case series, patients reported improvements in <em>cognitive impairment</em>, smell and taste disorders, and persistent brain fog.</li>
+            <li>Sustained improvements continued even after a return to normal diet — fasting's effects on the brain outlast the fast itself.</li>
+            <li>Long-term fasting remodels fatty-acid composition in red-blood-cell membranes — opening research questions in diseases like multiple sclerosis where myelin (the brain's fatty insulation) is damaged.</li>
+            <li>The parasympathetic activation seen in GENESIS (<strong>p &lt; 0.001</strong>) is linked to better interoception, emotional regulation and mindfulness.</li>
+            <li><strong>Spermidine</strong> — essential for autophagy and neuroprotection in both animals and humans — rose uniformly in fasting patients (Buchinger Wilhelmi cohorts).</li>
+            <li>Fasting-associated microRNAs target cellular pathways including mTOR, FoxO and autophagy — central regulators of brain ageing.</li>
+          </ul>
+          <p class="cond-sources"><strong>Sources:</strong> Frontiers in Nutrition 2023 long COVID · Ann Med 2020 (review) · Eur J Clin Invest 2025 fatty acids · Int J Obesity 2025 GENESIS · Nat Cell Biol 2024 spermidine · Food Chem Toxicol 2021 microRNAs</p>
         </div>
       </div>
 
@@ -808,13 +904,97 @@
           </svg>
         </div>
         <div class="cond-card">
+          <p class="cond-eyebrow">Immune recalibration</p>
           <h3>Auto-immune</h3>
-          <p>Otto Buchinger's clinic was founded in 1919 after he himself recovered from severe rheumatoid arthritis through supervised fasting — an origin story that grounds the modern clinical programme.</p>
-          <p>Across our patient cohort, 84% of pre-existing chronic complaints — including arthritis, fatty liver, hypertension, hypercholesterolaemia and type-2 diabetes — improved during medically supervised fasting, supported by autophagy, immune-cell turnover and reduced systemic inflammation.</p>
-          <div class="cond-stat">
-            <div><span>Conditions improved</span><strong>84%</strong></div>
-            <div><span>Patients</span><strong>404</strong></div>
-          </div>
+          <p class="cond-intro">The clinic itself was founded on auto-immune disease. Otto Buchinger turned to supervised fasting in 1919 to treat his own severe rheumatoid arthritis — the historical seed of the modern programme.</p>
+          <ul class="cond-bullets">
+            <li><strong>1919:</strong> Otto Buchinger recovers from severe rheumatoid arthritis through supervised fasting — the founding clinical observation of the method.</li>
+            <li>Across <strong>404 patients</strong> with pre-existing chronic complaints (a subset of the 1,422-patient cohort), <strong>84%</strong> reported improvement — including arthritis, type-2 diabetes, fatty liver and hypercholesterolaemia.</li>
+            <li>Adverse effects were reported in <strong>&lt; 1%</strong> of the 1,422 supervised fasting patients — establishing the safety profile of the method.</li>
+            <li>In long-COVID patients (a model immune-dysregulation condition), perceived overall health improved, and sustained gains persisted after return to normal diet.</li>
+            <li>Fasting activates <em>autophagy</em> — the body's cellular-cleanup pathway, central to immune-cell turnover (Nat Cell Biol 2024).</li>
+            <li>LBP (bacterial-toxin exposure) and chronic low-grade inflammation both fell during fasting, addressing two engines of auto-immune disease.</li>
+            <li>The 5-day modified fast also produced a measurable decrease in chronic inflammation markers — an accessible entry point for outpatient care.</li>
+            <li>In our 1,422-patient cohort, white-blood-cell and platelet counts decreased significantly but remained in the normal range — consistent with controlled immune renewal rather than suppression.</li>
+          </ul>
+          <p class="cond-sources"><strong>Sources:</strong> PLOS ONE 2019 (1,422 patients, 404 with complaints) · Frontiers in Nutrition 2023 long COVID · Nat Cell Biol 2024 spermidine/autophagy · J Nutr Sci 2019 · medRxiv 2024 modified fast</p>
+        </div>
+      </div>
+
+      <div class="cond-panel" data-cond="longevity">
+        <div class="cond-figure" aria-hidden="true">
+          <svg viewBox="0 0 420 320" xmlns="http://www.w3.org/2000/svg">
+            <line x1="40" y1="40" x2="40" y2="270" stroke="rgba(168,136,90,0.3)" stroke-width="0.75"/>
+            <line x1="40" y1="270" x2="380" y2="270" stroke="rgba(168,136,90,0.3)" stroke-width="0.75"/>
+            <line x1="40" y1="270" x2="380" y2="50" stroke="rgba(168,136,90,0.45)" stroke-width="1" stroke-dasharray="6 4" opacity="0.5"/>
+            <text x="385" y="50" fill="#8a7a6a" font-family="'Josefin Sans',sans-serif" font-size="8" letter-spacing="1" opacity="0.55">EXPECTED</text>
+            <circle cx="110" cy="230" r="5" fill="#a8885a" opacity="0.6"/>
+            <circle cx="165" cy="200" r="6" fill="#a8885a" opacity="0.55"/>
+            <circle cx="220" cy="170" r="7" fill="#6b9080" opacity="0.6"/>
+            <circle cx="275" cy="140" r="6" fill="#6b9080" opacity="0.55"/>
+            <circle cx="335" cy="100" r="9" fill="none" stroke="#a8885a" stroke-width="1.5"/>
+            <circle cx="335" cy="100" r="4" fill="#a8885a"/>
+            <text x="345" y="98" fill="#a8885a" font-family="'Josefin Sans',sans-serif" font-size="9" letter-spacing="1">92 yr · −5.9 yrs</text>
+            <polygon points="40,270 380,270 380,50 40,270" fill="#6b9080" opacity="0.05"/>
+            <text x="210" y="296" fill="#8a7a6a" font-family="'Josefin Sans',sans-serif" font-size="9" letter-spacing="2.5" text-anchor="middle" opacity="0.7">BIOLOGICAL vs CHRONOLOGICAL AGE</text>
+          </svg>
+        </div>
+        <div class="cond-card">
+          <p class="cond-eyebrow">Healthy ageing</p>
+          <h3>Longevity</h3>
+          <p class="cond-intro">Fasting activates the same handful of pathways that lengthen lifespan across yeast, flies, mice and humans — and we have the world's longest medically documented repeated-fasting history to look at.</p>
+          <ul class="cond-bullets">
+            <li>A <strong>92-year-old</strong> patient fasted <strong>21 days every year for 45 years</strong> under medical supervision at Buchinger Wilhelmi — the world's longest documented case of repeated long-term fasting.</li>
+            <li>His <strong>biological age</strong>, measured with epigenetic clocks, was <strong>5.9 years younger</strong> than his chronological age.</li>
+            <li>Exceptional mental and physical health, full mobility, no frailty at 92 — clinical parameters returned reliably to normal after every refeeding cycle.</li>
+            <li>Long-term fasting triggers the canonical anti-ageing programme: <em>autophagy</em>, <em>AMPK</em>, <em>SIRT1</em>, and inhibition of <em>mTOR</em> — the same set of pathways that extend lifespan in every model organism ever tested.</li>
+            <li><strong>Spermidine</strong> — essential for fasting-mediated autophagy and lifespan extension across species — rose uniformly in Buchinger Wilhelmi fasting cohorts (Nat Cell Biol 2024).</li>
+            <li>Blocking spermidine synthesis abolishes fasting's lifespan, healthspan, cardioprotective and anti-arthritic effects in animal models — establishing it as causal, not correlational.</li>
+            <li>Long-term fasting (5–21 days) is safe to repeat throughout the year under medical supervision.</li>
+            <li>This case corroborates the evolutionary view that humans were adapted by seasonal food shortages to fast periodically — and have conserved that ability.</li>
+          </ul>
+          <p class="cond-sources"><strong>Sources:</strong> JICM 2024 92-year-old case report · Nat Cell Biol 2024 spermidine · Ann Med 2020 (review) · PHT 2023 self-healing &amp; longevity</p>
+        </div>
+      </div>
+
+      <div class="cond-panel" data-cond="detox">
+        <div class="cond-figure" aria-hidden="true">
+          <svg viewBox="0 0 420 320" xmlns="http://www.w3.org/2000/svg">
+            <line x1="40" y1="40" x2="40" y2="270" stroke="rgba(168,136,90,0.3)" stroke-width="0.75"/>
+            <line x1="40" y1="270" x2="380" y2="270" stroke="rgba(168,136,90,0.3)" stroke-width="0.75"/>
+            <!-- Arsenic bar -->
+            <rect x="70"  y="60"  width="40" height="210" fill="rgba(168,136,90,0.3)" rx="2"/>
+            <rect x="115" y="210" width="40" height="60"  fill="#a8885a" rx="2" opacity="0.8"/>
+            <text x="135" y="56" fill="#a8885a" font-family="'Josefin Sans',sans-serif" font-size="9" text-anchor="middle" letter-spacing="1">−72%</text>
+            <text x="113" y="290" fill="#8a7a6a" font-family="'Josefin Sans',sans-serif" font-size="8" text-anchor="middle" letter-spacing="1.5" opacity="0.7">ARSENIC</text>
+            <!-- Lead bar -->
+            <rect x="200" y="100" width="40" height="170" fill="rgba(168,136,90,0.3)" rx="2"/>
+            <rect x="245" y="170" width="40" height="100" fill="#a8885a" rx="2" opacity="0.8"/>
+            <text x="265" y="96" fill="#a8885a" font-family="'Josefin Sans',sans-serif" font-size="9" text-anchor="middle" letter-spacing="1">−30%</text>
+            <text x="243" y="290" fill="#8a7a6a" font-family="'Josefin Sans',sans-serif" font-size="8" text-anchor="middle" letter-spacing="1.5" opacity="0.7">LEAD (HAIR)</text>
+            <!-- Nickel bar -->
+            <rect x="330" y="160" width="40" height="110" fill="rgba(168,136,90,0.3)" rx="2"/>
+            <rect x="375" y="180" width="20" height="90"  fill="#a8885a" rx="2" opacity="0.8"/>
+            <text x="382" y="156" fill="#a8885a" font-family="'Josefin Sans',sans-serif" font-size="9" text-anchor="middle" letter-spacing="1">−15%</text>
+            <text x="368" y="290" fill="#8a7a6a" font-family="'Josefin Sans',sans-serif" font-size="8" text-anchor="middle" letter-spacing="1.5" opacity="0.7">NICKEL</text>
+            <text x="210" y="20" fill="#8a7a6a" font-family="'Josefin Sans',sans-serif" font-size="9" letter-spacing="2.5" text-anchor="middle" opacity="0.7">HEAVY METAL EXCRETION · 10-DAY FAST</text>
+          </svg>
+        </div>
+        <div class="cond-card">
+          <p class="cond-eyebrow">Toxic load &amp; oxidative defence</p>
+          <h3>Detoxification</h3>
+          <p class="cond-intro">"Detox" is often dismissed as marketing — but the body really does mobilise stored toxic metals and recalibrate oxidative defences during long-term fasting. We measured it.</p>
+          <ul class="cond-bullets">
+            <li>After a <strong>10-day fast</strong>, urinary arsenic excretion fell by <strong>−72%</strong> and nickel by <strong>−15%</strong>; hair lead concentrations dropped by <strong>−30%</strong>.</li>
+            <li>Urinary mercury was unchanged — fasting selectively mobilises some toxic metals more than others, consistent with their biology.</li>
+            <li><strong>Glyphosate</strong> (the world's most-used herbicide), chromium and cobalt were undetectable in most participants — useful background data on environmental exposure.</li>
+            <li>Lipid peroxidation (a marker of oxidative damage) fell across <strong>109 patients</strong> during a 10-day fast.</li>
+            <li>Total antioxidant capacity in plasma <em>rose</em>, including the ability to scavenge ABTS and hydroxyl radicals — fasting strengthens the body's own oxidative defences.</li>
+            <li><strong>Four weeks after</strong> the fast, the share of participants eating mostly organic food rose to <strong>40%</strong>, and smoking dropped significantly — fasting acts as a launchpad for healthier habits.</li>
+            <li>Participants also reported improvements in fatigue, sleep, headache and hunger after the fast ended.</li>
+            <li>Across <strong>1,422 patients</strong>, <strong>84%</strong> of pre-existing chronic complaints improved — consistent with a meaningful reduction in chronic toxic and inflammatory load.</li>
+          </ul>
+          <p class="cond-sources"><strong>Sources:</strong> Frontiers in Nutrition 2021 heavy metals · Antioxidants 2020 redox status (109 patients) · Food Chem Toxicol 2020 baseline-dependent effects · PLOS ONE 2019 (1,422 patients)</p>
         </div>
       </div>
 

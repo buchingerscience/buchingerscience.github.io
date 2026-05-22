@@ -181,50 +181,24 @@
     }
 
     /* ─────────────────────────────────────────
-       How fasting helps different conditions — tabs
+       How fasting helps different conditions — linear stack
     ───────────────────────────────────────── */
-    .cond-tabs {
-      display: flex;
-      gap: 28px;
-      border-bottom: 1px solid var(--border-soft);
-      margin-bottom: var(--s4);
-      overflow-x: auto;
-      scrollbar-width: none;
-    }
-    .cond-tabs::-webkit-scrollbar { display: none; }
-
-    .cond-tab {
-      flex-shrink: 0;
-      background: none;
-      border: 0;
-      padding: 14px 2px;
-      font-family: var(--sans);
-      font-size: 0.7rem;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--muted);
-      cursor: pointer;
-      position: relative;
-      transition: color 0.2s;
-    }
-    .cond-tab:hover { color: var(--warm-dark); }
-    .cond-tab.active { color: var(--warm-dark); font-weight: 400; }
-    .cond-tab.active::after {
-      content: '';
-      position: absolute;
-      left: 0; right: 0; bottom: -1px;
-      height: 2px;
-      background: var(--brass);
-    }
-
     .cond-panels { position: relative; }
     .cond-panel {
-      display: none;
+      display: grid;
       grid-template-columns: 0.62fr 1.38fr;
       gap: var(--s4);
       align-items: flex-start;
+      padding-top: var(--s5);
     }
-    .cond-panel.active { display: grid; animation: fadeIn 0.4s ease; }
+    .cond-panel:first-of-type { padding-top: 0; }
+    .cond-panel + .cond-panel {
+      margin-top: var(--s5);
+      border-top: 1px solid var(--border-soft);
+    }
+    /* Alternate sides: figure right on even panels */
+    .cond-panel:nth-of-type(even) .cond-figure { grid-column: 2; grid-row: 1; }
+    .cond-panel:nth-of-type(even) .cond-card   { grid-column: 1; grid-row: 1; }
 
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(6px); }
@@ -503,15 +477,15 @@
     @media (max-width: 980px) {
       .body-grid { grid-template-columns: 1fr; gap: var(--s4); }
       .body-figure { min-height: 320px; }
-      .cond-panel.active { grid-template-columns: 1fr; }
+      .cond-panel { grid-template-columns: 1fr; }
+      .cond-panel:nth-of-type(even) .cond-figure,
+      .cond-panel:nth-of-type(even) .cond-card { grid-column: 1; }
       .cond-figure { position: relative; top: 0; min-height: 260px; }
       .res-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
     }
     @media (max-width: 620px) {
       .science-hero { padding: 100px 24px 64px; }
       .res-grid { grid-template-columns: 1fr; }
-      .cond-tabs { gap: 18px; }
-      .cond-tab { font-size: 0.65rem; }
     }
   </style>
 </head>
@@ -644,21 +618,9 @@
   <section class="sci-section" id="conditions">
     <h2>How fasting helps different <em>conditions</em></h2>
 
-    <div class="cond-tabs" role="tablist" id="condTabs">
-      <button class="cond-tab active" data-cond="cardio" role="tab">Cardiovascular</button>
-      <button class="cond-tab" data-cond="gi" role="tab">Gastrointestinal</button>
-      <button class="cond-tab" data-cond="mental" role="tab">Mental, brain health</button>
-      <button class="cond-tab" data-cond="metabolic" role="tab">Metabolic disorders</button>
-      <button class="cond-tab" data-cond="muscle" role="tab">Musculoskeletal</button>
-      <button class="cond-tab" data-cond="inflam" role="tab">Inflammation</button>
-      <button class="cond-tab" data-cond="auto" role="tab">Auto-immune</button>
-      <button class="cond-tab" data-cond="longevity" role="tab">Longevity</button>
-      <button class="cond-tab" data-cond="detox" role="tab">Detoxification</button>
-    </div>
-
     <div class="cond-panels">
 
-      <div class="cond-panel active" data-cond="cardio">
+      <div class="cond-panel" data-cond="cardio">
         <div class="cond-figure" aria-hidden="true">
           <svg viewBox="0 0 420 320" xmlns="http://www.w3.org/2000/svg">
             <line x1="40" y1="40" x2="40" y2="270" stroke="rgba(168,136,90,0.3)" stroke-width="0.75"/>
@@ -843,53 +805,23 @@
           </svg>
         </div>
         <div class="cond-card">
-          <p class="cond-eyebrow">Chronic low-grade inflammation</p>
-          <h3>Inflammation</h3>
-          <p class="cond-intro">Fasting's effect on inflammation has been the most-debated chapter of the field. A large reanalysis settles the puzzle: it depends on where you start.</p>
+          <p class="cond-eyebrow">Immune balance</p>
+          <h3>Inflammation &amp; auto-immune</h3>
+          <p class="cond-intro">Fasting reshapes the immune system in two complementary ways — calming the chronic low-grade inflammation that drives most modern diseases, and recalibrating immune responses in auto-immunity. The clinic itself was founded on this observation in 1919.</p>
           <ul class="cond-bullets">
-            <li>Across <strong>1,422 patients</strong>, fasting reduced CRP — but only in patients whose baseline CRP was already <em>elevated</em>.</li>
-            <li>Patients with low baseline CRP often showed a transient rise — explaining decades of contradictory headlines.</li>
-            <li>The pattern is biphasic: a short adaptive stress reaction, followed by longer-term immune recalibration.</li>
+            <li><strong>1919:</strong> Otto Buchinger founded the clinic after using supervised fasting to recover from severe rheumatoid arthritis — the founding clinical observation of the modern method.</li>
+            <li>Across <strong>404 patients</strong> with pre-existing chronic complaints, <strong>84%</strong> reported improvement — including arthritis, type-2 diabetes, fatty liver and hypercholesterolaemia.</li>
+            <li>Across <strong>1,422 patients</strong>, fasting reduced CRP — but only in patients whose baseline CRP was already <em>elevated</em>; patients with low CRP often showed a transient rise. This biphasic pattern explains decades of contradictory headlines.</li>
             <li><strong>Chronic inflammation decreases during fasting <em>and</em> through food reintroduction</strong> — the anti-inflammatory shift is not undone when patients return to eating.</li>
-            <li>Fasting helps manage <strong>rheumatoid arthritis</strong> — the founding clinical observation of the Buchinger method, supported a century later by the immune-recalibration data.</li>
-            <li>In long-COVID patients, perceived overall health improved alongside <em>fatigue, breathlessness, muscle and joint pains</em> — symptoms many patients had carried for months.</li>
+            <li>In long-COVID patients (a model immune-dysregulation condition), perceived overall health improved alongside <em>fatigue, breathlessness, muscle and joint pains</em> — with sustained gains after returning to normal diet.</li>
+            <li>Fasting activates <em>autophagy</em> — the body's cellular-cleanup pathway, central to immune-cell turnover. Spermidine, essential for fasting-mediated autophagy, rose uniformly across Buchinger Wilhelmi cohorts (Nat Cell Biol 2024).</li>
+            <li>LBP (a marker of bacterial-toxin-driven inflammation) <em>fell</em> during fasting and <em>stayed low</em> after refeeding, addressing one of the main engines of chronic inflammation.</li>
             <li>Among 7 measured microRNAs, <strong>miR-146-5p</strong> — a known anti-inflammatory regulator — showed the strongest fasting-related changes.</li>
-            <li>LBP (a blood marker of bacterial-toxin-driven inflammation) <em>fell</em> during fasting and <em>stayed low</em> after refeeding, suggesting durable reduction of gut-derived inflammatory load.</li>
-            <li>In a 5-day modified fast, blood metabolomics revealed a significant <em>decrease</em> in chronic inflammation markers.</li>
-            <li>Anti-inflammatory effects are real — and most pronounced in the patients who need them the most.</li>
+            <li>Even a <strong>5-day modified fast</strong> produced a measurable decrease in chronic-inflammation markers on blood metabolomics — an accessible outpatient entry point.</li>
+            <li>White-blood-cell and platelet counts decreased significantly but remained within normal range — consistent with controlled immune renewal, not suppression.</li>
+            <li>Adverse effects were reported in <strong>&lt; 1%</strong> of 1,422 supervised fasting patients — establishing the safety profile, particularly important for auto-immune patients.</li>
           </ul>
-          <p class="cond-sources"><strong>Sources:</strong> Front Clin Diab Healthcare 2025 (1,422 patients) · Food Chem Toxicol 2021 microRNAs · J Nutr Sci 2019 LBP · Frontiers in Nutrition 2023 long COVID · medRxiv 2024 modified fast</p>
-        </div>
-      </div>
-
-      <div class="cond-panel" data-cond="auto">
-        <div class="cond-figure" aria-hidden="true">
-          <svg viewBox="0 0 420 320" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="210" cy="160" r="100" fill="none" stroke="rgba(168,136,90,0.25)" stroke-width="1" stroke-dasharray="4 4"/>
-            <g stroke="#a8885a" fill="none" stroke-linecap="round" stroke-width="2">
-              <path d="M 130 160 Q 170 130 210 160 Q 250 190 290 160" opacity="0.85"/>
-              <path d="M 130 200 Q 170 170 210 200 Q 250 230 290 200" opacity="0.55"/>
-              <path d="M 130 120 Q 170 90 210 120 Q 250 150 290 120" opacity="0.35"/>
-            </g>
-            <circle cx="210" cy="160" r="6" fill="#a8885a" opacity="0.85"/>
-            <text x="210" y="296" fill="#8a7a6a" font-family="'Josefin Sans',sans-serif" font-size="9" letter-spacing="2.5" text-anchor="middle" opacity="0.7">IMMUNE RECALIBRATION</text>
-          </svg>
-        </div>
-        <div class="cond-card">
-          <p class="cond-eyebrow">Immune recalibration</p>
-          <h3>Auto-immune</h3>
-          <p class="cond-intro">The clinic itself was founded on auto-immune disease. Otto Buchinger turned to supervised fasting in 1919 to treat his own severe rheumatoid arthritis — the historical seed of the modern programme.</p>
-          <ul class="cond-bullets">
-            <li><strong>1919:</strong> Otto Buchinger recovers from severe rheumatoid arthritis through supervised fasting — the founding clinical observation of the method.</li>
-            <li>Across <strong>404 patients</strong> with pre-existing chronic complaints (a subset of the 1,422-patient cohort), <strong>84%</strong> reported improvement — including arthritis, type-2 diabetes, fatty liver and hypercholesterolaemia.</li>
-            <li>Adverse effects were reported in <strong>&lt; 1%</strong> of the 1,422 supervised fasting patients — establishing the safety profile of the method.</li>
-            <li>In long-COVID patients (a model immune-dysregulation condition), perceived overall health improved, and sustained gains persisted after return to normal diet.</li>
-            <li>Fasting activates <em>autophagy</em> — the body's cellular-cleanup pathway, central to immune-cell turnover (Nat Cell Biol 2024).</li>
-            <li>LBP (bacterial-toxin exposure) and chronic low-grade inflammation both fell during fasting, addressing two engines of auto-immune disease.</li>
-            <li>The 5-day modified fast also produced a measurable decrease in chronic inflammation markers — an accessible entry point for outpatient care.</li>
-            <li>In our 1,422-patient cohort, white-blood-cell and platelet counts decreased significantly but remained in the normal range — consistent with controlled immune renewal rather than suppression.</li>
-          </ul>
-          <p class="cond-sources"><strong>Sources:</strong> PLOS ONE 2019 (1,422 patients, 404 with complaints) · Frontiers in Nutrition 2023 long COVID · Nat Cell Biol 2024 spermidine/autophagy · J Nutr Sci 2019 · medRxiv 2024 modified fast</p>
+          <p class="cond-sources"><strong>Sources:</strong> PLOS ONE 2019 (1,422 patients, 404 with complaints) · Front Clin Diab Healthcare 2025 baseline-dependent CRP · Frontiers in Nutrition 2023 long COVID · Nat Cell Biol 2024 spermidine/autophagy · J Nutr Sci 2019 LBP · Food Chem Toxicol 2021 microRNAs · medRxiv 2024 modified fast</p>
         </div>
       </div>
 
@@ -1354,17 +1286,6 @@
         document.querySelectorAll('#bodyAccordion .acc-trigger').forEach(b => {
           b.setAttribute('aria-expanded', b.parentElement.classList.contains('open'));
         });
-      });
-    });
-
-    // Conditions tabs
-    const condTabs = document.querySelectorAll('#condTabs .cond-tab');
-    const condPanels = document.querySelectorAll('.cond-panel');
-    condTabs.forEach(tab => {
-      tab.addEventListener('click', () => {
-        const target = tab.dataset.cond;
-        condTabs.forEach(t => t.classList.toggle('active', t === tab));
-        condPanels.forEach(p => p.classList.toggle('active', p.dataset.cond === target));
       });
     });
 

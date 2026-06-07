@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>A rainbow a day keeps the doctor away</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,500;1,8..60,300;1,8..60,400&display=swap" rel="stylesheet">
+
+  <style>body { display: none; }</style>
+
+  <script>
+    (function () {
+      const PASSWORD = "mesnage";
+      const USE_SESSION = true;
+
+      if (USE_SESSION && sessionStorage.getItem("mesnage_access") === "true") {
+        document.addEventListener("DOMContentLoaded", () => { document.body.style.display = "block"; });
+        return;
+      }
+
+      const input = prompt("Please enter the password to access this page:");
+
+      if (input === PASSWORD) {
+        if (USE_SESSION) sessionStorage.setItem("mesnage_access", "true");
+        document.addEventListener("DOMContentLoaded", () => { document.body.style.display = "block"; });
+      } else {
+        document.addEventListener("DOMContentLoaded", () => {
+          document.body.style.display = "block";
+          document.body.innerHTML = `
+            <main style="max-width:680px;margin:100px auto;padding:0 24px;font-family:'Source Serif 4',Georgia,serif;color:#1a1a1a;">
+              <h1 style="font-family:'Playfair Display',serif;font-size:2rem;margin-bottom:12px;">Access Denied</h1>
+              <p style="color:#555;">This page is not available without the correct password.</p>
+            </main>`;
+        });
+      }
+    })();
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream: #f7f3ee;
+      --paper: #faf8f5;
+      --ink: #1c1917;
+      --ink-soft: #44403c;
+      --ink-muted: #78716c;
+      --rule: #d6d3ce;
+      --accent: #2a5c8a;
+      --accent-warm: #8b3a2a;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background-color: var(--cream);
+      color: var(--ink);
+      font-family: 'Source Serif 4', Georgia, serif;
+      font-size: 18px;
+      line-height: 1.8;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page-wrap {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 72px 28px 100px;
+    }
+
+    /* Kicker */
+    .article-kicker {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent-warm);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .article-kicker::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--accent-warm);
+      opacity: 0.3;
+    }
+
+    /* Title */
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 5vw, 3.4rem);
+      font-weight: 700;
+      line-height: 1.12;
+      color: var(--ink);
+      letter-spacing: -0.01em;
+      margin-bottom: 28px;
+    }
+
+    /* Byline */
+    .byline {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding-bottom: 28px;
+      border-bottom: 1px solid var(--rule);
+      margin-bottom: 42px;
+    }
+    .byline-avatar {
+      width: 42px; height: 42px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #2a5c8a 0%, #8b3a2a 100%);
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 15px; color: white; flex-shrink: 0;
+    }
+    .byline-text .author { font-size: 14px; font-weight: 500; }
+    .byline-text .meta   { font-size: 13px; color: var(--ink-muted); margin-top: 2px; }
+
+    /* Body */
+    .article-body p {
+      margin-bottom: 1.65em;
+      color: var(--ink-soft);
+    }
+
+    /* Drop cap */
+    .article-body p:first-of-type::first-letter {
+      font-family: 'Playfair Display', serif;
+      font-size: 4.6em;
+      font-weight: 700;
+      float: left;
+      line-height: 0.82;
+      margin-right: 0.08em;
+      margin-top: 0.07em;
+      color: var(--ink);
+    }
+
+    /* Opening quote */
+    .opening-quote {
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.22rem;
+      color: var(--ink);
+      padding: 0 0 0 24px;
+      border-left: 3px solid var(--accent-warm);
+      margin-bottom: 2em;
+      line-height: 1.55;
+    }
+
+    /* Pull quote */
+    .pullquote {
+      margin: 2.8em 0;
+      padding: 28px 0;
+      border-top: 2px solid var(--rule);
+      border-bottom: 2px solid var(--rule);
+      font-family: 'Playfair Display', serif;
+      font-style: italic;
+      font-size: 1.4rem;
+      color: var(--ink);
+      line-height: 1.45;
+      text-align: center;
+    }
+
+    /* Colour list */
+    .rainbow-list {
+      list-style: none;
+      padding: 0;
+      margin: 2em 0 2.2em;
+      display: grid;
+      gap: 0;
+    }
+
+    .rainbow-list li {
+      padding: 16px 18px 16px 56px;
+      position: relative;
+      font-size: 0.97rem;
+      color: var(--ink-soft);
+      line-height: 1.65;
+      border-bottom: 1px solid var(--rule);
+    }
+    .rainbow-list li:first-child { border-top: 1px solid var(--rule); }
+
+    .rainbow-list li .swatch {
+      position: absolute;
+      left: 16px;
+      top: 20px;
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      border: 2px solid rgba(0,0,0,0.08);
+    }
+
+    .rainbow-list li strong {
+      font-weight: 600;
+      color: var(--ink);
+      display: block;
+      margin-bottom: 3px;
+    }
+
+    /* Tea special item */
+    .tea-list {
+      list-style: none;
+      padding: 0;
+      margin: 1.4em 0 2em;
+    }
+    .tea-list li {
+      padding: 14px 18px 14px 44px;
+      position: relative;
+      font-size: 0.97rem;
+      color: var(--ink-soft);
+      line-height: 1.65;
+      border-top: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+    }
+    .tea-list li::before {
+      content: '☕';
+      position: absolute;
+      left: 12px;
+      top: 14px;
+      font-size: 16px;
+    }
+    .tea-list li strong { font-weight: 600; color: var(--ink); }
+
+    /* Footer rule */
+    .article-end {
+      margin-top: 56px;
+      padding-top: 22px;
+      border-top: 1px solid var(--rule);
+      font-size: 13px;
+      color: var(--ink-muted);
+      font-style: italic;
+    }
+
+    @media (max-width: 600px) {
+      .page-wrap { padding: 44px 20px 72px; }
+      h1 { font-size: 2rem; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page-wrap">
+
+    <div class="article-kicker">Nutrition &amp; Longevity &nbsp;·&nbsp; Summer 2026</div>
+
+    <h1>A rainbow a day keeps the doctor away</h1>
+
+    <div class="byline">
+      <div class="byline-avatar">R</div>
+      <div class="byline-text">
+        <div class="author">Robin Mesnage, Ph.D.</div>
+        <div class="meta">King's College London &nbsp;·&nbsp; June 2026</div>
+      </div>
+    </div>
+
+    <div class="article-body">
+
+      <p class="opening-quote">"To improve your gut microbiome, you should eat the rainbow."</p>
+
+      <p>This has become one of the simplest rules in nutrition. The idea sounds almost childish: fill your plate with colours. Yet behind this advice hides a serious medical principle.</p>
+
+      <p>Summer is here, and with it the markets. Producers arrive before sunrise. Wooden crates gradually fill with colourful strawberries, apricots, tomatoes, dark leafy greens, blueberries. These colours are not decoration.</p>
+
+      <p>Many pigments giving fruits and vegetables their reds, blues or yellows belong to a family of compounds called polyphenols. A recent study following more than 120,000 people revealed something unexpected: individuals consuming the widest diversity of polyphenols had a significantly lower risk of death and chronic diseases.</p>
+
+      <div class="pullquote">
+        "For decades, nutrition focused mainly on calories, proteins and vitamins. Increasingly, science suggests we may have underestimated these small compounds."
+      </div>
+
+      <p>For decades, nutrition focused mainly on calories, proteins and vitamins. Increasingly, science suggests we may have underestimated these small compounds that do not nourish us in the traditional sense, yet may help us achieve a healthy and happy longevity. The familiar advice to "eat the rainbow" may therefore be less folklore than biological wisdom.</p>
+
+      <p>Now close your eyes and imagine yourself at your local market. Here is how you can fill your plate with polyphenols:</p>
+
+      <ul class="rainbow-list">
+        <li>
+          <span class="swatch" style="background:#e03a3a;"></span>
+          <strong>Red — tomatoes, strawberries and cherries</strong>
+          Rich in anthocyanins and lycopene, associated with cardiovascular health. May berries become your snack of the summer.
+        </li>
+        <li>
+          <span class="swatch" style="background:#f5903a;"></span>
+          <strong>Orange — carrots, pumpkin and apricots</strong>
+          Sources of carotenoids and flavonoids linked to antioxidant protection. Roasted carrots with olive oil may provide more than colour. An important note: a healthy dose of olive oil will even allow absorbing these polyphenols better.
+        </li>
+        <li>
+          <span class="swatch" style="background:#f0c634;"></span>
+          <strong>Yellow — citrus fruits and yellow peppers</strong>
+          Rich in flavanones, compounds supporting vascular function. An orange remains one of nature's simplest snacks.
+        </li>
+        <li>
+          <span class="swatch" style="background:#3a9e5f;"></span>
+          <strong>Green — spinach, broccoli, herbs and rocket</strong>
+          Rich in flavonols and compounds influencing detoxification pathways.
+        </li>
+        <li>
+          <span class="swatch" style="background:#5a3a9e;"></span>
+          <strong>Blue and purple — blueberries, blackberries and blackcurrants</strong>
+          Research from my group at King's College London has shown that regular consumption of berries rich in anthocyanins can improve aspects of cognition and cardiovascular function. A handful added daily to yoghurt, kefir or porridge may be one of the simplest habits supporting healthy ageing. Frozen berries work surprisingly well too.
+        </li>
+      </ul>
+
+      <p>Yet some of the richest sources of these compounds in Western diets are not blueberries, pomegranates or expensive supplements. They are often sitting quietly on our breakfast tables.</p>
+
+      <ul class="tea-list">
+        <li>
+          <strong>Tea and coffee.</strong> Their bitterness is a signal of the thousands of plant compounds they contain, many of which are increasingly associated with healthier ageing.
+        </li>
+      </ul>
+
+      <p>It is a reassuring thought. The rainbow does not only live in summer markets overflowing with colours. Sometimes, it hides in a dark cup held between our hands on an ordinary morning.</p>
+
+    </div>
+
+    <div class="article-end">
+      Robin Mesnage · Department of Medical and Molecular Genetics, King's College London
+    </div>
+
+  </div>
+</body>
+</html>

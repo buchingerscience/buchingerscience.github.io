@@ -127,8 +127,8 @@
       color: var(--ink-soft);
     }
 
-    /* Drop cap */
-    .article-body p:first-of-type::first-letter {
+    /* Drop cap — only on the second p (first real paragraph, not the quote) */
+    .article-body p.first-para::first-letter {
       font-family: 'Playfair Display', serif;
       font-size: 4.6em;
       font-weight: 700;
@@ -143,13 +143,27 @@
     .opening-quote {
       font-family: 'Playfair Display', serif;
       font-style: italic;
-      font-size: 1.22rem;
-      color: var(--ink);
-      padding: 0 0 0 24px;
-      border-left: 3px solid var(--accent-warm);
-      margin-bottom: 2em;
-      line-height: 1.55;
+      font-size: 1.28rem;
+      color: var(--ink-muted);
+      text-align: center;
+      margin: 0 auto 2.2em;
+      max-width: 52ch;
+      line-height: 1.6;
+      position: relative;
+      padding: 0 8px;
     }
+    .opening-quote::before {
+      content: '\201C';
+      display: block;
+      font-family: 'Playfair Display', serif;
+      font-size: 4rem;
+      line-height: 0.9;
+      color: var(--accent-warm);
+      opacity: 0.45;
+      margin-bottom: 4px;
+      font-style: normal;
+    }
+    .opening-quote::first-letter { font-size: inherit; float: none; margin: 0; }
 
     /* Pull quote */
     .pullquote {
@@ -252,7 +266,7 @@
       <div class="byline-avatar">R</div>
       <div class="byline-text">
         <div class="author">Robin Mesnage, Ph.D.</div>
-        <div class="meta">King's College London &nbsp;·&nbsp; June 2026</div>
+        <div class="meta">Scientific Director, Buchinger Wilhelmi Clinics &nbsp;·&nbsp; Research Fellow, King's College London</div>
       </div>
     </div>
 
@@ -260,7 +274,7 @@
 
       <p class="opening-quote">"To improve your gut microbiome, you should eat the rainbow."</p>
 
-      <p>This has become one of the simplest rules in nutrition. The idea sounds almost childish: fill your plate with colours. Yet behind this advice hides a serious medical principle.</p>
+      <p class="first-para">This has become one of the simplest rules in nutrition. The idea sounds almost childish: fill your plate with colours. Yet behind this advice hides a serious medical principle.</p>
 
       <p>Summer is here, and with it the markets. Producers arrive before sunrise. Wooden crates gradually fill with colourful strawberries, apricots, tomatoes, dark leafy greens, blueberries. These colours are not decoration.</p>
 
@@ -315,7 +329,7 @@
     </div>
 
     <div class="article-end">
-      Robin Mesnage · Department of Medical and Molecular Genetics, King's College London
+      Robin Mesnage · Scientific Director, Buchinger Wilhelmi Clinics · Research Fellow, King's College London
     </div>
 
   </div>

@@ -29,6 +29,15 @@
     nav.nav--scrolled .nav-toggle { color: var(--warm-dark); }
     nav.menu-open .nav-toggle { color: var(--warm-dark); }
 
+    /* Tools dropdown button — match nav link colour over dark hero */
+    nav .nav-dropdown-btn { color: rgba(232,221,208,0.75); opacity: 1; }
+    nav .nav-dropdown-btn:hover,
+    nav .nav-dropdown-btn.open {
+      background: rgba(255,255,255,0.08);
+      color: var(--sand);
+    }
+    nav .nav-chevron { color: inherit; }
+
     nav.nav--scrolled {
       background: rgba(244,240,234,0.94);
       backdrop-filter: blur(16px);
@@ -39,6 +48,13 @@
     nav.nav--scrolled a { color: var(--warm-mid); }
     nav.nav--scrolled a:hover { background: var(--stone); border-color: transparent; color: var(--warm-dark); }
     nav.nav--scrolled a.active { background: var(--brass); color: var(--chalk); border-color: var(--brass); }
+
+    nav.nav--scrolled .nav-dropdown-btn { color: var(--warm-mid); }
+    nav.nav--scrolled .nav-dropdown-btn:hover,
+    nav.nav--scrolled .nav-dropdown-btn.open {
+      background: var(--stone);
+      color: var(--warm-dark);
+    }
   </style>
 </head>
 

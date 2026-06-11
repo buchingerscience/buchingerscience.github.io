@@ -36,15 +36,22 @@
       "topics": [
         "fatty liver disease",
         "fat metabolism",
+        "visceral fat",
         "mri",
-        "long-term fasting"
+        "long-term fasting",
+        "MAFLD"
       ],
       "bullets": [
-        "This study used quantitative chemical-shift encoded MRI to monitor changes in liver and abdominal adipose tissues during long-term fasting at Buchinger Wilhelmi.",
-        "Chemical-shift encoded MRI enables precise, non-invasive quantification of fat content in the liver as well as visceral and subcutaneous adipose tissue depots.",
-        "The study documented changes in liver fat and abdominal adipose tissue distribution during the fasting and food reintroduction period.",
-        "Quantitative MRI provides a robust framework to objectively assess fat redistribution during fasting interventions and to relate it to clinical and metabolic parameters.",
-        "These imaging findings refine and extend earlier observations on the targeted mobilisation of visceral and liver fat during medically supervised long-term fasting."
+        "Fasting caused reversible adaptive changes in the liver, with a 21% volume reduction and a temporary increase in fat content in healthy subjects.",
+        "The liver volume reduction observed in this study probably primarily reflects physiological variations in glycogen content which is exhausted in the first few days of fasting for neoglucogenesis.",
+        "Larger reductions in liver volume are observed when fat is eliminated in patients with fatty liver.",
+        "The temporary increase in liver fat content at the end of fasting in healthy subjects is likely a physiological response to the mobilization of stored fat as a source of energy during fasting. When free fatty acids mobilized from the adipose tissues are not used for β-oxidation in mitochondria in the liver, they can be re-esterified into triglyceride and subsequently deposited in the hepatocyte cytoplasm.",
+        "The observed reduction in liver fat in individuals with steatosis suggests that fasting could be a viable non-pharmacological treatment for improving liver health and potentially reversing fatty liver disease.",
+        "Subcutaneous and visceral adipose tissue volumes decreased not only at the end of fasting, but continued to decline up to M+4 after food reintroduction.",
+        "This was particularly pronounced in the older men sub-group with the higher subcutaneous and visceral adipose tissue volumes.",
+        "Visceral to subcutaneous adipose tissue ratio, a predictor of cardiovascular events, was decreased with a continuous decline up to the end of follow-up at M+4.",
+        "Monounsaturated fatty acids (MUFA) showed larger variations compared to polyunsaturated and saturated fatty acids, indicating they were mobilized during fasting. In birds, this is linked to higher maximum physical performance.",
+        "The reduction of fat volume, sustainable 4 months after fasting for visceral fat, constitutes a key point for MAFLD prevention since visceral fat is associated with hepatic insulin resistance and severity of MAFLD, even in lean individuals."
       ],
       "link": "https://www.frontiersin.org/journals/nutrition/articles/10.3389/fnut.2026.1868854/",
       "youtube": null,

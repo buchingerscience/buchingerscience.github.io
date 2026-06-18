@@ -1,7 +1,34 @@
 {
-  "topics": [
-  ],
-"studies": [
+  "topics": [],
+  "studies": [
+    {
+      "id": 31,
+      "title": "Effects of long-term fasting: longitudinal epigenetic responses in humans",
+      "year": 2026,
+      "topics": [
+        "epigenetics",
+        "aging",
+        "DNA methylation",
+        "epigenetic clocks"
+      ],
+      "bullets": [
+        "A 12-day fasting intervention induced strong metabolic changes, but only modest and delayed epigenetic alterations.",
+        "No significant CpG-level DNA methylation changes were detected during the fasting phase.",
+        "At one month, subtle but widespread methylation changes emerged, with small effect sizes and no clear pathway enrichment.",
+        "Epigenetic clocks showed heterogeneous, clock-specific, and time-dependent responses.",
+        "Some clocks increased during fasting, while pace-of-aging measures (e.g. DunedinPACE) decreased, indicating divergent biological signals.",
+        "Responses were highly variable between individuals.",
+        "Epigenetic changes were largely independent of classical metabolic markers (glucose, lipids, ketones).",
+        "A secondary epigenetic signal was associated with insulin resistance, suggesting partial metabolic sensitivity.",
+        "Baseline epigenetic age was inversely associated with weight loss, with younger biological profiles showing greater responsiveness.",
+        "Epigenetic clocks appear to capture integrative biological states not reflected by conventional biomarkers.",
+        "Acute metabolic adaptations to fasting were largely reversible, whereas epigenetic signals followed a different temporal dynamic.",
+        "Overall, fasting does not induce strong short-term epigenetic reprogramming, but may engage slower and more complex aging-related processes."
+      ],
+      "link": "https://www.biorxiv.org/content/10.64898/2026.06.12.731903v1",
+      "youtube": null,
+      "published": true
+    },
     {
       "id": -2,
       "title": "Weight Loss Drugs Are Not Enough: Patients Need Rehabilitation",
@@ -11,19 +38,19 @@
         "GLP-1"
       ],
       "bullets": [
-        "Metabolic syndrome leading to type 2 diabetes has become one of the defining health challenges of our time.", 
-"Glucagon-like peptide-1 (GLP-1) receptor agonists represent a major pharmacological advance, inducing marked weight loss and improved glycemic control. However, their long-term effectiveness remains limited by poor adherence, high cost, and relapse after discontinuation. Pharmacotherapy alone addresses symptoms, not causes.", 
-"Sustainable recovery from metabolic disorders therefore requires a rehabilitative approach. This includes structured behavioral change, nutritional adaptation, and metabolic re-education.", 
-"Therapeutic fasting provides a model for such rehabilitation, promoting rapid metabolic improvements through energy deficit, hepatic lipid mobilization, and enhanced insulin sensitivity.", 
-"Emerging evidences suggest that repeated fasting interventions can induce durable remission of type 2 diabetes.", 
-"Beyond individual biology, true sustainability demands that medicine itself reduce its ecological footprint, as pharmaceuticals and other xenobiotics increasingly contribute to global pollution and greenhouse gas emissions.", 
-"Integrating pharmacological and non-pharmacological strategies offers a pathway toward a medicine of recovery rather than dependency."
+        "Metabolic syndrome leading to type 2 diabetes has become one of the defining health challenges of our time.",
+        "Glucagon-like peptide-1 (GLP-1) receptor agonists represent a major pharmacological advance, inducing marked weight loss and improved glycemic control. However, their long-term effectiveness remains limited by poor adherence, high cost, and relapse after discontinuation. Pharmacotherapy alone addresses symptoms, not causes.",
+        "Sustainable recovery from metabolic disorders therefore requires a rehabilitative approach. This includes structured behavioral change, nutritional adaptation, and metabolic re-education.",
+        "Therapeutic fasting provides a model for such rehabilitation, promoting rapid metabolic improvements through energy deficit, hepatic lipid mobilization, and enhanced insulin sensitivity.",
+        "Emerging evidences suggest that repeated fasting interventions can induce durable remission of type 2 diabetes.",
+        "Beyond individual biology, true sustainability demands that medicine itself reduce its ecological footprint, as pharmaceuticals and other xenobiotics increasingly contribute to global pollution and greenhouse gas emissions.",
+        "Integrating pharmacological and non-pharmacological strategies offers a pathway toward a medicine of recovery rather than dependency."
       ],
       "link": "https://www.sciltp.com/journals/ijet/articles/2601002763",
       "youtube": null,
       "published": true
     },
-        {
+    {
       "id": -1,
       "title": "Remodelling of the gut virome after long-term fasting",
       "year": 2025,
@@ -39,19 +66,19 @@
         "The virome shifts toward a more virulent (lytic) lifestyle signature, driven mainly by a reduction in temperate phage richness, consistent with prophage induction under nutritional stress.",
         "Fasting alters virome composition without global collapse, indicating adaptive rather than pathological remodelling.",
         "121 viral species change significantly at the end of fasting; 49 phages show reproducible, consensus responses across three independent fasting cohorts.",
-        "Many fasting-responsive phages show concordant changes with their predicted bacterial hosts, supporting tight phage–host coupling.",
+        "Many fasting-responsive phages show concordant changes with their predicted bacterial hosts, supporting tight phage\u2013host coupling.",
         "Phages linked to Faecalibacterium and Roseburia (key butyrate and health-associated taxa) are prominently involved.",
-        "Cross-domain virus–bacteria networks become denser and more cohesive at the end of fasting and remain reorganised for up to three months.",
+        "Cross-domain virus\u2013bacteria networks become denser and more cohesive at the end of fasting and remain reorganised for up to three months.",
         "Network hubs during and after fasting include SCFA- and IPA-producing bacteria and their phages, suggesting stabilising ecological roles.",
         "Fasting-associated virome patterns are distinct from those seen in inflammatory or metabolic disease states.",
         "Part of this reorganisation persisted for up to three months after fasting.",
-        "Clinical implications remain uncertain, as these observations sit at the frontier of current microbiome and virome research. What is clear, however, is that long-term fasting triggers a coordinated, structured, and largely reversible reorganisation of both bacterial and viral communities. By inducing a strong yet controlled ecological perturbation, fasting emerges as a powerful human model to study microbial resilience, phage–host coupling, and cross-domain interactions, offering rare insight into the ecological rules governing the gut microbiome in vivo."
+        "Clinical implications remain uncertain, as these observations sit at the frontier of current microbiome and virome research. What is clear, however, is that long-term fasting triggers a coordinated, structured, and largely reversible reorganisation of both bacterial and viral communities. By inducing a strong yet controlled ecological perturbation, fasting emerges as a powerful human model to study microbial resilience, phage\u2013host coupling, and cross-domain interactions, offering rare insight into the ecological rules governing the gut microbiome in vivo."
       ],
       "link": "https://www.medrxiv.org/content/10.1101/2025.12.19.25342476v1",
       "youtube": null,
       "published": false
     },
-{
+    {
       "id": 0,
       "title": "Revisiting the (anti)inflammatory effects of prolonged fasting: the importance of baseline-dependent responses",
       "year": 2025,
@@ -98,7 +125,7 @@
       ],
       "bullets": [
         "Parasympathetic and sympathetic nervous systems are known to be modulated during long-term fasting, but temporal dynamics and persistence post-fasting are unclear.",
-        "We analyzed daily heart rate variability (HRV) as a reflect of autonomic nervous system balance in 16 participants from the GENESIS trial, following Buchinger fasting guidelines (12 days of ~75–250 kcal/day).",
+        "We analyzed daily heart rate variability (HRV) as a reflect of autonomic nervous system balance in 16 participants from the GENESIS trial, following Buchinger fasting guidelines (12 days of ~75\u2013250 kcal/day).",
         "HRV was assessed via Polar H10 sensors daily 7 days before, during and 7 days post-fasting.",
         "Fasting led to an increase in parasympathetic activity (p<0.001), as indicated by higher RMSSD values (p<0.001), alongside a reduction in sympathetic activity (p<0.001).",
         "Day-by-day analysis showed an initial rise in sympathetic activation during the early fasting phase (p<0.05). Mental well-being improved significantly (p<0.05), while sleep quality remained unchanged.",
@@ -151,7 +178,7 @@
       ],
       "bullets": [
         "Traditionally considered mainly in its role as fuel source during fasting, we focused in thisnew study on the structural role of fats particularly in the cell membrane.",
-        "We analysed the fatty acid composition in the membranes of red blood cells (erythrocyte) during 12.6 ± 3.5 days of a minimally modified long-term fasting programme (Buchinger Wilhelmi).",
+        "We analysed the fatty acid composition in the membranes of red blood cells (erythrocyte) during 12.6 \u00b1 3.5 days of a minimally modified long-term fasting programme (Buchinger Wilhelmi).",
         "Changes in fatty acid composition in erythrocyte membranes were observed during this fasting period and 18 of 26 fatty acids showed significant changes.",
         "Fasting resulted in an increase in the Omega-3 Index, a marker associated with cardiovascular and overall health.",
         "Fasting caused an increase of palmitic acid, which long-term implications should be monitored",
@@ -159,13 +186,13 @@
         "Trans fatty acids decreased or remained unchanged. Since elevated levels of industrial trans-FA are associated with cardiovascular disease a decrease in their levels seems beneficial.",
         "Changes after 14 days of fasting are more pronounced than after 7 days of fasting",
         "Changes are reversed after a month",
-        "This study opens up exciting avenues for future research, particularly into diseases where structural lipids are impaired. Conditions such as multiple sclerosis, where myelin—the fatty sheath around nerves—is damaged, could potentially benefit from a deeper understanding of fasting’s effects on structural fats."
+        "This study opens up exciting avenues for future research, particularly into diseases where structural lipids are impaired. Conditions such as multiple sclerosis, where myelin\u2014the fatty sheath around nerves\u2014is damaged, could potentially benefit from a deeper understanding of fasting\u2019s effects on structural fats."
       ],
       "link": "https://doi.org/10.1111/eci.14382",
       "youtube": null,
       "published": true
     },
-  {
+    {
       "id": 5,
       "title": "Health benefits of a five-day at-home modified fasting program: a randomised controlled trial",
       "year": 2025,
@@ -177,8 +204,8 @@
       ],
       "bullets": [
         "We studied a 5-day hypocaloric (~600 kcal/day) and ketogenic, modified fasting program (MFP) for at-home interventions. ",
-        "MFP participants (n=32) experienced weight loss (-3.1 ± 1.1 kg) persisting one month after the intervention. ",
-        "The MFP induced significant, but transient reductions, in systolic (-6.4 ± 11.5 mmHg) and diastolic (-4.4 ± 7.7 mmHg) blood pressure, glucose levels, HbA1c and coagulation factors. ",
+        "MFP participants (n=32) experienced weight loss (-3.1 \u00b1 1.1 kg) persisting one month after the intervention. ",
+        "The MFP induced significant, but transient reductions, in systolic (-6.4 \u00b1 11.5 mmHg) and diastolic (-4.4 \u00b1 7.7 mmHg) blood pressure, glucose levels, HbA1c and coagulation factors. ",
         "The MFP led to greater reductions in BMI (p=0.006), diastolic pressure (p = 0.009), cholesterol (p = 0.02), and LDL (p = 0.02) in individuals at risk of cardiometabolic diseases compared to healthy individuals. ",
         "Total cholesterol, LDL-C and HDL-C levels continued decreasing during food reintroduction. ",
         "The MFP also increased emotional and physical well-being. ",
@@ -203,9 +230,9 @@
       ],
       "bullets": [
         "For decades, we have regularly observed that certain individuals who fast develop noticeably bad breath. Conversely, we have also noted that inflammation of the gums tends to decrease during fasting.",
-        "In 2021, Buchinger Wilhelmi clinics hosted a team of dentists for two months in their scientific department. The study involved 36 patients undergoing a 10±3-day fasting period and utilized advanced techniques including gas chromatography for breath analysis and next-generation sequencing for microbiome profiling",
+        "In 2021, Buchinger Wilhelmi clinics hosted a team of dentists for two months in their scientific department. The study involved 36 patients undergoing a 10\u00b13-day fasting period and utilized advanced techniques including gas chromatography for breath analysis and next-generation sequencing for microbiome profiling",
         "The study confirmed that fasting decreases inflammation in the gums, suggesting it could be a preventive measure against periodontitis, a severe gum disease leading to loss of teeth.",
-        "The study clarifies that the so-called “bad breath” affecting some people during fasting is due to sulfurous compounds from bacterial fermentation, likely originating in the intestines, rather than from ketone bodies as sometimes suggested.",
+        "The study clarifies that the so-called \u201cbad breath\u201d affecting some people during fasting is due to sulfurous compounds from bacterial fermentation, likely originating in the intestines, rather than from ketone bodies as sometimes suggested.",
         "Saliva microbiota analysis showed a significant change in microbial composition, including a decrease in bacteria like Porphyromonas, known to cause oral diseases. Some changes in the oral microbiome persisted for up to three months after the fasting period, suggesting potential long-term effects.",
         "Fasting may impact oral health by temporarily eliminating food intake and provide a restorative break for the oral cavity. The cessation of chewing, mechanical lesions on gingiva, and the absence of nutrients in saliva, might offer the gingiva a chance to recover, similar to the digestive rest that promotes intestinal regeneration during fasting."
       ],
@@ -213,7 +240,7 @@
       "youtube": null,
       "published": true
     },
-      {
+    {
       "id": 7,
       "title": "Long-term fasting remodels gut microbial metabolism and host metabolism",
       "year": 2024,
@@ -224,7 +251,7 @@
       ],
       "bullets": [
         "Long-term fasting has become a promising research subject for its potential of treating and preventing metabolic diseases. However, little is known about its impact on the functional capacity of the gut microbiome and the combined effect on the serum metabolome.",
-        "Here, we demonstrate extensive remodelling of the gut microbial ecosystem in humans (n=92) after an average of 9.8 days of fasting (∼250 kcal / day).",
+        "Here, we demonstrate extensive remodelling of the gut microbial ecosystem in humans (n=92) after an average of 9.8 days of fasting (\u223c250 kcal / day).",
         "Fasting transiently affected the relative abundance of the majority of bacterial species (306 decreased and 210 increased out of 772).",
         "Species changes could largely be explained by their genomic repertoire of carbohydrate-active enzymes (CAZymes), which were investigated here for the first time. Fasting induced extensive abundance changes in CAZyme families, depleting families with dietary fibre substrates and increasing families with host-derived glycan substrates.",
         "Likewise, we observed extensive changes in the serum metabolome, with 382 out of 721 metabolites significantly affected (246 increased and 136 decreased). ",
@@ -248,11 +275,11 @@
       ],
       "bullets": [
         "This manuscript unravels the myths and presents facts about the effects of long-term fasting on human health.",
-        "While many fear muscle loss and the dreaded “yo-yo effect” of weight regain, the evidence shows that fasting, when done correctly, preserves muscle function and can lead to sustainable weight management.",
+        "While many fear muscle loss and the dreaded \u201cyo-yo effect\u201d of weight regain, the evidence shows that fasting, when done correctly, preserves muscle function and can lead to sustainable weight management.",
         "Far from draining energy, fasting can boost mental clarity. I explore how fasting improves metabolic health and can be used to prevent cardiovascular diseases, treat type 2 diabetes, and manage autoimmune disorders.",
         "Altogether, fasting emerges as one of the most efficient non-pharmacological interventions for metabolic normalization. This is especially true for individuals with metabolic syndrome who do not incorporate the physiological fasting periods necessary to balance excessive energy intake, prevent visceral fat accumulation, and promote insulin sensitivity.",
-        "However, long-term fasting is not without its nuances—medical supervision is crucial, especially for those with existing health conditions.",
-        "This review also highlights fasting’s promising role in the medicine of the future as an integrative approach that complements pharmacological interventions."
+        "However, long-term fasting is not without its nuances\u2014medical supervision is crucial, especially for those with existing health conditions.",
+        "This review also highlights fasting\u2019s promising role in the medicine of the future as an integrative approach that complements pharmacological interventions."
       ],
       "link": "https://www.intechopen.com/chapters/85779",
       "youtube": null,
@@ -327,7 +354,7 @@
     },
     {
       "id": 12,
-      "title": "World’s longest medically documented repeated fasting history in a 92 years old man who fasted 21 days yearly for 45 years: a case report",
+      "title": "World\u2019s longest medically documented repeated fasting history in a 92 years old man who fasted 21 days yearly for 45 years: a case report",
       "year": 2024,
       "topics": [
         "case report",
@@ -408,14 +435,14 @@
     },
     {
       "id": 16,
-      "title": "Long-term fasting: Multi-system adaptations in humans (GENESIS) study – a single-arm interventional trial",
+      "title": "Long-term fasting: Multi-system adaptations in humans (GENESIS) study \u2013 a single-arm interventional trial",
       "year": 2022,
       "topics": [
         "study protocol"
       ],
       "bullets": [
         "The mechanisms behind fasting's effects on human metabolism are not fully understood, particularly the role of different tissues and organs.",
-        "This study aims to investigate the effects of long-term fasting (9 ± 3 days, 250 kcal/day) and food reintroduction on body composition, organ and tissue volume, lipid transport and storage, protein utilization, blood metabolites, and gut microbiome profiles in 100 human subjects.",
+        "This study aims to investigate the effects of long-term fasting (9 \u00b1 3 days, 250 kcal/day) and food reintroduction on body composition, organ and tissue volume, lipid transport and storage, protein utilization, blood metabolites, and gut microbiome profiles in 100 human subjects.",
         "The study will use state-of-the-art techniques, including magnetic resonance imaging (MRI) and spectroscopy, to examine changes in organ volume and function in a subset of 32 subjects who will fast for 12 days."
       ],
       "link": "https://www.frontiersin.org/articles/10.3389/fnut.2022.951000/full",
@@ -603,7 +630,7 @@
     },
     {
       "id": 26,
-      "title": "Effects of Periodic Fasting on Fatty Liver Index – A Prospective Observational Study",
+      "title": "Effects of Periodic Fasting on Fatty Liver Index \u2013 A Prospective Observational Study",
       "year": 2019,
       "topics": [
         "fatty liver disease"
@@ -632,10 +659,10 @@
         "The types of bacteria in the gut changed. Specifically, there was a decrease in bacteria like Lachnospiraceae and Ruminococcaceae that usually help break down complex carbohydrates (like fibers from food). At the same time, bacteria like Bacteroidetes and Proteobacteria (including Escherichia coli and Bilophila wadsworthia) increased. These bacteria can use energy sources that come from the body itself, rather than from food.",
         "The changes in gut bacteria were linked to changes in blood sugar levels and certain amino acids in the gut. The way gut bacteria shift during fasting might directly affect how the body manages its energy, possibly contributing to the health benefits of fasting.",
         "After three months, the gut bacteria returned to their original state. The changes in gut bacteria due to fasting are not permanent. Once normal eating resumes, the gut microbiota goes back to its typical composition, indicating that the gut has a strong ability to adapt and recover.",
-        "The levels of substances in the stool that indicate how \"leaky\" the gut is (like zonulin, α−1-antitrypsin, and bile acids) stayed the same throughout the fasting and refeeding period. Fasting did not affect gut permeability, meaning the gut's barrier function remained stable, preventing harmful substances from leaking into the bloodstream.",
+        "The levels of substances in the stool that indicate how \"leaky\" the gut is (like zonulin, \u03b1\u22121-antitrypsin, and bile acids) stayed the same throughout the fasting and refeeding period. Fasting did not affect gut permeability, meaning the gut's barrier function remained stable, preventing harmful substances from leaking into the bloodstream.",
         "The function of the gut microbiota measured via the production of butyrate was improved after three months.",
         "The levels of LBP in the blood, which indicate how much the body is exposed to bacterial toxins (like LPS from gut bacteria), decreased significantly during fasting and stayed low even after eating was resumed. Fasting thus reduced the body's exposure to bacterial toxins, which could lower inflammation and improve overall health.",
-        "When participants started eating again, there was an increase in certain immune markers (like IL-6, IL-10, interferon γ, and TNFα). The immune system seems to reactivate once food is reintroduced, possibly as part of the body's natural response to eating after a period of fasting."
+        "When participants started eating again, there was an increase in certain immune markers (like IL-6, IL-10, interferon \u03b3, and TNF\u03b1). The immune system seems to reactivate once food is reintroduced, possibly as part of the body's natural response to eating after a period of fasting."
       ],
       "link": "https://doi.org/10.1017/jns.2019.24",
       "youtube": "https://www.youtube.com/watch?v=jjDvsHx95O4",

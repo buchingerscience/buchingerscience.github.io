@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Buchinger Science – Fatty Liver Index Estimator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&family=Josefin+Sans:wght@200;300;400&family=EB+Garamond:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+  <style>
+    body { background: var(--sand); }
+
+    .wl-hero {
+      background: var(--deep);
+      color: var(--chalk);
+      padding: 140px 24px 64px;
+      text-align: center;
+    }
+    .wl-hero .eyebrow {
+      font-family: 'Josefin Sans', sans-serif;
+      font-weight: 300;
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--brass);
+      margin-bottom: 16px;
+    }
+    .wl-hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 400;
+      font-size: clamp(2.2rem, 5vw, 3.6rem);
+      color: var(--chalk);
+      line-height: 1.15;
+      margin: 0 0 20px;
+    }
+    .wl-hero h1 em { font-style: italic; color: var(--brass); }
+    .wl-hero p {
+      max-width: 600px;
+      margin: 0 auto;
+      font-size: 1rem;
+      color: rgba(244,240,234,0.72);
+      line-height: 1.7;
+    }
+
+    .wl-wrap {
+      max-width: 1040px;
+      margin: 0 auto;
+      padding: 60px 24px 80px;
+      display: grid;
+      grid-template-columns: 360px 1fr;
+      gap: 40px;
+      align-items: start;
+    }
+
+    .wl-left {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      position: sticky;
+      top: 88px;
+    }
+
+    .wl-form-panel {
+      background: var(--surface);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-soft);
+      padding: 32px 28px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .wl-form-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      font-weight: 400;
+      color: var(--heading);
+      margin: 0 0 6px;
+    }
+    .wl-form-sub {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin: 0 0 22px;
+      line-height: 1.5;
+    }
+
+    .wl-field { margin-bottom: 22px; }
+    .wl-field:last-child { margin-bottom: 0; }
+
+    .wl-label {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 11px;
+      font-weight: 300;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--warm-mid);
+      margin-bottom: 8px;
+    }
+    .wl-label-val {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: var(--heading);
+      letter-spacing: 0;
+      text-transform: none;
+    }
+    .wl-label-val small {
+      font-size: 0.72rem;
+      color: var(--muted);
+      font-family: 'Josefin Sans', sans-serif;
+    }
+    .wl-label-val.avg { color: var(--brass); }
+
+    input[type="range"].wl-range {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 4px;
+      border-radius: 2px;
+      background: var(--border);
+      outline: none;
+      cursor: pointer;
+      accent-color: var(--accent);
+    }
+    input[type="range"].wl-range::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--accent);
+      border: 2px solid var(--chalk);
+      box-shadow: 0 1px 4px rgba(7,78,99,0.25);
+      cursor: pointer;
+    }
+    input[type="range"].wl-range::-moz-range-thumb {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--accent);
+      border: 2px solid var(--chalk);
+      box-shadow: 0 1px 4px rgba(7,78,99,0.25);
+      cursor: pointer;
+    }
+    input[type="range"].wl-range:disabled { opacity: 0.4; cursor: not-allowed; }
+
+    .wl-derived {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: -8px 0 22px;
+      padding: 11px 14px;
+      background: var(--panel);
+      border-radius: 10px;
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--warm-mid);
+    }
+    .wl-derived .rv { display: flex; flex-direction: column; align-items: flex-end; }
+    .wl-derived b {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      color: var(--heading);
+      text-transform: none;
+      letter-spacing: 0;
+    }
+    .wl-derived .refsm {
+      font-size: 9.5px;
+      color: var(--muted);
+      text-transform: none;
+      letter-spacing: 0;
+      margin-top: 2px;
+    }
+
+    .wl-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 7px;
+      gap: 10px;
+    }
+    .wl-ref {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 10.5px;
+      letter-spacing: 0.04em;
+      color: var(--muted);
+    }
+    .wl-unknown {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 10px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--muted);
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .wl-unknown input { accent-color: var(--brass); cursor: pointer; }
+
+    .wl-reset {
+      margin-top: 6px;
+      width: 100%;
+      padding: 10px;
+      border: 1px solid var(--border);
+      background: transparent;
+      border-radius: 10px;
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--warm-mid);
+      cursor: pointer;
+      transition: 0.15s;
+    }
+    .wl-reset:hover { background: var(--panel); color: var(--heading); }
+
+    /* Results */
+    .wl-results-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .wl-result-card {
+      background: var(--surface);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-soft);
+      padding: 24px 28px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .card-label {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 10px;
+      font-weight: 300;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--brass);
+      margin-bottom: 16px;
+    }
+
+    .wl-stats {
+      display: flex;
+      gap: 32px;
+      flex-wrap: wrap;
+      align-items: flex-end;
+    }
+
+    .wl-stat { display: flex; flex-direction: column; }
+
+    .wl-stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.6rem;
+      font-weight: 500;
+      color: var(--heading);
+      line-height: 1;
+    }
+
+    .wl-stat-unit {
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 10px;
+      font-weight: 300;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 6px;
+    }
+
+    .wl-pills {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+
+    .wl-pill {
+      display: inline-block;
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 400;
+    }
+
+    .wl-result-note {
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-top: 20px;
+      line-height: 1.55;
+      border-top: 1px solid var(--border-soft);
+      padding-top: 16px;
+    }
+
+    .wl-chart-card {
+      background: var(--surface);
+      border: 1px solid var(--border-soft);
+      border-radius: var(--radius-soft);
+      padding: 24px 28px 20px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .wl-chart-wrap {
+      position: relative;
+      height: 320px;
+    }
+
+    .wl-chart-note {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 12px;
+      line-height: 1.55;
+    }
+
+    .wl-disclaimer {
+      background: var(--panel);
+      border-top: 1px solid var(--border-soft);
+      padding: 32px 24px;
+    }
+    .wl-disclaimer-inner {
+      max-width: 1040px;
+      margin: 0 auto;
+      font-size: 0.83rem;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+    .wl-disclaimer-inner strong { color: var(--warm-mid); }
+
+    @media (max-width: 768px) {
+      .wl-wrap {
+        grid-template-columns: 1fr;
+        padding: 36px 20px 56px;
+        gap: 28px;
+      }
+      .wl-left { position: static; }
+      .wl-chart-wrap { height: 260px; }
+    }
+  </style>
+</head>
+
+<body class="page-fattyliver">
+
+  <nav id="nav">
+    <div class="logo">Buchinger Science</div>
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li class="nav-dropdown-wrap">
+        <button class="nav-dropdown-btn" aria-expanded="false">Tools <span class="nav-chevron">▾</span></button>
+        <ul class="nav-sub">
+          <li><a href="metabolic-explorer/">Metabolic Explorer</a></li>
+          <li><a href="weightloss.html">Weight Loss Estimator</a></li>
+          <li><a href="fattyliver.html" class="active">Fatty Liver Estimator</a></li>
+          <li><a href="fastingcoach.html">Fasting Coach</a></li>
+        </ul>
+      </li>
+      <li><a href="ongoing-research.html">Ongoing Research</a></li>
+      <li><a href="library.html">Research Library</a></li>
+      <li><a href="newsletter.html">Newsletters</a></li>
+      <li><a href="videos.html">Amplius Videos</a></li>
+      <li><a href="contact.html">About us</a></li>
+    </ul>
+  </nav>
+
+  <section class="wl-hero">
+    <p class="eyebrow">Clinical Research · Predictive Modelling</p>
+    <h1>Fatty Liver Index <em>Estimator</em></h1>
+    <p>How much can therapeutic fasting improve your Fatty Liver Index? A projection built from more than 2,800 patients, predicting the end-of-fast index to 85% accuracy.</p>
+  </section>
+
+  <div class="wl-wrap">
+
+    <!-- LEFT: inputs -->
+    <div class="wl-left">
+
+      <div class="wl-form-panel">
+        <h2 class="wl-form-title">Your baseline values</h2>
+        <p class="wl-form-sub">The four measurements that compose the Fatty Liver Index.</p>
+
+        <div class="wl-field">
+          <div class="wl-label">Weight <span class="wl-label-val"><span id="o_weight">84</span> <small>kg</small></span></div>
+          <input type="range" class="wl-range" id="i_weight" min="45" max="180" step="1" value="84">
+        </div>
+
+        <div class="wl-field">
+          <div class="wl-label">Height <span class="wl-label-val"><span id="o_height">173</span> <small>cm</small></span></div>
+          <input type="range" class="wl-range" id="i_height" min="140" max="210" step="1" value="173">
+        </div>
+
+        <div class="wl-derived">
+          <span>Body-mass index</span>
+          <span class="rv"><b><span id="o_bmi">28.1</span> kg/m²</b><span class="refsm">Normal 18.5 – 24.9</span></span>
+        </div>
+
+        <div class="wl-field">
+          <div class="wl-label">Waist circumference <span class="wl-label-val" id="v_waist"><span id="o_waist">111</span> <small>cm</small></span></div>
+          <input type="range" class="wl-range" id="i_waist" min="60" max="160" step="1" value="111">
+          <div class="wl-meta">
+            <span class="wl-ref">Reference: &lt; 94 cm (men) · &lt; 80 cm (women)</span>
+            <label class="wl-unknown"><input type="checkbox" id="u_waist"> Don't know</label>
+          </div>
+        </div>
+
+        <div class="wl-field">
+          <div class="wl-label">Triglycerides <span class="wl-label-val" id="v_tg"><span id="o_tg">135</span> <small>mg/dL</small></span></div>
+          <input type="range" class="wl-range" id="i_tg" min="40" max="600" step="5" value="135">
+          <div class="wl-meta">
+            <span class="wl-ref">Reference: &lt; 150 mg/dL</span>
+            <label class="wl-unknown"><input type="checkbox" id="u_tg"> Don't know</label>
+          </div>
+        </div>
+
+        <div class="wl-field">
+          <div class="wl-label">GGT <span class="wl-label-val" id="v_ggt"><span id="o_ggt">36</span> <small>U/L</small></span></div>
+          <input type="range" class="wl-range" id="i_ggt" min="8" max="300" step="1" value="36">
+          <div class="wl-meta">
+            <span class="wl-ref">Reference: &lt; 60 U/L (men) · &lt; 40 U/L (women)</span>
+            <label class="wl-unknown"><input type="checkbox" id="u_ggt"> Don't know</label>
+          </div>
+        </div>
+
+        <button class="wl-reset" id="resetBtn">Reset to average patient</button>
+      </div>
+
+      <div class="wl-form-panel">
+        <h2 class="wl-form-title">Fasting duration</h2>
+        <p class="wl-form-sub">How long the therapeutic fast is planned to last.</p>
+        <div class="wl-field" style="margin-bottom:0">
+          <div class="wl-label">Fasting days <span class="wl-label-val"><span id="o_days">14</span> <small>days</small></span></div>
+          <input type="range" class="wl-range" id="i_days" min="1" max="30" step="1" value="14">
+        </div>
+      </div>
+
+    </div>
+
+    <!-- RIGHT: results -->
+    <div class="wl-results-panel">
+
+      <div class="wl-result-card">
+        <p class="card-label">Estimated effect at end of fast</p>
+        <div class="wl-stats">
+          <div class="wl-stat">
+            <span class="wl-stat-num" id="r_base">—</span>
+            <span class="wl-stat-unit">Baseline FLI</span>
+          </div>
+          <div class="wl-stat">
+            <span class="wl-stat-num" id="r_end">—</span>
+            <span class="wl-stat-unit">FLI at end of fast</span>
+          </div>
+          <div class="wl-stat">
+            <span class="wl-stat-num" id="r_drop">—</span>
+            <span class="wl-stat-unit">Points lost</span>
+          </div>
+        </div>
+        <div class="wl-pills">
+          <span class="wl-pill" id="r_cat_base">—</span>
+          <span class="wl-pill" id="r_cat">—</span>
+        </div>
+        <p class="wl-result-note">The Fatty Liver Index runs 0–100: <strong>&lt; 30</strong> makes hepatic steatosis unlikely, <strong>&ge; 60</strong> makes it likely. Values marked <em>study average</em> use the mean of the Buchinger Wilhelmi study population when a measurement is unknown.</p>
+      </div>
+
+      <div class="wl-chart-card">
+        <p class="card-label">FLI trajectory over the fast</p>
+        <div class="wl-chart-wrap">
+          <canvas id="fliChart"></canvas>
+        </div>
+        <p class="wl-chart-note">Projected daily FLI from baseline to the end of the selected fasting duration. Threshold lines mark the steatosis-unlikely (&lt; 30) and steatosis-likely (≥ 60) cut-offs.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="wl-disclaimer">
+    <div class="wl-disclaimer-inner">
+      <strong>For informational purposes only.</strong> This estimator was built from paired baseline and end-of-fast data of more than 2,800 patients across the Buchinger Wilhelmi fasting cohorts. The Fatty Liver Index (Bedogni 2006) is computed from triglycerides, body-mass index, GGT and waist circumference; its change during fasting is modelled from the baseline index and fasting duration, predicting the end-of-fast index with a mean accuracy of 85% (R² = 0.85). The Fatty Liver Index is a screening score, not a diagnosis. Always consult a qualified medical professional before undertaking a prolonged fast.
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo">Buchinger Science</div>
+        <p>Clinical research on fasting, metabolism, and longevity — from the world's leading medically supervised fasting clinic.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Research</h4>
+        <ul>
+          <li><a href="library.html">Research Library</a></li>
+          <li><a href="newsletter.html">Newsletters</a></li>
+          <li><a href="metabolic-explorer/">Metabolic Explorer</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Resources</h4>
+        <ul>
+          <li><a href="videos.html">Amplius Videos</a></li>
+          <li><a href="fastingcoach.html">Fasting Coach</a></li>
+          <li><a href="weightloss.html">Weight Loss Estimator</a></li>
+          <li><a href="fattyliver.html">Fatty Liver Estimator</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Buchinger Science. All rights reserved.</p>
+      <p>Buchinger Wilhelmi Clinic</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    // Model fit on 2,806 paired patients
+    const BETA = [-0.5521466610, -0.3869271410, 0.0134062406, -0.0841570813];
+    const AVG  = { weight: 84, height: 173, waist: 111, tg: 135, ggt: 36, days: 14 };
+
+    function fliBaseline(tg, bmi, ggt, waist) {
+      const L = 0.953 * Math.log(tg) + 0.139 * bmi + 0.718 * Math.log(ggt) + 0.053 * waist - 15.745;
+      return 100 * Math.exp(L) / (1 + Math.exp(L));
+    }
+    function dFLI(fb, d) {
+      const s = Math.sqrt(d);
+      return BETA[0] * d + BETA[1] * s + BETA[2] * fb * d + BETA[3] * fb * s;
+    }
+    const clamp = v => Math.max(0, Math.min(100, v));
+
+    function category(f) {
+      if (f < 30) return ['Steatosis unlikely', '#1f7a6f', 'rgba(31,122,111,.14)'];
+      if (f < 60) return ['Intermediate risk',  '#b08d57', 'rgba(176,141,87,.18)'];
+      return              ['Steatosis likely',   '#c0552f', 'rgba(192,85,47,.16)'];
+    }
+
+    const $ = id => document.getElementById(id);
+
+    ['weight','height','waist','tg','ggt','days'].forEach(k => {
+      $('i_' + k).addEventListener('input', () => { $('o_' + k).textContent = $('i_' + k).value; update(); });
+    });
+
+    ['waist','tg','ggt'].forEach(k => {
+      $('u_' + k).addEventListener('change', () => { syncUnknown(k); update(); });
+    });
+
+    function syncUnknown(k) {
+      const on = $('u_' + k).checked;
+      $('i_' + k).disabled = on;
+      const el = $('v_' + k);
+      const unitMap = { waist: 'cm', tg: 'mg/dL', ggt: 'U/L' };
+      if (on) {
+        $('o_' + k).textContent = AVG[k];
+        el.classList.add('avg');
+        el.querySelector('small').textContent = 'study avg';
+      } else {
+        $('o_' + k).textContent = $('i_' + k).value;
+        el.classList.remove('avg');
+        const cur = el.querySelector('small').textContent;
+        el.querySelector('small').textContent = cur === 'study avg' ? unitMap[k] : cur;
+      }
+    }
+
+    function val(k) { return $('u_' + k) && $('u_' + k).checked ? AVG[k] : +$('i_' + k).value; }
+
+    $('resetBtn').addEventListener('click', () => {
+      ['weight','height','waist','tg','ggt','days'].forEach(k => { $('i_' + k).value = AVG[k]; });
+      ['waist','tg','ggt'].forEach(k => {
+        $('u_' + k).checked = false;
+        $('i_' + k).disabled = false;
+        const v = $('v_' + k);
+        v.classList.remove('avg');
+        v.querySelector('small').textContent = ({ waist: 'cm', tg: 'mg/dL', ggt: 'U/L' })[k];
+      });
+      ['weight','height','waist','tg','ggt','days'].forEach(k => { $('o_' + k).textContent = AVG[k]; });
+      update();
+    });
+
+    // Chart
+    let chart;
+
+    function buildChartData(fb, days) {
+      const labels = [], data = [];
+      for (let d = 0; d <= days; d++) {
+        labels.push(d);
+        data.push(d === 0 ? fb : clamp(fb + dFLI(fb, d)));
+      }
+      return { labels, data };
+    }
+
+    function plotChart(fb, days) {
+      const { labels, data } = buildChartData(fb, days);
+      const lineColor = '#074e63';
+      const ctx = $('fliChart').getContext('2d');
+
+      const thresholds = {
+        id: 'thresholds',
+        beforeDraw(chart) {
+          const { ctx: c, chartArea: { left, right, top, bottom }, scales: { y } } = chart;
+          const draw = (val, color) => {
+            const yPx = y.getPixelForValue(val);
+            if (yPx < top || yPx > bottom) return;
+            c.save();
+            c.setLineDash([4, 4]);
+            c.strokeStyle = color;
+            c.lineWidth = 1;
+            c.beginPath();
+            c.moveTo(left, yPx);
+            c.lineTo(right, yPx);
+            c.stroke();
+            c.restore();
+          };
+          draw(30, 'rgba(31,122,111,0.45)');
+          draw(60, 'rgba(192,85,47,0.45)');
+        }
+      };
+
+      if (!chart) {
+        chart = new Chart(ctx, {
+          type: 'line',
+          data: {
+            labels,
+            datasets: [{
+              label: 'FLI',
+              data,
+              borderColor: lineColor,
+              borderWidth: 2.5,
+              backgroundColor: 'rgba(7,78,99,0.08)',
+              fill: true,
+              pointRadius: 0,
+              pointHoverRadius: 4,
+              tension: 0.3
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              x: {
+                title: { display: true, text: 'Fasting days', font: { family: 'Josefin Sans', size: 11 }, color: '#8a7f74' },
+                ticks: { font: { family: 'Josefin Sans', size: 10 }, color: '#8a7f74' },
+                grid: { color: 'rgba(138,127,116,0.12)' }
+              },
+              y: {
+                min: 0,
+                max: 100,
+                title: { display: true, text: 'Fatty Liver Index', font: { family: 'Josefin Sans', size: 11 }, color: '#8a7f74' },
+                ticks: { font: { family: 'Josefin Sans', size: 10 }, color: '#8a7f74' },
+                grid: { color: 'rgba(138,127,116,0.12)' }
+              }
+            },
+            plugins: {
+              legend: { display: false },
+              tooltip: {
+                callbacks: {
+                  label: ctx => `FLI: ${ctx.parsed.y.toFixed(1)}`
+                }
+              }
+            }
+          },
+          plugins: [thresholds]
+        });
+      } else {
+        chart.data.labels = labels;
+        chart.data.datasets[0].data = data;
+        chart.update('none');
+      }
+    }
+
+    function update() {
+      const w = +$('i_weight').value, h = +$('i_height').value, days = +$('i_days').value;
+      const bmi = w / Math.pow(h / 100, 2);
+      $('o_bmi').textContent = bmi.toFixed(1);
+
+      const fb = fliBaseline(val('tg'), bmi, val('ggt'), val('waist'));
+      const fe = clamp(fb + dFLI(fb, days));
+      const drop = fb - fe;
+
+      $('r_base').textContent = fb.toFixed(0);
+      $('r_end').textContent  = fe.toFixed(0);
+      $('r_drop').textContent = drop.toFixed(0);
+
+      const [tb, fgb, bgb] = category(fb);
+      const pb = $('r_cat_base');
+      pb.textContent = 'Baseline: ' + tb; pb.style.color = fgb; pb.style.background = bgb;
+      $('r_base').style.color = fgb;
+
+      const [txt, fg, bg] = category(fe);
+      const pill = $('r_cat');
+      pill.textContent = 'End of fast: ' + txt; pill.style.color = fg; pill.style.background = bg;
+      $('r_end').style.color = fg;
+
+      plotChart(fb, days);
+    }
+
+    update();
+  </script>
+</body>
+</html>
